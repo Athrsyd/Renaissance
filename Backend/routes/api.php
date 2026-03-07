@@ -18,7 +18,7 @@ Route::prefix('v1/')->group(function () {
         Route::get('komunitas/teman', [TemanController::class, 'index']);
         Route::post('komunitas/teman', [TemanController::class, 'store']);
         Route::delete('komunitas/teman/{teman}', [TemanController::class, 'destroy']);
-    
+
         // Chat
         Route::get('chat/{userId}', [ChatController::class, 'index']);
         Route::post('chat/text', [ChatController::class, 'sendText']);
