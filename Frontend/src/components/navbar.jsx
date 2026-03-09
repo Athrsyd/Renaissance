@@ -17,7 +17,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className=" fixed w-full flex justify-center unded-full z-50">
+    <header className=" fixed w-full flex justify-center unded-full z-9999">
       <nav className=" bg-bistre z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
         <a
           href="#about"

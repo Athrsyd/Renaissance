@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen w-full pt-32 flex px-32 flex-col justify-center items-center bg-[#F2E0D2]">
+      <section className="h-screen relative z-60 w-full pt-32 flex px-32 flex-col justify-center rounded-b-4xl items-center bg-[#F2E0D2]">
         <div className="flex">
           <h1 className="text-6xl font-semibold text-center text-bistre mb-6">
             <span className="text-chamoisee">Transforming</span> The Way <br />{" "}
@@ -22,7 +22,7 @@ const LandingPage = () => {
             </p>
           </div>
           <div className="flex justify-center items-center w-[40%] h-full">
-            <img width="100%" src={buku} alt="gambar buku" className="w-full" />
+            <img width="100%" src={buku} alt="gambar buku" className="w-full -mb-4.75" />
           </div>
           <div className="w-[30%] text-center mb-10 leading-loose">
             <p className="text-md text-coffee">
@@ -39,7 +39,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="h-screen w-full flex px-16 flex-col justify-center items-center bg-bistre">
+      <section className="h-screen relative z-50 -mt-10 w-full flex px-16 flex-col justify-center items-center bg-bistre">
         <div className="w-full flex flex-col justify-center items-center">
           <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
             <div className=" w-full">
