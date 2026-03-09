@@ -1,6 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-bistre: #39221c;
+  --color-coffe: #6fd438;
+  --color-chamoisee: #9b7a5b;
+  --color-khaki: #cbb799;
+  --color-beige: #f2e0d2;
+  
+}
 
 * {
   box-sizing: border-box;
