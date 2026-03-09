@@ -41,9 +41,9 @@ const LandingPage = () => {
 
       <section className="h-screen w-full flex px-16 flex-col justify-center items-center bg-bistre">
         <div className="w-full flex flex-col justify-center items-center">
-          <div className="bg-gradient-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
+          <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
             <div className=" w-full">
-              <p className="text-3xl font-bold text-center text-white">
+              <p className="text-3xl font-semibold text-center text-white">
                 10,000+
               </p>
               <p className="text-sm font-normal text-center text-white">
@@ -51,19 +51,19 @@ const LandingPage = () => {
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-bold text-center text-white">100+</p>
+              <p className="text-3xl font-semibold text-center text-white">100+</p>
               <p className="text-sm font-normal text-center text-white">
                 Lessons
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-bold text-center text-white">80+</p>
+              <p className="text-3xl font-semibold text-center text-white">80+</p>
               <p className="text-sm font-normal text-center text-white">
                 Partner Schools
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-bold text-center text-white">97%</p>
+              <p className="text-3xl font-semibold text-center text-white">97%</p>
               <p className="text-sm font-normal text-center text-white">Rate</p>
             </div>
           </div>
