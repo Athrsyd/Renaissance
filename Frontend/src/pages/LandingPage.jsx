@@ -24,20 +24,48 @@ const LandingPage = () => {
           <div className="flex justify-center items-center w-[40%] h-full">
             <img width="100%" src={buku} alt="gambar buku" className="w-full" />
           </div>
-          <div className="flex flex-col justify-center">
-            <div className="w-[30%] text-center mb-5 pr-7 leading-loose">
-              <p className="text-md text-bistre">
-                <span className="text-2xl font-bold">6+ Subject</span>
-                <br />
-                For Middle and High School
-                <br />
-              </p>
-            </div>
+          <div className="w-[30%] text-center mb-10 leading-loose">
+            <p className="text-md text-coffee">
+              <span className="text-2xl text-bistre font-bold">6+ Subject</span>
+              <br />
+              For Middle and High School
+            </p>
             <a>
-              <button className="bg-chamoisee text-beige px-6 py-3 rounded-full hover:bg-coffee transition-colors">
-                Get Started
+              <button className="bg-bistre text-white px-10 py-1 rounded-full hover:bg-coffee transition-colors">
+                Learn More
               </button>
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="h-screen w-full flex px-16 flex-col justify-center items-center bg-bistre">
+        <div className="w-full flex flex-col justify-center items-center">
+          <div className="bg-gradient-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
+            <div className=" w-full">
+              <p className="text-3xl font-bold text-center text-white">
+                10,000+
+              </p>
+              <p className="text-sm font-normal text-center text-white">
+                Students
+              </p>
+            </div>
+            <div className="w-full">
+              <p className="text-3xl font-bold text-center text-white">100+</p>
+              <p className="text-sm font-normal text-center text-white">
+                Lessons
+              </p>
+            </div>
+            <div className="w-full">
+              <p className="text-3xl font-bold text-center text-white">80+</p>
+              <p className="text-sm font-normal text-center text-white">
+                Partner Schools
+              </p>
+            </div>
+            <div className="w-full">
+              <p className="text-3xl font-bold text-center text-white">97%</p>
+              <p className="text-sm font-normal text-center text-white">Rate</p>
+            </div>
           </div>
         </div>
       </section>
