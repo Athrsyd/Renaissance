@@ -18,7 +18,7 @@ const Navbar = () => {
 
   return (
     <header className=" fixed w-full flex justify-center unded-full z-9999">
-      <nav className=" bg-bistre z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
+      <nav className=" bg-linear-to-b from-chamoisee/50 to-coffe/50 backdrop-blur-sm z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
         <a
           href="#about"
           className="text-beige hover:text-chamoisee transition-colors text-lg"
