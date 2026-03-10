@@ -18,11 +18,27 @@ const Navbar = () => {
 
   return (
     <header className=" fixed w-full flex justify-center unded-full z-9999">
+{/* <<<<<<< HEAD */}
       <nav className=" bg-bistre z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
         <ul className='flex flex-row justify-center gap-10'>
           <li className=''><a  href="#about"  className="text-beige hover:text-chamoisee transition-colors text-lg">  About Us</a></li>
           <li className=''><a  href="#academy"  className="text-beige hover:text-chamoisee transition-colors text-lg">  The Academy</a></li>
         </ul>
+{/* ======= */}
+      <nav className=" bg-linear-to-b from-chamoisee/50 to-coffe/50 backdrop-blur-sm z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
+        <a
+          href="#about"
+          className="text-beige hover:text-chamoisee transition-colors text-lg"
+        >
+          About Us
+        </a>
+        <a
+          href="#academy"
+          className="text-beige hover:text-chamoisee transition-colors text-lg"
+        >
+          The Academy
+        </a>
+>>>>>>> 4745ecb04efe7496f108be0b3487b6f705783fe0
 
         <div className="logo">
           <a href="/" className="flex items-center p-2 gap-2">
