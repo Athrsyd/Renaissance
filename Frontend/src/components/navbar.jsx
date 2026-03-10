@@ -19,18 +19,10 @@ const Navbar = () => {
   return (
     <header className=" fixed w-full flex justify-center unded-full z-9999">
       <nav className=" bg-bistre z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
-        <a
-          href="#about"
-          className="text-beige hover:text-chamoisee transition-colors text-lg"
-        >
-          About Us
-        </a>
-        <a
-          href="#academy"
-          className="text-beige hover:text-chamoisee transition-colors text-lg"
-        >
-          The Academy
-        </a>
+        <ul className='flex flex-row justify-center gap-10'>
+          <li className=''><a  href="#about"  className="text-beige hover:text-chamoisee transition-colors text-lg">  About Us</a></li>
+          <li className=''><a  href="#academy"  className="text-beige hover:text-chamoisee transition-colors text-lg">  The Academy</a></li>
+        </ul>
 
         <div className="logo">
           <a href="/" className="flex items-center p-2 gap-2">
@@ -39,18 +31,11 @@ const Navbar = () => {
           </a>
         </div>
 
-        <a
-          href="#features"
-          className="text-beige hover:text-chamoisee transition-colors text-lg"
-        >
-          Features
-        </a>
-        <a
-          href="#reviews"
-          className="text-beige hover:text-chamoisee transition-colors text-lg"
-        >
-          Reviews
-        </a>
+      <ul className='flex flex-row justify-center gap-10'>
+        <li><a  href="#features"  className="text-beige hover:text-chamoisee transition-colors text-lg">  Features</a></li>
+        <li><a  href="#reviews"  className="text-beige hover:text-chamoisee transition-colors text-lg">  Reviews</a></li>
+      </ul>
+ 
       </nav>
     </header>
   );
