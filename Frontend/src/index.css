@@ -19,6 +19,42 @@
   box-sizing: border-box;
 }
 
+@keyframes infinite-slide-right{
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes infinite-slide-left{
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.animate-slide {
+  animation: infinite-slide-right 25s linear infinite;
+}
+
+.animate-slide-reverse {
+  animation: infinite-slide-left 25s linear infinite;
+}
+
+.animate-slide:hover {
+  animation-play-state: paused;
+}
+
+.animate-slide-reverse:hover {
+  animation-play-state: paused;
+}
+
+
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
