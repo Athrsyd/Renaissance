@@ -1,8 +1,10 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/navbar";
 import buku from "../assets/buku.png";
 import aboutbuku from "../assets/aboutbuku.png";
 import bgabout from "../assets/bgabout.png";
+import Mapel from "../components/Mapel";
+import LandingPage2 from "../components/LandingPage2";
 
 const LandingPage = () => {
   return (
@@ -159,14 +161,57 @@ const LandingPage = () => {
       </section>
 
       <section className="w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
-        <div className="w-full pt-10 flex flex-col justify-center items-center">
-          <h1 className="text-4xl text-center text-white">
+        <div className="w-full pt-5 flex flex-col justify-center items-center">
+          <h1 className="text-4xl pb-10 text-center text-white">
             Inside The <br />
-            <span className="text-khaki">Renaissance Academy</span>
+            <span className="bg-linear-to-l from-[#CAB99F] to-[#6A4D3B] text-transparent bg-clip-text">
+              Renaissance Academy
+            </span>
           </h1>
-          <div className="mt-10 w-0.5 h-150 bg-[#9B7A5B]"></div>
+          <Mapel
+            namaMapel={"Matematika"}
+            deskripsi={
+              "Ilmu yang mempelajari angka, pola, dan logika untuk memahami cara kerja berbagai fenomena di dunia."
+            }
+          />
+          <Mapel
+            namaMapel={"IPA"}
+            deskripsi={
+              "Mempelajari alam semesta melalui pengamatan dan eksperimen, mulai dari fisika, kimia, hingga biologi."
+            }
+          />
+          <Mapel
+            namaMapel={"IPS"}
+            deskripsi={
+              "Ilmu yang membahas kehidupan masyarakat, ekonomi, geografi, dan hubungan antar manusia dalam dunia sosial."
+            }
+          />
+          <Mapel
+            namaMapel={"Sejarah"}
+            deskripsi={
+              "Mempelajari peristiwa masa lalu untuk memahami perkembangan peradaban manusia dan dampaknya pada masa kini."
+            }
+          />
+          <Mapel
+            namaMapel={"Bahasa dan Sastra"}
+            deskripsi={
+              "Mengembangkan kemampuan berbahasa, memahami karya sastra, serta mengekspresikan ide dan perasaan melalui tulisan."
+            }
+          />
+          <Mapel
+            namaMapel={"PKN"}
+            deskripsi={
+              "Memahami nilai-nilai kebangsaan, hukum, serta peran setiap individu dalam membangun masyarakat yang adil dan harmonis."
+            }
+          />
+          <h2 className="text-2xl mt-10 mb-15 font-semibold bg-linear-to-l from-[#CAB99F] to-[#9B7A5B] bg-clip-text text-transparent">
+            {" "}
+            Learn Now
+          </h2>
         </div>
       </section>
+
+      <LandingPage2/>
     </>
   );
 };
