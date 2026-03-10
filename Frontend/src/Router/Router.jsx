@@ -1,6 +1,9 @@
 import React from 'react'
 import LandingPage from '../pages/LandingPage'
 import { Route, Routes} from 'react-router-dom'
+import Login from '../pages/AuthPages/Login'
+import Register from '../pages/AuthPages/Register'
+import Testing from './testing'
 import LandingPage2 from '../components/LandingPage2'
 
 const Router = () => {
@@ -14,7 +17,7 @@ const Router = () => {
       <Route path="/register" element={<Register />} />
 
       <Route path="/landing2" element={<LandingPage2 />} />
-      <Route path="/testing" element={<testing/>}/>
+      <Route path="/testing" element={<Testing/>}/>
     </Routes>
   )
 }

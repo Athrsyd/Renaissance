@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../components/navbar'
 
-const testing = () => {
+const Testing = () => {
   return (
     <>
       <Navbar/>
@@ -9,4 +9,4 @@ const testing = () => {
   )
 }
 
-export default testing
+export default Testing
