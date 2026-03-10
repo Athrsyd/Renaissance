@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import buku from "../assets/buku.png";
 import aboutbuku from "../assets/aboutbuku.png";
 import bgabout from "../assets/bgabout.png";
