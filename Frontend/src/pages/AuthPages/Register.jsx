@@ -1,7 +1,4 @@
-import React from 'react'
-import { FaGoogle } from "react-icons/fa";
-import { FaFacebookSquare } from "react-icons/fa";
-import { FaInstagramSquare } from "react-icons/fa";
+import { FaGoogle, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
 import HookAuth from '../../Hook/HookAuth';
 
 
@@ -17,6 +14,7 @@ const Register = () => {
                 <div className="title">
                     <h1 className='text-2xl font-bold'>CREATE ACCOUNT</h1>
                 </div>
+                {message && <p className='text-sm text-center text-beige/80'>{message}</p>}
                 <form action="" method="post" className='text-beige w-full flex flex-col gap-4 justify-center items-start'>
                     <label className='text-khaki -mb-3 ml-3' htmlFor="username">Username</label>
                     <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="text" name="username" id="username" placeholder='Username' value={name} onChange={handleChange} />

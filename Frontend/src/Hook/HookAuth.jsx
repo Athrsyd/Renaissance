@@ -14,14 +14,22 @@ const HookAuth = () => {
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
     try {
+
+      // post data ke backend
       const response = await API.post('/auth/register', { email, name, password });
       console.log(response.data);
-      setEmail('');
+
+      // Reset form
       setName('');
+      setEmail('');
       setPassword('');
+
+      // arahin ke login kalau register berhasil
       setTimeout(() => {
-        navigate('/');
+        navigate('/login');
       }, 2000);
+
+      // Set success message
       setMessage(response.data.message);
     } catch (error) {
       console.error('Error registering user:', error);
@@ -32,14 +40,26 @@ const HookAuth = () => {
   const handleSubmitLogin = async (e) => {
     e.preventDefault();
     try {
+      // post data ke backend
       const response = await API.post('/auth/login', { email, password });
       console.log(response.data);
-      setEmail('');
+
+      // simpan token ke localStorage
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+
+      // set data pesan saat berhasil
       setMessage(response.data.message);
-      setPassword('');
+
+      // pindah ke dashboard kalau login berhasil
       setTimeout(() => {
         navigate('/');
       }, 2000);
+      
+      // reset form
+      setEmail('');
+      setPassword('');
+      
     } catch (error) {
       console.error('Error logging in user:', error);
       setMessage(error.response.data.message);

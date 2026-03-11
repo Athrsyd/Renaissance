@@ -32,11 +32,11 @@ const LandingPage = () => {
               <button className="bg-bistre rounded-4xl w-[60%] py-2 p-2 px-5 text-xl text-white">
                 Start Learning
               </button>
-              {/* <Link to="/Login"> */}
-                <button className=" bg-black/15 rounded-4xl w-[40%] px-4 py-2 p-2 text-xl text-white">
+              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[40%] px-4 py-2 p-2 text-xl text-white">
+                <button className="text-center">
                   Login
                 </button>
-              {/* </Link> */}
+              </Link>
             </div>
             <img
               width="100%"
