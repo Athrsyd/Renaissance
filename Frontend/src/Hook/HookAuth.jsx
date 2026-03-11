@@ -19,6 +19,9 @@ const HookAuth = () => {
       setEmail('');
       setName('');
       setPassword('');
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
       setMessage(response.data.message);
     } catch (error) {
       console.error('Error registering user:', error);
@@ -35,8 +38,8 @@ const HookAuth = () => {
       setMessage(response.data.message);
       setPassword('');
       setTimeout(() => {
-        navigate('/landing2');
-      }, 1000);
+        navigate('/');
+      }, 2000);
     } catch (error) {
       console.error('Error logging in user:', error);
       setMessage(error.response.data.message);
@@ -45,8 +48,8 @@ const HookAuth = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'name') setName(value);
-    else if (name === 'email') setEmail(value);  
+    if (name === 'username') setName(value);
+    else if (name === 'email') setEmail(value);
     else if (name === 'password') setPassword(value);
   }
 
