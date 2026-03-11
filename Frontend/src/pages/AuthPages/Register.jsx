@@ -2,9 +2,12 @@ import React from 'react'
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebookSquare } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
+import HookAuth from '../../Hook/HookAuth';
 
 
 const Register = () => {
+    const { email, name, password, message, handleChange, handleSubmitRegister } = HookAuth();
+
     return (
     <div className='text-beige bg-[url("/Bg-Auth.png")] bg-cover bg-center h-screen flex flex-col justify-center items-center gap-5'>
             {/* <div className="background">
@@ -16,13 +19,13 @@ const Register = () => {
                 </div>
                 <form action="" method="post" className='text-beige w-full flex flex-col gap-4 justify-center items-start'>
                     <label className='text-khaki -mb-3 ml-3' htmlFor="username">Username</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="text" name="username" id="username" placeholder='Username' />
+                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="text" name="username" id="username" placeholder='Username' value={name} onChange={handleChange} />
                     <label className='text-khaki -mb-3 ml-3' htmlFor="email">Email</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="email" name="email" id="email" placeholder='Email' />
+                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="email" name="email" id="email" placeholder='Email' value={email} onChange={handleChange} />
                     <label className='text-khaki -mb-3 ml-3' htmlFor="password">Password</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="password" name="password" id="password" placeholder='Password' />
+                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start' type="password" name="password" id="password" placeholder='Password' value={password} onChange={handleChange} />
                     <div className="w-full flex justify-center">
-                        <button className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600' type='submit'>SIGN UP</button>
+                        <button className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600' type='submit' onClick={handleSubmitRegister}>SIGN UP</button>
                     </div>
                 </form>
                 <div className="flex items-center w-full gap-3 text-sm text-beige/25 before:content-[''] before:flex-1 before:h-px before:bg-khaki/40 after:content-[''] after:flex-1 after:h-px after:bg-khaki/40">OR</div>
