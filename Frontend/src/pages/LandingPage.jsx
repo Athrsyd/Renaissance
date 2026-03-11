@@ -1,9 +1,11 @@
 import React from "react";
 import Navbar from "../components/navbar";
+import { Link } from 'react-router-dom'
 import buku from "../assets/buku.png";
 import aboutbuku from "../assets/aboutbuku.png";
 import bgabout from "../assets/bgabout.png";
 import Mapel from "../components/Mapel";
+import Counter from "../components/Counter";
 import LandingPage2 from "../components/LandingPage2";
 
 const LandingPage = () => {
@@ -26,6 +28,16 @@ const LandingPage = () => {
             </p>
           </div>
           <div className="flex justify-center items-center w-[40%] h-full">
+            <div className=" flex flex-row justify-center w-[30%] items-center absolute bottom-3 rounded-4xl px-4 gap-1 p-2  backdrop-blur-md shadow-md bg-white/10 border-white/20">
+              <button className="bg-bistre rounded-4xl w-[60%] py-2 p-2 px-5 text-xl text-white">
+                Start Learning
+              </button>
+              {/* <Link to="/Login"> */}
+                <button className=" bg-black/15 rounded-4xl w-[40%] px-4 py-2 p-2 text-xl text-white">
+                  Login
+                </button>
+              {/* </Link> */}
+            </div>
             <img
               width="100%"
               src={buku}
@@ -52,33 +64,33 @@ const LandingPage = () => {
         <div className="w-full mt-26 flex flex-col justify-center items-center">
           <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
             <div className=" w-full">
-              <p className="text-3xl font-semibold text-center text-white">
-                10,000+
-              </p>
+              <h1 className="text-3xl font-semibold text-center text-white">
+                <Counter target={10000} suffix="+" />
+              </h1>
               <p className="text-sm font-normal text-center text-white">
                 Students
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-semibold text-center text-white">
-                100+
-              </p>
+              <h1 className="text-3xl font-semibold text-center text-white">
+                <Counter target={100} suffix="+" />
+              </h1>
               <p className="text-sm font-normal text-center text-white">
                 Learning Modul
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-semibold text-center text-white">
-                80+
-              </p>
+              <h1 className="text-3xl font-semibold text-center text-white">
+                <Counter target={80} suffix="+" />
+              </h1>
               <p className="text-sm font-normal text-center text-white">
                 Partner Schools
               </p>
             </div>
             <div className="w-full">
-              <p className="text-3xl font-semibold text-center text-white">
-                97%
-              </p>
+              <h1 className="text-3xl font-semibold text-center text-white">
+                <Counter target={97} suffix="%" />
+              </h1>
               <p className="text-sm font-normal text-center text-white">Rate</p>
             </div>
           </div>
@@ -168,42 +180,7 @@ const LandingPage = () => {
               Renaissance Academy
             </span>
           </h1>
-          <Mapel
-            namaMapel={"Matematika"}
-            deskripsi={
-              "Ilmu yang mempelajari angka, pola, dan logika untuk memahami cara kerja berbagai fenomena di dunia."
-            }
-          />
-          <Mapel
-            namaMapel={"IPA"}
-            deskripsi={
-              "Mempelajari alam semesta melalui pengamatan dan eksperimen, mulai dari fisika, kimia, hingga biologi."
-            }
-          />
-          <Mapel
-            namaMapel={"IPS"}
-            deskripsi={
-              "Ilmu yang membahas kehidupan masyarakat, ekonomi, geografi, dan hubungan antar manusia dalam dunia sosial."
-            }
-          />
-          <Mapel
-            namaMapel={"Sejarah"}
-            deskripsi={
-              "Mempelajari peristiwa masa lalu untuk memahami perkembangan peradaban manusia dan dampaknya pada masa kini."
-            }
-          />
-          <Mapel
-            namaMapel={"Bahasa dan Sastra"}
-            deskripsi={
-              "Mengembangkan kemampuan berbahasa, memahami karya sastra, serta mengekspresikan ide dan perasaan melalui tulisan."
-            }
-          />
-          <Mapel
-            namaMapel={"PKN"}
-            deskripsi={
-              "Memahami nilai-nilai kebangsaan, hukum, serta peran setiap individu dalam membangun masyarakat yang adil dan harmonis."
-            }
-          />
+          <Mapel />
           <h2 className="text-2xl mt-10 mb-15 font-semibold bg-linear-to-l from-[#CAB99F] to-[#9B7A5B] bg-clip-text text-transparent">
             {" "}
             Learn Now
@@ -211,7 +188,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <LandingPage2/>
+      <LandingPage2 />
     </>
   );
 };
