@@ -16,7 +16,35 @@ import genta from "../assets/displayProfile/4_genta.jpg";
 import arsi from "../assets/displayProfile/5_arsi.jpg";
 import mahendra from "../assets/displayProfile/6_mahendra.jpg";
 
+const Breadeging = () => {
+        <div className="mt-35 w-full bg-[#CBB799]">
+      <div className="flex items-center gap-16 font-poppins text-5xl text-[#f4e4d8] font-bold bg-[#9B7A5B] p-7 justify-center -rotate-2 overflox-x-hidden w-max animate-slide-text -mt-6">
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Learn</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Innovate</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Evolve</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Learn</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Innovate</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Evolve</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Learn</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Innovate</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+        <h1>Evolve</h1>
+        <img src={iconBintang} alt="" className="w-12 h-12" />
+
+      </div>
+    </div>
+};
 const LandingPage2 = () => {
+
+
   return (
     // Renaissance Nixon Areas
     <section className=" bg-[#F2E0D2] h-full pt-10 overflow-x-hidden overflow-y-hidden rounded-t-utama -mt-15">
@@ -100,30 +128,7 @@ const LandingPage2 = () => {
       </div>
 
       {/* Container Bridging */}
-      <div className="mt-35 w-full bg-[#CBB799]">
-        <div className="flex items-center gap-16 font-poppins text-5xl text-[#f4e4d8] font-bold bg-[#9B7A5B] p-7 justify-center -rotate-2 overflox-x-hidden w-max animate-slide-text -mt-6">
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Learn</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Innovate</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Evolve</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Learn</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Innovate</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Evolve</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Learn</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Innovate</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-          <h1>Evolve</h1>
-          <img src={iconBintang} alt="" className="w-12 h-12" />
-
-        </div>
-      </div>
+      <Breadeging />
 
       {/* What Student Say */}
       <div className="h-full bg-bistre">

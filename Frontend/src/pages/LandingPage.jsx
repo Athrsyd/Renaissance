@@ -9,6 +9,9 @@ import Counter from "../components/Counter";
 import LandingPage2 from "../components/LandingPage2";
 
 const LandingPage = () => {
+
+
+
   return (
     <>
       <Navbar />
