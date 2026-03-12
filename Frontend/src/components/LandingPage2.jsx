@@ -403,7 +403,7 @@ const LandingPage2 = () => {
               <p>
                 Awalnya aku mencoba Renaissance karena direkomendasikan oleh
                 teman. Setelah mencobanya, aku merasa platform ini benar-benar
-                membantu memahami beberapa pelajaran yang sebelumnya terasa sulit
+                membantu memahami beberapa pelajaran yang sebelumnya terasa sulit 
               </p>
               <img src={bintangs} alt="" className="-ml-3" />
             </div>
