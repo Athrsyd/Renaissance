@@ -37,8 +37,21 @@
   }
 }
 
+@keyframes infinite-slide-text{
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-slide {
   animation: infinite-slide-right 25s linear infinite;
+}
+
+.animate-slide-text {
+  animation: infinite-slide-text 15s linear infinite;
 }
 
 .animate-slide-reverse {
