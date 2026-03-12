@@ -7,11 +7,10 @@ import bgabout from "../assets/bgabout.png";
 import Mapel from "../components/Mapel";
 import Counter from "../components/Counter";
 import LandingPage2 from "../components/LandingPage2";
+import About from "../components/About";
+import Statistik from "../components/Statistik";
 
 const LandingPage = () => {
-
-
-
   return (
     <>
       <Navbar />
@@ -65,40 +64,9 @@ const LandingPage = () => {
 
       <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
-          <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-7 flex justify-between items-center text-center">
-            <div className=" w-full">
-              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
-                <Counter target={10000} suffix="+" />
-              </h1>
-              <p className="text-sm font-normal text-center text-white">
-                Students
-              </p>
-            </div>
-            <div className="w-full">
-              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
-                <Counter target={100} suffix="+" />
-              </h1>
-              <p className="text-sm font-normal text-center text-white">
-                Learning Modules
-              </p>
-            </div>
-            <div className="w-full">
-              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
-                <Counter target={80} suffix="+" />
-              </h1>
-              <p className="text-sm font-normal text-center text-white">
-                Partner Schools
-              </p>
-            </div>
-            <div className="w-full">
-              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
-                <Counter target={97} suffix="%" />
-              </h1>
-              <p className="text-sm font-normal text-center text-white">Rate</p>
-            </div>
-          </div>
-          <div className="w-full flex flex-col justify-center items-center mt-10">
-            <h1 className="text-5xl font-normal text-center mb-5 text-white">
+          <Statistik/>
+          <div className="w-full flex flex-col justify-center items-center mt-15">
+            <h1 className="text-5xl font-normal text-center mb-15 text-white">
               The Beginning of a <br />
               New <span className="text-khaki">Renaissance</span>
             </h1>
@@ -123,53 +91,7 @@ const LandingPage = () => {
                   className="w-[60%] mt-5 mb-10"
                 />
               </div>
-              <div className="w-full relative flex flex-row justify-center items-center gap-3 mt-10 mb-5">
-                <div
-                  className="w-full relative h-80 rounded-lg bg-cover bg-center p-6 flex flex-col justify-center items-center"
-                  style={{ backgroundImage: `url(${bgabout})` }}
-                >
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-6">
-                    <h1 className="text-xl font-bold text-center text-bistre">
-                      Curiosity Driven Learning
-                    </h1>
-                    <p className="text-sm font-normal text-center text-bistre">
-                      Belajar dimulai dari rasa ingin tahu. Renaissance
-                      mendorong siswa untuk bertanya, mengeksplorasi, dan
-                      menemukan makna dari setiap pengetahuan yang dipelajari.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="w-full relative h-80 rounded-lg bg-cover bg-center p-6 flex flex-col justify-center items-center"
-                  style={{ backgroundImage: `url(${bgabout})` }}
-                >
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-6">
-                    <h1 className="text-xl z-50 font-bold text-center text-bistre">
-                      Creative & Critical Thinking
-                    </h1>
-                    <p className="text-sm font-normal text-center text-bistre">
-                      Tidak hanya memahami materi, siswa diajak untuk berpikir
-                      kreatif, menganalisis ide, dan melihat berbagai
-                      kemungkinan dalam memecahkan masalah.
-                    </p>
-                  </div>
-                </div>
-                <div
-                  className="w-full relative h-80 rounded-lg bg-cover bg-center p-6 flex flex-col justify-center items-center"
-                  style={{ backgroundImage: `url(${bgabout})` }}
-                >
-                  <div className="w-full h-full flex flex-col justify-center items-center gap-6">
-                    <h1 className="text-xl font-bold text-center text-bistre">
-                      Explore Knowledge Freely
-                    </h1>
-                    <p className="text-sm font-normal text-center text-bistre">
-                      Setiap pelajar bebas menjelajahi berbagai bidang
-                      pengetahuan, menemukan minatnya, dan mengembangkan potensi
-                      dirinya secara mandiri.
-                    </p>
-                  </div>
-                </div>
-              </div>
+                <About/>
             </div>
           </div>
         </div>
