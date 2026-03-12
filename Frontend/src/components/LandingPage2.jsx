@@ -19,7 +19,7 @@ import mahendra from "../assets/displayProfile/6_mahendra.jpg";
 const LandingPage2 = () => {
   return (
     // Renaissance Nixon Areas
-    <section className=" bg-[#F2E0D2] h-full pt-10 overflow-x-hidden overflow-y-hidden">
+    <section className=" bg-[#F2E0D2] h-full pt-10 overflow-x-hidden overflow-y-hidden rounded-t-utama -mt-15">
       <div className="flex items-center text-bistre text-5xl justify-center font-medium gap-15 font-poppins">
         <img src={iconBintang} alt="" className="w-11 h-11 self-center" />
         <h1 className="m-0">Renaissance Experience</h1>

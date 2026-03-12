@@ -2,6 +2,15 @@ import React from 'react'
 import testimoni from '../assets/Data/testimoni'
 import testimoni2 from '../assets/Data/testimoni2'
 
+
+const obj = [{
+  id : 1,
+  gambar: "wkwkw",
+  nama : "oran",
+  pekerjaan:'manusia',
+  testimoni : "keren"
+},
+]
 const TestimoniCard = ({ item }) => (
   <div className='flex flex-row min-w-100 max-w-110 border-2 border-primary rounded-2xl p-5'>
     <div className="flex-1">

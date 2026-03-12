@@ -60,7 +60,7 @@ const Navbar = () => {
       <ul className='flex flex-row justify-center gap-10'>
         <li onClick={()=> handleClick('features')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='features'? 'bg-coffe' : ''}`}><a href="#features" className="text-beige transition-colors text-lg">Features</a></li>
         <li onClick={()=> handleClick('reviews')}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li>
-        <li onClick={()=>console.log(window.scrollY)}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li>
+        {/* <li onClick={()=>console.log(window.scrollY)}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li> */}
       </ul>
  
       </nav>
