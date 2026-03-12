@@ -21,7 +21,7 @@ const LandingPage = () => {
         </div>
         <div className="flex flex-row w-full h-screen justify-between items-center gap-10">
           <div className="w-[30%] pl-7 mb-5 leading-loose">
-            <p className="text-md text-bistre">
+            <p className="text-lg text-bistre">
               Modern learning platform designed to help middle and high school
               students understand lessons better, learn faster, and achieve
               their academic goals.
@@ -45,9 +45,9 @@ const LandingPage = () => {
               className="w-full -mb-4.75 pb-3.75"
             />
           </div>
-          <div className="w-[30%] text-center mb-10 leading-loose">
-            <p className="text-md text-coffee">
-              <span className="text-2xl text-bistre font-bold">6+ Subject</span>
+          <div className=" flex flex-col w-[30%] text-center gap-2 mb-10 leading-loose">
+            <p className="text-lg text-coffee">
+              <span className="text-3xl text-bistre font-bold">6+ Subject</span>
               <br />
               For Middle and High School
             </p>
@@ -62,9 +62,9 @@ const LandingPage = () => {
 
       <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
-          <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-5 flex justify-between items-center text-center">
+          <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-4xl max-w-4xl w-full p-7 flex justify-between items-center text-center">
             <div className=" w-full">
-              <h1 className="text-3xl font-semibold text-center text-white">
+              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
                 <Counter target={10000} suffix="+" />
               </h1>
               <p className="text-sm font-normal text-center text-white">
@@ -72,15 +72,15 @@ const LandingPage = () => {
               </p>
             </div>
             <div className="w-full">
-              <h1 className="text-3xl font-semibold text-center text-white">
+              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
                 <Counter target={100} suffix="+" />
               </h1>
               <p className="text-sm font-normal text-center text-white">
-                Learning Modul
+                Learning Modules
               </p>
             </div>
             <div className="w-full">
-              <h1 className="text-3xl font-semibold text-center text-white">
+              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
                 <Counter target={80} suffix="+" />
               </h1>
               <p className="text-sm font-normal text-center text-white">
@@ -88,7 +88,7 @@ const LandingPage = () => {
               </p>
             </div>
             <div className="w-full">
-              <h1 className="text-3xl font-semibold text-center text-white">
+              <h1 className="text-4xl font-monstserrat font-semibold text-center text-white">
                 <Counter target={97} suffix="%" />
               </h1>
               <p className="text-sm font-normal text-center text-white">Rate</p>
@@ -101,7 +101,7 @@ const LandingPage = () => {
             </h1>
             <div className=" bg-[#F2E0D2] w-[75%] rounded-4xl flex flex-col justify-center items-center p-6 mt-5">
               <div className="w-full flex flex-col justify-center items-center">
-                <p className="text-lg font-semibold m-10 text-justify text-[#39221C]">
+                <p className="text-2xl leading-normal px-5 font-semibold m-10 text-justify text-[#39221C]">
                   Renaissance lahir dari gagasan bahwa belajar bukan sekadar
                   proses menghafal, melainkan perjalanan untuk memahami dunia
                   dengan lebih luas. Terinspirasi dari semangat era Renaissance,

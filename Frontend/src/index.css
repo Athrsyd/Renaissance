@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -15,11 +15,19 @@
   --font-monstserrat: "Montserrat", sans-serif;
 }
 
-* {
-  box-sizing: border-box;
+@layer utilities {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    font-family: var(--font-poppins);
+  }
 }
+/* *{ */
 
-@keyframes infinite-slide-right{
+/* } */
+
+@keyframes infinite-slide-right {
   from {
     transform: translateX(0);
   }
@@ -28,7 +36,7 @@
   }
 }
 
-@keyframes infinite-slide-left{
+@keyframes infinite-slide-left {
   from {
     transform: translateX(-50%);
   }
@@ -37,7 +45,7 @@
   }
 }
 
-@keyframes infinite-slide-text{
+@keyframes infinite-slide-text {
   from {
     transform: translateX(0%);
   }
@@ -65,8 +73,6 @@
 .animate-slide-reverse:hover {
   animation-play-state: paused;
 }
-
-
 
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
