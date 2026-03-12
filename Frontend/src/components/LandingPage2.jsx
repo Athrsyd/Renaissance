@@ -17,7 +17,8 @@ import arsi from "../assets/displayProfile/5_arsi.jpg";
 import mahendra from "../assets/displayProfile/6_mahendra.jpg";
 
 const Breadeging = () => {
-        <div className="mt-35 w-full bg-[#CBB799]">
+  return (
+    <div className="mt-35 w-full bg-[#CBB799]">
       <div className="flex items-center gap-16 font-poppins text-5xl text-[#f4e4d8] font-bold bg-[#9B7A5B] p-7 justify-center -rotate-2 overflox-x-hidden w-max animate-slide-text -mt-6">
         <img src={iconBintang} alt="" className="w-12 h-12" />
         <h1>Learn</h1>
@@ -41,6 +42,7 @@ const Breadeging = () => {
 
       </div>
     </div>
+    )
 };
 const LandingPage2 = () => {
 
@@ -363,7 +365,7 @@ const LandingPage2 = () => {
               <img src={genta} alt="" className="w-15 h-15 rounded-full" />
               <div>
                 <h1 className="text-black font-semibold text-lg">
-                   Genta Narendra
+                  Genta Narendra
                 </h1>
                 <p className="-mt-1 text-base font-">Grade 12</p>
               </div>
@@ -421,7 +423,7 @@ const LandingPage2 = () => {
               <p>
                 Awalnya aku mencoba Renaissance karena direkomendasikan oleh
                 teman. Setelah mencobanya, aku merasa platform ini benar-benar
-                membantu memahami beberapa pelajaran yang sebelumnya terasa sulit 
+                membantu memahami beberapa pelajaran yang sebelumnya terasa sulit
               </p>
               <img src={bintangs} alt="" className="-ml-3" />
             </div>
