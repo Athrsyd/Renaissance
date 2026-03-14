@@ -65,7 +65,7 @@ const LandingPage = () => {
       <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
           <Statistik/>
-          <div className="w-full flex flex-col justify-center items-center mt-15">
+          <div id="about"className="w-full flex flex-col justify-center items-center mt-15">
             <h1 className="text-5xl font-normal text-center mb-15 text-white">
               The Beginning of a <br />
               New <span className="text-khaki">Renaissance</span>
@@ -98,7 +98,7 @@ const LandingPage = () => {
       </section>
 
       <section className="w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
-        <div className="w-full pt-5 flex flex-col justify-center items-center">
+        <div id="academy"className="w-full pt-5 flex flex-col justify-center items-center">
           <h1 className="text-4xl pb-10 text-center text-white">
             Inside The <br />
             <span className="bg-linear-to-l from-[#CAB99F] to-[#6A4D3B] text-transparent bg-clip-text">

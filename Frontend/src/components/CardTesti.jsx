@@ -193,7 +193,7 @@ const ContainerDown = () => {
 const Content = () => {
   return (
     <>
-      <div className="h-full bg-bistre">
+      <div id="reviews"className="h-full bg-bistre">
         <div className="text-5xl pt-23 flex justify-center font-poppins bg-linear-to-r from-[#9B7A5B] to-[#dcceb9] text-transparent bg-clip-text font-semibold">
           <h1>What Students Say</h1>
         </div>
