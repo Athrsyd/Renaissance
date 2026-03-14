@@ -11,18 +11,23 @@ const data = [
   {
     id: "2",
     title: "Siapa saja yang bisa menggunakan Renaissance?",
-    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMP dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
+    p: "Renaissance dapat digunakan oleh siswa SMP dan SMA yang ingin belajar dengan pengalaman yang lebih interaktif, fleksibel, dan mendukung pemahaman materi secara lebih mendalam.",
   },
   {
     id: "3",
     title: "Bagaimana cara mulai belajar di Renaissance?",
-    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMP dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
+    p: "Untuk mulai belajar, pengguna cukup menekan tombol *Start Learning*, membuat akun, lalu dapat langsung mengakses berbagai materi dan fitur pembelajaran yang tersedia.",
   },
   {
     id: "4",
     title: "Apakah Renaissance dapat diakses kapan saja?",
-    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMP dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
+    p: "Ya, Renaissance dapat diakses kapan saja dan dari mana saja sehingga siswa dapat belajar dengan lebih fleksibel sesuai kebutuhan mereka"
   },
+  {
+    id: "5",
+    title: "Mata pelajaran apa saja yang tersedia di Renaissance?",
+    p: "Renaissance menyediakan berbagai mata pelajaran seperti Matematika, IPA, IPS, Sejarah, Bahasa dan Sastra, serta Logika.",
+  }
 ];
 
 const Card = ({ item }) => {
@@ -77,7 +82,7 @@ const Box = () => {
 const Display = () => {
   return (
     <>
-      <div className="bg-bistre flex items-center gap-7 w-full h-full pt-30">
+      <div className="bg-bistre flex items-center gap-7 w-full h-full pt-30 pb-50">
         <div className="ml-10 ">
           <h1 className="text-white font-poppins text-6xl ml-20 mr-50">
             The Hall of

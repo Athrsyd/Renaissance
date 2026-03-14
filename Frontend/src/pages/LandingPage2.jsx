@@ -2,6 +2,8 @@ import React from "react";
 import Experience from "../components/RenaissanceXP";
 import Content from "../components/CardTesti";
 import Display from "../components/HallofQ";
+import Footer from "../components/Footer";
+
 
 // Assets Icon
 import iconBintang from "../assets/icon/iconBintang.png";
@@ -65,7 +67,7 @@ const LandingPage2 = () => {
       <Display />
 
       {/* footer */}
-      
+      <Footer />
     </section>
   );
 };
