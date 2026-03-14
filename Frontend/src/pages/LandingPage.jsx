@@ -6,7 +6,7 @@ import aboutbuku from "../assets/aboutbuku.png";
 import bgabout from "../assets/bgabout.png";
 import Mapel from "../components/Mapel";
 import Counter from "../components/Counter";
-import LandingPage2 from "../components/LandingPage2";
+import LandingPage2 from "./LandingPage2";
 import About from "../components/About";
 import Statistik from "../components/Statistik";
 

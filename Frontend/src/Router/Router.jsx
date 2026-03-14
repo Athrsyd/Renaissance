@@ -4,7 +4,7 @@ import { Route, Routes} from 'react-router-dom'
 import Login from '../pages/AuthPages/Login'
 import Register from '../pages/AuthPages/Register'
 import Testing from './testing'
-import LandingPage2 from '../components/LandingPage2'
+import LandingPage2 from '../pages/LandingPage2'
 
 const Router = () => {
   return (

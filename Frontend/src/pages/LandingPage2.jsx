@@ -1,6 +1,7 @@
 import React from "react";
 import Experience from "../components/RenaissanceXP";
 import Content from "../components/CardTesti";
+import Display from "../components/HallofQ";
 
 // Assets Icon
 import iconBintang from "../assets/icon/iconBintang.png";
@@ -59,6 +60,12 @@ const LandingPage2 = () => {
 
       {/* What Student Say */}
       <Content />
+
+      {/* Hall of Question */}
+      <Display />
+
+      {/* footer */}
+      
     </section>
   );
 };
