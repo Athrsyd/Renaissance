@@ -14,27 +14,27 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen relative z-60 w-full pt-32 flex px-32 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
+      <section className="h-screen relative z-60 w-full pt-72 pb-25 px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
         <div className="flex">
-          <h1 className="text-6xl font-semibold text-center text-bistre mb-6">
+          <h1 className="text-2xl md:text-6xl font-semibold text-center text-bistre mb-3 md:mb-6">
             <span className="text-chamoisee">Transforming</span> The Way <br />{" "}
             Students Learn For The Future
           </h1>
         </div>
-        <div className="flex flex-row w-full h-screen justify-between items-center gap-10">
-          <div className="w-[30%] pl-7 mb-5 leading-loose">
-            <p className="text-lg text-bistre">
+        <div className="flex flex-col md:flex-row w-full h-screen md:justify-between items-center gap-0 md:gap-10">
+          <div className="w-full text-center md:text-start md:w-[30%] order-1 md:order-1 md:pl-7 mb-2 md:mb-5 leading-loose">
+            <p className=" font-semibold text-sm md:text-lg text-bistre">
               Modern learning platform designed to help middle and high school
               students understand lessons better, learn faster, and achieve
               their academic goals.
             </p>
           </div>
-          <div className="flex justify-center items-center w-[40%] h-full">
-            <div className=" flex flex-row justify-center w-[30%] items-center absolute bottom-3 rounded-4xl px-4 gap-1 p-2  backdrop-blur-md shadow-md bg-white/10 border-white/20">
-              <button className="bg-bistre rounded-4xl w-[60%] py-2 p-2 px-5 text-xl text-white">
+          <div className="flex order-3 md:order-2 justify-center items-center md:w-[40%] h-full">
+            <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[70%] md:w-[30%] items-center absolute bottom-3 rounded-4xl md:px-3 px-4 gap-1 md:p-2 p-2 backdrop-blur-md shadow-md bg-white/10 border-white/20">
+              <button className="bg-bistre rounded-4xl w-full md:w-[60%] py-4 md:py-2 p-2 px-5 text-xl text-white">
                 Start Learning
               </button>
-              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[40%] px-4 py-2 p-2 text-xl text-white">
+              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-4 md:py-2 md:p-0 p-2 text-xl text-white">
                 <button className="text-center">
                   Login
                 </button>
@@ -44,17 +44,17 @@ const LandingPage = () => {
               width="100%"
               src={buku}
               alt="gambar buku"
-              className="w-full -mb-4.75 pb-3.75"
+              className="md:w-full w-90 mb-25 pb-6.5 md:-mb-4.75 md:pb-3.75"
             />
           </div>
-          <div className=" flex flex-col w-[30%] text-center gap-2 mb-10 leading-loose">
-            <p className="text-lg text-coffee">
-              <span className="text-3xl text-bistre font-bold">6+ Subject</span>
+          <div className=" flex order-2 md:order-3 flex-col md:w-[30%] text-center gap-2 mb-5 md:mb-10 leading-loose">
+            <p className="text-md md:text-lg text-coffe">
+              <span className=" text-2xl md:text-3xl text-bistre font-bold">6+ Subject</span>
               <br />
-              For Middle and High School
+              For Middle & High School
             </p>
             <a>
-              <button className="bg-bistre text-white px-10 py-1 rounded-full hover:bg-coffee transition-colors">
+              <button className="bg-bistre text-white px-5 py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee transition-colors">
                 Learn More
               </button>
             </a>

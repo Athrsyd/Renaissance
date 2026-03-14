@@ -30,10 +30,10 @@ const Navbar = () => {
   return (
     <header className=" fixed w-full flex justify-center unded-full z-9999">
 {/* <<<<<<< HEAD */}
-      <nav className=" bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
-        <ul className='flex flex-row justify-center gap-10'>
-          <li onClick={()=> handleClick('about')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='about'? 'bg-coffe' : ''}`}><a  href="#about"  className="text-beige transition-colors text-lg">  About Us</a></li>
-          <li onClick={()=> handleClick('academy')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='academy'? 'bg-coffe' : ''}`}><a  href="#academy"  className="text-beige  transition-colors text-lg">  The Academy</a></li>
+      <nav className=" bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-0 px-6 md:p-3 mt-4 justify-between md:justify-center items-center md:gap-20 w-[90%] md:w-full md:max-w-6xl rounded-full">
+        <ul className='flex flex-row justify-center md:gap-10'>
+          <li onClick={()=> handleClick('about')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='about'? 'bg-coffe' : ''}`}><a  href="#about"  className="text-beige transition-colors text-md md:text-lg">  About Us</a></li>
+          <li onClick={()=> handleClick('academy')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='academy'? 'bg-coffe' : ''}`}><a  href="#academy"  className="text-beige  transition-colors text-md md:text-lg">  The Academy</a></li>
         </ul>
 {/* ======= */}
       {/* <nav className=" bg-linear-to-b from-chamoisee/50 to-coffe/50 backdrop-blur-sm z-order-last flex p-3 mt-4 justify-center items-center gap-20 w-full max-w-6xl rounded-full">
@@ -52,14 +52,14 @@ const Navbar = () => {
 
         <div className="logo">
           <a href="/" className="flex items-center p-2 gap-2">
-            <img src={logo} alt="Renaissance Logo" className="h-7" />
-            <h1 className="text-white text-2xl font-semibold">Renaissance</h1>
+            <img src={logo} alt="Renaissance Logo" className="h-5 md:h-7" />
+            <h1 className="hidden text-white text-xl md:text-2xl font-semibold">Renaissance</h1>
           </a>
         </div>
 
-      <ul className='flex flex-row justify-center gap-10'>
-        <li onClick={()=> handleClick('features')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='features'? 'bg-coffe' : ''}`}><a href="#features" className="text-beige transition-colors text-lg">Features</a></li>
-        <li onClick={()=> handleClick('reviews')}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li>
+      <ul className='flex flex-row justify-center md:gap-10'>
+        <li onClick={()=> handleClick('features')} className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='features'? 'bg-coffe' : ''}`}><a href="#features" className="text-beige transition-colors text-md md:text-lg">Features</a></li>
+        <li onClick={()=> handleClick('reviews')}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-md md:text-lg">Reviews</a></li>
         {/* <li onClick={()=>console.log(window.scrollY)}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li> */}
       </ul>
  
