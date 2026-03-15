@@ -2,9 +2,11 @@
 
 // use Illuminate\Http\Request;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MapelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TemanController;
+use App\Http\Controllers\ModulBelajarController;
 
 Route::prefix('v1/')->group(function () {
     Route::post('auth/register', [UserController::class, 'register']);
@@ -23,7 +25,11 @@ Route::prefix('v1/')->group(function () {
         Route::get('chat/{userId}', [ChatController::class, 'index']);
         Route::post('chat/text', [ChatController::class, 'sendText']);
         Route::delete('chat/{message}', [ChatController::class, 'destroy']);
+
+        // Ambil List Mapel
+        Route::get('/mapel', [MapelController::class, 'index']);
+
+        // Ambil List Modul
+        Route::get('/modules', [ModulBelajarController::class, 'index']);
     });
 });
-
-
