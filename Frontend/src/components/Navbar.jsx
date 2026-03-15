@@ -53,7 +53,7 @@ const Navbar = () => {
         <div className="logo">
           <a href="/" className="flex items-center p-2 gap-2">
             <img src={logo} alt="Renaissance Logo" className="h-5 md:h-7" />
-            <h1 className="hidden text-white text-xl md:text-2xl font-semibold">Renaissance</h1>
+            <h1 className="hidden md:block text-white text-xl md:text-2xl font-semibold">Renaissance</h1>
           </a>
         </div>
 
