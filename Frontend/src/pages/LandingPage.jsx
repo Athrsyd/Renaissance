@@ -14,27 +14,27 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen relative z-60 w-full pt-72 pb-25 px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
+      <section className="h-screen relative z-60 w-full pt-15 px-15 sm:pt-72 sm:pb-25 sm:px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
         <div className="flex">
-          <h1 className="text-2xl md:text-6xl font-semibold text-center text-bistre mb-3 md:mb-6">
+          <h1 className="text-xl sm:text-2xl md:text-6xl font-semibold text-center text-bistre mb-2 sm:mb-3 md:mb-6">
             <span className="text-chamoisee">Transforming</span> The Way <br />{" "}
             Students Learn For The Future
           </h1>
         </div>
         <div className="flex flex-col md:flex-row w-full h-screen md:justify-between items-center gap-0 md:gap-10">
-          <div className="w-full text-center md:text-start md:w-[30%] order-1 md:order-1 md:pl-7 mb-2 md:mb-5 leading-loose">
-            <p className=" font-semibold text-sm md:text-lg text-bistre">
+          <div className="w-full text-center md:text-start md:w-[30%] order-1 md:order-1 md:pl-7 mb-4 sm:mb-2 md:mb-5 leading-loose">
+            <p className=" sm:font-semibold text-sm md:text-lg text-bistre">
               Modern learning platform designed to help middle and high school
               students understand lessons better, learn faster, and achieve
               their academic goals.
             </p>
           </div>
           <div className="flex order-3 md:order-2 justify-center items-center md:w-[40%] h-full">
-            <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[70%] md:w-[30%] items-center absolute bottom-3 rounded-4xl md:px-3 px-4 gap-1 md:p-2 p-2 backdrop-blur-md shadow-md bg-white/10 border-white/20">
-              <button className="bg-bistre rounded-4xl w-full md:w-[60%] py-4 md:py-2 p-2 px-5 text-xl text-white">
+            <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[80%] sm:w-[70%] md:w-[30%] items-center absolute bottom-3 rounded-4xl md:px-3 sm:px-4 gap-1 md:p-2 p-2 sm:p-2 backdrop-blur-md shadow-md bg-white/10 border-white/20">
+              <button className="bg-bistre rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white">
                 Start Learning
               </button>
-              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-4 md:py-2 md:p-0 p-2 text-xl text-white">
+              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 am:py-4 md:py-2 md:p-0 p-2 text-xl text-white">
                 <button className="text-center">
                   Login
                 </button>
@@ -44,7 +44,7 @@ const LandingPage = () => {
               width="100%"
               src={buku}
               alt="gambar buku"
-              className="md:w-full w-90 mb-25 pb-6.5 md:-mb-4.75 md:pb-3.75"
+              className="md:w-full w-80 -mb-1 sm:w-90 sm:mb-25 sm:pb-6.5 md:-mb-4.75 md:pb-3.75"
             />
           </div>
           <div className=" flex order-2 md:order-3 flex-col md:w-[30%] text-center gap-2 mb-5 md:mb-10 leading-loose">
@@ -54,7 +54,7 @@ const LandingPage = () => {
               For Middle & High School
             </p>
             <a>
-              <button className="bg-bistre text-white px-5 py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee transition-colors">
+              <button className="bg-bistre text-white px-4 py-3 sm:px-5 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee transition-colors">
                 Learn More
               </button>
             </a>
@@ -65,14 +65,14 @@ const LandingPage = () => {
       <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
           <Statistik/>
-          <div id="about"className="w-full flex flex-col justify-center items-center mt-15">
-            <h1 className="text-5xl font-normal text-center mb-15 text-white">
+          <div id="about"className="w-full flex flex-col justify-center items-center mt-15 sm:mt-8 sm:mt-15">
+            <h1 className="text-4xl md:text-5xl font-normal text-center mb-8 sm:mb-15 text-white">
               The Beginning of a <br />
               New <span className="text-khaki">Renaissance</span>
             </h1>
-            <div className=" bg-[#F2E0D2] w-[75%] rounded-4xl flex flex-col justify-center items-center p-6 mt-5">
+            <div className=" bg-[#F2E0D2] w-full sm:w-[85%] md:w-[75%] rounded-4xl flex flex-col justify-center items-center p-4 sm:p-6 mt-2 sm:mt-5">
               <div className="w-full flex flex-col justify-center items-center">
-                <p className="text-2xl leading-normal px-5 font-semibold m-10 text-justify text-[#39221C]">
+                <p className="text-sm sm:text-lg md:text-2xl leading-normal px-2 sm:px-5 font-semibold m-4 md:m-10 text-justify text-[#39221C]">
                   Renaissance lahir dari gagasan bahwa belajar bukan sekadar
                   proses menghafal, melainkan perjalanan untuk memahami dunia
                   dengan lebih luas. Terinspirasi dari semangat era Renaissance,
@@ -88,7 +88,7 @@ const LandingPage = () => {
                 <img
                   src={aboutbuku}
                   alt="gambar buku"
-                  className="w-[60%] mt-5 mb-10"
+                  className="w-[80%] md:w-[60%] mt-5 mb-10"
                 />
               </div>
                 <About/>
@@ -99,9 +99,9 @@ const LandingPage = () => {
 
       <section className="w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div id="academy"className="w-full pt-5 flex flex-col justify-center items-center">
-          <h1 className="text-4xl pb-10 text-center text-white">
+          <h1 className="text-5xl sm:text-5xl md:text-4xl mt-5 sm:mt-0 pb-20 md:pb-10 text-center text-white">
             Inside The <br />
-            <span className="bg-linear-to-l from-[#CAB99F] to-[#6A4D3B] text-transparent bg-clip-text">
+            <span className="text-3xl sm:text-4xl md:text-4xl bg-linear-to-l from-[#CAB99F] to-[#6A4D3B] text-transparent bg-clip-text">
               Renaissance Academy
             </span>
           </h1>

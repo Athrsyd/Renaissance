@@ -17,7 +17,7 @@ const dataAbout = [
       "Tidak hanya memahami materi, siswa diajak untuk berpikir kreatif, menganalisis ide, dan melihat berbagai kemungkinan dalam memecahkan masalah.",
   },
   {
-    id: 1,
+    id: 3,
     bgAbout: bgabout,
     judul: "Explore Knowledge Freely",
     deskripsi:
@@ -28,24 +28,26 @@ const dataAbout = [
 const AboutListCard = ({item}) => {
   return (
     <>
-    <div className="w-full relative h-80 rounded-lg bg-cover bg-center p-8 flex flex-col justify-center items-center"
-      style={{ backgroundImage: `url(${item.bgAbout})` }}>
-      <div className="w-full h-full flex flex-col justify-center items-center gap-6">
-        <h1 className="text-xl font-bold text-center text-bistre">
-          {item.judul}
-        </h1>
-        <p className="text-sm font-semibold font-monstserrat text-center text-bistre">
-        {item.deskripsi}
-        </p>
+      <div
+        className=" w-[60%] sm:w-[48%] md:w-[32%] relative h-60 md:h-80 rounded-lg bg-cover bg-center p-4  md:p-8 flex flex-col justify-center items-center"
+        style={{ backgroundImage: `url(${item.bgAbout})` }}
+      >
+        <div className="w-full h-full flex flex-col justify-center items-center gap-6">
+          <h1 className="pl-2 md:pl-0 text-sm sm:text-md md:text-xl font-bold text-center text-bistre">
+            {item.judul}
+          </h1>
+          <p className="text-[10px] sm:text-[12px] md:text-sm font-semibold font-monstserrat text-center text-bistre">
+            {item.deskripsi}
+          </p>
+        </div>
       </div>
-    </div>
     </>
   );
 };
 
 const About = () => {
   return (
-    <div className="w-full relative flex flex-row justify-center items-center gap-3 mt-10 mb-5">
+    <div className="w-full relative flex flex-wrap md:flex-row justify-center items-center gap-4 sm:mt-10 mb-5">
       {dataAbout.map ((item) => (
         <AboutListCard key={item.id} item={item}/>
       ))}
