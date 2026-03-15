@@ -82,11 +82,11 @@ const Box = () => {
 const Display = () => {
   return (
     <>
-      <div className="bg-bistre flex items-center gap-7 w-full h-full pt-30 pb-50">
+      <div className="bg-bistre flex items-center gap-7 pl-5 pr-10 pb-20 w-full h-full flex-col md:flex-row md:pt-30 md:pb-30">
         <div className="ml-10 ">
-          <h1 className="text-white font-poppins text-6xl ml-20 mr-50">
+          <h1 className="text-white font-poppins text-5xl lg:text-7xl md:text-6xl lg:ml-25 md:mr-0 md:-ml-8 lg:mr-40 ml-40 mb-4 mr-50 text-center">
             The Hall of
-            <span className="bg-linear-to-r from-[#9B7F65] to-[#CAB99F] text-transparent bg-clip-text ml-5">
+            <span className="bg-linear-to-r from-[#9B7F65] to-[#CAB99F] text-transparent bg-clip-text ml-5 text-center">
               Questions
             </span>
           </h1>

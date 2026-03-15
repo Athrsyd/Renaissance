@@ -41,7 +41,7 @@ const data = [
 const Card = ({ item }) => {
   return (
     <>
-      <div className="bg-bistre w-100 h-70 p-7 rounded-2xl">
+      <div className="bg-bistre w-90 lg:w-120 h-75 p-7 rounded-2xl md:w-95">
         <div className="flex items-center border-b-3 border-[#9B7A5B] font-poppins pb-1.5">
           <img src={item.img} alt="" className="w-15 h-15" />
           <h1 className="bg-linear-to-r from-[#9B7A5B] to-[#CAB99F] text-transparent bg-clip-text text-2xl font-semibold ml-2.5">
@@ -60,7 +60,7 @@ const Card = ({ item }) => {
 const Experience = () => {
   return (
     <>
-      <div className="mt-25 flex justify-center flex-wrap gap-17">
+      <div className="mt-20 flex justify-center md:flex-row flex-wrap gap-10">
         {data.map((item) => (
           <Card key={item.id} item={item} />
         ))}
