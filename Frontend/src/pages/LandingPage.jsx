@@ -14,7 +14,7 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen relative z-60 w-full pt-15 px-15 sm:pt-72 sm:pb-25 sm:px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
+      <section className="h-screen relative z-60 w-full pt-72 pb-25 px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
         <div className="flex">
           <h1 className="text-xl sm:text-2xl md:text-6xl font-semibold text-center text-bistre mb-2 sm:mb-3 md:mb-6">
             <span className="text-chamoisee">Transforming</span> The Way <br />{" "}

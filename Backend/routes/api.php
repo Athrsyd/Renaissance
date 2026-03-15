@@ -2,9 +2,15 @@
 
 // use Illuminate\Http\Request;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\MapelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TemanController;
+use App\Http\Controllers\ModulBelajarController;
+use App\Http\Controllers\BabController;
+use App\Http\Controllers\LayarMateriController;
+use App\Http\Controllers\QuizController;
+use App\Http\Controllers\OpsiJawabanController;
 
 Route::prefix('v1/')->group(function () {
     Route::post('auth/register', [UserController::class, 'register']);
@@ -23,7 +29,23 @@ Route::prefix('v1/')->group(function () {
         Route::get('chat/{userId}', [ChatController::class, 'index']);
         Route::post('chat/text', [ChatController::class, 'sendText']);
         Route::delete('chat/{message}', [ChatController::class, 'destroy']);
+
+        // Ambil List Mapel
+        Route::get('/mapel', [MapelController::class, 'index']); 
+
+        // Ambil List Modul
+        Route::get('/modules', [ModulBelajarController::class, 'index']);
+
+        Route::get('/modul/{id_modul}/bab', [BabController::class, 'index']);
+        Route::get('/bab/{bab}', [BabController::class, 'show']);
+
+        Route::get('/bab/{id_bab}/layar-materi', [LayarMateriController::class, 'index']);
+        Route::get('/layar-materi/{layarMateri}', [LayarMateriController::class, 'show']);
+
+        Route::get('/layar-materi/{id_layar_materi}/quiz', [QuizController::class, 'index']);
+        Route::get('/quiz/{quiz}', [QuizController::class, 'show']);
+
+        Route::get('/quiz/{id_quiz}/opsi-jawaban', [OpsiJawabanController::class, 'index']);
+        Route::get('/opsi-jawaban/{opsiJawaban}', [OpsiJawabanController::class, 'show']);
     });
 });
-
-
