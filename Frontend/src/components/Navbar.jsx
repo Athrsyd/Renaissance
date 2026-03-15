@@ -86,10 +86,6 @@ const Navbar = () => {
 
         <div className="logo z-1000000">
           <a href="/" className="flex items-center p-2 gap-2">
-<<<<<<< HEAD
-            <img src={logo} alt="Renaissance Logo" className="h-5 md:h-7" />
-            <h1 className="hidden md:block text-white text-xl md:text-2xl font-semibold">Renaissance</h1>
-=======
             <img
               src={logo}
               alt="Renaissance Logo"
@@ -98,7 +94,6 @@ const Navbar = () => {
             <h1 className="sm:hidden md:block text-[#F2E0D2] sm:text-white text-xl md:text-2xl font-normal sm:font-semibold">
               Renaissance
             </h1>
->>>>>>> adb5899a53bb99e9b96fcbb08dff3707a862013e
           </a>
         </div>
 
