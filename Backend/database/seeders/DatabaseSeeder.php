@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             MapelSeeder::class,
             ModulBelajarSeeder::class,
+            PknSeeder::class,
+            MatematikaSeeder::class,
         ]);
     }
 }
