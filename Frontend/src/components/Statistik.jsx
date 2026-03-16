@@ -45,7 +45,7 @@ const Stats = ({item}) => {
 
 const Statistik = () => {
   return (
-    <div className="bg-linear-to-r from-[#9B7A5B]/60 to-[#6A4D3B]/60 rounded-3xl md:rounded-4xl max-w-4xl w-full p-5 md:p-7 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center text-center">
+    <div className="bg-linear-to-r from-icon/60 to-[#6A4D3B]/60 rounded-3xl md:rounded-4xl max-w-4xl w-full p-5 md:p-7 grid grid-cols-2 sm:grid-cols-4 gap-4 items-center text-center">
       {dataStats.map((item) => (
         <Stats key={item.id} item={item} />
       ))}
