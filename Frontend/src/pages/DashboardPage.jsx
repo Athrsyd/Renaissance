@@ -30,6 +30,7 @@ const DashboardPage = () => {
             </button>
           </div>
         </div>
+
         <CominityList />
       </div>
     </>
