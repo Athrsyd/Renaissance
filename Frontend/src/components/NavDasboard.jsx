@@ -1,3 +1,4 @@
+import { Link } from "lucide-react";
 import Logo from "../assets/Logo2.png"
 
 const navIcon = [
@@ -65,7 +66,7 @@ const navIcon = [
         />
       </svg>
     ),
-    text: "Bintang",
+    text: "Ask Aureus",
   },
   {
     id: 4,
@@ -87,7 +88,7 @@ const navIcon = [
         />
       </svg>
     ),
-    text: "Message",
+    text: "Community",
   },
   {
     id: 5,
@@ -118,11 +119,11 @@ const navIcon = [
 const SidebarIcon = ({item}) => {
   return (
     <>
-      <div className="relative group">
+      <div className="relative group" Link >
         {item.icon}
         <span
-          className="absolute left-16 top-1/2 -translate-y-1/2
-          bg-icon text-white text-sm px-3 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm
+          className="absolute left-16 top-1/2 -translate-y-1/2 w-30
+          bg-icon text-white text-center text-sm px-4 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm
           opacity-0 group-hover:opacity-100 transition"
         >
           {item.text}

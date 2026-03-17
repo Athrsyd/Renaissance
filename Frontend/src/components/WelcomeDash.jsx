@@ -9,7 +9,7 @@ const WelcomeDash = () => {
           <h1 className="text-2xl font-monstserrat font-semibold text-[#39221C]">
             <span className="text-icon">Hello,</span> Naresha Letrakusuma
           </h1>
-          <p className="text-md font-semibold mt-2 pr-10 text-[#39221C]">
+          <p className="text-md font-semibold font-monstserrat mt-2 pr-10 text-[#39221C]">
             Learning is a journey of curiosity and discovery. Continue exploring
             your subjects, deepen your understanding, and unlock new knowledge
             with the help of Renaissance. 
