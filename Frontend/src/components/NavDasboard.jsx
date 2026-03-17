@@ -1,4 +1,4 @@
-import Logo from "../assets/Logo2.png"
+import Logo from "../assets/Logo2.png";
 
 const navIcon = [
   {
@@ -115,13 +115,13 @@ const navIcon = [
   },
 ];
 
-const SidebarIcon = ({item}) => {
+const SidebarIcon = ({ item }) => {
   return (
     <>
-      <div className="relative group">
+      <div className="relative group -ml-5 lg:-ml-6 lg:mb-8">
         {item.icon}
         <span
-          className="absolute left-16 top-1/2 -translate-y-1/2
+          className="absolute left-1 lg:left-15 top-1/2 -translate-y-13 lg:-translate-y-8
           bg-icon text-white text-sm px-3 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm
           opacity-0 group-hover:opacity-100 transition"
         >
@@ -132,20 +132,19 @@ const SidebarIcon = ({item}) => {
   );
 };
 
-const Sidebar = () => {
+const SideBar = () => {
   return (
-    <aside className="fixed left-0 top-0">
-      <div className="h-screen w-20 bg-white flex flex-col items-center py-6 border-r">
-        <div className="flex flex-col gap-8">
-          <img src={Logo} className="ml-1 w-[90%]" />
-
-          {navIcon.map((item) => (
-            <SidebarIcon key={item.id} item={item} />
-          ))}
-        </div>
+    <aside className="fixed bottom-0 left-0 w-full z-100 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0">
+      <div className="flex w-full h-full flex-row justify-around items-center lg:flex-col lg:items-center lg:py-6">
+        {/* Logo (hanya desktop) */}
+        <img src={Logo} className="hidden lg:block ml-1 w-[90%]" />
+        
+        {navIcon.map((item) => (
+          <SidebarIcon key={item.id} item={item} />
+        ))}
       </div>
     </aside>
   );
 };
 
-export default Sidebar;
+export default SideBar;
