@@ -135,7 +135,7 @@ const SidebarIcon = ({item}) => {
 const Sidebar = () => {
   return (
     <aside className="fixed left-0 top-0">
-      <div className="h-screen w-20 bg-gray-100 flex flex-col items-center py-6 border-r">
+      <div className="h-screen w-20 bg-white flex flex-col items-center py-6 border-r">
         <div className="flex flex-col gap-8">
           <img src={Logo} className="ml-1 w-[90%]" />
 
