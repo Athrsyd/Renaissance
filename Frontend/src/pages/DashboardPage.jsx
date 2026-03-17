@@ -5,12 +5,14 @@ import Search from "../assets/icon/searchIcon.svg"
 import Notif from "../assets/icon/notifIcon.svg"
 import CominityList from "../components/CommunityList"
 import rBottom from "../assets/icon/rowBottom.svg"
+import WelcomeDash from '../components/WelcomeDash'
+import SubjectDash from '../components/SubjectDash'
 
 const DashboardPage = () => {
   return (
     <>
-      <div className="flex flex-col bg-white justify-center items-center overflow-x-hidden">
-        <NavDasboard />
+      <NavDasboard /> 
+      <div className="flex flex-col ml-20 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-row w-full ml-20 mt-2 justify-center items-center">
           <div className="relative justify-center items-center">
             <input
@@ -26,11 +28,12 @@ const DashboardPage = () => {
             </button>
             <div className="img h-12 w-12 mb-2 bg-bistre rounded-full"></div>
             <button>
-              <img src={rBottom} className="w-5"/>
+              <img src={rBottom} className="w-5" />
             </button>
           </div>
         </div>
-
+        <WelcomeDash />
+        <SubjectDash />
         <CominityList />
       </div>
     </>
