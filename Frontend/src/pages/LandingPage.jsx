@@ -14,7 +14,7 @@ const LandingPage = () => {
   return (
     <>
       <Navbar />
-      <section className="h-screen relative z-60 w-full pt-72 pb-25 px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2] overflow-x-hidden">
+      <section className="h-screen relative z-60 w-full pt-72 pb-25 px-15 sm:px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
         <div className="flex">
           <h1 className="text-xl sm:text-2xl md:text-6xl font-semibold text-center text-bistre mb-2 sm:mb-3 md:mb-6">
             <span className="text-chamoisee">Transforming</span> The Way <br />{" "}
@@ -44,7 +44,7 @@ const LandingPage = () => {
               width="100%"
               src={buku}
               alt="gambar buku"
-              className="md:w-full w-80 -mb-1 sm:w-90 sm:mb-25 sm:pb-6.5 md:-mb-4.75 md:pb-3.75"
+              className="md:w-full w-80 -mb-5 pb-30 sm:w-90 sm:mb-25 sm:pb-6.5 md:-mb-4.75 md:pb-3.75"
             />
           </div>
           <div className=" flex order-2 md:order-3 flex-col md:w-[30%] text-center gap-2 mb-5 md:mb-10 leading-loose">

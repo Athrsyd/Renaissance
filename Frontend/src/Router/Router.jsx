@@ -5,21 +5,22 @@ import Login from '../pages/AuthPages/Login'
 import Register from '../pages/AuthPages/Register'
 import Testing from './testing'
 import LandingPage2 from '../pages/LandingPage2'
+import DashboardPage from '../pages/DashboardPage'
 
 const Router = () => {
   return (
     <Routes>
-
       <Route path="/" element={<LandingPage />} />
 
       {/* Auth Routes */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
+      <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/landing2" element={<LandingPage2 />} />
-      <Route path="/testing" element={<Testing/>}/>
+      <Route path="/testing" element={<Testing />} />
     </Routes>
-  )
+  );
 }
 
 
