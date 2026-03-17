@@ -7,12 +7,14 @@ import CominityList from "../components/CommunityList"
 import rBottom from "../assets/icon/rowBottom.svg"
 import WelcomeDash from '../components/WelcomeDash'
 import SubjectDash from '../components/SubjectDash'
+import ContinueLearning from '../components/ContinueLearning'
+import AureusAI from '../components/AureusAI'
 
 const DashboardPage = () => {
   return (
     <>
-      <NavDasboard /> 
-      <div className="flex flex-col ml-20 bg-white justify-center items-center overflow-x-hidden">
+      <NavDasboard />
+      <div className="flex flex-col ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-row w-full ml-20 mt-2 justify-center items-center">
           <div className="relative justify-center items-center">
             <input
@@ -34,8 +36,22 @@ const DashboardPage = () => {
         </div>
         <WelcomeDash />
         <SubjectDash />
-        <CominityList />
+        <div className="w-full pl-35 mt-7">
+          <h1 className=' -mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black'>Continue Learning</h1>
+
+          <ContinueLearning />
+        </div>
+
+        <AureusAI />
+        
+        <div className="w-full flex-col flex mt-7">
+          <h1 className='ml-40 self-start font-semibold font-monstserrat text-lg text-black'>Comunity</h1>
+          <CominityList />
+        </div>
       </div>
+      <br />
+      <br />
+      <br />
     </>
   );
 }

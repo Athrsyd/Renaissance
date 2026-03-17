@@ -31,7 +31,7 @@ const SubjectCard = ({item}) => {
           <div className="absolute z-30 top-0 w-full mt-6 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
         <a>
-          <button className="absolute z-40 text-[8px] bottom-0 left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
+          <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[8px] bottom-0 left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
             Learn now
           </button>
         </a>
@@ -50,13 +50,13 @@ const SubjectDash = () => {
         {Subjects.map((item) => (
           <SubjectCard key={item.id} item={item} />
         ))}
-        <div className="flex flex-row justify-between items-center gap-2">
+        <div className="flex flex-row justify-between items-center group gap-2">
           <a>
-            <button className="bg-bistre text-white ml-3 px-8 py-2 text-[12px] rounded-xl">
+            <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white ml-3 px-8 py-2 text-[12px] rounded-xl">
               More Subject
             </button>
           </a>
-          <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg" />
+          <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg group-hover:translate-x-5 transition duration-500 ease-in-out" />
         </div>
       </div>
     </div>
