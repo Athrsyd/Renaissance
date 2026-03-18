@@ -46,4 +46,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function modulProgress()
+    {
+        return $this->hasMany(UserModulProgress::class, 'user_id');
+    }   
 }

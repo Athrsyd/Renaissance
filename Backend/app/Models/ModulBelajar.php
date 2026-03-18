@@ -22,4 +22,9 @@ class ModulBelajar extends Model
     {
         return $this->hasMany(Bab::class, 'id_modul');
     }
+
+    public function userProgress()
+    {
+        return $this->hasMany(UserModulProgress::class, 'modul_id');
+    }
 }

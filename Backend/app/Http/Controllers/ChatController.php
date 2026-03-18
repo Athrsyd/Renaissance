@@ -3,65 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Community;
+use App\Models\CommunityMember;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class ChatController extends Controller
 {
-    public function index(Request $request, $userId)
+    // Ambil pesan per komunitas
+    public function getMessages(Request $request, Community $community)
     {
+        // Cek apakah user adalah member komunitas
+        $isMember = CommunityMember::where('community_id', $community->id)
+            ->where('user_id', Auth::id())
+            ->exists();
 
-        $message = Message::where(function ($q) use ($userId) {
-            $q->where('sender_id', Auth::id())
-                ->where('receiver_id', $userId);
-        })
-            ->orWhere(function ($q) use ($userId) {
-                $q->where('sender_id', $userId)
-                    ->where('receiver_id', Auth::id());
-            })
-            ->orderBy('created_at', 'asc')->get();
+        if (!$isMember) {
+            return response()->json(['message' => 'Anda bukan member'], 403);
+        }
 
-        return response()->json($message);
+        $messages = Message::where('community_id', $community->id)
+            ->with('sender')
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        return response()->json([
+            'message' => 'Pesan komunitas',
+            'data' => $messages,
+        ]);
     }
 
-    public function sendText(Request $request)
+    // Kirim pesan ke komunitas
+    public function sendMessage(Request $request, Community $community)
     {
-        $validasi = Validator::make($request->all(), [
-            'receiver_id' => 'required|exists:users,id',
+        // Cek member
+        $isMember = CommunityMember::where('community_id', $community->id)
+            ->where('user_id', Auth::id())
+            ->exists();
+
+        if (!$isMember) {
+            return response()->json(['message' => 'Anda bukan member'], 403);
+        }
+
+        $validated = $request->validate([
             'chat' => 'required|string|max:5000',
         ]);
 
-        if ($validasi->fails()) {
-            return response()->json([
-                'message' => 'Validasi gagal',
-                'error' => $validasi->errors()
-            ], 422);
-        }
-
         $message = Message::create([
             'sender_id' => Auth::id(),
-            'receiver_id' => $request->receiver_id,
-            'chat' => $request->chat,
+            'community_id' => $community->id,
+            'chat' => $validated['chat'],
         ]);
+
+        $message->load('sender');
 
         return response()->json([
-            'message'=>'Pesan Terkirim',
-            'data'=>$message
-        ]);
+            'message' => 'Pesan terkirim',
+            'data' => $message,
+        ], 201);
     }
 
+    // Hapus pesan
     public function destroy(Message $message)
     {
-        if($message->sender_id !== Auth::id()){
-            return response()->json([
-                'message'=>'Unauthorized'
-            ],403);
+        $isSender = $message->sender_id === Auth::id();
+
+        if (!$isSender ) {
+            return response()->json(['message' => 'Anda tidak bisa hapus pesan ini'], 403);
         }
 
         $message->delete();
-        return response()->json([
-            'message'=>'pesan terhapus'
-        ]);
+        return response()->json(['message' => 'Pesan dihapus']);
     }
 }
