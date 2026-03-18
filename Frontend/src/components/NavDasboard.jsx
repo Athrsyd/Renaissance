@@ -65,7 +65,7 @@ const navIcon = [
         />
       </svg>
     ),
-    text: "Ask Aureus",
+    text: "Aureus",
   },
   {
     id: 4,
@@ -118,10 +118,10 @@ const navIcon = [
 const SidebarIcon = ({ item }) => {
   return (
     <>
-      <div className="relative group">
+      <div className="relative group -ml-4 lg:-ml-7 lg:mb-9">
         {item.icon}
         <span
-          className="absolute left-16 top-1/2 -translate-y-1/2
+          className="hidden lg:block absolute left-16 top-1/2 lg:-translate-y-7
           bg-icon text-white text-sm px-3 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm
           opacity-0 group-hover:opacity-100 transition"
         >

@@ -17,7 +17,7 @@ const DashboardPage = () => {
   return (
     <>
       <NavDasboard />
-      <div className="flex flex-col ml-0 lg:ml-10 bg-white justify-center items-center overflow-x-hidden">
+      <div className="flex flex-col  lg:ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-row w-full ml-9 lg:ml-20 mt-2 lg:justify-center items-center">
           <div className="relative justify-center items-center">
             <input

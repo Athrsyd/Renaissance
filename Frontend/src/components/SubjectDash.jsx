@@ -20,7 +20,7 @@ const Subjects = [
 const SubjectCard = ({item}) => {
   return (
     <>
-      <div className="w-50 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
+      <div className="w-85 h-70 lg:w-50 lg:h-70 justify-center rounded-2xl py-4 bg-bistre relative flex-col">
         <h1 className="text-md text-[#F8F3E0] px-5 mb-2 font-monstserrat font-semibold">
           {item.title}
         </h1>
@@ -30,8 +30,9 @@ const SubjectCard = ({item}) => {
           <div className="absolute z-20 top-0 w-[95%] mt-3 h-40 bg-icon rounded-2xl"></div>
           <div className="absolute z-30 top-0 w-full mt-6 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
+
         <a>
-          <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[8px] bottom-0 left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
+          <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] bottom-0 left-27 lg:left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
             Learn now
           </button>
         </a>
@@ -42,17 +43,17 @@ const SubjectCard = ({item}) => {
 
 const SubjectDash = () => {
   return (
-    <div className=" flex flex-col justify-center items-center w-225 mt-5">
+    <div className="flex flex-col justify-center lg:pl-0 items-center max-w-full lg:w-225 mt-5">
       <h1 className="self-start font-semibold font-monstserrat text-lg text-black">
         Subject
       </h1>
-      <div className="relative flex flex-row gap-8 mt-5 justify-center items-center self-start">
+      <div className="relative flex flex-col lg:flex-row gap-6 lg:gap-8 mt-5 justify-center items-center self-start">
         {Subjects.map((item) => (
           <SubjectCard key={item.id} item={item} />
         ))}
         <div className="flex flex-row justify-between items-center group gap-2">
           <a>
-            <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white ml-3 px-8 py-2 text-[12px] rounded-xl">
+            <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white -ml-38 lg:ml-3 px-8 py-2 text-[12px] rounded-xl">
               More Subject
             </button>
           </a>
