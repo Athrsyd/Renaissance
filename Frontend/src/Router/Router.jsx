@@ -6,6 +6,7 @@ import Register from '../pages/AuthPages/Register'
 import Testing from './testing'
 import LandingPage2 from '../pages/LandingPage2'
 import DashboardPage from '../pages/DashboardPage'
+import AcademyPage from '../pages/AcademyPage'
 
 const Router = () => {
   return (
@@ -16,6 +17,7 @@ const Router = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
+      <Route path="/academy" element={<AcademyPage />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
