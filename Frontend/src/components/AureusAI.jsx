@@ -3,7 +3,7 @@ import React from 'react'
 
 const AureusAI = () => {
     return (
-        <section className="w-9/10 px-10 sm:px-16 lg:px-24 mt-8">
+        <section className="lg:w-9/10 w-9.8/10 px-10 sm:px-16 lg:px-24 mt-8">
             <div className="relative overflow-hidden rounded-[28px] shadow-[0_10px_24px_rgba(57,34,28,0.2)] bg-[url('/AiDashboardBG.png')] opacity-85  bg-cover bg-center">
                 <div className="absolute inset-0 opacity-35">
                     <div className="absolute -left-20 top-8 h-44 w-[70%] rotate-[-8deg] rounded-[100%] bg-[#E8C79C] blur-xl" />
@@ -33,8 +33,8 @@ const AureusAI = () => {
                             />
                         </svg>
 
-                        <div className="-mt-px rounded-b-[28px] bg-[rgba(90,63,54,0.62)] px-6 pb-7 pt-5 sm:px-10 sm:pb-10 sm:pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-[3px]">
-                            <p className="text-beige px-10 text-xl sm:text-2xl text-justify font-semibold leading-tight tracking-wide">
+                        <div className="-mt-px rounded-b-[28px] bg-[rgba(90,63,54,0.62)] px-2 lg:px-35 pb-7 pt-5 sm:px-10 sm:pb-10 sm:pt-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] backdrop-blur-[3px]">
+                            <p className="text-beige px-10 text-sm lg:text-xl md:text-xl sm:text-2xl text-left w-90 lg:w-160 md:w-140 lg:text-justify font-semibold leading-tight tracking-wide">
                                 Teman belajar digital yang membantu menjawab pertanyaan, menjelaskan materi, dan membimbingmu memahami pelajaran dengan lebih jelas dan efektif.
                             </p>
 

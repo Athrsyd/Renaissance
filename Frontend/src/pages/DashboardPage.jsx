@@ -17,21 +17,21 @@ const DashboardPage = () => {
   return (
     <>
       <NavDasboard />
-      <div className="flex flex-col  lg:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        <div className="flex flex-row w-full ml-9 lg:ml-20 mt-2 lg:justify-center items-center">
+      <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
+        <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
           <div className="relative justify-center items-center">
             <input
               type="search"
               placeholder="Explore Lessons"
-              className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 h-10 outline-0"
+              className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
             />
             <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
           </div>
-          <div className="ml-5 lg:ml-10 mt-6 gap-5 flex flex-row justify-between">
+          <div className="ml-5 lg:ml-10 md:ml-10 mt-6 gap-5 flex flex-row justify-between">
             <button>
-              <img src={Notif} className="w-6 lg:w-7" />
+              <img src={Notif} className="w-6 lg:w-7 md:w-7" />
             </button>
-            <div className="img w-9 h-9 lg:h-12 lg:w-12 mb-2 bg-bistre rounded-full"></div>
+            <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full"></div>
             <button>
               <img src={rBottom} className="w-5" />
             </button>
@@ -39,7 +39,7 @@ const DashboardPage = () => {
         </div>
         <WelcomeDash />
         <SubjectDash />
-        <div className="w-full pl-35 mt-7">
+        <div className="w-full lg:pl-35 md:pl-10 mt-7">
           <h1 className=' -mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black'>Continue Learning</h1>
 
           <ContinueLearning />
@@ -48,7 +48,7 @@ const DashboardPage = () => {
         <AureusAI />
         
         <div className="w-full flex-col flex mt-7">
-          <h1 className='ml-40 self-start font-semibold font-monstserrat text-lg text-black'>Comunity</h1>
+          <h1 className='ml-5 lg:ml-40 md:ml-20 self-start font-semibold font-monstserrat text-lg text-black'>Comunity</h1>
           <CominityList />
         </div>
       </div>
