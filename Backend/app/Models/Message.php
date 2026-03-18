@@ -8,12 +8,8 @@ class Message extends Model
 {
     protected $fillable =[
         'sender_id',
-        'receiver_id',
-        // 'type',
+        'community_id',
         'chat',
-        // 'file_path',
-        // 'file_name',
-        // 'mime_type',
     ];
 
     public function sender()
@@ -21,8 +17,8 @@ class Message extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function receiver()
+    public function community()
     {
-        return $this->belongsTo(User::class, 'receiver_id');
+        return $this->belongsTo(Community::class, 'community_id');
     }
 }   

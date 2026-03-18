@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('community_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('community_id')->constrained('communities')->onDelete('cascade');
-            $table->text('chat')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamp('joined_at')->useCurrent();
             $table->timestamps();
+            // agar 1 user hanya bisa join 1x di 1 komunitas
+            $table->unique(['community_id', 'user_id']); 
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('community_members');
     }
 };
