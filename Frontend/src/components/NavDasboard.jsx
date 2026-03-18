@@ -118,7 +118,7 @@ const navIcon = [
 const SidebarIcon = ({ item }) => {
   return (
     <>
-      <div className="relative group -ml-4 lg:-ml-7 lg:mb-9 md:mb-11 md:-ml-5">
+      <div className="relative group -ml-4 lg:-ml-5 lg:mb-9 md:mb-11 md:-ml-5">
         {item.icon}
         <span
           className="hidden lg:block md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
