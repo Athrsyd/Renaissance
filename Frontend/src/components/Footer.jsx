@@ -7,7 +7,7 @@ const Footer = () => {
   if (window.innerWidth >= 768) {
     return (
       <>
-        <div className="p-10 border-b-2 border-[#9B7A5B] border-solid">
+        <div className="p-10 border-b-2 border-icon border-solid">
           <div className="flex flex-row gap-2">
             <img src={logo} alt="" />
             <h1 className="text-bistre font-medium font-poppins text-2xl">
@@ -17,7 +17,7 @@ const Footer = () => {
 
           <div className="flex flex-row justify-between mt-6">
             <div className="flex flex-col gap-5">
-              <h1 class="w-65 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
+              <h1 className="w-65 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
                 Platform pembelajaran interaktif untuk siswa SMP dan SMA yang
                 menggabungkan teknologi, kreativitas, dan semangat kebangkitan
                 ilmu pengetahuan.
@@ -30,7 +30,7 @@ const Footer = () => {
                 <h1 className="font-monstserrat text-[rgba(57,34,28,0.9)] font-bold">
                   Platform
                 </h1>
-                <p class="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
+                <p className="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
                   Features
                 </p>
                 <p className="font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
@@ -54,7 +54,7 @@ const Footer = () => {
                 <h1 className="font-monstserrat text-[rgba(57,34,28,0.9)] font-bold">
                   Company
                 </h1>
-                <p class="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
+                <p className="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
                   About Us
                 </p>
                 <p className="font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
@@ -69,7 +69,7 @@ const Footer = () => {
                 <h1 className="font-monstserrat text-[rgba(57,34,28,0.9)] font-bold">
                   Resources
                 </h1>
-                <p class="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
+                <p className="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
                   Study Tips
                 </p>
                 <p className="font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
@@ -84,7 +84,7 @@ const Footer = () => {
                 <h1 className="font-monstserrat text-[rgba(57,34,28,0.9)] font-bold">
                   Contact
                 </h1>
-                <p class="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
+                <p className="mt-2 font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
                   renaissance.id
                 </p>
                 <p className="font-monstserrat text-[rgba(57,34,28,0.8)] font-semibold">
@@ -105,7 +105,7 @@ const Footer = () => {
           </div>
 
           <div className="flex justify-center md:ml-10 lg:ml-55">
-            <p class="text-center font-monstserrat text-[rgba(57,34,28,0.9)] semi-bold">
+            <p className="text-center font-monstserrat text-[rgba(57,34,28,0.9)] semi-bold">
               © 2026 Renaissance Learning Platform. All Rights Reserved.
             </p>
           </div>

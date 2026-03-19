@@ -6,7 +6,7 @@ import iconAi from "../assets/icon/iconAi.png";
 
 const data = [
   {
-    id: "1",
+    id: 1,
     judul: "Interactive Learn",
     img: iconKertas,
     deskirpsi:
@@ -14,7 +14,7 @@ const data = [
   },
 
   {
-    id: "2",
+    id: 2,
     judul: "AI Assistant",
     img: iconAi,
     deskirpsi:
@@ -22,7 +22,7 @@ const data = [
   },
 
   {
-    id: "3",
+    id: 3,
     judul: "Community",
     img: iconComunity,
     deskirpsi:
@@ -30,7 +30,7 @@ const data = [
   },
 
   {
-    id: "4",
+    id: 4,
     judul: "Progress Learn",
     img: iconChart,
     deskirpsi:
@@ -41,7 +41,7 @@ const data = [
 const Card = ({ item }) => {
   return (
     <>
-      <div className="bg-bistre w-90 lg:w-120 h-75 p-7 rounded-2xl md:w-95">
+      <div className={`bg-bistre w-90 lg:w-120 h-75 p-7 rounded-2xl cursor-pointer md:w-95 ${item.id === 3? 'hover:translate-y-2 hover:-translate-x-2' : item.id === 4? 'hover:translate-y-2 hover:translate-x-2' : item.id === 1? 'hover:-translate-y-2 hover:-translate-x-2' : 'hover:-translate-y-2 hover:translate-x-2'} hover:shadow-lg transition-all duration-300 ease-in-out`}>
         <div className="flex items-center border-b-3 border-icon font-poppins pb-1.5">
           <img src={item.img} alt="" className="w-15 h-15" />
           <h1 className="bg-linear-to-r from-icon to-[#CAB99F] text-transparent bg-clip-text text-2xl font-semibold ml-2.5">
@@ -57,10 +57,12 @@ const Card = ({ item }) => {
   );
 };
 
+// const hoverEffect = `${item.id === 1? 'hover:translate-y-2 hover:-translate-x-2' : item.id === 2? 'hover:translate-y-2 hover:translate-x-2' : item.id === 3? 'hover:-translate-y-2 hover:-translate-x-2' : 'hover:-translate-y-2 hover:translate-x-2'} hover:shadow-lg transition-all duration-300 ease-in-out`
+
 const Experience = () => {
   return (
     <>
-      <div className="mt-20 flex justify-center md:flex-row flex-wrap gap-10">
+      <div className={` mt-20 flex justify-center md:flex-row flex-wrap gap-10`}>
         {data.map((item) => (
           <Card key={item.id} item={item} />
         ))}

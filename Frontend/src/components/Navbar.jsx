@@ -1,6 +1,6 @@
 import logo from '../assets/logo2.png'
-import React from 'react'
-import {Menu, X} from 'lucide-react'
+import React, { use } from 'react'
+import { Menu, X } from 'lucide-react'
 import { useState, useEffect } from 'react'
 
 const Navbar = () => {
@@ -8,80 +8,80 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
-  
+
   const closeMenu = () => {
     setIsMenuOpen(false)
   }
+  const [menuActive, setMenuActive] = useState('');
 
-  //  isScrolled blm ke pake
-  const [isScrolled, setIsScrolled] = useState(false);
-    const [menuActive, setMenuActive] = useState('');
+  const handleClick = (menu) => {
+    setMenuActive(menu);
+  }
 
-    const handleClick = (menu) => {
-      setMenuActive(menu);
-      // nanti ini di hapus yq
-      if (menuActive === menu) {
-        setMenuActive('');
-      }
+  const handleScroll = () => {
+    if (window.scrollY >= 416 && window.scrollY < 2495) {
+      setMenuActive('about');
+    } else if (window.scrollY >= 2495 && window.scrollY < 3150) {
+      setMenuActive('academy');
+    } else if (window.scrollY >= 3150 && window.scrollY < 3740) {
+      setMenuActive('features');
+    } else if (window.scrollY >= 3740) {
+      setMenuActive('reviews');
+    } else {
+      setMenuActive('');
     }
+  };
   useEffect(() => {
-
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
-    };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    };
+    }
   }, []);
+
+
 
   return (
     <header className=" fixed w-full flex justify-center unded-full z-9999">
+      {/* <button onClick={()=>console.log(window.scrollY)} className='absolute top-100 bg-amber-400'>test</button> */}
       <div
-        className={`fixed inset-0 bg-black/50 md:hidden transition-opacity duration-300 ${
-          isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/50 md:hidden transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         onClick={closeMenu}
       />
-      {/* <<<<<<< HEAD */}
       <nav
         className={`bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-0 px-6 md:p-3 
           justify-between md:justify-center 
           items-center md:gap-20 transition-all duration-600
   
-  ${
-    isMenuOpen
-      ? "fixed top-0 left-0 w-full rounded-none mt-0"
-      : "mt-2 sm:mt-4 w-full ml-2 mr-2 sm:ml-0 sm:mr-0 sm:w-[90%] md:w-full md:max-w-6xl rounded-full"
-  }`}
+  ${isMenuOpen
+            ? "fixed top-0 left-0 w-full rounded-none mt-0"
+            : "mt-2 sm:mt-4 w-full ml-2 mr-2 sm:ml-0 sm:mr-0 sm:w-[90%] md:w-full md:max-w-6xl rounded-full"
+          }`}
       >
         <ul className="hidden sm:flex flex-row justify-center md:gap-10">
-          <li
-            onClick={() => handleClick("about")}
-            className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive === "about" ? "bg-coffe" : ""}`}
+          <a
+            href="#about"
+            className=" transition-colors "
           >
-            <a
-              href="#about"
-              className="text-beige transition-colors text-md md:text-lg"
+            <li
+              onClick={() => handleClick("about")}
+              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "about" ? "bg-beige/70 text-bistre" : ""}`}
             >
               {" "}
               About Us
-            </a>
-          </li>
-          <li
-            onClick={() => handleClick("academy")}
-            className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive === "academy" ? "bg-coffe" : ""}`}
+            </li>
+          </a>
+          <a
+            href="#academy"
           >
-            <a
-              href="#academy"
-              className="text-beige  transition-colors text-md md:text-lg"
+            <li
+              onClick={() => handleClick("academy")}
+              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "academy" ? "bg-beige/70 text-bistre" : ""}`}
             >
               {" "}
               The Academy
-            </a>
-          </li>
+            </li>
+          </a>
         </ul>
 
         <div className="logo z-1000000">
@@ -102,9 +102,8 @@ const Navbar = () => {
           onClick={toggleMenu}
         >
           <span
-            className={`block transition-transform duration-300 ${
-              isMenuOpen ? "rotate-90 scale-110" : "rotate-0 scale-100"
-            }`}
+            className={`block transition-transform duration-300 ${isMenuOpen ? "rotate-90 scale-110" : "rotate-0 scale-100"
+              }`}
           >
             {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </span>
@@ -152,28 +151,28 @@ const Navbar = () => {
         </div>
 
         <ul className="hidden sm:flex flex-row justify-center md:gap-10">
-          <li
-            onClick={() => handleClick("features")}
-            className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive === "features" ? "bg-coffe" : ""}`}
+          <a
+            href="#features"
+            className="transition-colors "
           >
-            <a
-              href="#features"
-              className="text-beige transition-colors text-md md:text-lg"
+            <li
+              onClick={() => handleClick("features")}
+              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "features" ? "bg-beige/70 text-bistre" : ""}`}
             >
               Features
-            </a>
-          </li>
-          <li
-            onClick={() => handleClick("reviews")}
-            className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive === "reviews" ? "bg-coffe" : ""}`}
+            </li>
+          </a>
+          <a
+            href="#reviews"
+            className="transition-colors "
           >
-            <a
-              href="#reviews"
-              className="text-beige transition-colors text-md md:text-lg"
+            <li
+              onClick={() => handleClick("reviews")}
+              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "reviews" ? "bg-beige/70 text-bistre" : ""}`}
             >
               Reviews
-            </a>
-          </li>
+            </li>
+          </a>
           {/* <li onClick={()=>console.log(window.scrollY)}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li> */}
         </ul>
       </nav>

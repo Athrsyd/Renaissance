@@ -144,7 +144,7 @@ const data2 = [
 const Card = ({ item }) => {
   return (
     <>
-      <div className="bg-white w-80 lg:w-140 lg:h-70 md:w-120 p-4 rounded-3xl">
+      <div className="bg-white hover:-translate-y-1.5 transition-all duration-300 mt-3 ease-in-out w-80 lg:w-140 lg:h-70 md:w-120 p-4 rounded-3xl">
         <div className="flex gap-5 items-center">
           <img src={item.img} alt="" className="w-15 h-15 rounded-full" />
           <div>

@@ -30,11 +30,13 @@ const LandingPage = () => {
             </p>
           </div>
           <div className="flex order-3 md:order-2 justify-center items-center md:w-[40%] h-full">
-            <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[80%] sm:w-[70%] md:w-[30%] items-center absolute bottom-3 rounded-4xl md:px-3 sm:px-4 gap-1 md:p-2 p-2 sm:p-2 backdrop-blur-md shadow-md bg-white/10 border-white/20">
-              <button className="bg-bistre rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white">
+            <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[80%] sm:w-[70%] md:w-[30%] 
+            items-center absolute bottom-3 rounded-4xl md:px-3 sm:px-4 gap-5 md:p-2 p-2 sm:p-2 backdrop-blur-md 
+            shadow-md bg-white/10 border-white/20">
+              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white">
                 Start Learning
               </button>
-              <Link to="/Login" className="bg-black/15 text-center rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 am:py-4 md:py-2 md:p-0 p-2 text-xl text-white">
+              <Link to="/Login" className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 sm:py-4 md:py-2 md:p-0 p-2 text-xl text-white">
                 <button className="text-center">
                   Login
                 </button>
@@ -54,7 +56,7 @@ const LandingPage = () => {
               For Middle & High School
             </p>
             <a>
-              <button className="bg-bistre text-white px-4 py-3 sm:px-5 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee transition-colors">
+              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-4 py-3 sm:px-5 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee ">
                 Learn More
               </button>
             </a>
@@ -106,10 +108,12 @@ const LandingPage = () => {
             </span>
           </h1>
           <Mapel />
-          <h2 className="text-2xl mt-10 mb-15 font-semibold bg-linear-to-l from-[#CAB99F] to-[#9B7A5B] bg-clip-text text-transparent">
+          <Link to='/login'>
+          <h2 className="text-2xl mt-10 mb-15 font-semibold hover:scale-105 transition-all duration-300 ease-in-out bg-linear-to-l from-[#CAB99F] to-icon bg-clip-text text-transparent">
             {" "}
             Learn Now
           </h2>
+          </Link>
         </div>
       </section>
 

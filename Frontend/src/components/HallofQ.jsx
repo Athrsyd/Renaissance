@@ -36,7 +36,7 @@ const Card = ({ item }) => {
   return (
     <>
       <div className=" flex flex-col w-1/2">
-        <div className="border-2 border-[#9B7A5B] rounded-xl p-5 bg-bistre text-white w-full">
+        <div className="border-2 border-icon rounded-xl p-5 bg-bistre text-white w-full">
           {/* header */}
           <div
             className="flex justify-between items-center cursor-pointer"
