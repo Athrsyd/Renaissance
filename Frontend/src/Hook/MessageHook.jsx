@@ -12,15 +12,19 @@ const MessageHook = () => {
         setError(null)
         try {
             const token = localStorage.getItem('token')
+            console.log('Fetching messages for community:', communityId) 
+            
             const response = await API.get(`/communities/${communityId}/messages`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
+            console.log('Messages received:', response.data.data) 
             setMessages(response.data.data)
             setMessage('')
         } catch (error) {
             console.error('Error fetching messages:', error)
+            console.error('Error response:', error.response?.data) 
             setError(error.response?.data?.message || 'Gagal mengambil pesan')
             setMessages([])
         } finally {

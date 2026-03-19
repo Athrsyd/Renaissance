@@ -55,17 +55,15 @@ Route::prefix('v1/')->group(function () {
         Route::get('/dashboard/continue-learning', [UserModulProgressController::class, 'index']);
 
         // KOMUNITAS (GROUP CHAT)
+        Route::get('/communities/search', [CommunityController::class, 'search']);
         Route::get('/communities', [CommunityController::class, 'index']);
         Route::post('/communities', [CommunityController::class, 'store']);
+        Route::post('/communities/{community}/join', [CommunityController::class, 'join']);
+        Route::post('/communities/{community}/leave', [CommunityController::class, 'leave']);
         Route::post('/communities/{community}/members', [CommunityController::class, 'addMember']);
         Route::delete('/communities/{community}', [CommunityController::class, 'destroy']);
 
         // CHAT KOMUNITAS
-        Route::get('/communities/search', [CommunityController::class, 'search']);
-        Route::post('/communities/{community}/join', [CommunityController::class, 'join']);
-        Route::post('/communities/{community}/leave', [CommunityController::class, 'leave']);
-
-
         Route::get('/communities/{community}/messages', [ChatController::class, 'getMessages']);
         Route::post('/communities/{community}/messages', [ChatController::class, 'sendMessage']);
         Route::delete('/messages/{message}', [ChatController::class, 'destroy']);

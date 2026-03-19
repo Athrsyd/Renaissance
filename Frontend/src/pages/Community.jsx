@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useEffect } from 'react'
+import React, { useMemo, useState, useEffect, useRef } from 'react'
 import SidebarCommunity from '../components/CommunityComponents/SidebarCommunity'
 import NavbarCommunity from '../components/CommunityComponents/NavbarCommunity'
 import MessageSender from '../components/CommunityComponents/MessageSender'
@@ -6,14 +6,29 @@ import CreateCommunity from '../components/CommunityComponents/CreateCommunity'
 import MessageBubble from '../components/CommunityComponents/MessageBubble'
 import MessageHook from '../Hook/MessageHook'
 import HookAuth from '../Hook/HookAuth'
+import CommunityHook from '../Hook/CommunityHook'
 import { MoveLeft, Search, EllipsisVertical, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Community = () => {
     const [selectedCommunity, setSelectedCommunity] = useState(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
-    const { messages, loading, getMessages, sendMessage } = MessageHook()
-    const { userData } = HookAuth()
+    const { messages, loading, getMessages, sendMessage, deleteMessage } = MessageHook()
+    const { userData, fetchUserData } = HookAuth()
+    const { communities, joinCommunity } = CommunityHook()  // Tambah joinCommunity
+    const messagesEndRef = useRef(null)
+
+    // Fetch user data on mount to ensure userData is available
+    useEffect(() => {
+        if (!userData) {
+            fetchUserData()
+        }
+    }, [])
+
+    // Auto-scroll ke bawah saat ada message baru
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [messages])
 
     // Fetch messages saat komunitas berubah
     useEffect(() => {
@@ -33,6 +48,17 @@ const Community = () => {
         setSelectedCommunity(community)
     }
 
+    const handleJoinCommunity = async (communityId) => {
+        await joinCommunity(communityId)
+        // Refresh messages dan update sidebar
+        if (selectedCommunity?.id === communityId) {
+            getMessages(communityId)
+        }
+    }
+
+    const handleDeleteMessage = async (messageId) => {
+        await deleteMessage(messageId)
+    }
     return (
         <>
             <div className='hidden lg:flex flex-row w-full'>
@@ -42,7 +68,12 @@ const Community = () => {
                     onSelectCommunity={handleSelectCommunity}
                 />
                 <div className='w-4/5 h-screen relative'>
-                    <NavbarCommunity selectedCommunity={selectedCommunity} />
+                    <NavbarCommunity 
+                        selectedCommunity={selectedCommunity}
+                        userData={userData}
+                        onJoin={handleJoinCommunity}
+                        isLoading={loading}
+                    />
                     <div className="overflow-y-auto w-full h-4/5 p-6 lg:p-8 bg-white">
                         <div className='space-y-2 mt-15'>
                             {messages.length === 0 ? (
@@ -56,9 +87,12 @@ const Community = () => {
                                         message={msg.chat}
                                         isOwn={msg.sender_id === userData?.id}
                                         senderName={msg.sender?.name}
+                                        time={msg.created_at}
+                                        onDelete={() => handleDeleteMessage(msg.id)}
                                     />
                                 ))
                             )}
+                            <div ref={messagesEndRef} />
                         </div>
                     </div>
                     <MessageSender onSendMessage={handleSendMessage} loading={loading} />
@@ -153,9 +187,12 @@ const Community = () => {
                                             message={msg.chat}
                                             isOwn={msg.sender_id === userData?.id}
                                             senderName={msg.sender?.name}
+                                            time={msg.created_at}
+                                            onDelete={() => handleDeleteMessage(msg.id)}
                                         />
                                     ))
-                                )}
+                                )}}
+                                <div ref={messagesEndRef} />
                             </div>
                         </div>
 

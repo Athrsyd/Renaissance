@@ -40,6 +40,7 @@ const CommunityHook = () => {
                 },
             })
             fetchCommunities()
+            window.location.reload()
             return response.data.data
         } catch (error) {
             console.error('Error creating community:', error)
@@ -55,16 +56,44 @@ const CommunityHook = () => {
         setError(null)
         try {
             const token = localStorage.getItem('token')
-            const response = await API.get(`/communities/search?q=${encodeURIComponent(query)}`, {
+            const response = await API.get(`/communities/search?name=${encodeURIComponent(query)}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
             setSearchResults(response.data.data)
+            console.log("Search results:", response.data.data);
         }
         catch (error) {
             console.error('Error searching communities:', error)
             setError(error.response?.data?.message || 'Gagal mencari komunitas')
+            setSearchResults([])
+        }
+        finally {
+            setIsLoading(false)
+        }
+    }
+
+    const fetchPopularCommunities = async () => {
+        setIsLoading(true)
+        setError(null)
+        try {
+            const token = localStorage.getItem('token')
+            const response = await API.get(`/communities/search?name=`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            // Sort by member count descending
+            const sorted = response.data.data.sort((a, b) => 
+                (b.members_count || 0) - (a.members_count || 0)
+            )
+            setSearchResults(sorted)
+            console.log("Popular communities (sorted):", sorted);
+        }
+        catch (error) {
+            console.error('Error fetching popular communities:', error)
+            setError(error.response?.data?.message || 'Gagal mengambil komunitas popular')
             setSearchResults([])
         }
         finally {
@@ -126,6 +155,7 @@ const CommunityHook = () => {
         fetchCommunities,
         createCommunity,
         searchCommunities,
+        fetchPopularCommunities,
         joinCommunity,
         leaveCommunity,
 

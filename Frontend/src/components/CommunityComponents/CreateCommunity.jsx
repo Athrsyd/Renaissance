@@ -1,10 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { UserRound } from 'lucide-react'
+import CommunityHook from '../../Hook/CommunityHook'
 
 const CreateCommunity = ({ isOpen, onClose }) => {
     const fileInputRef = useRef(null)
     const [communityName, setCommunityName] = useState('')
     const [photoName, setPhotoName] = useState('')
+    const [error, setError] = useState('')
+    const { createCommunity, isLoading } = CommunityHook()
 
     if (!isOpen) {
         return null
@@ -28,11 +31,25 @@ const CreateCommunity = ({ isOpen, onClose }) => {
         setPhotoName(selectedFile.name)
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        onClose()
-        setCommunityName('')
-        setPhotoName('')
+        setError('')
+
+        if (!communityName.trim()) {
+            setError('Community name is required')
+            return
+        }
+
+        const result = await createCommunity(communityName, photoName || null)
+        
+        if (result) {
+            // Successfully created
+            onClose()
+            setCommunityName('')
+            setPhotoName('')
+        } else {
+            setError('Failed to create community')
+        }
     }
 
     return (
@@ -89,16 +106,24 @@ const CreateCommunity = ({ isOpen, onClose }) => {
                             onChange={(event) => setCommunityName(event.target.value)}
                             placeholder='Community Name...'
                             className='w-full rounded-2xl border border-icon bg-[#7B645A] px-4 py-3 text-xl sm:text-3xl text-[#E9DED2] placeholder:text-[#CDB9A4] outline-none focus:border-coffe'
+                            disabled={isLoading}
                             required
                         />
                     </div>
 
+                    {error && (
+                        <p className='mt-3 text-center text-sm text-red-300'>
+                            {error}
+                        </p>
+                    )}
+
                     <div className='mt-5 sm:mt-7 flex justify-center'>
                         <button
                             type='submit'
-                            className='w-full max-w-xs rounded-2xl bg-[#AF8D66] px-6 py-3 text-2xl sm:text-2xl font-semibold text-[#F8F4EF] hover:bg-[#C39E74] transition duration-300'
+                            disabled={isLoading}
+                            className='w-full max-w-xs rounded-2xl bg-[#AF8D66] px-6 py-3 text-2xl sm:text-2xl font-semibold text-[#F8F4EF] hover:bg-[#C39E74] transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
                         >
-                            Make Community
+                            {isLoading ? 'Creating...' : 'Make Community'}
                         </button>
                     </div>
 

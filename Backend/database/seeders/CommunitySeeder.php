@@ -23,63 +23,77 @@ class CommunitySeeder extends Seeder
         }
 
         $communities = [
+            // User 0 create (otomatis follow)
             [
                 'name' => 'Discussion Group SKS',
                 'image_path' => 'communities/sks-group.jpg',
-                'created_by' => $users[0]->id, // User pertama
-            ],
-            [
-                'name' => 'Matematika Space',
-                'image_path' => 'communities/matematika.jpg',
-                'created_by' => $users[1]->id, // User kedua
+                'created_by' => $users[0]->id,
+                'user0_follow' => true,
             ],
             [
                 'name' => 'PKN Diskusi',
                 'image_path' => 'communities/pkn.jpg',
                 'created_by' => $users[0]->id,
+                'user0_follow' => true,
             ],
+            // User 1 create, User 0 juga follow
+            [
+                'name' => 'Matematika Space',
+                'image_path' => 'communities/matematika.jpg',
+                'created_by' => $users[1]->id,
+                'user0_follow' => true,
+            ],
+            // User 1 create, User 0 TIDAK follow
             [
                 'name' => 'Kelas 7 Diskusi',
                 'image_path' => 'communities/wwkwk.jpg',
                 'created_by' => $users[1]->id,
+                'user0_follow' => false,
             ],
             [
                 'name' => 'kooko Diskusi',
                 'image_path' => 'communities/pkoooon.jpg',
                 'created_by' => $users[0]->id,
+                'user0_follow' => false,
             ],
             [
                 'name' => 'PKmmsmN Diskusi',
                 'image_path' => 'communities/kokok.jpg',
                 'created_by' => $users[1]->id,
+                'user0_follow' => false,
             ],
             [
                 'name' => 'Study Group Kelas XII',
                 'image_path' => 'communities/xii-study.jpg',
                 'created_by' => $users[0]->id,
+                'user0_follow' => false,
             ]
         ];
+        
         foreach ($communities as $community) {
-            $createdCommunity = Community::create($community);
+            $createdCommunity = Community::create([
+                'name' => $community['name'],
+                'image_path' => $community['image_path'],
+                'created_by' => $community['created_by'],
+            ]);
             
-            // Add creator
+            // Add creator sebagai member
             CommunityMember::create([
                 'community_id' => $createdCommunity->id,
                 'user_id' => $community['created_by'],
                 'joined_at' => now(),
             ]);
             
-            // Add lebih banyak members (untuk testing)
-            foreach ($users as $user) {
-                if ($user->id !== $community['created_by']) {
-                    CommunityMember::create([
-                        'community_id' => $createdCommunity->id,
-                        'user_id' => $user->id,
-                        'joined_at' => now(),
-                    ]);
-                }
+            // Jika user0_follow = true, tambah user 0 sebagai member (kecuali dia creator)
+            if ($community['user0_follow'] && $community['created_by'] !== $users[0]->id) {
+                CommunityMember::create([
+                    'community_id' => $createdCommunity->id,
+                    'user_id' => $users[0]->id,
+                    'joined_at' => now(),
+                ]);
             }
         }
-        $this->command->info('Communities seeded successfully!');
+        
+        $this->command->info('Communities seeded successfully! User 0 follows 3 communities.');
     }
 }

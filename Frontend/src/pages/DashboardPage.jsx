@@ -76,13 +76,13 @@ const DashboardPage = () => {
 
           <AureusAI />
 
-          {searchResults.length > 0 && (
+          {communities.length > 0 && (
             <div className="w-full flex-col flex mt-7">
               <h1 className='ml-5 lg:ml-40 md:ml-20 self-start font-semibold font-monstserrat text-lg text-black'>
                 Explore Communities
               </h1>
               <CommunityList 
-                communities={searchResults} 
+                communities={communities} 
                 onJoin={joinCommunity}
                 isSearchPage={true}
               />

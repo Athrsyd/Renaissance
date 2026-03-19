@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MoveLeft, Plus, } from 'lucide-react';
@@ -19,11 +20,13 @@ const CommunityDisplay = ({ community, isSelected, onClick }) => {
 }
 
 const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunity }) => {
+    const [query, setQuery] = useState('')
     const [activeTab, setActiveTab] = useState('overview');
-    const { communities, searchResults, fetchCommunities, isLoading } = CommunityHook()
+    const { communities, searchResults, fetchCommunities, fetchPopularCommunities, isLoading , searchCommunities} = CommunityHook()
 
     useEffect(() => {
         fetchCommunities()
+        fetchPopularCommunities()
     }, [])
 
     return (
@@ -34,8 +37,18 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
                 <Link to='/dashboard' className='cursor-pointer bg-white w-1/6 text-coffe  px-3 py-1 hover:bg-coffe hover:text-white transition duration-300 rounded-full'>
                     <MoveLeft size={20} />
                 </Link>
-                <form action="" method="post" className='w-5/6'>
-                    <input type="text" placeholder='Explore...' className='bg-gray-200 text-sm text-start p-3 h-8 w-full rounded-full' />
+                <form onSubmit={(e) => {
+                    e.preventDefault();
+                    searchCommunities(query);
+                }} action="" method="post" className='w-5/6'>
+                    <input 
+                        type="text" 
+                        placeholder='Explore...' 
+                        className='bg-gray-200 text-sm text-start p-3 h-8 w-full rounded-full' 
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+
+                    />
                 </form>
             </div>
             <div className=" communityList container flex flex-col overflow-y-scroll h-screen">
