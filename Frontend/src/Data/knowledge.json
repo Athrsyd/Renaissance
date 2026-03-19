@@ -1,0 +1,438 @@
+[
+  {
+    "keywords": ["halo", "hai", "hi", "hello"],
+    "answer": "Halo! Aku AureusAI, siap bantu kamu belajar. Mau tanya apa hari ini?"
+  },
+  {
+    "keywords": ["siapa kamu", "nama kamu", "who are you"],
+    "answer": "Aku AureusAI, chatbot edukasi yang siap bantu kamu belajar dari SMP sampai SMA."
+  },
+  {
+    "keywords": ["terima kasih", "thanks", "makasih"],
+    "answer": "Sama-sama! 😊 Kalau ada pertanyaan lain, tanya aja ya."
+  },
+
+  {
+    "keywords": ["apa kabar", "kabar kamu", "how are you", "gimana kabarmu"],
+    "answer": "Aku baik-baik aja, makasih udah nanya! 😄 Sebagai AI, aku selalu siap dan penuh semangat buat bantu kamu belajar. Kamu sendiri gimana? Semoga harimu menyenangkan ya! Kalau ada pelajaran yang bikin pusing, ceritain ke aku."
+  },
+  {
+    "keywords": [
+      "bosan",
+      "boring",
+      "jenuh",
+      "ngantuk belajar",
+      "males belajar"
+    ],
+    "answer": "Duh, bosen belajar ya? Itu wajar banget kok! Coba deh ganti suasana — belajar di tempat berbeda, dengerin musik instrumental, atau kasih dirimu reward kecil setiap selesai satu topik. Otak kita butuh jeda sekitar 25 menit fokus lalu 5 menit istirahat (teknik Pomodoro). Kalau udah agak segar, balik lagi ya — aku siap bantu jelasin apa pun! 💪"
+  },
+  {
+    "keywords": ["susah", "sulit", "nggak ngerti", "bingung", "gak paham"],
+    "answer": "Tenang, nggak ngerti itu bukan berarti kamu bodoh — itu justru tanda kamu lagi dalam proses belajar yang nyata! Coba ceritain ke aku bagian mana yang bikin bingung, kita bedah pelan-pelan bareng. Semua hal yang susah itu jadi gampang kalau udah sering latihan. Yuk, mulai dari mana dulu? 😊"
+  },
+  {
+    "keywords": ["capek", "lelah", "tired", "exhausted"],
+    "answer": "Capek itu tanda kamu udah kerja keras — dan itu keren! Tapi jangan lupa istirahat juga ya, karena otak yang lelah susah menyerap informasi baru. Tidur cukup (7-8 jam) ternyata salah satu cara belajar paling efektif lho, karena saat tidur otak kita justru memproses dan menyimpan memori. Istirahat dulu, nanti balik lagi ke sini! 🌙"
+  },
+  {
+    "keywords": ["hehe", "wkwk", "haha", "lucu", "lol"],
+    "answer": "Hehe, seneng deh kalau kamu happy! 😄 Belajar sambil fun itu justru lebih efektif lho — otak lebih gampang nyimpen informasi kalau lagi dalam kondisi positif. Kalau ada yang mau ditanyain soal pelajaran, aku siap bantu kapan aja!"
+  },
+  {
+    "keywords": ["selamat pagi", "good morning", "pagi"],
+    "answer": "Selamat pagi! ☀️ Pagi adalah waktu terbaik untuk belajar — otak masih segar dan konsentrasi sedang di puncaknya. Semangat ya untuk hari ini! Ada pelajaran apa yang mau kita bahas duluan?"
+  },
+  {
+    "keywords": ["selamat siang", "good afternoon", "siang"],
+    "answer": "Selamat siang! 🌤️ Wah, rajin banget masih semangat belajar di tengah hari. Kalau ngantuk setelah makan siang, itu wajar — namanya 'postprandial somnolence', respons alami tubuh. Coba minum air putih dulu biar melek, terus kita mulai belajar pelan-pelan ya!"
+  },
+  {
+    "keywords": ["selamat malam", "good evening", "good night", "malam"],
+    "answer": "Selamat malam! 🌙 Belajar malam-malam nih? Hebat! Tapi ingat, jangan begadang terlalu larut ya. Penelitian menunjukkan bahwa tidur setelah belajar itu justru membantu otak menyimpan informasi dengan lebih baik. Yuk, manfaatin waktu malam ini dengan efisien — ada yang mau dibahas?"
+  },
+  {
+    "keywords": ["bye", "dah", "dadah", "sampai jumpa", "goodbye", "ciao"],
+    "answer": "Sampai jumpa! 👋 Semoga belajarnya hari ini berhasil dan apa yang kamu pelajari berguna banget. Ingat, konsistensi adalah kunci — belajar sedikit setiap hari jauh lebih efektif daripada sistem kebut semalam. Sukses terus ya, aku tunggu kalau ada pertanyaan lagi! 🌟"
+  },
+  {
+    "keywords": [
+      "kamu bisa apa",
+      "bisa bantu apa",
+      "fitur apa",
+      "apa yang bisa kamu lakukan"
+    ],
+    "answer": "Aku bisa bantu banyak hal soal pelajaran SMP dan SMA! 📚 Mulai dari Matematika (aljabar, geometri, kalkulus), IPA (Fisika, Kimia, Biologi), IPS (Sejarah, Ekonomi, Geografi), Bahasa Indonesia, sampai Bahasa Inggris. Cukup tanya topik atau konsep yang kamu bingungkan, dan aku akan jelasin dengan cara yang mudah dipahami. Mau mulai dari mana?"
+  },
+  {
+    "keywords": ["kamu pintar", "kamu hebat", "kamu keren"],
+    "answer": "Wah, makasih banyak! 😊 Tapi yang lebih penting adalah kamu — karena aku hanya alat bantu, sedangkan yang beneran belajar dan berusaha itu kamu sendiri. Kecerdasan itu bukan bawaan lahir, tapi hasil dari kerja keras dan rasa ingin tahu yang terus dijaga. Kamu udah ambil langkah yang tepat dengan belajar hari ini!"
+  },
+  {
+    "keywords": ["aku tidak bisa", "aku nggak bisa", "aku menyerah", "give up"],
+    "answer": "Eh, jangan menyerah dulu! 💪 Thomas Edison gagal lebih dari 1.000 kali sebelum berhasil menemukan lampu pijar. Bahkan Einstein pun pernah dibilang 'lambat' oleh gurunya di sekolah. Kesulitan bukan tanda kamu nggak mampu — itu tanda kamu lagi tumbuh. Coba ceritain ke aku bagian mana yang susah, kita cari jalan keluarnya bareng-bareng!"
+  },
+  {
+    "keywords": ["ujian besok", "ulangan besok", "mau ujian", "mau ulangan"],
+    "answer": "Wah, besok ujian? Semangat! 🎯 Beberapa tips last-minute yang efektif: (1) Review rangkuman/mind map, bukan baca ulang semua materi. (2) Kerjakan soal-soal latihan tahun lalu. (3) Tidur cukup malam ini — ini PENTING banget, jauh lebih berguna dari begadang. (4) Sarapan pagi sebelum ujian biar otak dapat energi. Mau aku bantu review materi tertentu sekarang?"
+  },
+  {
+    "keywords": ["nilai jelek", "nilai buruk", "dapat nilai kecil", "remedial"],
+    "answer": "Nilai jelek itu bukan akhir dari segalanya, kok! 🌱 Anggap aja sebagai feedback — tubuhmu bilang 'hei, bagian ini perlu lebih banyak latihan'. Yang penting sekarang adalah analisis: bagian mana yang salah? Apakah konsepnya yang belum paham, atau salah hitung, atau kurang waktu? Kalau udah tahu akar masalahnya, aku bisa bantu jelasin ulang dari sana. Yuk, bangkit!"
+  },
+  {
+    "keywords": ["belajar bareng", "study together", "temenin belajar"],
+    "answer": "Ayo belajar bareng! 📖✨ Aku seneng banget bisa temenin kamu belajar. Kita bisa bahas apa pun — dari rumus matematika, konsep fisika, sejarah Indonesia, sampai grammar bahasa Inggris. Tinggal sebut topiknya, dan kita mulai petualangan belajar kita bareng-bareng!"
+  },
+  {
+    "keywords": ["pusing", "sakit kepala", "stress belajar", "capek", "cape"],
+    "answer": "Aduh, kepala pusing belajar? Itu tanda otakmu lagi kerja keras! 🧠 Coba lakukan ini: tarik napas dalam-dalam selama 4 detik, tahan 4 detik, hembuskan 4 detik (teknik box breathing). Minum air putih, karena dehidrasi bisa bikin susah konsentrasi. Istirahatkan mata dari layar selama 20 detik dengan melihat objek sejauh 6 meter (aturan 20-20-6). Kalau sudah lebih baik, balik lagi ya!"
+  },
+
+  {
+    "keywords": [
+      "luas lingkaran",
+      "area circle",
+      "rumus lingkaran",
+      "circle formula"
+    ],
+    "answer": "Rumus luas lingkaran adalah L = π × r², di mana r adalah jari-jari."
+  },
+  {
+    "keywords": ["keliling lingkaran", "circumference", "circle perimeter"],
+    "answer": "Rumus keliling lingkaran adalah K = 2 × π × r."
+  },
+  {
+    "keywords": [
+      "pythagoras",
+      "teorema pythagoras",
+      "segitiga siku siku",
+      "right triangle"
+    ],
+    "answer": "Teorema Pythagoras menyatakan bahwa pada segitiga siku-siku, a² + b² = c², di mana c adalah sisi miring (hipotenusa). Contoh: jika a = 3 dan b = 4, maka c = √(9 + 16) = √25 = 5. Teorema ini sangat sering dipakai di geometri dan trigonometri!"
+  },
+  {
+    "keywords": [
+      "fungsi kuadrat",
+      "quadratic function",
+      "parabola",
+      "ax2 bx c"
+    ],
+    "answer": "Fungsi kuadrat berbentuk f(x) = ax² + bx + c, dan grafiknya berupa parabola. Jika a > 0, parabola terbuka ke atas (seperti huruf U). Jika a < 0, terbuka ke bawah. Titik puncaknya berada di x = -b/(2a)."
+  },
+  {
+    "keywords": ["rumus abc", "quadratic formula", "akar persamaan kuadrat"],
+    "answer": "Rumus ABC digunakan untuk mencari akar persamaan kuadrat ax² + bx + c = 0. Rumusnya: x = (-b ± √(b² - 4ac)) / 2a. Nilai b² - 4ac disebut diskriminan (D). Jika D > 0: dua akar berbeda; D = 0: dua akar sama; D < 0: tidak ada akar real."
+  },
+  {
+    "keywords": ["logaritma", "logarithm", "log", "eksponen kebalikan"],
+    "answer": "Logaritma adalah kebalikan dari perpangkatan. Jika 10² = 100, maka log₁₀(100) = 2. Sifat penting: log(a×b) = log a + log b; log(a/b) = log a - log b; log(aⁿ) = n × log a. Log sering dipakai di kimia (pH), fisika (skala desibel), dan ilmu komputer."
+  },
+  {
+    "keywords": ["turunan", "derivative", "kalkulus", "differentiation"],
+    "answer": "Turunan mengukur seberapa cepat suatu fungsi berubah. Rumus dasar: turunan xⁿ = n·xⁿ⁻¹. Contoh: turunan x³ = 3x². Turunan dipakai untuk mencari nilai maksimum/minimum, gradien garis singgung, dan laju perubahan dalam fisika."
+  },
+  {
+    "keywords": ["integral", "integration", "luas area", "antiturunan"],
+    "answer": "Integral adalah kebalikan dari turunan (antiturunan) dan digunakan untuk menghitung luas di bawah kurva. Rumus dasar: ∫xⁿ dx = xⁿ⁺¹/(n+1) + C. Ada dua jenis: integral tak tentu (hasilnya fungsi + konstanta C) dan integral tentu (hasilnya angka, mewakili luas area)."
+  },
+  {
+    "keywords": [
+      "barisan aritmetika",
+      "arithmetic sequence",
+      "deret aritmetika"
+    ],
+    "answer": "Barisan aritmetika adalah barisan bilangan dengan selisih tetap (beda = b). Rumus suku ke-n: Un = a + (n-1)b, di mana a adalah suku pertama. Jumlah n suku pertama: Sn = n/2 × (a + Un) atau Sn = n/2 × (2a + (n-1)b). Contoh: 2, 5, 8, 11, ... memiliki beda = 3."
+  },
+  {
+    "keywords": [
+      "barisan geometri",
+      "geometric sequence",
+      "deret geometri",
+      "rasio"
+    ],
+    "answer": "Barisan geometri adalah barisan dengan rasio tetap (r). Rumus suku ke-n: Un = a × rⁿ⁻¹. Jumlah n suku: Sn = a(rⁿ - 1)/(r - 1) untuk r ≠ 1. Contoh: 2, 6, 18, 54, ... memiliki rasio r = 3. Konsep ini dipakai untuk menghitung bunga majemuk dan pertumbuhan populasi!"
+  },
+  {
+    "keywords": [
+      "trigonometri",
+      "trigonometry",
+      "sin cos tan",
+      "sinus cosinus"
+    ],
+    "answer": "Trigonometri mempelajari hubungan sudut dan sisi segitiga. Pada segitiga siku-siku: sin θ = depan/miring, cos θ = samping/miring, tan θ = depan/samping. Ingat dengan 'SOH-CAH-TOA'. Nilai istimewa: sin 30° = 0,5; cos 60° = 0,5; tan 45° = 1. Sangat berguna di fisika, arsitektur, dan navigasi!"
+  },
+  {
+    "keywords": ["vektor", "vector", "besaran vektor"],
+    "answer": "Vektor adalah besaran yang memiliki nilai (magnitudo) DAN arah, berbeda dengan skalar yang hanya punya nilai. Contoh vektor: kecepatan, gaya, perpindahan. Vektor digambar sebagai panah. Penjumlahan vektor bisa dengan metode segitiga, jajar genjang, atau komponen (Ax + Bx, Ay + By)."
+  },
+  {
+    "keywords": ["peluang", "probabilitas", "probability"],
+    "answer": "Peluang (probabilitas) mengukur kemungkinan suatu kejadian terjadi, bernilai antara 0 sampai 1. Rumus dasar: P(A) = n(A)/n(S), di mana n(A) adalah banyak hasil yang diinginkan dan n(S) adalah total kemungkinan. Contoh: peluang dadu menunjukkan angka 3 adalah 1/6 ≈ 0,167 atau 16,7%."
+  },
+  {
+    "keywords": ["statistika", "mean", "median", "modus", "rata-rata"],
+    "answer": "Dalam statistika, ada tiga ukuran pemusatan data: (1) Mean = jumlah semua data ÷ banyak data; (2) Median = nilai tengah data yang sudah diurutkan; (3) Modus = nilai yang paling sering muncul. Contoh data: 4, 7, 7, 8, 9 → Mean = 35/5 = 7; Median = 7; Modus = 7."
+  },
+  {
+    "keywords": ["luas segitiga", "area triangle", "rumus segitiga"],
+    "answer": "Luas segitiga = ½ × alas × tinggi. Jika yang diketahui dua sisi dan sudut apit, gunakan: L = ½ × a × b × sin C. Jika ketiga sisinya diketahui (a, b, c), gunakan Rumus Heron: L = √(s(s-a)(s-b)(s-c)) di mana s = (a+b+c)/2."
+  },
+  {
+    "keywords": ["sistem persamaan", "spldv", "spltv", "eliminasi substitusi"],
+    "answer": "Sistem Persamaan Linear Dua Variabel (SPLDV) diselesaikan dengan tiga metode: (1) Substitusi: ungkapkan satu variabel, lalu substitusi ke persamaan lain. (2) Eliminasi: kurangi/tambahkan dua persamaan untuk menghilangkan satu variabel. (3) Grafik: cari titik potong dua garis. Contoh: x + y = 5 dan x - y = 1 → x = 3, y = 2."
+  },
+
+  {
+    "keywords": ["gaya", "force", "fisika gaya", "tarikan dorongan"],
+    "answer": "Gaya adalah tarikan atau dorongan yang dapat mengubah gerak atau bentuk benda."
+  },
+  {
+    "keywords": ["hukum newton 1", "newton first law", "inersia"],
+    "answer": "Hukum Newton 1 (Hukum Inersia) menyatakan: benda yang diam akan tetap diam, dan benda yang bergerak akan tetap bergerak lurus beraturan, selama tidak ada gaya luar yang bekerja padanya. Itulah kenapa kita terdorong ke depan saat mobil mendadak berhenti — tubuh kita 'ingin' tetap bergerak!"
+  },
+  {
+    "keywords": ["hukum newton 2", "newton second law", "f=ma"],
+    "answer": "Hukum Newton 2: F = m × a, artinya gaya (F) berbanding lurus dengan percepatan (a) dan berbanding lurus dengan massa (m). Satuan gaya adalah Newton (N). Contoh: untuk menggerakkan benda 10 kg dengan percepatan 2 m/s², dibutuhkan gaya 20 N."
+  },
+  {
+    "keywords": ["hukum newton 3", "newton third law", "aksi reaksi"],
+    "answer": "Hukum Newton 3: setiap aksi menimbulkan reaksi yang sama besar tapi berlawanan arah (Faksi = -Freaksi). Contoh nyata: roket meluncur ke atas karena gas dikeluarkan ke bawah; kaki mendorong tanah ke belakang sehingga kita bergerak maju; ikan berenang dengan mendorong air ke belakang."
+  },
+  {
+    "keywords": ["energi kinetik", "kinetic energy", "energi gerak"],
+    "answer": "Energi kinetik adalah energi karena gerak, rumusnya Ek = ½ × m × v²."
+  },
+  {
+    "keywords": ["energi potensial", "potential energy", "energi posisi"],
+    "answer": "Energi potensial adalah energi karena posisi, rumusnya Ep = m × g × h."
+  },
+  {
+    "keywords": ["hukum ohm", "ohm law", "listrik", "v i r"],
+    "answer": "Hukum Ohm: V = I × R, di mana V adalah tegangan (volt), I adalah kuat arus (ampere), dan R adalah hambatan (ohm). Analogi: tegangan itu seperti tekanan air, arus seperti debit air, dan hambatan seperti lebar pipa. Makin besar hambatan, makin kecil arus yang mengalir."
+  },
+  {
+    "keywords": ["massa jenis", "density", "rho", "m per v"],
+    "answer": "Massa jenis (ρ) = massa (m) ÷ volume (V), satuannya kg/m³ atau g/cm³. Air punya massa jenis 1 g/cm³. Benda akan mengapung jika massa jenisnya lebih kecil dari fluida (misalnya kayu di air), dan tenggelam jika lebih besar (misalnya besi)."
+  },
+  {
+    "keywords": [
+      "gelombang",
+      "wave",
+      "frekuensi",
+      "panjang gelombang",
+      "amplitudo"
+    ],
+    "answer": "Gelombang adalah getaran yang merambat dan memindahkan energi tanpa memindahkan materi. Besaran penting: Frekuensi (f) = jumlah getaran per detik (Hz); Periode (T) = waktu satu getaran = 1/f; Panjang gelombang (λ) = jarak satu gelombang penuh; Cepat rambat: v = f × λ. Contoh: gelombang suara, cahaya, gempa bumi."
+  },
+  {
+    "keywords": ["tekanan", "pressure", "fisika tekanan", "p f a"],
+    "answer": "Tekanan (P) = Gaya (F) ÷ Luas penampang (A), satuannya Pascal (Pa) atau N/m². Semakin kecil luas penampang dengan gaya yang sama, tekanan makin besar. Itulah kenapa pisau yang tajam lebih mudah memotong — luas permukaannya kecil sehingga tekanannya besar. Tekanan hidrostatis di cairan: P = ρ × g × h."
+  },
+  {
+    "keywords": ["optik", "cahaya", "lensa", "cermin", "pembiasan"],
+    "answer": "Optik mempelajari sifat dan perilaku cahaya. Hukum pemantulan: sudut datang = sudut pantul. Pembiasan terjadi ketika cahaya melewati medium berbeda (misalnya udara ke air), menyebabkan sendok terlihat bengkok. Lensa cembung (konvergen) mengumpulkan cahaya → dipakai di kaca pembesar dan mata hipermetropi. Lensa cekung (divergen) menyebarkan cahaya → dipakai untuk mata miopi."
+  },
+  {
+    "keywords": ["usaha", "work", "fisika usaha", "w f s"],
+    "answer": "Usaha (W) = Gaya (F) × perpindahan (s) × cos θ, satuannya Joule (J). Usaha hanya terjadi jika ada perpindahan searah gaya. Mendorong tembok yang tidak bergerak = usaha nol! Teorema usaha-energi: usaha total = perubahan energi kinetik. Daya (P) = Usaha/waktu = F × v, satuannya Watt (W)."
+  },
+  {
+    "keywords": [
+      "suhu",
+      "termometer",
+      "celsius",
+      "fahrenheit",
+      "kelvin",
+      "konversi suhu"
+    ],
+    "answer": "Konversi suhu: °C ke °F: (°C × 9/5) + 32; °C ke K: °C + 273. Kelvin adalah satuan suhu SI dan tidak ada suhu negatif (0 K = suhu mutlak). Contoh: 100°C = 212°F = 373 K. Dalam fisika dan kimia, Kelvin lebih sering dipakai karena berhubungan langsung dengan energi kinetik partikel."
+  },
+
+  {
+    "keywords": ["unsur", "element", "kimia dasar"],
+    "answer": "Unsur adalah zat murni yang tidak dapat diuraikan lagi secara kimia biasa. Setiap unsur memiliki simbol unik: H (hidrogen), O (oksigen), C (karbon), N (nitrogen), Fe (besi dari bahasa Latin 'ferrum'). Saat ini terdapat 118 unsur dalam tabel periodik!"
+  },
+  {
+    "keywords": ["senyawa", "compound", "zat gabungan"],
+    "answer": "Senyawa adalah zat yang terbentuk dari dua atau lebih unsur berbeda yang bergabung secara kimia dengan perbandingan tetap. Contoh: H₂O (air) = 2 atom hidrogen + 1 atom oksigen; CO₂ (karbon dioksida) = 1 karbon + 2 oksigen. Senyawa punya sifat berbeda dari unsur-unsur pembentuknya!"
+  },
+  {
+    "keywords": ["campuran", "mixture"],
+    "answer": "Campuran adalah gabungan dua zat atau lebih tanpa reaksi kimia, sehingga sifat masing-masing zat tetap ada. Campuran homogen (larutan): komposisi seragam, misalnya air gula. Campuran heterogen: komposisi tidak seragam, misalnya air pasir. Campuran bisa dipisah secara fisika (penyaringan, distilasi, dll)."
+  },
+  {
+    "keywords": ["tabel periodik", "periodic table", "golongan periode"],
+    "answer": "Tabel periodik mengatur 118 unsur berdasarkan nomor atom. Baris horizontal = periode (menunjukkan jumlah kulit elektron). Kolom vertikal = golongan (unsur satu golongan punya sifat kimia mirip). Logam ada di kiri, nonlogam di kanan, metalloid di tengah. Penemu tabel periodik modern adalah Dmitri Mendeleev (1869)."
+  },
+  {
+    "keywords": ["asam basa", "acid base", "ph", "indikator"],
+    "answer": "Asam memiliki pH < 7 (rasa masam, misalnya cuka, jeruk), sedangkan basa memiliki pH > 7 (rasa pahit/licin, misalnya sabun, baking soda). pH 7 = netral (air murni). Skala pH 0-14 mengukur keasaman larutan. Indikator universal bisa menunjukkan pH dengan perubahan warna. Dalam tubuh kita, darah dijaga di pH 7,35-7,45!"
+  },
+  {
+    "keywords": ["ikatan kimia", "chemical bond", "ion kovalen"],
+    "answer": "Ikatan kimia adalah gaya yang menghubungkan atom-atom. Tiga jenis utama: (1) Ikatan ion: transfer elektron antara logam dan nonlogam (contoh: NaCl/garam dapur); (2) Ikatan kovalen: pemakaian bersama elektron antara nonlogam (contoh: H₂O, CO₂); (3) Ikatan logam: elektron bebas di antara atom-atom logam (itulah mengapa logam bisa menghantarkan listrik!)."
+  },
+  {
+    "keywords": [
+      "reaksi kimia",
+      "chemical reaction",
+      "persamaan kimia",
+      "reaktan produk"
+    ],
+    "answer": "Reaksi kimia terjadi ketika zat-zat (reaktan) berubah menjadi zat baru (produk). Tanda-tanda reaksi kimia: perubahan warna, timbul gas, terbentuk endapan, perubahan suhu. Persamaan kimia harus setara (jumlah atom kiri = kanan). Contoh: 2H₂ + O₂ → 2H₂O (hidrogen + oksigen menghasilkan air)."
+  },
+  {
+    "keywords": ["mol", "molar", "avogadro", "kimia mol"],
+    "answer": "Mol adalah satuan jumlah zat dalam kimia. 1 mol = 6,022 × 10²³ partikel (bilangan Avogadro). Hubungan penting: n (mol) = massa (g) ÷ Mr (massa molekul relatif). Contoh: massa molar air (H₂O) = 2(1) + 16 = 18 g/mol, artinya 18 gram air = 1 mol = 6,022 × 10²³ molekul air!"
+  },
+
+  {
+    "keywords": [
+      "fotosintesis",
+      "photosynthesis",
+      "tumbuhan",
+      "cahaya matahari",
+      "proses tumbuhan"
+    ],
+    "answer": "Fotosintesis adalah proses tumbuhan membuat makanan menggunakan cahaya matahari, air (H₂O), dan karbon dioksida (CO₂), menghasilkan glukosa (C₆H₁₂O₆) dan oksigen (O₂). Persamaan: 6CO₂ + 6H₂O + cahaya → C₆H₁₂O₆ + 6O₂. Proses ini terjadi di kloroplas, terutama menggunakan pigmen klorofil berwarna hijau."
+  },
+  {
+    "keywords": ["respirasi", "respiration", "pernapasan sel", "energi sel"],
+    "answer": "Respirasi seluler adalah proses penguraian glukosa dalam sel untuk menghasilkan energi (ATP). Persamaan: C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + energi (ATP). Terjadi di mitokondria. Ada dua jenis: respirasi aerob (butuh O₂, menghasilkan banyak ATP) dan respirasi anaerob (tanpa O₂, menghasilkan sedikit ATP + asam laktat atau alkohol)."
+  },
+  {
+    "keywords": ["ekosistem", "ecosystem", "lingkungan"],
+    "answer": "Ekosistem adalah sistem yang terdiri dari interaksi antara makhluk hidup (biotik) dan lingkungan tak hidup (abiotik) di suatu tempat. Komponen biotik: produsen (tumbuhan), konsumen (hewan), dekomposer (jamur, bakteri). Komponen abiotik: suhu, cahaya, air, tanah, udara. Ekosistem bisa berupa hutan, danau, padang rumput, bahkan akuarium!"
+  },
+  {
+    "keywords": ["rantai makanan", "food chain", "jaring makanan"],
+    "answer": "Rantai makanan adalah urutan perpindahan energi dari satu organisme ke organisme lain melalui proses makan-memakan. Contoh: rumput → belalang → katak → ular → elang. Tumbuhan (produsen) adalah awal rantai makanan. Energi berkurang sekitar 90% di tiap tingkat trofik. Jaring makanan adalah gabungan dari banyak rantai makanan yang saling terhubung."
+  },
+  {
+    "keywords": ["sel", "cell", "biologi sel", "membran sel", "inti sel"],
+    "answer": "Sel adalah unit struktural dan fungsional terkecil makhluk hidup. Ada dua jenis: sel prokariot (tanpa membran inti, contoh: bakteri) dan sel eukariot (punya membran inti, contoh: sel hewan dan tumbuhan). Organel penting: inti sel (menyimpan DNA), mitokondria (penghasil energi), ribosom (sintesis protein), membran sel (mengatur keluar-masuknya zat)."
+  },
+  {
+    "keywords": ["dna", "rna", "genetika", "kromosom", "gen"],
+    "answer": "DNA (asam deoksiribonukleat) adalah molekul yang menyimpan informasi genetik dalam bentuk urutan basa nitrogen (A, T, G, C). Gen adalah segmen DNA yang mengkode protein tertentu. Kromosom adalah DNA yang tergulung rapat bersama protein; manusia punya 46 kromosom (23 pasang). RNA membantu proses pembuatan protein berdasarkan instruksi DNA."
+  },
+  {
+    "keywords": ["evolusi", "seleksi alam", "darwin", "adaptasi"],
+    "answer": "Teori evolusi Darwin menyatakan bahwa organisme berubah dari waktu ke waktu melalui seleksi alam — individu dengan sifat yang cocok dengan lingkungan lebih mungkin bertahan dan berkembang biak. Adaptasi adalah proses terbentuknya sifat-sifat menguntungkan ini. Contoh: jerapah berleher panjang bisa makan daun di pohon tinggi, sehingga lebih mampu bertahan."
+  },
+  {
+    "keywords": ["sistem pencernaan", "digestive system", "organ pencernaan"],
+    "answer": "Sistem pencernaan manusia memproses makanan menjadi nutrisi yang bisa diserap tubuh. Urutan organ: mulut (mengunyah + enzim amilase) → kerongkongan → lambung (asam HCl + pepsin) → usus halus (penyerapan nutrisi utama) → usus besar (penyerapan air) → rektum → anus. Proses pencernaan memakan waktu sekitar 24-72 jam!"
+  },
+
+  {
+    "keywords": ["proklamasi", "kemerdekaan indonesia", "17 agustus"],
+    "answer": "Proklamasi Kemerdekaan Indonesia terjadi pada 17 Agustus 1945, dibacakan oleh Ir. Soekarno didampingi Drs. Mohammad Hatta di Jalan Pegangsaan Timur No. 56, Jakarta. Sebelumnya, terjadi peristiwa Rengasdengklok di mana para pemuda mendesak Soekarno-Hatta untuk segera memproklamasikan kemerdekaan setelah Jepang menyerah kepada Sekutu."
+  },
+  {
+    "keywords": ["perang dunia 2", "ww2", "pd2"],
+    "answer": "Perang Dunia II berlangsung dari 1939 hingga 1945. Dipicu oleh invasi Jerman ke Polandia (1 September 1939). Dua blok utama: Sekutu (USA, Inggris, Uni Soviet, dll) vs Poros (Jerman, Italia, Jepang). Perang berakhir setelah Jerman menyerah (Mei 1945) dan Jepang menyerah setelah bom atom di Hiroshima dan Nagasaki (Agustus 1945). Korban jiwa diperkirakan 70-85 juta orang."
+  },
+  {
+    "keywords": ["permintaan", "demand", "ekonomi", "hukum permintaan"],
+    "answer": "Permintaan adalah jumlah barang/jasa yang ingin dan mampu dibeli konsumen pada harga tertentu di waktu tertentu. Hukum Permintaan: jika harga naik, jumlah yang diminta turun (berbanding terbalik). Faktor yang mempengaruhi: harga, pendapatan konsumen, selera, harga barang substitusi/komplementer, ekspektasi masa depan."
+  },
+  {
+    "keywords": ["penawaran", "supply", "hukum penawaran"],
+    "answer": "Penawaran adalah jumlah barang/jasa yang mau dan mampu dijual produsen pada harga tertentu. Hukum Penawaran: jika harga naik, jumlah yang ditawarkan ikut naik (berbanding lurus). Faktor yang mempengaruhi: harga barang, biaya produksi, teknologi, harga input, ekspektasi produsen. Titik temu antara permintaan dan penawaran menghasilkan harga keseimbangan (equilibrium)."
+  },
+  {
+    "keywords": ["inflasi", "inflation", "kenaikan harga"],
+    "answer": "Inflasi adalah kenaikan harga barang dan jasa secara umum dan terus-menerus dalam jangka waktu tertentu. Inflasi rendah (2-5%) bisa mendorong pertumbuhan ekonomi, tapi inflasi tinggi merugikan masyarakat berpenghasilan tetap. Diukur dengan Indeks Harga Konsumen (IHK). Penyebab: terlalu banyak uang beredar, kenaikan biaya produksi, atau kelebihan permintaan."
+  },
+  {
+    "keywords": ["globalisasi", "globalization"],
+    "answer": "Globalisasi adalah proses integrasi dan interaksi antarnegara di bidang ekonomi, sosial, budaya, dan politik yang difasilitasi oleh kemajuan teknologi dan transportasi. Dampak positif: akses produk dari seluruh dunia, pertukaran budaya, kerjasama internasional. Dampak negatif: ancaman produk lokal, lunturnya budaya tradisional, ketimpangan ekonomi."
+  },
+  {
+    "keywords": [
+      "letak geografis indonesia",
+      "geografi indonesia",
+      "kepulauan nusantara"
+    ],
+    "answer": "Indonesia terletak di antara dua benua (Asia dan Australia) dan dua samudra (Pasifik dan Hindia). Secara astronomis: 6°LU-11°LS dan 95°BT-141°BT. Ini memberi Indonesia posisi strategis sebagai jalur perdagangan internasional. Indonesia memiliki lebih dari 17.000 pulau, menjadikannya negara kepulauan terbesar di dunia, dengan garis pantai terpanjang kedua!"
+  },
+  {
+    "keywords": ["pancasila", "dasar negara", "5 sila"],
+    "answer": "Pancasila adalah dasar negara Indonesia yang terdiri dari lima sila: (1) Ketuhanan Yang Maha Esa, (2) Kemanusiaan yang Adil dan Beradab, (3) Persatuan Indonesia, (4) Kerakyatan yang Dipimpin oleh Hikmat Kebijaksanaan dalam Permusyawaratan/Perwakilan, (5) Keadilan Sosial bagi Seluruh Rakyat Indonesia. Dirumuskan oleh para pendiri bangsa pada 1 Juni 1945."
+  },
+
+  {
+    "keywords": ["kalimat efektif", "effective sentence"],
+    "answer": "Kalimat efektif adalah kalimat yang dapat menyampaikan pesan dengan jelas, tepat, dan mudah dipahami. Ciri-cirinya: (1) Kesatuan: satu ide pokok; (2) Kepaduan: hubungan antar bagian logis; (3) Penekanan: bagian penting ditonjolkan; (4) Kehematan: tidak ada kata yang mubazir; (5) Kevariasian: menghindari monoton. Contoh buruk: 'Saya sangat amat sekali lelah.' Contoh baik: 'Saya sangat lelah.'"
+  },
+  {
+    "keywords": ["teks narasi", "narrative text", "teks cerita"],
+    "answer": "Teks narasi adalah teks yang menceritakan peristiwa secara kronologis (berurutan berdasarkan waktu) dengan tujuan menghibur atau menginformasikan pembaca. Struktur: orientasi (pengenalan tokoh/latar) → komplikasi (masalah/konflik) → resolusi (penyelesaian). Contoh: cerpen, novel, dongeng, fabel, hikayat."
+  },
+  {
+    "keywords": ["teks eksposisi", "exposition text", "teks argumentasi"],
+    "answer": "Teks eksposisi adalah teks yang bertujuan memaparkan, menjelaskan, atau menginformasikan suatu hal dengan data dan fakta. Struktur: tesis (pernyataan pendapat) → argumentasi (alasan/bukti) → penegasan ulang. Ciri khas: menggunakan fakta, data, dan contoh nyata. Sering ditemukan di artikel ilmiah, majalah, dan editorial koran."
+  },
+  {
+    "keywords": [
+      "majas",
+      "figurative language",
+      "gaya bahasa",
+      "metafora",
+      "simile"
+    ],
+    "answer": "Majas adalah gaya bahasa yang digunakan untuk memperindah dan menghidupkan kalimat. Jenis utama: Metafora (perbandingan langsung: 'dia bintang kelas'); Simile/Perumpamaan (menggunakan 'seperti/bagai': 'matanya seperti bintang'); Personifikasi (benda dianggap manusia: 'angin berbisik'); Hiperbola (berlebihan: 'aku menunggu seribu tahun'); Litotes (merendahkan: 'sekadar mampir ke gubuk saya')."
+  },
+
+  {
+    "keywords": ["simple present", "present tense"],
+    "answer": "Simple present tense digunakan untuk menyatakan kebiasaan, rutinitas, dan fakta yang selalu benar. Rumus: S + V1 (tambah -s/-es untuk he/she/it). Contoh: 'She reads every day.' (kebiasaan); 'Water boils at 100°C.' (fakta). Signal words: always, usually, often, sometimes, never, every day/week/month."
+  },
+  {
+    "keywords": ["simple past", "past tense"],
+    "answer": "Simple past tense digunakan untuk kejadian yang sudah selesai di masa lampau. Rumus: S + V2. Verb reguler: tambahkan -ed (walk → walked). Verb ireguler: bentuk berubah (go → went, see → saw). Kalimat negatif: S + did not + V1. Pertanyaan: Did + S + V1? Signal words: yesterday, last week/month/year, ago, in 1945."
+  },
+  {
+    "keywords": ["passive voice", "kalimat pasif", "be verb3"],
+    "answer": "Passive voice (kalimat pasif) digunakan ketika fokus ada pada objek yang menerima tindakan, bukan pada pelaku. Rumus umum: S + be + V3 (+ by + pelaku). Contoh: aktif 'She wrote this letter' → pasif 'This letter was written by her.' Passive voice sering dipakai dalam tulisan ilmiah, berita, dan laporan formal."
+  },
+  {
+    "keywords": ["conditional", "if clause", "kalimat bersyarat"],
+    "answer": "Kalimat kondisional (conditional) menyatakan syarat dan akibat. Ada 3 tipe utama: Type 1 (real/possible): If + present → will + V1 (If it rains, I will stay home); Type 2 (unreal present): If + past → would + V1 (If I were rich, I would travel the world); Type 3 (unreal past): If + past perfect → would have + V3 (If I had studied, I would have passed)."
+  },
+
+
+  {
+    "keywords": ["isaac newton", "newton", "ilmuwan fisika", "gravitasi"],
+    "answer": "Isaac Newton (1643-1727) adalah salah satu ilmuwan terbesar sepanjang masa. Ia merumuskan Tiga Hukum Gerak dan Hukum Gravitasi Universal setelah (konon) melihat apel jatuh. Newton juga mengembangkan kalkulus (secara independen dari Leibniz) dan melakukan penelitian penting tentang optik. Bukunya 'Principia Mathematica' (1687) mengubah sains selamanya."
+  },
+  {
+    "keywords": ["albert einstein", "einstein", "relativitas"],
+    "answer": "Albert Einstein (1879-1955) mengembangkan Teori Relativitas Khusus (E = mc²) dan Teori Relativitas Umum yang merevolusi pemahaman tentang ruang, waktu, gravitasi, dan alam semesta. Ia memenangkan Nobel Fisika 1921 untuk penjelasannya tentang efek fotolistrik. Menariknya, Einstein dikenal lambat bicara saat kecil — bukti bahwa kecerdasan tidak bisa diukur dari satu aspek saja!"
+  },
+  {
+    "keywords": ["galileo galilei", "galileo", "teleskop"],
+    "answer": "Galileo Galilei (1564-1642) adalah 'bapak astronomi modern' yang memperbaiki teleskop dan menggunakannya untuk mengamati langit — menemukan kawah bulan, satelit Jupiter, dan mendukung teori heliosentris Copernicus (matahari sebagai pusat tata surya). Ia pernah diadili oleh gereja atas pandangannya yang dianggap bertentangan dengan ajaran agama saat itu."
+  },
+  {
+    "keywords": ["archimedes", "eureka", "hukum archimedes"],
+    "answer": "Archimedes (287-212 SM) adalah matematikawan dan ilmuwan Yunani yang sangat brilian. Hukum Archimedes: benda yang tercelup dalam fluida mendapat gaya apung ke atas sebesar berat fluida yang dipindahkan. Konon ia menemukan ini saat mandi dan berteriak 'Eureka!' (Aku telah menemukannya!). Ia juga menemukan prinsip tuas, menghitung pi, dan merancang berbagai mesin perang."
+  },
+  {
+    "keywords": ["charles darwin", "darwin", "evolusi", "seleksi alam"],
+    "answer": "Charles Darwin (1809-1882) adalah naturalis Inggris yang mengembangkan teori evolusi melalui seleksi alam, dipublikasikan dalam buku 'On the Origin of Species' (1859). Setelah perjalanan panjang ke Kepulauan Galapagos, ia mengamati bahwa spesies beradaptasi terhadap lingkungan mereka dari waktu ke waktu. Teorinya mengubah cara pandang manusia tentang kehidupan di Bumi."
+  },
+  {
+    "keywords": ["nikola tesla", "tesla", "listrik ac"],
+    "answer": "Nikola Tesla (1856-1943) adalah penemu jenius yang mengembangkan sistem listrik arus bolak-balik (AC) yang kita gunakan hingga sekarang. Ia juga menemukan motor induksi, transformator, dan bereksperimen dengan transmisi energi nirkabel. Tesla bersaing sengit dengan Thomas Edison dalam 'Perang Arus'. Meski hidupnya berakhir miskin, namanya kini diabadikan sebagai satuan kuat medan magnet (Tesla)."
+  },
+  {
+    "keywords": ["thomas edison", "edison", "lampu pijar"],
+    "answer": "Thomas Edison (1847-1931) adalah penemu produktif Amerika yang dikenal mengembangkan lampu pijar praktis, fonograf (pemutar rekaman suara pertama), dan kamera film. Ia mendirikan laboratorium penelitian pertama di dunia di Menlo Park. Kutipannya yang terkenal: 'Genius is one percent inspiration, ninety-nine percent perspiration' — jenius adalah 1% inspirasi dan 99% kerja keras."
+  },
+  {
+    "keywords": ["marie curie", "curie", "radioaktivitas", "fisika kimia"],
+    "answer": "Marie Curie (1867-1934) adalah ilmuwan wanita pertama yang memenangkan Nobel, bahkan meraihnya DUA kali: Nobel Fisika (1903) untuk penelitian radioaktivitas, dan Nobel Kimia (1911) untuk penemuan unsur polonium dan radium. Ia juga menjadi professor wanita pertama di Universitas Paris. Marie Curie adalah bukti bahwa gender bukan halangan untuk mencapai puncak ilmu pengetahuan!"
+  }
+]
