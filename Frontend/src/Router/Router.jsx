@@ -7,6 +7,9 @@ import Testing from './testing'
 import LandingPage2 from '../pages/LandingPage2'
 import DashboardPage from '../pages/DashboardPage'
 import AcademyPage from '../pages/AcademyPage'
+// import ChatbotUI from '../components/ChatbotUI'
+import ChatbotAureus from '../pages/ChatbotAureus'
+import Community from '../pages/Community'
 
 const Router = () => {
   return (
@@ -18,11 +21,11 @@ const Router = () => {
       <Route path="/register" element={<Register />} />
 
       <Route path="/academy" element={<AcademyPage />} />
-      <Route path="/AureusAI" element={<ChatbotUI />} />
+      <Route path="/chatbot" element={<ChatbotAureus />} />
       <Route path="/dashboard" element={<DashboardPage />} />
+      <Route path="/community" element={<Community />} />
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
-      <Route path="/community" element={<Community />} />
     </Routes>
   );
 }

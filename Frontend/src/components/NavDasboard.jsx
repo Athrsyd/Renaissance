@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../assets/Logo2.png"
 
 const navIcon = [
@@ -68,7 +69,7 @@ const navIcon = [
       </svg>
     ),
     text: "Aureus",
-    path: "/aureus"
+    path: "/chatbot"
   },
   {
     id: 4,
@@ -91,6 +92,7 @@ const navIcon = [
       </svg>
     ),
     text: "Community",
+    path: "/community"
   },
   {
     id: 5,
@@ -143,7 +145,9 @@ const SideBar = () => {
         <img src={Logo} className="hidden lg:block md:block ml-1 w-[90%]" />
         
         {navIcon.map((item) => (
-          <SidebarIcon key={item.id} item={item} />
+          <Link to={item.path} key={item.id}>
+            <SidebarIcon key={item.id} item={item} />
+          </Link>
         ))}
       </div>
     </aside>
