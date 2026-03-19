@@ -24,6 +24,7 @@ const navIcon = [
       </svg>
     ),
     text: "Home",
+    path: "/dashboard"
   },
 
   {
@@ -43,6 +44,7 @@ const navIcon = [
       </svg>
     ),
     text: "Academy",
+    path: "/academy"
   },
   {
     id: 3,
@@ -66,6 +68,7 @@ const navIcon = [
       </svg>
     ),
     text: "Aureus",
+    path: "/aureus"
   },
   {
     id: 4,

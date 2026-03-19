@@ -7,6 +7,7 @@ import Testing from './testing'
 import LandingPage2 from '../pages/LandingPage2'
 import DashboardPage from '../pages/DashboardPage'
 import AcademyPage from '../pages/AcademyPage'
+import Community from '../pages/Community'
 
 const Router = () => {
   return (
@@ -21,6 +22,7 @@ const Router = () => {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
+      <Route path="/community" element={<Community />} />
     </Routes>
   );
 }

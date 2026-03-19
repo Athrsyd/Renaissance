@@ -149,3 +149,7 @@ button:focus-visible {
 .ContinueLearning::-webkit-scrollbar {
   display: none;
 }
+
+.communityList::-webkit-scrollbar {
+  display: none;
+}
