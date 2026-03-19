@@ -146,10 +146,10 @@ button:focus-visible {
   }
 } */
 
-.ContinueLearning::-webkit-scrollbar {
+*::-webkit-scrollbar {
   display: none;
 }
 
-.communityList::-webkit-scrollbar {
+/* .communityList::-webkit-scrollbar {
   display: none;
-}
+} */

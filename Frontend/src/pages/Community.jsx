@@ -2,11 +2,13 @@ import React, { useMemo, useState } from 'react'
 import SidebarCommunity from '../components/CommunityComponents/SidebarCommunity'
 import NavbarCommunity from '../components/CommunityComponents/NavbarCommunity'
 import MessageSender from '../components/CommunityComponents/MessageSender'
+import CreateCommunity from '../components/CommunityComponents/CreateCommunity'
 import { MoveLeft, Search, EllipsisVertical, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Community = () => {
     const [selectedCommunity, setSelectedCommunity] = useState(null);
+    const [isCreateOpen, setIsCreateOpen] = useState(false);
 
     const mobileCommunities = useMemo(() => ([
         { id: 1, name: 'React Developers', members: 1200 },
@@ -19,7 +21,7 @@ const Community = () => {
     return (
         <>
             <div className='hidden lg:flex flex-row w-full'>
-                <SidebarCommunity />
+                <SidebarCommunity onCreateClick={() => setIsCreateOpen(true)} />
                 <div className='w-4/5 h-screen relative'>
                     <NavbarCommunity />
                     <div className="container mt-15 overflow-y-scroll w-full h-4/5 p-6">
@@ -78,6 +80,7 @@ const Community = () => {
                         <div className='fixed bottom-4 left-4 right-4 z-20'>
                             <button
                                 type='button'
+                                onClick={() => setIsCreateOpen(true)}
                                 className='w-full bg-white hover:bg-coffe hover:text-white transition border-2 border-coffe text-coffe duration-300 py-3 flex justify-center items-center gap-3 rounded-xl shadow-lg'
                             >
                                 <Plus size={18} />
@@ -134,6 +137,11 @@ const Community = () => {
                     </section>
                 )}
             </div>
+
+            <CreateCommunity
+                isOpen={isCreateOpen}
+                onClose={() => setIsCreateOpen(false)}
+            />
         </>
     )
 }

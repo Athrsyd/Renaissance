@@ -59,7 +59,7 @@ const popularCommunities = [
         members: 1100,
     },
 ]
-const SidebarCommunity = () => {
+const SidebarCommunity = ({ onCreateClick }) => {
     const [activeTab, setActiveTab] = useState('overview');
 
     return (
@@ -99,7 +99,13 @@ const SidebarCommunity = () => {
                 </div>
             </div>
             <div className="fixed bottom-0 left-4 right-0 w-60 bg-white flex justify-center items-center shadow-2xl px-1 py-3">
-                <button className='bg-white hover:bg-coffe hover:text-white transition border-2 border-coffe  text-coffe duration-300 py-3 flex flex-row justify-center items-center px-2 hover: gap-3  rounded-xl'><Plus size={18} /> Make new Community</button>
+                <button
+                    type='button'
+                    onClick={onCreateClick}
+                    className='bg-white hover:bg-coffe hover:text-white transition border-2 border-coffe  text-coffe duration-300 py-3 flex flex-row justify-center items-center px-2 hover: gap-3  rounded-xl'
+                >
+                    <Plus size={18} /> Make new Community
+                </button>
             </div>
         </aside>
     )
