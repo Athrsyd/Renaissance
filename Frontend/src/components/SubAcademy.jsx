@@ -36,7 +36,7 @@ const SubAcademys = [
 const SubCard = ({item}) => {
   return (
     <>
-      <div className="w-50 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
+      <div className="w-full max-w-[220px] h-[280px] rounded-2xl py-4 bg-bistre relative flex-col">
         <h1 className="text-md text-[#F8F3E0] px-4 mb-2 -mt-2 font-monstserrat font-semibold">
           {item.title}
         </h1>
@@ -50,7 +50,7 @@ const SubCard = ({item}) => {
           <div className="absolute z-30 top-0 w-full mt-5 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
         <a>
-          <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[8px] bottom-0 left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
+          <button className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] lg:text-[10px] text-white px-6 py-2 rounded-lg hover:scale-105 transition shadow-md bg-black/20 border-white/20 z-300">
             Learn now
           </button>
         </a>
@@ -61,11 +61,11 @@ const SubCard = ({item}) => {
 
 const SubAcademy = () => {
   return (
-    <div className=" flex flex-col justify-center items-center w-225 mt-15 pb-10 overflow-y-hidden">
+    <div className="flex flex-col items-center px-4 mt-15 pb-10">
       <h1 className="font-semibold font-monstserrat text-2xl bg-linear-to-l from-[#CAB99F] to-icon text-transparent bg-clip-text">
         Subject
       </h1>
-      <div className="grid grid-cols-3 gap-10 mt-6 pl-13.5 w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6 w-full">
         {SubAcademys.map((item) => (
           <SubCard key={item.id} item={item}/>
         ))}
