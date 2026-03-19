@@ -1,33 +1,67 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import SidebarCommunity from '../components/CommunityComponents/SidebarCommunity'
 import NavbarCommunity from '../components/CommunityComponents/NavbarCommunity'
 import MessageSender from '../components/CommunityComponents/MessageSender'
 import CreateCommunity from '../components/CommunityComponents/CreateCommunity'
+import MessageBubble from '../components/CommunityComponents/MessageBubble'
+import MessageHook from '../Hook/MessageHook'
+import HookAuth from '../Hook/HookAuth'
 import { MoveLeft, Search, EllipsisVertical, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Community = () => {
     const [selectedCommunity, setSelectedCommunity] = useState(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const { messages, loading, getMessages, sendMessage } = MessageHook()
+    const { userData } = HookAuth()
 
-    const mobileCommunities = useMemo(() => ([
-        { id: 1, name: 'React Developers', members: 1200 },
-        { id: 2, name: 'JavaScript Enthusiasts', members: 800 },
-        { id: 3, name: 'Python Programmers', members: 1500 },
-        { id: 4, name: 'Data Science', members: 1300 },
-        { id: 5, name: 'Machine Learning', members: 1100 },
-    ]), []);
+    // Fetch messages saat komunitas berubah
+    useEffect(() => {
+        if (selectedCommunity?.id) {
+            getMessages(selectedCommunity.id)
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selectedCommunity?.id])
+
+    const handleSendMessage = async (text) => {
+        if (selectedCommunity?.id) {
+            await sendMessage(selectedCommunity.id, text)
+        }
+    }
+
+    const handleSelectCommunity = (community) => {
+        setSelectedCommunity(community)
+    }
 
     return (
         <>
             <div className='hidden lg:flex flex-row w-full'>
-                <SidebarCommunity onCreateClick={() => setIsCreateOpen(true)} />
+                <SidebarCommunity 
+                    onCreateClick={() => setIsCreateOpen(true)}
+                    selectedCommunityId={selectedCommunity?.id}
+                    onSelectCommunity={handleSelectCommunity}
+                />
                 <div className='w-4/5 h-screen relative'>
-                    <NavbarCommunity />
-                    <div className="container mt-15 overflow-y-scroll w-full h-4/5 p-6">
-                        {/* Text area for messages */}
+                    <NavbarCommunity selectedCommunity={selectedCommunity} />
+                    <div className="overflow-y-auto w-full h-4/5 p-6 lg:p-8 bg-white">
+                        <div className='space-y-2 mt-15'>
+                            {messages.length === 0 ? (
+                                <div className='text-center text-gray-400 py-8'>
+                                    <p>{selectedCommunity ? 'Tidak ada pesan. Mulai obrolan!' : 'Pilih komunitas untuk memulai chat'}</p>
+                                </div>
+                            ) : (
+                                messages.map((msg) => (
+                                    <MessageBubble
+                                        key={msg.id}
+                                        message={msg.chat}
+                                        isOwn={msg.sender_id === userData?.id}
+                                        senderName={msg.sender?.name}
+                                    />
+                                ))
+                            )}
+                        </div>
                     </div>
-                    <MessageSender />
+                    <MessageSender onSendMessage={handleSendMessage} loading={loading} />
                 </div>
             </div>
 
@@ -57,23 +91,7 @@ const Community = () => {
 
                         <div className='px-4 py-4 pb-24 overflow-y-auto'>
                             <div className='space-y-2'>
-                                {mobileCommunities.map((community) => (
-                                    <button
-                                        key={community.id}
-                                        type='button'
-                                        onClick={() => setSelectedCommunity(community)}
-                                        className='w-full text-left p-3 rounded-xl border border-gray-200 hover:border-coffe hover:bg-coffe/5 transition duration-300 flex items-center justify-between'
-                                    >
-                                        <div className='flex items-center gap-3 min-w-0'>
-                                            <div className='h-10 w-10 rounded-full bg-bistre shrink-0'></div>
-                                            <div className='min-w-0'>
-                                                <p className='text-sm font-semibold text-gray-800 truncate'>{community.name}</p>
-                                                <p className='text-xs text-gray-500'>{community.members} members</p>
-                                            </div>
-                                        </div>
-                                        {/* <span className='text-xs text-gray-400 shrink-0'>Buka</span> */}
-                                    </button>
-                                ))}
+                                {/* Mobile communities list will be fetched from CommunityHook in SidebarCommunity */}
                             </div>
                         </div>
 
@@ -106,8 +124,8 @@ const Community = () => {
                                 <div className='flex items-center min-w-0'>
                                     <div className='rounded-full h-10 w-10 bg-bistre mr-3 shrink-0'></div>
                                     <div className='min-w-0'>
-                                        <h3 className='text-sm font-semibold text-gray-700 truncate'>{selectedCommunity.name}</h3>
-                                        <p className='text-xs text-gray-500'>{selectedCommunity.members} members</p>
+                                        <h3 className='text-sm font-semibold text-gray-700 truncate'>{selectedCommunity?.name}</h3>
+                                        <p className='text-xs text-gray-500'>{selectedCommunity?.members?.length || selectedCommunity?.members_count || 0} members</p>
                                     </div>
                                 </div>
 
@@ -122,18 +140,26 @@ const Community = () => {
                             </div>
                         </nav>
 
-                        <div className='pt-20 pb-28 h-full overflow-y-auto px-4'>
-                            <div className='space-y-3'>
-                                <div className='max-w-[80%] rounded-2xl bg-gray-100 px-4 py-2 text-sm text-gray-700'>
-                                    Selamat datang di {selectedCommunity.name}
-                                </div>
-                                <div className='ml-auto max-w-[80%] rounded-2xl bg-coffe text-white px-4 py-2 text-sm'>
-                                    Halo semuanya!
-                                </div>
+                        <div className='pt-20 pb-28 h-full overflow-y-auto px-3 lg:px-4'>
+                            <div className='space-y-2'>
+                                {messages.length === 0 ? (
+                                    <div className='text-center text-gray-400 py-8'>
+                                        <p>Tidak ada pesan belum. Mulai obrolan!</p>
+                                    </div>
+                                ) : (
+                                    messages.map((msg) => (
+                                        <MessageBubble
+                                            key={msg.id}
+                                            message={msg.chat}
+                                            isOwn={msg.sender_id === userData?.id}
+                                            senderName={msg.sender?.name}
+                                        />
+                                    ))
+                                )}
                             </div>
                         </div>
 
-                        <MessageSender />
+                        <MessageSender onSendMessage={handleSendMessage} loading={loading} />
                     </section>
                 )}
             </div>

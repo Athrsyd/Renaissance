@@ -1,66 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MoveLeft, Plus, } from 'lucide-react';
+import CommunityHook from '../../Hook/CommunityHook'
 
-const followedCommunities = [
-    {
-        id: 1,
-        name: 'React Developers',
-        members: 1200,
-    },
-    {
-        id: 2,
-        name: 'JavaScript Enthusiasts',
-        members: 800,
-    },
-    {
-        id: 3,
-        name: 'Web Design',
-        members: 500,
-    },
-    {
-        id: 4,
-        name: 'Web Design',
-        members: 500,
-    },
-    {
-        id: 5,
-        name: 'Web Design',
-        members: 500,
-    },
-]
-const CommunityDisplay = ({ community }) => {
-    const [selectedCommunity, setSelectedCommunity] = useState(null);
+const CommunityDisplay = ({ community, isSelected, onClick }) => {
     return (
-        <div className={`pl-5 cursor-pointer py-2 hover:bg-gray-200 transition-colors duration-300 container flex flex-row ${selectedCommunity ? 'bg-gray-200' : ''} justify-start items-center mb-3`}>
+        <div
+            onClick={onClick}
+            className={`pl-5 cursor-pointer py-2 hover:bg-gray-200 transition-colors duration-300 container flex flex-row ${isSelected ? 'bg-gray-200 border-l-4 border-coffe' : ''} justify-start items-center mb-3`}
+        >
             <div className="rounded-full h-10 w-10 bg-bistre mr-3"></div>
             <div className="communityDisplay flex flex-col justify-center items-start rounded-full mr-3">
                 <h3 className='text-sm font-semibold text-gray-700'>{community.name}</h3>
-                <p className='text-xs text-gray-500'>{community.members} members</p>
+                <p className='text-xs text-gray-500'>{community.members?.length || community.members_count || 0} members</p>
             </div>
         </div>
     )
 }
 
-const popularCommunities = [
-    {
-        id: 1,
-        name: 'Python Programmers',
-        members: 1500,
-    },
-    {
-        id: 2,
-        name: 'Data Science',
-        members: 1300,
-    },
-    {
-        id: 3,
-        name: 'Machine Learning',
-        members: 1100,
-    },
-]
-const SidebarCommunity = ({ onCreateClick }) => {
+const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunity }) => {
     const [activeTab, setActiveTab] = useState('overview');
+    const { communities, searchResults, fetchCommunities, isLoading } = CommunityHook()
+
+    useEffect(() => {
+        fetchCommunities()
+    }, [])
 
     return (
 
@@ -79,22 +43,40 @@ const SidebarCommunity = ({ onCreateClick }) => {
                 <div className="followedCommunities ">
                     <h2 className=' px-5 text-sm font-semibold text-bistre/40 mb-2'>Followed Communities</h2>
                     <ul>
-                        {followedCommunities.map((community) => (
-                            <li key={community.id}>
-                                <CommunityDisplay community={community} />
-                            </li>
-                        ))}
+                        {isLoading ? (
+                            <p className='px-5 text-xs text-gray-400'>Loading...</p>
+                        ) : communities.length > 0 ? (
+                            communities.map((community) => (
+                                <li key={community.id}>
+                                    <CommunityDisplay
+                                        community={community}
+                                        isSelected={selectedCommunityId === community.id}
+                                        onClick={() => onSelectCommunity(community)}
+                                    />
+                                </li>
+                            ))
+                        ) : (
+                            <p className='px-5 text-xs text-gray-400'>Tidak ada komunitas</p>
+                        )}
                     </ul>
                 </div>
                 <br />
                 <div className="popularCommunities ">
                     <h2 className=' px-5 text-sm font-semibold text-bistre/40 mb-2'>Popular Communities</h2>
                     <ul>
-                        {popularCommunities.map((community) => (
-                            <li key={community.id}>
-                                <CommunityDisplay community={community} />
-                            </li>
-                        ))}
+                        {searchResults.length > 0 ? (
+                            searchResults.slice(0, 3).map((community) => (
+                                <li key={community.id}>
+                                    <CommunityDisplay
+                                        community={community}
+                                        isSelected={selectedCommunityId === community.id}
+                                        onClick={() => onSelectCommunity(community)}
+                                    />
+                                </li>
+                            ))
+                        ) : (
+                            <p className='px-5 text-xs text-gray-400'>Tidak ada komunitas</p>
+                        )}
                     </ul>
                 </div>
             </div>

@@ -1,13 +1,13 @@
 import React from 'react'
 import Buku from "../assets/welcomeBuku.png"
 
-const WelcomeDash = () => {
+const WelcomeDash = ({user}) => {
   return (
     <>
       <div className="relative bg-[#F2E0D2] w-94 lg:w-225 md:w-160 mt-5 mx-auto p-5 lg:py-12 lg:px-10 md:py-12 md:px-10 rounded-2xl">
         <div className="flex flex-col px-0 lg:px-2 md:px-2 w-[70%] gap-2">
           <h1 className="text-2xl w-font-monstserrat font-semibold text-[#39221C]">
-            <span className="text-icon">Hello,</span> Naresha Letrakusuma
+            <span className="text-icon">Hello,</span> {user.name || 'Renaissance Learner'}!
           </h1>
           <p className="text-md w-90 lg:w-140 md:w-140  font-semibold mt-2 pr-10 text-[#39221C]">
             Learning is a journey of curiosity and discovery. Continue exploring

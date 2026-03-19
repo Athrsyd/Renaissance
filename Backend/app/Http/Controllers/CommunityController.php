@@ -22,7 +22,7 @@ class CommunityController extends Controller
 
         return response()->json([
             'message' => 'List komunitas berhasil diambil',
-            'communities' => $communities
+            'data' => $communities
         ], 200);
     }
 
@@ -49,7 +49,7 @@ class CommunityController extends Controller
 
         return response()->json([
             'message' => 'Komunitas berhasil dibuat',
-            'community' => $community
+            'data' => $community
         ], 201);
     }
 
@@ -68,7 +68,7 @@ class CommunityController extends Controller
 
         return response()->json([
             'message' => 'Hasil pencarian komunitas',
-            'communities' => $communities
+            'data' => $communities
         ], 200);
     }
 

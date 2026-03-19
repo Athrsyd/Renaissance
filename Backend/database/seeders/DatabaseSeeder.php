@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ModulBelajarSeeder::class,
             PknSeeder::class,
             MatematikaSeeder::class,
+            CommunitySeeder::class,
         ]);
     }
 }

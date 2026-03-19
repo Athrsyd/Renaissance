@@ -10,6 +10,7 @@ const HookAuth = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [userData, setUserData] = useState(null);
 
   const handleSubmitRegister = async (e) => {
     e.preventDefault();
@@ -53,18 +54,54 @@ const HookAuth = () => {
 
       // pindah ke dashboard kalau login berhasil
       setTimeout(() => {
-        navigate('/');
+        navigate('/dashboard');
       }, 2000);
-      
+
       // reset form
       setEmail('');
       setPassword('');
-      
+
     } catch (error) {
       console.error('Error logging in user:', error);
       setMessage(error.response.data.message);
     }
   };
+
+  const fetchUserData = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await API.get('/auth/profile', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      setUserData(response.data);
+      // console.log();
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await API.delete("/auth/logout", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      localStorage.removeItem("token");
+      setUserData(null);
+      alert(response.data.message);
+      setTimeout(() => {
+        navigate('/');
+      }, 1000);
+
+      navigate('/');
+    } catch (error) {
+      console.error('Error logging out user:', error);
+    }
+  }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,7 +117,10 @@ const HookAuth = () => {
     message,
     handleChange,
     handleSubmitRegister,
-    handleSubmitLogin
+    handleSubmitLogin,
+    fetchUserData,
+    userData,
+    handleLogout
   }
 
 }
