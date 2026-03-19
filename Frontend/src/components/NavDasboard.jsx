@@ -121,7 +121,7 @@ const navIcon = [
 const SidebarIcon = ({ item }) => {
   return (
     <>
-      <div className="relative group -ml-4 lg:-ml-7 lg:mb-9 md:mb-11 md:-ml-5">
+      <div className="relative group -ml-4 lg:-ml-5 lg:mb-9 md:mb-11 md:-ml-5">
         {item.icon}
         <span
           className="hidden lg:block md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
@@ -137,7 +137,7 @@ const SidebarIcon = ({ item }) => {
 
 const SideBar = () => {
   return (
-    <aside className="fixed bottom-0 left-0 w-full z-100 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0 md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
+    <aside className="fixed bottom-0 left-0 w-full z-1000 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0 md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
       <div className="flex w-full h-full flex-row justify-around items-center lg:flex-col lg:items-center md:py-6 md:flex-col md:items-center md:pr-2">
         {/* Logo (hanya desktop) */}
         <img src={Logo} className="hidden lg:block md:block ml-1 w-[90%]" />
