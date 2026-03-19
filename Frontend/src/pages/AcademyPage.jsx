@@ -1,12 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import NavDasboard from "../components/NavDasboard";
 import Search from "../assets/icon/searchIcon.svg";
 import Notif from "../assets/icon/notifIcon.svg";
 import rBottom from "../assets/icon/rowBottom.svg";
 import SubAcademy from "../components/SubAcademy";
 import WelcomeAcademy from "../components/WelcomeAcademy";
+import AcademyGradePopup from "../components/AcademyGradePopup";
+
+const GRADE_STORAGE_KEY = "kelasYangDipilih";
+
+const getSavedGrade = () => {
+  if (typeof window === "undefined") {
+    return "";
+  }
+
+  return localStorage.getItem(GRADE_STORAGE_KEY) || "";
+};
 
 const AcademyPage = () => {
+  const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
+  const [isGradePopupOpen, setIsGradePopupOpen] = useState(() => !getSavedGrade());
+
+  const handleSelectGrade = (grade) => {
+    setSelectedGrade(grade);
+    localStorage.setItem(GRADE_STORAGE_KEY, grade);
+    setIsGradePopupOpen(false);
+  };
+
   return (
     <>
       <NavDasboard />
@@ -31,10 +51,22 @@ const AcademyPage = () => {
           </div>
         </div>
         <WelcomeAcademy />
+        {selectedGrade && (
+          <p className="mt-3 text-sm md:text-base font-semibold text-icon">
+            Kelas dipilih: {selectedGrade}
+          </p>
+        )}
         <div className="">
           <SubAcademy />
         </div>
       </div>
+
+      <AcademyGradePopup
+        isOpen={isGradePopupOpen}
+        selectedGrade={selectedGrade}
+        onSelectGrade={handleSelectGrade}
+        onClose={() => setIsGradePopupOpen(false)}
+      />
     </>
   );
 };

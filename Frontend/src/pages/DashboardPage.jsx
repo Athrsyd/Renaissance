@@ -1,6 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavDasboard from "../components/NavDasboard"
-import Logo from "../assets/Logo2.png"
 import Search from "../assets/icon/searchIcon.svg"
 import Notif from "../assets/icon/notifIcon.svg"
 import CominityList from "../components/CommunityList"
@@ -9,10 +8,10 @@ import WelcomeDash from '../components/WelcomeDash'
 import SubjectDash from '../components/SubjectDash'
 import ContinueLearning from '../components/ContinueLearning'
 import AureusAI from '../components/AureusAI'
-
-
+import PopUpAccount from '../components/PopUpAccount'
 
 const DashboardPage = () => {
+  const [isAccountOpen, setIsAccountOpen] = useState(false)
 
   return (
     <>
@@ -27,14 +26,24 @@ const DashboardPage = () => {
             />
             <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
           </div>
-          <div className="ml-5 lg:ml-10 md:ml-10 mt-6 gap-5 flex flex-row justify-between">
+          <div className="relative ml-5 lg:ml-10 md:ml-10 mt-6 gap-5 flex flex-row justify-between items-center">
             <button>
-              <img src={Notif} className="w-6 lg:w-7 md:w-7" />
+              <img src={Notif} className="w-6 lg:w-7 md:w-7" alt="Notifications" />
             </button>
             <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full"></div>
-            <button>
-              <img src={rBottom} className="w-5" />
+            <button
+              type="button"
+              onClick={() => setIsAccountOpen((prev) => !prev)}
+              aria-expanded={isAccountOpen}
+              aria-label="Open account menu"
+            >
+              <img src={rBottom} className={`w-5 transition-transform duration-300 ${isAccountOpen ? 'rotate-180' : ''}`} alt="Account menu" />
             </button>
+
+            <PopUpAccount
+              isOpen={isAccountOpen}
+              onClose={() => setIsAccountOpen(false)}
+            />
           </div>
         </div>
         <WelcomeDash />
