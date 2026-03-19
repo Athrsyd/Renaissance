@@ -94,36 +94,12 @@ const navIcon = [
     text: "Community",
     path: "/community"
   },
-  {
-    id: 5,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30px"
-        height="30px"
-        className="ml-6 cursor-pointer hover:text-icon"
-        viewBox="0 0 24 24"
-      >
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-        >
-          <path d="M19.875 6.27A2.23 2.23 0 0 1 21 8.218v7.284c0 .809-.443 1.555-1.158 1.948l-6.75 4.27a2.27 2.27 0 0 1-2.184 0l-6.75-4.27A2.23 2.23 0 0 1 3 15.502V8.217c0-.809.443-1.554 1.158-1.947l6.75-3.98a2.33 2.33 0 0 1 2.25 0l6.75 3.98z" />
-          <path d="M9 12a3 3 0 1 0 6 0a3 3 0 1 0-6 0" />
-        </g>
-      </svg>
-    ),
-    text: "Settings",
-  },
 ];
 
 const SidebarIcon = ({ item }) => {
   return (
     <>
-      <div className="relative group -ml-4 lg:-ml-5 lg:mb-9 md:mb-11 md:-ml-5">
+      <div className="relative group -ml-4 lg:-ml-5 lg:mb-5 md:mb-11 md:-ml-5">
         {item.icon}
         <span
           className="hidden lg:block md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
@@ -139,8 +115,9 @@ const SidebarIcon = ({ item }) => {
 
 const SideBar = () => {
   return (
-    <aside className="fixed bottom-0 left-0 w-full z-1000 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0 md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
-      <div className="flex w-full h-full flex-row justify-around items-center lg:flex-col lg:items-center md:py-6 md:flex-col md:items-center md:pr-2">
+    <aside className="fixed bottom-0 left-0 w-full z-1000 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0
+      md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
+      <div className="flex w-full h-full flex-row md:justify-start justify-around gap-5 items-center lg:flex-col lg:items-center md:py-6 md:flex-col md:items-center md:pr-2">
         {/* Logo (hanya desktop) */}
         <img src={Logo} className="hidden lg:block md:block ml-1 w-[90%]" />
         
