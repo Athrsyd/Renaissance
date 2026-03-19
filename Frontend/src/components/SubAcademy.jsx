@@ -50,7 +50,7 @@ const SubCard = ({item}) => {
           <div className="absolute z-30 top-0 w-full mt-5 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
         <a>
-          <button className="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] lg:text-[10px] text-white px-6 py-2 rounded-lg hover:scale-105 transition shadow-md bg-black/20 border-white/20 z-300">
+          <button className="w-35 absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] lg:text-[10px] text-white px-5 py-2 rounded-lg hover:scale-105 transition shadow-md bg-black/20 border-white/20 z-300">
             Learn now
           </button>
         </a>
@@ -65,7 +65,7 @@ const SubAcademy = () => {
       <h1 className="font-semibold font-monstserrat text-2xl bg-linear-to-l from-[#CAB99F] to-icon text-transparent bg-clip-text">
         Subject
       </h1>
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-6 w-full">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-20 mt-6 w-full">
         {SubAcademys.map((item) => (
           <SubCard key={item.id} item={item}/>
         ))}
