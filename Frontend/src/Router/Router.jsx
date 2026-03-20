@@ -10,6 +10,7 @@ import AcademyPage from '../pages/AcademyPage'
 // import ChatbotUI from '../components/ChatbotUI'
 import ChatbotAureus from '../pages/ChatbotAureus'
 import Community from '../pages/Community'
+import ProtectedRoute from '../Hook/ProtectedRoute'
 
 const Router = () => {
   return (
@@ -20,12 +21,12 @@ const Router = () => {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      <Route path="/academy" element={<AcademyPage />} />
-      <Route path="/chatbot" element={<ChatbotAureus />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/community" element={<Community />} />
-      <Route path="/landing2" element={<LandingPage2 />} />
-      <Route path="/testing" element={<Testing />} />
+      <Route path="/academy" element={<ProtectedRoute><AcademyPage /></ProtectedRoute>} />
+      <Route path="/chatbot" element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
+      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+      <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+      {/* <Route path="/landing2" element={<LandingPage2 />} />
+      <Route path="/testing" element={<Testing />} /> */}
     </Routes>
   );
 }
