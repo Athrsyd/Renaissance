@@ -12,10 +12,12 @@ import AureusAI from '../components/AureusAI'
 import PopUpAccount from '../components/PopUpAccount'
 import HookAuth from '../Hook/HookAuth'
 import CommunityHook from '../Hook/CommunityHook'
+import ProgressHook from '../Hook/ProgressHook'
 
 const DashboardPage = () => {
   const { fetchCommunities, communities } = CommunityHook()
   const { fetchUserData, userData } = HookAuth()
+  const { fetchProgress, dataProgress, isLoading } = ProgressHook()
   const [isAccountOpen, setIsAccountOpen] = useState(false)
   const { searchResults, searchCommunities, joinCommunity, loading } = CommunityHook()
 
@@ -23,13 +25,13 @@ const DashboardPage = () => {
     fetchUserData()
     fetchCommunities()
     searchCommunities()
+    fetchProgress()
   }, [])
 
-  // ========== CALLBACK: Dipanggil saat foto di-update di PopUpAccount ==========
   const handleProfileUpdated = async () => {
     console.log('Profile updated, fetching new data...')
-    await fetchUserData() // Fetch userData terbaru dari backend (include photo_url)
-    setIsAccountOpen(false) // Tutup popup
+    await fetchUserData()
+    setIsAccountOpen(false)
   }
 
   if (!userData) return <div>Loading...</div>
@@ -37,7 +39,6 @@ const DashboardPage = () => {
   return (
     <>
       <NavDasboard />
-      <button className='text-3xl absolute right-0' onClick={() => console.log(userData)}>test</button>
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
           <div className="relative justify-center items-center">
@@ -52,20 +53,13 @@ const DashboardPage = () => {
             <button>
               <img src={Notif} className="w-6 lg:w-7 md:w-7" alt="Notifications" />
             </button>
-            
-            {/* AVATAR DI DASHBOARD - BISA PAKE userData.photo_url ATAU userData photoPreview */}
+
             <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
-              {userData?.photo_url ? (
-                <img
-                  src={userData.photo_url}
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <h1 className="text-white text-center text-2xl font-bold mt-2">
-                  {userData?.name?.charAt(0) || 'U'}
-                </h1>
-              )}
+
+              <h1 className="text-white text-center text-2xl font-bold mt-2">
+                {userData?.name?.charAt(0) || 'U'}
+              </h1>
+
             </div>
 
             <button
@@ -87,18 +81,25 @@ const DashboardPage = () => {
               Email={userData}
               isOpen={isAccountOpen}
               onClose={() => setIsAccountOpen(false)}
-              onProfileUpdated={handleProfileUpdated}  
             />
           </div>
         </div>
-        
+
         <WelcomeDash user={userData} />
         <SubjectDash />
         <div className="w-full lg:pl-35 md:pl-10 mt-7">
           <h1 className="-mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black">
             Continue Learning
           </h1>
-          <ContinueLearning />
+          {dataProgress ? (
+            <ContinueLearning dataProgress={dataProgress} />
+          ) :
+            <div className=" mt-30 mb-10 container mx-auto h-20">
+              <p className="text-center text-gray-500 mt-10">
+                You haven't started any lessons yet. Explore and start learning!
+              </p>
+            </div>
+          }
         </div>
 
         <AureusAI />

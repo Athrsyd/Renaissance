@@ -22,7 +22,7 @@ const AcademyGradePopup = ({ isOpen, onSelectGrade, onClose, selectedGrade }) =>
               <button
                 key={grade}
                 type="button"
-                onClick={() => onSelectGrade(grade)}
+                onClick={() => onSelectGrade(7)}
                 className={`rounded-2xl px-1 py-3 md:py-4 text-lg md:text-2xl font-medium transition duration-300 ${isActive ? "bg-[#AF8D66] text-white" : "bg-[#8B6F5A] text-white hover:bg-[#AF8D66]"}`}
               >
                 {grade}

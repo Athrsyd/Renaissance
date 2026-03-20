@@ -2,7 +2,7 @@ import React from "react";
 import LearnInnovate from "../assets/icon/LearnInnovate.png"
 import LearnInnovate2 from "../assets/icon/LearnInnovate(2).png";
 
-const WelcomeAcademy = () => {
+const WelcomeAcademy = ({user}) => {
   return (
     <>
       <div className="relative bg-[#F2E0D2] w-90 lg:w-225 md:w-160 md:h-70 h-fit lg:h-70 mt-5 mx-auto py-12 px-10 rounded-2xl">
@@ -11,8 +11,8 @@ const WelcomeAcademy = () => {
           className="absolute self-start lg:w-60 md:w-49 -mt-12 -ml-10 hidden md:block"
         />
         <div className="flex flex-col w- justify-center lg:px-35 items-center gap-2">
-          <h1 className="text-xl lg:text-4xl md:text-2xl font-monstserrat font-semibold  text-[#39221C]">
-            <span className="text-icon">Hello,</span> Naresha Letrakusuma
+          <h1 className="text-xl lg:text-4xl md:text-2xl  font-monstserrat font-semibold  text-[#39221C]">
+          <span className="text-icon">Hello,</span> {` ${user.name || 'Student'}!`}
           </h1>
           <p className="text-md text-icon lg:text-center font-semibold font-monstserrat -ml-13 lg:ml-0">
             Welcome Grade 7 Academy

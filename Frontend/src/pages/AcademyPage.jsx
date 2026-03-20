@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import NavDasboard from "../components/NavDasboard";
 import Search from "../assets/icon/searchIcon.svg";
 import Notif from "../assets/icon/notifIcon.svg";
@@ -6,6 +7,9 @@ import rBottom from "../assets/icon/rowBottom.svg";
 import SubAcademy from "../components/SubAcademy";
 import WelcomeAcademy from "../components/WelcomeAcademy";
 import AcademyGradePopup from "../components/AcademyGradePopup";
+import PopUpAccount from "../components/PopUpAccount";
+
+import HookAuth from "../Hook/HookAuth";
 
 const GRADE_STORAGE_KEY = "kelasYangDipilih";
 
@@ -18,6 +22,8 @@ const getSavedGrade = () => {
 };
 
 const AcademyPage = () => {
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const { fetchUserData, userData } = HookAuth();
   const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(() => !getSavedGrade());
 
@@ -26,6 +32,13 @@ const AcademyPage = () => {
     localStorage.setItem(GRADE_STORAGE_KEY, grade);
     setIsGradePopupOpen(false);
   };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+
+  if (!userData) return <div>Loading...</div>
 
   return (
     <>
@@ -44,13 +57,35 @@ const AcademyPage = () => {
             <button>
               <img src={Notif} className="w-6 lg:w-7 md:w-7" />
             </button>
-            <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full"></div>
-            <button>
-              <img src={rBottom} className="w-5" />
+
+            <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
+
+              <h1 className="text-white text-center text-2xl font-bold mt-2">
+                {userData?.name?.charAt(0) || 'U'}
+              </h1>
+
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsAccountOpen((prev) => !prev)}
+              aria-expanded={isAccountOpen}
+              aria-label="Open account menu"
+            >
+              <img
+                src={rBottom}
+                className={`w-5 transition-transform duration-300 ${isAccountOpen ? 'rotate-180' : ''}`}
+                alt="Account menu"
+              />
             </button>
+            <PopUpAccount
+              Username={userData}
+              Email={userData}
+              isOpen={isAccountOpen}
+              onClose={() => setIsAccountOpen(false)}
+            />
           </div>
         </div>
-        <WelcomeAcademy />
+        <WelcomeAcademy user={userData} />
         {selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}

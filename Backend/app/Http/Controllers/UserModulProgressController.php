@@ -22,7 +22,7 @@ class UserModulProgressController extends Controller
                 return [
                     'id' => $item->id,
                     'modul_id' => $item->modul_id,
-                    'date' => optional($item->last_accessed_at)->format('M d, Y'),
+                    'date' => optional($item->last_accessed)->format('M d, Y'),
                     'materi' => $item->modul->judul ?? null,
                     'subject' => $item->modul->mapel->name ?? null,
                     'bab' => $item->babTerakhir->urutan ?? null,
@@ -71,7 +71,7 @@ class UserModulProgressController extends Controller
                 'id_layar_terakhir' => $validated['id_layar_terakhir'] ?? null,
                 'progress_persen' => (int) $validated['progress_persen'],
                 'is_selesai' => $is_selesai,
-                'last_accessed_at' => Carbon::now(),
+                'last_accessed' => Carbon::now(),
                 'completed_at' => $completed_at,
             ]
         );

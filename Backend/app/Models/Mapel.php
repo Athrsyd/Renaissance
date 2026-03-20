@@ -8,7 +8,8 @@ use App\Models\ModulBelajar;
 class Mapel extends Model
 {
         protected $fillable =[
-        'name'
+        'name',
+        'kelas'
     ];
 
         public function modules()

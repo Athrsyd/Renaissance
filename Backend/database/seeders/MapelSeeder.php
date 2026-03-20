@@ -14,10 +14,12 @@ class MapelSeeder extends Seeder
     public function run(): void
     {
         Mapel::create([
-            'name'=>'PKN'
+            'name'=>'PKN',
+            'kelas'=>'10'
         ]);
         Mapel::create([
-            'name'=>'Matematika'
+            'name'=>'Matematika',
+            'kelas'=>'10'
         ]);
     }
 }
