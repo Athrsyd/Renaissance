@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 // 
 const HookAuth = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +14,7 @@ const HookAuth = () => {
   const [userData, setUserData] = useState(null);
 
   const handleSubmitRegister = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
 
@@ -34,11 +36,14 @@ const HookAuth = () => {
       setMessage(response.data.message);
     } catch (error) {
       console.error('Error registering user:', error);
-      setMessage(error.response.data.message);
+      setMessage(error.response?.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSubmitLogin = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     try {
       // post data ke backend
@@ -63,11 +68,14 @@ const HookAuth = () => {
 
     } catch (error) {
       console.error('Error logging in user:', error);
-      setMessage(error.response.data.message);
+      setMessage(error.response?.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const fetchUserData = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem('token');
       const response = await API.get('/auth/profile', {
@@ -77,10 +85,13 @@ const HookAuth = () => {
       // console.log();
     } catch (error) {
       console.error('Error fetching user data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleLogout = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
       const response = await API.delete("/auth/logout", {
@@ -96,9 +107,10 @@ const HookAuth = () => {
         navigate('/');
       }, 1000);
 
-      navigate('/');
     } catch (error) {
       console.error('Error logging out user:', error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -110,6 +122,33 @@ const HookAuth = () => {
     else if (name === 'password') setPassword(value);
   }
 
+  const uploadProfilePicture = async (file) => {
+    setIsLoading(true)
+    try {
+      const token = localStorage.getItem('token')
+      const formData = new FormData()
+      formData.append('photo', file)
+      
+      const response = await API({
+        method: 'put',
+        url: '/auth/profile',
+        data: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      
+      console.log('✅ Upload response:', response.data)
+      return response.data
+    } catch (error) {
+      console.error('❌ Upload error:', error)
+      throw error
+    } finally {
+      setIsLoading(false)
+    }
+  };
+
   return {
     email,
     name,
@@ -120,7 +159,9 @@ const HookAuth = () => {
     handleSubmitLogin,
     fetchUserData,
     userData,
-    handleLogout
+    handleLogout,
+    uploadProfilePicture,
+    isLoading
   }
 
 }

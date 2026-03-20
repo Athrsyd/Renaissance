@@ -33,9 +33,11 @@ const LandingPage = () => {
             <div className=" flex flex-row md:mb-2 mb-4 justify-center w-[80%] sm:w-[70%] md:w-[30%] 
             items-center absolute bottom-3 rounded-4xl md:px-3 sm:px-4 gap-5 md:p-2 p-2 sm:p-2 backdrop-blur-md 
             shadow-md bg-white/10 border-white/20">
-              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white">
-                Start Learning
-              </button>
+              <a href="#features" className="bg-bistre text-center hover:scale-95 transition-all duration-300 ease-in-out rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white">
+                <button className="text-center">
+                  Layanan Kami
+                </button>
+              </a>
               <Link to="/Login" className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 sm:py-4 md:py-2 md:p-0 p-2 text-xl text-white">
                 <button className="text-center">
                   Login
@@ -55,7 +57,7 @@ const LandingPage = () => {
               <br />
               For Middle & High School
             </p>
-            <a>
+            <a href="#about">
               <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-4 py-3 sm:px-5 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee ">
                 Learn More
               </button>
@@ -66,8 +68,8 @@ const LandingPage = () => {
 
       <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
-          <Statistik/>
-          <div id="about"className="w-full flex flex-col justify-center items-center mt-15 sm:mt-8 sm:mt-15">
+          <Statistik />
+          <div id="about" className="w-full flex flex-col justify-center items-center mt-15 sm:mt-8 sm:mt-15">
             <h1 className="text-4xl md:text-5xl font-normal text-center mb-8 sm:mb-15 text-white">
               The Beginning of a <br />
               New <span className="text-khaki">Renaissance</span>
@@ -93,14 +95,14 @@ const LandingPage = () => {
                   className="w-[80%] md:w-[60%] mt-5 mb-10"
                 />
               </div>
-                <About/>
+              <About />
             </div>
           </div>
         </div>
       </section>
 
       <section className="w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
-        <div id="academy"className="w-full pt-5 flex flex-col justify-center items-center">
+        <div id="academy" className="w-full pt-5 flex flex-col justify-center items-center">
           <h1 className="text-5xl sm:text-5xl md:text-4xl mt-5 sm:mt-0 pb-20 md:pb-10 text-center text-white">
             Inside The <br />
             <span className="text-3xl sm:text-4xl md:text-4xl bg-linear-to-l from-[#CAB99F] to-[#6A4D3B] text-transparent bg-clip-text">
@@ -109,10 +111,10 @@ const LandingPage = () => {
           </h1>
           <Mapel />
           <Link to='/login'>
-          <h2 className="text-2xl mt-10 mb-15 font-semibold hover:scale-105 transition-all duration-300 ease-in-out bg-linear-to-l from-[#CAB99F] to-icon bg-clip-text text-transparent">
-            {" "}
-            Learn Now
-          </h2>
+            <h2 className="text-2xl mt-10 mb-15 font-semibold hover:scale-105 transition-all duration-300 ease-in-out bg-linear-to-l from-[#CAB99F] to-icon bg-clip-text text-transparent">
+              {" "}
+              Learn Now
+            </h2>
           </Link>
         </div>
       </section>

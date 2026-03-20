@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { Link } from 'react-router-dom';
 
 const Subjects = [
   {
@@ -31,11 +32,11 @@ const SubjectCard = ({item}) => {
           <div className="absolute z-30 top-0 w-full mt-6 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
 
-        <a>
+        <Link to="/academy">
           <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] md:text-[8px] bottom-0 left-27 lg:left-12 md:left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
             Learn now
           </button>
-        </a>
+        </Link>
       </div>
     </>
   );
@@ -51,13 +52,13 @@ const SubjectDash = () => {
         {Subjects.map((item) => (
           <SubjectCard key={item.id} item={item} />
         ))}
-        <div className="flex flex-row justify-between items-center group gap-2">
-          <a>
+        <div className="flex flex-row justify-between items-center group gap-6">
+          <Link to="/academy" className="flex flex-row justify-center items-center group gap-3">
             <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white -ml-38 lg:ml-3 md:ml-3 px-8 py-2 text-[12px] rounded-xl">
               More Subject
             </button>
-          </a>
-          <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg group-hover:translate-x-5 transition duration-500 ease-in-out" />
+          <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg group-hover:translate-x-5 transition  duration-500 ease-in-out" />
+          </Link>
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useMemo, useState, useEffect, useRef } from 'react'
 import SidebarCommunity from '../components/CommunityComponents/SidebarCommunity'
 import NavbarCommunity from '../components/CommunityComponents/NavbarCommunity'
@@ -191,7 +192,7 @@ const Community = () => {
                                             onDelete={() => handleDeleteMessage(msg.id)}
                                         />
                                     ))
-                                )}}
+                                )}
                                 <div ref={messagesEndRef} />
                             </div>
                         </div>

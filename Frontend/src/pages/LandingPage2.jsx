@@ -17,7 +17,7 @@ import iconBintang from "../assets/icon/iconBintang.png";
 const Bridging = () => {
   return (
     <div className="mt-35 w-full bg-[#CBB799]">
-      <div className="flex items-center gap-16 font-poppins text-4xl text-[#f4e4d8] font-bold bg-[#9B7A5B] p-7 justify-center -rotate-2 overflox-x-hidden w-max animate-slide-text -mt-6 md:text-5xl">
+      <div className="flex items-center gap-16 font-poppins text-4xl text-beige font-bold bg-icon p-7 justify-center -rotate-2 overflox-x-hidden w-max animate-slide-text -mt-6 md:text-5xl">
         <img src={iconBintang} alt="" className="w-12 h-12" />
         <h1>Learn</h1>
         <img src={iconBintang} alt="" className="w-12 h-12" />

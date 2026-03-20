@@ -19,9 +19,9 @@ const Navbar = () => {
   }
 
   const handleScroll = () => {
-    if (window.scrollY >= 416 && window.scrollY < 2495) {
+    if (window.scrollY >= 416 && window.scrollY < 2105) {
       setMenuActive('about');
-    } else if (window.scrollY >= 2495 && window.scrollY < 3150) {
+    } else if (window.scrollY >= 2105 && window.scrollY < 3150) {
       setMenuActive('academy');
     } else if (window.scrollY >= 3150 && window.scrollY < 3740) {
       setMenuActive('features');

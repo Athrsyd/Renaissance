@@ -21,6 +21,7 @@ Route::prefix('v1/')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('auth/profile', [UserController::class, 'profile']);
         Route::delete('auth/logout', [UserController::class, 'logout']);
+        Route::put('auth/profile', [UserController::class, 'updateProfile']);
 
         // // Community
         // Route::get('komunitas/teman', [TemanController::class, 'index']);

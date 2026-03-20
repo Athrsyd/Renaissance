@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,35 +9,23 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasApiTokens;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $fillable = [
         'name',
         'email',
+        'photo_path',
         'password',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    // ========== ADD ACCESSOR ==========
+    protected $appends = ['photo_url'];
+
     protected function casts(): array
     {
         return [
@@ -47,8 +34,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function modulProgress()
+    // ========== ACCESSOR UNTUK AUTO-GENERATE photo_url ==========
+    public function getPhotoUrlAttribute()
     {
-        return $this->hasMany(UserModulProgress::class, 'user_id');
-    }   
+        return $this->photo_path ? asset('storage/' . $this->photo_path) : null;
+    }
 }
