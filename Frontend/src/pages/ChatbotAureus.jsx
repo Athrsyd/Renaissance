@@ -329,7 +329,7 @@ const sendMessage = async (text) => {
         </aside>
 
         {/* Main */}
-        <div className="flex-1 flex flex-col items-center ml-2 lg:ml-20 mb-10 justify-center px-4">
+        <div className="flex-1 flex flex-col items-center ml-2 gap-5 lg:ml-20 mb-10 justify-center px-4">
           {content}
         </div>
 

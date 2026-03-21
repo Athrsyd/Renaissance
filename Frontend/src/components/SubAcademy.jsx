@@ -33,7 +33,7 @@ const SubAcademys = [
   },
 ];
 
-const SubCard = ({item}) => {
+const SubCard = ({ item }) => {
   return (
     <>
       <div className="w-full container group transition-all duration-500 hover:-translate-y-2 cursor-pointer max-w-70 lg:w-60 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
@@ -59,16 +59,23 @@ const SubCard = ({item}) => {
   );
 };
 
-const SubAcademy = () => {
+const SubAcademy = ({ searchQuery = "" }) => {
+  const filteredAcademys = SubAcademys.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
   return (
     <div className="flex flex-col items-center px-4 mt-15 pb-10">
       <h1 className="font-semibold font-monstserrat text-2xl bg-linear-to-l from-[#CAB99F] to-icon text-transparent bg-clip-text">
         Subject
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-20 mt-6 w-full">
-        {SubAcademys.map((item) => (
-          <SubCard key={item.id} item={item}/>
-        ))}
+        {filteredAcademys.length > 0 ? (
+          filteredAcademys.map((item) => <SubCard key={item.id} item={item} />)
+        ) : (
+          <p className="col-span-2 md:col-span-3 text-center text-[#39221C] font-monstserrat mt-5">
+            Pelajaran tidak ditemukan.
+          </p>
+        )}
       </div>
     </div>
   );
