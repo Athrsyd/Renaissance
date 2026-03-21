@@ -18,8 +18,10 @@ const getSavedGrade = () => {
     return "";
   }
 
-  return localStorage.getItem(GRADE_STORAGE_KEY) || "";
+  return localStorage.getItem(GRADE_STORAGE_KEY);
 };
+const grade = getSavedGrade();
+const test = () => localStorage.removeItem(GRADE_STORAGE_KEY);
 
 const AcademyPage = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
@@ -31,6 +33,7 @@ const AcademyPage = () => {
     setSelectedGrade(grade);
     localStorage.setItem(GRADE_STORAGE_KEY, grade);
     setIsGradePopupOpen(false);
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -65,6 +68,7 @@ const AcademyPage = () => {
               </h1>
 
             </div>
+            <button onClick={()=>test()}>test</button>
             <button
               type="button"
               onClick={() => setIsAccountOpen((prev) => !prev)}
@@ -85,15 +89,30 @@ const AcademyPage = () => {
             />
           </div>
         </div>
-        <WelcomeAcademy user={userData} />
+        <WelcomeAcademy user={userData} grade={grade} />
         {selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}
           </p>
         )}
+        {grade? (
         <div className="">
           <SubAcademy />
         </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center mt-10">
+            <h2 className="text-lg md:text-xl font-semibold text-bistre/70 mb-4">
+              Silakan pilih kelas Anda untuk melihat materi yang sesuai.
+            </h2>
+            <button
+              onClick={() => {setIsGradePopupOpen(true)}}
+              className="bg-bistre hover:bg-[#5C4033] text-beige font-bold py-2 px-5 rounded-full"
+            >
+              Pilih Kelas
+            </button>
+          </div>
+
+        )}
       </div>
 
       <AcademyGradePopup

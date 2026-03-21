@@ -2,7 +2,7 @@ import React from "react";
 import LearnInnovate from "../assets/icon/LearnInnovate.png"
 import LearnInnovate2 from "../assets/icon/LearnInnovate(2).png";
 
-const WelcomeAcademy = ({user}) => {
+const WelcomeAcademy = ({user, grade}) => {
   return (
     <>
       <div className="relative bg-[#F2E0D2] w-90 lg:w-225 md:w-160 md:h-70 h-fit lg:h-70 mt-5 mx-auto py-12 px-10 rounded-2xl">
@@ -15,10 +15,11 @@ const WelcomeAcademy = ({user}) => {
           <span className="text-icon">Hello,</span> {` ${user.name || 'Student'}!`}
           </h1>
           <p className="text-md text-icon lg:text-center font-semibold font-monstserrat -ml-13 lg:ml-0">
-            Welcome Grade 7 Academy
+            {grade ? `Welcome ${grade} Academy` : 'Silahkan pilih kelas Anda'}
           </p>
           <p className="text-md font-monstserrat font-semibold lg:text-center text-[#39221C]">
-            Jelajahi mata pelajaran kelas 7 dan mulai perjalanan belajarmu.
+            {!grade && <br />}
+            {grade? `Jelajahi mata pelajaran kelas ${grade} dan mulai perjalanan belajarmu.` : 'Pilih kelas Anda untuk melihat materi yang sesuai. '}
             Pilih subjek yang ingin kamu pelajari, pahami setiap materi langkah
             demi langkah, dan tingkatkan pemahamanmu bersama Renaissance.
           </p>
