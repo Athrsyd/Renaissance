@@ -6,6 +6,7 @@ import Register from '../pages/AuthPages/Register'
 import Testing from './testing'
 import LandingPage2 from '../pages/LandingPage2'
 import DashboardPage from '../pages/DashboardPage'
+import Preload from '../components/Preload'
 import AcademyPage from '../pages/AcademyPage'
 // import ChatbotUI from '../components/ChatbotUI'
 import ChatbotAureus from '../pages/ChatbotAureus'
@@ -25,6 +26,7 @@ const Router = () => {
       <Route path="/chatbot" element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+      <Route path="/preload" element={<Preload />} />
       {/* <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} /> */}
     </Routes>

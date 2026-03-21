@@ -41,7 +41,7 @@ const Navbar = () => {
 
 
   return (
-    <header className=" fixed w-full flex justify-center unded-full z-9999">
+    <header className=" fixed w-full flex justify-center unded-full z-9000">
       {/* <button onClick={()=>console.log(window.scrollY)} className='absolute top-100 bg-amber-400'>test</button> */}
       <div
         className={`fixed inset-0 bg-black/50 md:hidden transition-opacity duration-300 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
