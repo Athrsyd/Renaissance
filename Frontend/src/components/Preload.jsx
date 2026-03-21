@@ -19,15 +19,15 @@ export default function PreloaderQuote() {
           clearInterval(interval);
           return prev;
         }
-        return prev + 1;
+        return prev + 2;
       });
-    }, 510);
+    }, 650);
 
     setTimeout(
       () => {
         setDone(true);
       },
-      words.length * 510 + 1200,
+      words.length * 360 + 1200,
     );
 
     return () => clearInterval(interval);
