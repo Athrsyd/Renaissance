@@ -33,7 +33,7 @@ const SubAcademys = [
   },
 ];
 
-const SubCard = ({item}) => {
+const SubCard = ({ item }) => {
   return (
     <>
       <div className="w-full container group transition-all duration-500 hover:-translate-y-2 cursor-pointer max-w-70 lg:w-60 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
@@ -43,7 +43,7 @@ const SubCard = ({item}) => {
         <p className="text-[12px] text-[#F8F3E0]/50 px-4 mb-2 -mt-3 font-monstserrat font-normal">
           {item.subTitle}
         </p>
-        <div className="bg-white w-50 mx-auto flex ml-2.75 h-[0.5px]"></div>
+        <div className="bg-white w-54 mx-auto flex lg:ml-2.75 h-[0.5px]"></div>
         <div className="relative w-full mt-12 flex flex-col  justify-center items-center ">
           <div className="absolute group-hover:-translate-y-5 duration-500 transition-all top-0 z-10 w-[85%] h-40 -mt-1 bg-[#6A4D3B] rounded-2xl"></div>
           <div className="absolute group-hover:-translate-y-2 duration-300 transition-all z-20 top-0 w-[95%] mt-2 h-40 bg-icon rounded-2xl"></div>
@@ -59,16 +59,23 @@ const SubCard = ({item}) => {
   );
 };
 
-const SubAcademy = () => {
+const SubAcademy = ({ searchQuery = "" }) => {
+  const filteredAcademys = SubAcademys.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()),
+  );
   return (
     <div className="flex flex-col items-center px-4 mt-15 pb-10">
       <h1 className="font-semibold font-monstserrat text-2xl bg-linear-to-l from-[#CAB99F] to-icon text-transparent bg-clip-text">
         Subject
       </h1>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-6 lg:gap-20 mt-6 w-full">
-        {SubAcademys.map((item) => (
-          <SubCard key={item.id} item={item}/>
-        ))}
+        {filteredAcademys.length > 0 ? (
+          filteredAcademys.map((item) => <SubCard key={item.id} item={item} />)
+        ) : (
+          <p className="col-span-2 md:col-span-3 text-center text-[#39221C] font-monstserrat mt-5">
+            Pelajaran tidak ditemukan.
+          </p>
+        )}
       </div>
     </div>
   );

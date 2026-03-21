@@ -28,6 +28,7 @@ const AcademyPage = () => {
   const { fetchUserData, userData } = HookAuth();
   const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(() => !getSavedGrade());
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleSelectGrade = (grade) => {
     setSelectedGrade(grade);
@@ -53,6 +54,8 @@ const AcademyPage = () => {
               type="search"
               placeholder="Explore Lessons"
               className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
           </div>
@@ -89,7 +92,7 @@ const AcademyPage = () => {
             />
           </div>
         </div>
-        <WelcomeAcademy user={userData} grade={grade} />
+       {!searchQuery && <WelcomeAcademy grade={grade} user={userData} />}
         {selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}
@@ -97,7 +100,7 @@ const AcademyPage = () => {
         )}
         {grade? (
         <div className="">
-          <SubAcademy />
+          <SubAcademy searchQuery={searchQuery} />
         </div>
         ) : (
           <div className="flex flex-col justify-center items-center mt-10">
