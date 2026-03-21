@@ -43,7 +43,7 @@ const SubCard = ({item}) => {
         <p className="text-[12px] text-[#F8F3E0]/50 px-4 mb-2 -mt-3 font-monstserrat font-normal">
           {item.subTitle}
         </p>
-        <div className="bg-white w-50 mx-auto flex ml-2.75 h-[0.5px]"></div>
+        <div className="bg-white w-54 mx-auto flex lg:ml-2.75 h-[0.5px]"></div>
         <div className="relative w-full mt-12 flex flex-col  justify-center items-center ">
           <div className="absolute group-hover:-translate-y-5 duration-500 transition-all top-0 z-10 w-[85%] h-40 -mt-1 bg-[#6A4D3B] rounded-2xl"></div>
           <div className="absolute group-hover:-translate-y-2 duration-300 transition-all z-20 top-0 w-[95%] mt-2 h-40 bg-icon rounded-2xl"></div>

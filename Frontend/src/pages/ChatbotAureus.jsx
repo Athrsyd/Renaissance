@@ -180,7 +180,7 @@ const sendMessage = async (text) => {
     );
   } else {
     content = (
-      <div className="w-full max-w-2xl flex flex-col gap-5 mt-5 mb-20 ml-5 space-y-3 overflow-y-auto flex-1">
+      <div className="w-full max-w-2xl flex flex-col gap-5 mt-10 lg:mt-5 mb-20 ml-0 lg:ml-5 space-y-3 overflow-y-auto flex-1">
         {messages.map((msg, i) => (
           <div
             key={i}
@@ -306,11 +306,11 @@ const sendMessage = async (text) => {
 
   return (
     <>
-      <div className="h-screen bg-white relative flex flex-col">
+      <div className="h-screen lg:mt-0 mt-2 bg-white relative flex flex-col">
         {/* Header */}
-        <aside className="p-4 fixed lg:top-0 lg:left-0 lg:h-screen w-40 border-r-2 border-t-0">
+        <aside className=" p-0 lg:p-4 fixed lg:top-0 lg:left-0 h-10 lg:h-screen w-40 lg:border-r-2 border-t-0">
           <Link to="/dashboard">
-            <button className="bg-[#3b2a23] flex flex-row items-center gap-2 ml-1 text-white px-6 py-2 rounded-full">
+            <button className="lg:bg-[#3b2a23] flex flex-row items-center gap-2 ml-0 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20px"
@@ -329,7 +329,7 @@ const sendMessage = async (text) => {
         </aside>
 
         {/* Main */}
-        <div className="flex-1 flex flex-col items-center ml-20 mb-10 justify-center px-4">
+        <div className="flex-1 flex flex-col items-center ml-2 lg:ml-20 mb-10 justify-center px-4">
           {content}
         </div>
 
