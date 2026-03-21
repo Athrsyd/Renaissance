@@ -5,7 +5,7 @@ import BackButton from "../../components/BackButton";
 
 
 const Login = () => {
-    const { email, password, message, handleChange, handleSubmitLogin } = HookAuth();
+    const { email, password, message, handleChange, handleSubmitLogin, isLoading } = HookAuth();
 
     return (
         <div className='text-beige bg-[url("/Bg-Auth.png")] bg-cover bg-center h-screen flex flex-col justify-center items-center gap-5'>
@@ -27,7 +27,10 @@ const Login = () => {
                     <label className='text-khaki -mb-3 ml-3' htmlFor="password">Password</label>
                     <input className='border-2 w-9/10 md:w-full rounded-3xl border-khaki py-2 px-5 text-start' type="password" name="password" id="password" placeholder='Password' value={password} onChange={handleChange} />
                     <div className="w-full flex justify-center items-center px-5 -ml-4 mt-5 md:m-0">
-                        <button className='bg-beige text-bistre w-4/5 md:w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600' type='submit' onClick={handleSubmitLogin}>LOGIN</button>
+                        <button
+                        className='bg-beige text-bistre w-4/5 md:w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600' type='submit' onClick={handleSubmitLogin} disabled={isLoading}>
+                            {isLoading ? "Logging in..." : "LOGIN"}
+                        </button>
                     </div>
                     {/* {message && <p className='text-red-500'>{message}</p>} */}
                 </form>
