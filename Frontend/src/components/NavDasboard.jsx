@@ -102,7 +102,7 @@ const SidebarIcon = ({ item }) => {
       <div className="relative group -ml-4 lg:-ml-5 lg:mb-5 md:mb-11 md:-ml-5">
         {item.icon}
         <span
-          className="hidden lg:block md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
+          className="hidden lg:block duration-700 ease-in-out md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
           bg-icon text-white text-sm px-3 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm w-max whitespace-nowrap
           opacity-0 group-hover:opacity-100 transition"
         >
