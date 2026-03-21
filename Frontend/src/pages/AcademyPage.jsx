@@ -71,7 +71,7 @@ const AcademyPage = () => {
               </h1>
 
             </div>
-            <button onClick={()=>test()}>test</button>
+            {/* <button onClick={()=>test()}>test</button> */}
             <button
               type="button"
               onClick={() => setIsAccountOpen((prev) => !prev)}
