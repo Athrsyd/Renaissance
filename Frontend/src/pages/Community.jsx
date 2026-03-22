@@ -36,7 +36,6 @@ const Community = () => {
         if (selectedCommunity?.id) {
             getMessages(selectedCommunity.id)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCommunity?.id])
 
     const handleSendMessage = async (text) => {
@@ -69,16 +68,18 @@ const Community = () => {
                     onSelectCommunity={handleSelectCommunity}
                 />
                 <div className='w-4/5 h-screen relative'>
-                    <NavbarCommunity 
-                        selectedCommunity={selectedCommunity}
-                        userData={userData}
-                        onJoin={handleJoinCommunity}
-                        isLoading={loading}
-                    />
+                    {selectedCommunity && (
+                        <NavbarCommunity 
+                            selectedCommunity={selectedCommunity}
+                            userData={userData}
+                            onJoin={handleJoinCommunity}
+                            isLoading={loading}
+                        />
+                    )}
                     <div className="overflow-y-auto w-full h-4/5 p-6 lg:p-8 bg-white">
                         <div className='space-y-2 mt-15'>
                             {messages.length === 0 ? (
-                                <div className='text-center text-gray-400 py-8'>
+                                <div className='text-center text-xl text-gray-500 py-8'>
                                     <p>{selectedCommunity ? 'Tidak ada pesan. Mulai obrolan!' : 'Pilih komunitas untuk memulai chat'}</p>
                                 </div>
                             ) : (
@@ -96,7 +97,9 @@ const Community = () => {
                             <div ref={messagesEndRef} />
                         </div>
                     </div>
-                    <MessageSender onSendMessage={handleSendMessage} loading={loading} />
+                    {selectedCommunity && (
+                        <MessageSender onSendMessage={handleSendMessage} loading={loading} />
+                    )}
                 </div>
             </div>
 

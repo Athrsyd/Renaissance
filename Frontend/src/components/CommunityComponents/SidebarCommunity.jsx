@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MoveLeft, Plus, } from 'lucide-react';
 import CommunityHook from '../../Hook/CommunityHook'
+import SkeletonCommunityList from '../SkeletonLoading/CommunityPage/SkeletonCommunityList';
 
 const CommunityDisplay = ({ community, isSelected, onClick }) => {
     return (
@@ -34,7 +35,7 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
         <aside className="w-72 flex h-screen flex-col border-r-bistre border-r-2 shadow-xl">
             <div className="w-full h-15 gap-3 flex flex-row justify-start items-center p-4">
 
-                <Link to='/dashboard' className='cursor-pointer bg-white w-1/6 text-coffe  px-3 py-1 hover:bg-coffe hover:text-white transition duration-300 rounded-full'>
+                <Link to='/dashboard' className='cursor-pointer bg-white w-1/6 text-coffe border-2 border-coffe px-2 py-1 hover:bg-coffe hover:text-white transition duration-300 rounded-xl'>
                     <MoveLeft size={20} />
                 </Link>
                 <form onSubmit={(e) => {
@@ -57,7 +58,7 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
                     <h2 className=' px-5 text-sm font-semibold text-bistre/40 mb-2'>Followed Communities</h2>
                     <ul>
                         {isLoading ? (
-                            <p className='px-5 text-xs text-gray-400'>Loading...</p>
+                            <SkeletonCommunityList />
                         ) : communities.length > 0 ? (
                             communities.map((community) => (
                                 <li key={community.id}>
@@ -77,7 +78,9 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
                 <div className="popularCommunities ">
                     <h2 className=' px-5 text-sm font-semibold text-bistre/40 mb-2'>Popular Communities</h2>
                     <ul>
-                        {searchResults.length > 0 ? (
+                        {isLoading ? (
+                            <SkeletonCommunityList />
+                        ) : searchResults.length > 0 ? (
                             searchResults.slice(0, 3).map((community) => (
                                 <li key={community.id}>
                                     <CommunityDisplay
