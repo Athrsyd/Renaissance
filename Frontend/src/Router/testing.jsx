@@ -5,11 +5,13 @@ import ContinueLearning from '../components/ContinueLearning'
 import WelcomeDash from '../components/WelcomeDash'
 import AcademyPage from '../pages/AcademyPage'
 import ChatbotUI from '../pages/ChatbotAureus'
+import PopUpMatematika from '../components/ModulComponent/PopUpMatematika'
 
 const Testing = () => {
   return (
     <>
-      <Navbar/>
+    <PopUpMatematika/>
+      {/* <Navbar/>
       <Mapel/>
 
 
@@ -21,7 +23,7 @@ const Testing = () => {
       <br />
       <br />
       <WelcomeDash/>
-      <ChatbotUI/>
+      <ChatbotUI/> */}
     </>
   );
 }

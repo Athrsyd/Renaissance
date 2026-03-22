@@ -1,4 +1,4 @@
-const data = [
+ const data = [
     {
         id: 1,
         mapel: "Matematika",
@@ -144,3 +144,5 @@ const data = [
         ]
     }
 ]
+
+export default data
