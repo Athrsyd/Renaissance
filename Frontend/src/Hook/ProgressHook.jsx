@@ -9,7 +9,7 @@ export const ProgressHook = () => {
         setIsLoading(true)
         try {
             const token = localStorage.getItem('token')
-            const response = await API.get('/dashboard/continue-learning', {
+            const response = await API.get('progress', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -23,11 +23,36 @@ export const ProgressHook = () => {
         }
     }
 
-    return {
-        fetchProgress,
-        dataProgress,
-        isLoading,
+    const updateProgress = async (mapelId, progressPersen, soalSelesai =[]) => {
+        setIsLoading(true);
+        try {
+            const isSelesai = progressPersen === 100;
+            const token = localStorage.getItem('token');
+            const res = await API.put(`progress/${mapelId}`, {
+                "progress_persen": progressPersen,
+                "soal_selesai": soalSelesai,
+                "is_selesai": isSelesai
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            console.log('Progress updated:', res.data);
+            return res.data.data
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+
+
+        return {
+            fetchProgress,
+            updateProgress,
+            dataProgress,
+            isLoading,
+        }
     }
 }
 
-export default ProgressHook
+    export default ProgressHook

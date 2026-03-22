@@ -1,3 +1,5 @@
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const dataMapel = [
   {
@@ -42,19 +44,29 @@ const MapelList = ({ item }) => {
   return (
     <>
       <div className="flex flex-col sm:gap-0 gap-5 sm:flex-row w-full md:w-[60%] sm:justify-between items-center text-center">
-        <div className="bg-icon hover:-translate-x-2 transition-all duration-300 ease-in-out order-1 w-50 md:w-70 h-20 md:p-6 rounded-2xl">
+        <div
+          data-aos="fade-right"
+          data-aos-duration="1500"
+          data-aos-delay="300"
+          className="bg-icon hover:-translate-x-2 transition-all duration-300 ease-in-out order-1 w-50 md:w-70 h-20 md:p-6 rounded-2xl">
           <h2 className="text-lg md:text-xl md:pt-0 pt-6 font-semibold text-white">{item.namaMapel}</h2>
         </div>
-        <div className="relative w-55 sm:order-2 order-3 sm:w-0.5 h-0.5 sm:h-45 md:h-35 bg-icon"></div>
-        <div className="w-50 order-2 hover:translate-x-2 transition-all duration-300 ease-in-out  md:w-70">
-          <p className="text-sm md:text-md font-medium text-justify text-white">{item.deskripsi}</p>
+        <div
+          className="relative w-55 sm:order-2 order-3 sm:w-0.5 h-0.5 sm:h-45 md:h-35 bg-icon"
+        ></div>
+        <div
+          data-aos="fade-left"
+          data-aos-delay="300"
+          data-aos-duration="1500"
+          className="w-50 order-2 hover:translate-x-2 transition-all duration-300 ease-in-out  md:w-70">
+          <p className="text-sm md:text-md font-medium text-center md:text-justify text-white">{item.deskripsi}</p>
         </div>
       </div>
     </>
   );
 };
 
-const Mapel = () =>{
+const Mapel = () => {
   return (
     <>
       <div className="flex flex-col sm:gap-0 gap-5 w-full items-center justify-center">

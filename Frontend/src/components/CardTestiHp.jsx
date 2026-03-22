@@ -25,7 +25,7 @@ const data = [
     grade: "Grade 12",
     time: "3w ago",
     comment:
-      "Belajar di Renaissance terasa jauh lebih menyenangkan dibandingkan platform belajar lain yang pernah aku coba.",
+      "Belajar di Renaissance terasa jauh lebih menyenangkan dibandingkan platform belajar lain yang pernah aku coba. Materinya disajikan dengan cara yang interaktif.",
     icon: bintangs,
   },
   {
@@ -114,7 +114,7 @@ const data = [
 const Card = ({ item }) => {
   return (
     <>
-      <div className="bg-white lg:w-140 lg:h-70 md:w-120 p-4 rounded-3xl min-w-[380px] h-full">
+      <div className="bg-white mx-10 lg:w-140 lg:h-70 md:w-120 p-4 min-h-70 flex flex-col justify-between rounded-3xl min-w-70 h-full">
         <div className="flex gap-5 items-center">
           <img src={item.img} alt="" className="w-15 h-15 rounded-full" />
           <div>
@@ -126,7 +126,7 @@ const Card = ({ item }) => {
           <p className="-mt-4.5 -mr-2.5 font-extralight">{item.time}</p>
         </div>
 
-        <div className="mt-3 font-semibold">
+        <div className="mt-3 text-sm font-semibold">
           <p>{item.comment}</p>
           <div>
             <img
@@ -172,7 +172,7 @@ const ContentHp = () => {
     return (
       <>
         <div id="reviews" className="h-full bg-bistre b-none">
-          <div className="text-4xl pt-23 flex justify-center font-poppins bg-linear-to-r from-[#9B7A5B] to-[#dcceb9] text-transparent bg-clip-text font-semibold lg:text-5xl">
+          <div className="text-4xl pt-23 flex justify-center font-poppins bg-linear-to-r from-icon to-[#dcceb9] text-transparent bg-clip-text font-semibold lg:text-5xl">
             <h1 className="text-center">What Students Say</h1>
           </div>
 
@@ -186,6 +186,7 @@ const ContentHp = () => {
           </div>
 
           <div className="flex mt-6">
+            <br />
           </div>
         </div>
       </>

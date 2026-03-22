@@ -1,5 +1,9 @@
 import React from 'react'
 import bgabout from "../assets/bgabout.png";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const dataAbout = [
   {
@@ -29,7 +33,9 @@ const AboutListCard = ({item}) => {
   return (
     <>
       <div
-        className=" w-[60%] sm:w-[48%] md:w-[32%] relative h-60 md:h-80 rounded-lg bg-cover bg-center p-4  md:p-8 flex flex-col justify-center items-center"
+        data-aos="flip-left"
+        data-aos-duration="1500"
+        className=" w-[60%] sm:w-[48%] md:w-[32%] relative h-full md:h-80 rounded-lg bg-cover bg-center p-4  md:p-8 flex flex-col justify-center items-center"
         style={{ backgroundImage: `url(${item.bgAbout})` }}
       >
         <div className="w-full h-full flex flex-col justify-center items-center gap-6">

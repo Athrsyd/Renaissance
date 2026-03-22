@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import { Link } from "react-router-dom";
 import buku from "../assets/buku.png";
@@ -10,8 +10,15 @@ import LandingPage2 from "./LandingPage2";
 import About from "../components/About";
 import Statistik from "../components/Statistik";
 import Preload from "../components/Preload";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const LandingPage = () => {
+  const token = localStorage.getItem("token");
+
+
   return (
     <>
       <Preload />
@@ -43,18 +50,27 @@ const LandingPage = () => {
               >
                 <button className="text-center">Layanan Kami</button>
               </a>
-              <Link
-                to="/Login"
-                className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 sm:py-4 md:py-2 md:p-0 p-2 text-xl text-white"
-              >
-                <button className="text-center">Login</button>
-              </Link>
+              {token ? (
+                <Link
+                  to="/dashboard"
+                  className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 sm:py-4 md:py-2 md:p-0 p-2 text-xl text-white"
+                >
+                  <button className="text-center">Dashboard</button>
+                </Link>
+              ) : (
+                <Link
+                  to="/Login"
+                  className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] md:w-[40%] md:px-0 px-4 py-3 sm:py-4 md:py-2 md:p-0 p-2 text-xl text-white"
+                >
+                  <button className="text-center">Login</button>
+                </Link>
+              )}
             </div>
             <img
               width="100%"
               src={buku}
               alt="gambar buku"
-              className="md:w-full w-80 -mb-5 pb-30 sm:w-90 sm:mb-25 sm:pb-6.5 md:-mb-4.75 md:pb-3.75"
+              className="md:w-full w-80 -mb-5 pb-30 sm:w-90 sm:mb-25 sm:pb-6.5 md:-mb-4.75 md:pb-3.75 transition-all duration-700 ease-out"
             />
           </div>
           <div className=" flex order-2 md:order-3 flex-col md:w-[30%] text-center gap-2 mb-5 md:mb-10 leading-loose">
@@ -66,7 +82,7 @@ const LandingPage = () => {
               Untuk SMP & SMA
             </p>
             <a href="#about">
-              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-3 py-3 sm:px-4 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee ">
+              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-3 py-3 sm:px-4 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffe ">
                 Pelajari
               </button>
             </a>
@@ -101,6 +117,8 @@ const LandingPage = () => {
                   cakrawala baru dalam memahami dunia.
                 </p>
                 <img
+                  data-aos="fade-up"
+                  data-aos-duration="1500"
                   src={aboutbuku}
                   alt="gambar buku"
                   className="w-[80%] md:w-[60%] mt-5 mb-10"
@@ -112,7 +130,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
+      <section className="w-full overflow-x-hidden flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div
           id="academy"
           className="w-full pt-5 flex flex-col justify-center items-center"
