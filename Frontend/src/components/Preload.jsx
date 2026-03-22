@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 <link
   href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
