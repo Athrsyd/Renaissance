@@ -61,13 +61,12 @@ const RenderPopUp = ({ modulIndex, onModulChange, onModulSelesai }) => {
 
   return !isStart ? (
     <div className='flex flex-col bg-bistre/75 border-2 justify-center items-center
-    border-coffe px-15 py-5 rounded-xl text-center gap-3 text-white'>
-        <h1 className='text-4xl font-bold'>Bab {modulSekarang?.bab}:</h1>
-        <h2 className='text-4xl leading-tight font-bold'>{modulSekarang?.judul}</h2>
-        <p className='text-sm'>Modul {modulIndex + 1} dari {semuaModul?.length}</p>
+    border-coffe px-20 py-10 rounded-xl text-center gap-3 text-[#F8F3E0]'>
+        <h1 className='text-4xl pt-3 leading-0 font-bold font-monstserrat'>Bab {modulSekarang?.bab} :</h1>
+        <h2 className='text-4xl leading-tight font-bold font-monstserrat'>{modulSekarang?.judul}</h2>
         <button 
           onClick={() => setIsStart(true)} 
-          className='bg-coffe text-white py-2 px-7 rounded-xl border border-white/50 hover:bg-coffe/80'
+          className='bg-icon text-white py-2 px-7 rounded-xl border border-white/50 hover:bg-icon/80'
         >
             Mulai
         </button>

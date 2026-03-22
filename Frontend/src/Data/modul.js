@@ -1,4 +1,4 @@
- const data = [
+const data = [
     {
         id: 1,
         mapel: "Matematika",
@@ -154,3 +154,5 @@
         ]
     }
 ]
+
+export default data;

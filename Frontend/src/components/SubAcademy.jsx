@@ -51,7 +51,7 @@ const SubCard = ({ item }) => {
           <div className="absolute group-hover:-translate-y-2 duration-300 transition-all z-20 top-0 w-[95%] mt-2 h-40 bg-icon rounded-2xl"></div>
           <div className="absolute group-hover:translate-y-1 duration-400 transition-all z-30 top-0 w-full mt-5 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
-        <Link to="/modul">
+        <Link to="/Matematika">
           <a>
             <button className="w-35 absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] lg:text-[10px] text-white px-5 py-2 rounded-lg hover:scale-105 transition shadow-md bg-black/20 border-white/20 z-300">
               Pelajari Sekarang
