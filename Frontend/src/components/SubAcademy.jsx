@@ -1,4 +1,5 @@
 import React from "react";
+import SkeletonSubAcademy from "./SkeletonLoading/AcademyPage/SkeletonSubAcademy";
 
 const SubAcademys = [
   {

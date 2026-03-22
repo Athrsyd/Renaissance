@@ -11,6 +11,10 @@ import PopUpAccount from "../components/PopUpAccount";
 
 import HookAuth from "../Hook/HookAuth";
 
+import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
+import Skeleton from "react-loading-skeleton";
+import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
+import SkeletonSubAcademy from "../components/SkeletonLoading/AcademyPage/SkeletonSubAcademy";
 const GRADE_STORAGE_KEY = "kelasYangDipilih";
 
 const getSavedGrade = () => {
@@ -29,6 +33,16 @@ const AcademyPage = () => {
   const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(() => !getSavedGrade());
   const [searchQuery, setSearchQuery] = useState("");
+  const [loadingDummy, setLoadingDummy] = useState(true)
+
+  useEffect(() => {
+    const timer =
+      setTimeout(() => {
+        setLoadingDummy(false)
+      }, 1000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   const handleSelectGrade = (grade) => {
     setSelectedGrade(grade);
@@ -42,18 +56,21 @@ const AcademyPage = () => {
   }, []);
 
 
-  if (!userData) return <div>Loading...</div>
+  // if (!userData) return <div>Loading...</div>
 
   return (
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
-          <div className="relative justify-center items-center">
-            <input
-              type="search"
-              placeholder="Explore Lessons"
-              className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
+        {loadingDummy ? (
+          <SkeletonNavbar />
+        ) : (
+          <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
+            <div className="relative justify-center items-center">
+              <input
+                type="search"
+                placeholder="Explore Lessons"
+                className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -92,17 +109,18 @@ const AcademyPage = () => {
             />
           </div>
         </div>
-       {!searchQuery && <WelcomeAcademy grade={grade} user={userData} />}
-        {selectedGrade && (
+        )}
+      {userData ? !searchQuery && <WelcomeAcademy grade={grade} user={userData} /> : <SkeletonWelcome />}
+        {loadingDummy? <Skeleton height={13} width={100} style={{marginTop:'0.75rem'}} /> : selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}
           </p>
         )}
-        {grade? (
-        <div className="">
-          <SubAcademy searchQuery={searchQuery} />
-        </div>
-        ) : (
+        {grade ? (loadingDummy ? <SkeletonSubAcademy /> : (
+          <div className="">
+            <SubAcademy searchQuery={searchQuery} />
+          </div>
+        )) : (
           <div className="flex flex-col justify-center items-center mt-10">
             <h2 className="text-lg md:text-xl font-semibold text-bistre/70 mb-4">
               Silakan pilih kelas Anda untuk melihat materi yang sesuai.
