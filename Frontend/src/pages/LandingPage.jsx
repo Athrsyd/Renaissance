@@ -19,16 +19,16 @@ const LandingPage = () => {
       <section className="h-screen relative z-60 w-full pt-72 pb-25 px-15 sm:px-35 md:pt-32 flex md:px-32 md:pb-0 flex-col justify-center rounded-b-utama items-center bg-[#F2E0D2]">
         <div className="flex">
           <h1 className="text-xl sm:text-2xl md:text-6xl font-semibold text-center text-bistre mb-2 sm:mb-3 md:mb-6">
-            <span className="text-chamoisee">Transforming</span> The Way <br />{" "}
-            Students Learn For The Future
+            <span className="text-chamoisee">Mengubah</span>  Cara
+            Siswa Belajar untuk Masa Depan
           </h1>
         </div>
         <div className="flex flex-col md:flex-row w-full h-screen md:justify-between items-center gap-0 md:gap-10">
           <div className="w-full text-center md:text-start md:w-[30%] order-1 md:order-1 md:pl-7 mb-4 sm:mb-2 md:mb-5 leading-loose">
             <p className=" sm:font-semibold text-sm md:text-lg text-bistre">
-              Modern learning platform designed to help middle and high school
-              students understand lessons better, learn faster, and achieve
-              their academic goals.
+              Platform pembelajaran modern yang dirancang untuk membantu siswa SMP dan SMA
+
+              memahami pelajaran dengan lebih baik, belajar lebih cepat, dan mencapai tujuan akademis mereka.
             </p>
           </div>
           <div className="flex order-3 md:order-2 justify-center items-center md:w-[40%] h-full">
@@ -59,15 +59,15 @@ const LandingPage = () => {
           </div>
           <div className=" flex order-2 md:order-3 flex-col md:w-[30%] text-center gap-2 mb-5 md:mb-10 leading-loose">
             <p className="text-md md:text-lg text-coffe">
-              <span className=" text-2xl md:text-3xl text-bistre font-bold">
-                6+ Subject
+              <span className=" text-xl md:text-2xl text-bistre font-bold">
+                6+ Mata Pelajaran
               </span>
               <br />
-              For Middle & High School
+              Untuk SMP & SMA
             </p>
             <a href="#about">
-              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-4 py-3 sm:px-5 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee ">
-                Learn More
+              <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-3 py-3 sm:px-4 sm:py-2 rounded-xl mt-4 md:pt-0 md:px-10 md:py-1 md:rounded-full hover:bg-coffee ">
+                Pelajari
               </button>
             </a>
           </div>
@@ -79,11 +79,11 @@ const LandingPage = () => {
           <Statistik />
           <div
             id="about"
-            className="w-full flex flex-col justify-center items-center mt-15 sm:mt-8 sm:mt-15"
+            className="w-full flex flex-col justify-center items-center mt-15 sm:mt-15"
           >
             <h1 className="text-4xl md:text-5xl font-normal text-center mb-8 sm:mb-15 text-white">
-              The Beginning of a <br />
-              New <span className="text-khaki">Renaissance</span>
+              Gagasan yang lahirnya <br />
+              <span className="text-khaki">Renaissance</span>
             </h1>
             <div className=" bg-[#F2E0D2] w-full sm:w-[85%] md:w-[75%] rounded-4xl flex flex-col justify-center items-center p-4 sm:p-6 mt-2 sm:mt-5">
               <div className="w-full flex flex-col justify-center items-center">

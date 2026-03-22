@@ -6,25 +6,25 @@ const dataStats = [
     id: 1,
     target: 10000,
     suffix: "+",
-    deskripsi: "Students Learning",
+    deskripsi: "Siswa Terdaftar",
   },
   {
     id: 2,
     target: 100,
     suffix: "+",
-    deskripsi: "Learning Moduls",
+    deskripsi: "Modul Pembelajaran",
   },
   {
     id: 3,
     target: 80,
     suffix: "+",
-    deskripsi: "Partner Schools",
+    deskripsi: "Partner Sekolah",
   },
   {
     id: 4,
     target: 97,
     suffix: "%",
-    deskripsi: "Rate",
+    deskripsi: "Nilai Kepuasan Siswa",
   },
 ];
 
