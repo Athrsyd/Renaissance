@@ -14,7 +14,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'photo_path',
         'password',
     ];
 
@@ -23,8 +22,6 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    // ========== ADD ACCESSOR ==========
-    protected $appends = ['photo_url'];
 
     protected function casts(): array
     {
@@ -35,8 +32,5 @@ class User extends Authenticatable
     }
 
     // ========== ACCESSOR UNTUK AUTO-GENERATE photo_url ==========
-    public function getPhotoUrlAttribute()
-    {
-        return $this->photo_path ? asset('storage/' . $this->photo_path) : null;
-    }
+
 }

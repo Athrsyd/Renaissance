@@ -26,9 +26,6 @@ const Router = () => {
       <Route path="/chatbot" element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
-      <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
-      <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
-      <Route path="/Matematika" element={<ProtectedRoute><ModulMTK /></ProtectedRoute>} />
       {/* <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} /> */}
     </Routes>

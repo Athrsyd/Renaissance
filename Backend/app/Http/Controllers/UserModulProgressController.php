@@ -13,21 +13,20 @@ class UserModulProgressController extends Controller
     {
         $user = $request->user();
 
-        $items = UserModulProgress::with(['modul.mapel', 'babTerakhir'])
+        $items = UserModulProgress::with('modul')
             ->where('user_id', $user->id)
             ->orderBy('last_accessed', 'desc')
             ->get()
-
             ->map(function ($item) {
                 return [
                     'id' => $item->id,
                     'modul_id' => $item->modul_id,
                     'date' => optional($item->last_accessed)->format('M d, Y'),
                     'materi' => $item->modul->judul ?? null,
-                    'subject' => $item->modul->mapel->name ?? null,
-                    'bab' => $item->babTerakhir->urutan ?? null,
+                    'mapel' => $item->modul->mapel ?? null, 
                     'progress' => $item->progress_persen,
                     'is_selesai' => $item->is_selesai,
+                    'soal_selesai' => $item->soal_selesai ?? [],
                 ];
             })->values();
 
@@ -39,9 +38,9 @@ class UserModulProgressController extends Controller
     public function upsertProgress(Request $request, $modul_id)
     {
         $validated = $request->validate([
-            'id_bab_terakhir' => 'nullable|exists:babs,id',
-            'id_layar_terakhir' => 'nullable|exists:layar_materis,id',
             'progress_persen' => 'required|integer|min:0|max:100',
+            'soal_selesai' => 'sometimes|array',  
+            'soal_selesai.*' => 'integer',        
             'is_selesai' => 'sometimes|boolean',
         ]);
 
@@ -67,8 +66,7 @@ class UserModulProgressController extends Controller
                 'modul_id' => $modul_id,
             ],
             [
-                'id_bab_terakhir' => $validated['id_bab_terakhir'] ?? null,
-                'id_layar_terakhir' => $validated['id_layar_terakhir'] ?? null,
+                'soal_selesai' => $validated['soal_selesai'] ?? [],
                 'progress_persen' => (int) $validated['progress_persen'],
                 'is_selesai' => $is_selesai,
                 'last_accessed' => Carbon::now(),

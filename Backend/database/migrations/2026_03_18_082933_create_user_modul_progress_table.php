@@ -21,19 +21,13 @@ return new class extends Migration
             ->constrained('modul_belajars')
             ->onDelete('cascade');
 
-            $table->foreignId('id_bab_terakhir')
-            ->nullable()
-            ->constrained('babs')
-            ->onDelete('cascade');
-
-            $table->foreignId('id_layar_terakhir')
-            ->nullable()->constrained('layar_materis')
-            ->onDelete('cascade');
-            
             $table->unsignedTinyInteger('progress_persen')->default(0);
             $table->boolean('is_selesai')->default(false);
+
             $table->timestamp('last_accessed')->nullable();
             $table->timestamp('completed_at')->nullable();
+
+            $table->json('soal_selesai')->nullable();
 
             $table->unique(['user_id','modul_id']);
             $table->timestamps();

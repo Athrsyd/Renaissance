@@ -1,0 +1,121 @@
+import {useState} from 'react'
+import modul from '../../Data/modul'
+
+const RenderSoal = ({ soal, onClick, isLastSoal }) => {
+  switch(soal.type) {
+    case 'quiz':
+      return <div className='text-white'>
+        <h1>Quiz: {soal.judul}</h1>
+        <button onClick={onClick} className='bg-coffe text-white py-2 px-7 rounded-xl'>
+          {isLastSoal ? 'Selesai' : 'Next'}
+        </button>
+        </div>;
+    case 'drag and drop':
+      return <div className='text-white'>
+        <h1>Drag & Drop: {soal.judul}</h1>
+        <button onClick={onClick} className='bg-coffe text-white py-2 px-7 rounded-xl'>
+          {isLastSoal ? 'Selesai' : 'Next'}
+        </button>
+      </div>;
+    case 'TTS':
+      return <div className='text-white'>
+        <h1>TTS: {soal.judul}</h1>
+        <button onClick={onClick} className='bg-coffe text-white py-2 px-7 rounded-xl'>
+          {isLastSoal ? 'Selesai' : 'Next'}
+        </button>
+      </div>;
+    default:
+      return <div className='text-white'>
+        <h1>Soal: {soal.judul}</h1>
+        <button onClick={onClick} className='bg-coffe text-white py-2 px-7 rounded-xl'>
+          {isLastSoal ? 'Selesai' : 'Next'}
+        </button>
+      </div>;
+  }
+}
+
+const RenderPopUp = ({ modulIndex, onModulChange, onModulSelesai }) => {  
+  const [isStart, setIsStart] = useState(false);
+  const [soalIndex, setSoalIndex] = useState(0);
+
+  const semuaModul = modul[0]?.modul;
+  const modulSekarang = semuaModul?.[modulIndex];
+  const soalSekarang = modulSekarang?.soal?.[soalIndex];
+
+  const totalSoal = modulSekarang?.soal?.length || 0;
+  const isLastSoal = soalIndex === totalSoal - 1;
+  const isLastModul = modulIndex === semuaModul?.length - 1;
+
+  const handleNext = () => {
+    if (isLastSoal) {
+      if (isLastModul) {
+        onModulSelesai();
+      } else {
+        onModulChange(modulIndex + 1);
+        setSoalIndex(0); 
+      }
+    } else {
+      setSoalIndex(soalIndex + 1);
+    }
+  };
+
+  return !isStart ? (
+    <div className='flex flex-col bg-bistre/75 border-2 justify-center items-center
+    border-coffe px-15 py-5 rounded-xl text-center gap-3 text-white'>
+        <h1 className='text-4xl font-bold'>Bab {modulSekarang?.bab}:</h1>
+        <h2 className='text-4xl leading-tight font-bold'>{modulSekarang?.judul}</h2>
+        <p className='text-sm'>Modul {modulIndex + 1} dari {semuaModul?.length}</p>
+        <button 
+          onClick={() => setIsStart(true)} 
+          className='bg-coffe text-white py-2 px-7 rounded-xl border border-white/50 hover:bg-coffe/80'
+        >
+            Mulai
+        </button>
+    </div>
+  ) : (
+    <div className='bg-bistre/75 border-2 border-coffe px-15 py-5 rounded-xl max-w-2xl'>
+      {soalSekarang && (
+        <div>
+          <p className='text-white mb-4'>Soal {soalIndex + 1} dari {totalSoal}</p>
+          <RenderSoal 
+            soal={soalSekarang} 
+            onClick={handleNext}
+            isLastSoal={isLastSoal}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
+const PopUpMatematika = () => {
+  const [modulIndex, setModulIndex] = useState(0);
+  const [isComplete, setIsComplete] = useState(false);
+
+  if (isComplete) {
+    return (
+      <>
+        <div className='fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999'>
+          <div className='bg-bistre/75 border-2 border-coffe px-15 py-5 rounded-xl text-center'>
+            <h1 className='text-4xl font-bold text-white'>🎉 Selesai!</h1>
+            <p className='text-white mt-4'>Anda telah menyelesaikan semua modul</p>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <div className='fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999'>
+        <RenderPopUp 
+          modulIndex={modulIndex}
+          onModulChange={setModulIndex}
+          onModulSelesai={() => setIsComplete(true)}
+        /> 
+      </div>
+    </>
+  )
+}
+
+export default PopUpMatematika

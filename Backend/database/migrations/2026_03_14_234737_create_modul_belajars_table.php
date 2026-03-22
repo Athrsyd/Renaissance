@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('modul_belajars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_mapel')->constrained('mapels')->onDelete('cascade');
-            $table->string('judul');
+            $table->string('mapel');        // untuk identify (Matematika, Pancasila, dll)
+            $table->string('judul');        // judul modul
             $table->timestamps();
         });
     }

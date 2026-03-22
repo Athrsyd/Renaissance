@@ -9,19 +9,11 @@ use App\Models\Bab;
 class ModulBelajar extends Model
 {
     protected $fillable = [
-        'id_mapel',
+        'mapel',
         'judul',
     ];
 
-    public function mapel()
-    {
-        return $this->belongsTo(Mapel::class, 'id_mapel');
-    }
 
-    public function babs()
-    {
-        return $this->hasMany(Bab::class, 'id_modul');
-    }
 
     public function userProgress()
     {
