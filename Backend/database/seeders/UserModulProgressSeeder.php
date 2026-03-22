@@ -7,8 +7,6 @@ use Illuminate\Database\Seeder;
 use App\Models\UserModulProgress;
 use App\Models\User;
 use App\Models\ModulBelajar;
-use App\Models\Bab;
-use App\Models\LayarMateri;
 
 class UserModulProgressSeeder extends Seeder
 {
@@ -27,21 +25,20 @@ class UserModulProgressSeeder extends Seeder
                 $progressPercentages = [25, 50, 75, 100];
                 $progressPersen = $progressPercentages[$key % count($progressPercentages)];
                 
-                // Get bab from current modul
-                $bab = Bab::where('id_modul', $modul->id)->first();
-                $layarMateri = null;
+                // Simulate soal yang sudah diselesaikan
+                // Contoh: jika progress 50%, user sudah selesai ~50% dari soal
+                $soalSelesai = [];
+                if ($progressPersen >= 25) $soalSelesai[] = 1;
+                if ($progressPersen >= 50) $soalSelesai[] = 2;
+                if ($progressPersen >= 75) $soalSelesai[] = 3;
+                if ($progressPersen >= 100) $soalSelesai[] = 4;
                 
-                if ($bab) {
-                    $layarMateri = LayarMateri::where('id_bab', $bab->id)->first();
-                }
-                
-                $completedAt = now()->subDays(rand(0, 30));
+                $completedAt = $progressPersen === 100 ? now()->subDays(rand(0, 30)) : null;
                 
                 UserModulProgress::create([
                     'user_id' => $user->id,
                     'modul_id' => $modul->id,
-                    'id_bab_terakhir' => $bab?->id,
-                    'id_layar_terakhir' => $layarMateri?->id,
+                    'soal_selesai' => $soalSelesai,  // ← NEW
                     'progress_persen' => $progressPersen,
                     'is_selesai' => $progressPersen === 100,
                     'last_accessed' => now()->subDays(rand(0, 30)),

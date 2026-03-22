@@ -15,45 +15,45 @@ class ModulBelajarSeeder extends Seeder
     {
         // Seed Modul PKN
         ModulBelajar::create([
-            'id_mapel' => 1,
+            'mapel' => 'Pendidikan Pancasila',
             'judul' => "Latar Sejarah Kelahiran Pancasila"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 1,
+            'mapel' => 'Pendidikan Pancasila' ,
             'judul' => "Kelahiran Pancasila dalam Sidang BPUPKI"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 1,
+            'mapel' => 'Pendidikan Pancasila',
             'judul' => "Proses Perumusan Pancasila"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 1,
+            'mapel' => 'Pendidikan Pancasila',
             'judul' => "Penetapan Pancasila sebagai dasar Negara"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 1,
+            'mapel' => 'Pendidikan Pancasila',
             'judul' => "Meneladanni Pendiri Bangsa"
         ]);
 
         // Seed Modul Matematika
         ModulBelajar::create([
-            'id_mapel' => 2,
+            'mapel' => 'Matematika',
             'judul' => "Mengenal Bangun Ruang"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 2,
+            'mapel' => 'Matematika',
             'judul' => "Teorema Pythagoras"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 2,
+            'mapel' => 'Matematika',
             'judul' => "Mengenal Aljabar"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 2,
+            'mapel' => 'Matematika',
             'judul' => "Operasi Aljabar"
         ]);
         ModulBelajar::create([
-            'id_mapel' => 2,
+            'mapel' => 'Matematika',
             'judul' => "Matematika dalam Kehidupan"
         ]);
     }

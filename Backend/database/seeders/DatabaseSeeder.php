@@ -30,10 +30,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
         ]);
         $this->call([
-            MapelSeeder::class,
             ModulBelajarSeeder::class,
-            PknSeeder::class,
-            MatematikaSeeder::class,
             CommunitySeeder::class,
             UserModulProgressSeeder::class,
         ]);
