@@ -35,7 +35,7 @@ const SubjectCard = ({ item }) => {
         </div>
 
         <Link to="/academy">
-          <button className="hover:bg-bistre transition-all duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] md:text-[8px] bottom-0 left-25 lg:left-10 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
+          <button className="hover:bg-bistre transition-all duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] md:text-[8px] bottom-0 left-25 lg:left-8.5 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
             Pelajari sekarang
           </button>
         </Link>

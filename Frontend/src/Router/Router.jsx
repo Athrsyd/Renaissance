@@ -11,6 +11,7 @@ import AcademyPage from '../pages/AcademyPage'
 import ChatbotAureus from '../pages/ChatbotAureus'
 import Community from '../pages/Community'
 import ProtectedRoute from '../Hook/ProtectedRoute'
+import ModulMTK from '../pages/ModulMTK'
 
 const Router = () => {
   return (
@@ -25,8 +26,8 @@ const Router = () => {
       <Route path="/chatbot" element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
-      {/* <Route path="/landing2" element={<LandingPage2 />} /> */}
-      <Route path="/testing" element={<Testing />} />
+      {/* <Route path="/landing2" element={<LandingPage2 />} />
+      <Route path="/testing" element={<Testing />} /> */}
     </Routes>
   );
 }

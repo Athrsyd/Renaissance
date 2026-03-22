@@ -14,6 +14,7 @@
                         type: 'drag and drop',
                         narasi: "Bangun ruang adalah bangun tiga dimensi yang memiliki panjang, lebar, dan tinggi. Banyak benda di sekitar kita yang memiliki bentuk bangun ruang.",
                         pertanyaan: "Manakah dari gambar berikut yang merupakan bangun ruang?",
+                        ilustrasi: null,
                         pilihan: ['dadu', 'bola sepak', 'Kotak hadiah', 'kaleng minuman'],
                         jawaban: ['kubus', 'bola', 'balok', 'tabung']
                     },
@@ -23,6 +24,7 @@
                         type: 'quiz',
                         narasi: null,
                         pertanyaan: "Bangun ruang yang memiliki 6 sisi sama besar adalah...",
+                        ilustrasi: null,
                         pilihan: ['A. Balok', 'B. Kubus', 'C. Tabung'],
                         jawaban: 'B. Kubus'
                     },
@@ -36,6 +38,7 @@
                             'Garis pertemuan antara dua sisi pada bangun ruang',
                             'Permukaan yang membatasi bangun ruang'
                         ],
+                        ilustrasi: null,
                         pilihan: null,
                         jawaban: ['Kubus', 'Rusuk', 'Sisi']
                     },
@@ -52,6 +55,7 @@
                         type: 'quiz',
                         narasi: "Teorema Pythagoras digunakan untuk menghitung panjang sisi pada segitiga siku-siku.",
                         pertanyaan: "Rumus Teorema Pythagoras adalah?",
+                        ilustrasi: null,
                         pilihan: ['A. a + b = c', 'B. a² + b² = c²', 'C. a² - b² = c²'],
                         jawaban: 'B. a² + b² = c²'
                     },
@@ -61,6 +65,7 @@
                         type: 'quiz',
                         narasi: 'Jika dua sisi segitiga diketahui, kita dapat mencari sisi miring menggunakan rumus Pythagoras.',
                         pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
+                        ilustrasi: null,
                         pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
                         jawaban: 'A. 5 cm'
                     },
@@ -70,6 +75,7 @@
                         type: 'quiz',
                         narasi: 'Teorema Pythagoras sering digunakan untuk menghitung jarak atau panjang benda dalam kehidupan sehari-hari.',
                         pertanyaan:'Jika a = 5 b = 12 Berapa nilai c? ',
+                        ilustrasi: null,
                         pilihan: ['A. 13', 'B. 17', 'C. 15'],
                         jawaban: 'A. 13'
                     },
@@ -86,6 +92,7 @@
                         type: 'tarik benang',
                         narasi: "Aljabar adalah cabang matematika yang menggunakan huruf atau simbol untuk mewakili angka yang belum diketahui",
                         pertanyaan: "Cocokkan istilah dengan artinya",
+                        ilustrasi: null,
                         pilihan: ['x', '5', 'x + 2'],
                         jawaban: ['Variabel', 'Konstanta', 'bentuk Aljabar']
                     },
@@ -95,6 +102,7 @@
                         type: 'quiz',
                         narasi: 'Untuk mencari nilai x, kita harus memindahkan angka ke sisi lain dengan operasi yang berlawanan.',
                         // pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
+                        ilustrasi: null,
                         // pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
                         // jawaban: 'A. 5 cm'
                     }
@@ -111,6 +119,7 @@
                         type: 'isian',
                         narasi: "Suku yang memiliki variabel sama dapat dijumlahkan atau dikurangkan.",
                         pertanyaan: "3x + 4x = ?",
+                        ilustrasi: null,
                         pilihan: null,
                         jawaban: '7x'
                     },
@@ -136,6 +145,7 @@
                         type: 'isian',
                         narasi: "Matematika membantu kita memahami bentuk, menghitung jarak, dan memecahkan berbagai masalah dalam kehidupan sehari-hari.",
                         pertanyaan: "Jika kamu menemukan soal matematika yang sulit, apa yang sebaiknya kamu lakukan?",
+                        ilustrasi: null,
                         pilihan: null,
                         jawaban: null
                     },
@@ -144,5 +154,3 @@
         ]
     }
 ]
-
-export default data
