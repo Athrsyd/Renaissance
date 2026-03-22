@@ -23,7 +23,7 @@ const ContinueLearning = ({dataProgress}) => {
     return (
         <>
             <div className="ContinueLearning pt-10 flex flex-row gap-7 mx-5 my-10 justify-start items-stretch overflow-x-auto overflow-y-hidden pb-2">
-
+                
                 {dataProgress.map((item, index) => (
                     <ContinueLearningCard key={item.id} item={item} index={index} />
                 ))}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import SkeletonCommunity from './SkeletonLoading/DashboardPage/SkeletonCommunity'
 
 const CommunityList = ({ communities = [], onJoin, isSearchPage = false }) => {
     const [loading, setLoading] = useState(false)
@@ -35,9 +36,9 @@ const CommunityList = ({ communities = [], onJoin, isSearchPage = false }) => {
                                 <Link to='/community' >
                                     <button
                                         disabled={loading}
-                                        className='bg-beige text-bistre hover:bg-bistre hover:text-beige text-md font-semibold rounded-md transition duration-200 ease-in-out py-1 px-8 disabled:opacity-50'
+                                        className='bg-beige text-bistre hover:bg-bistre hover:text-beige text-md font-semibold rounded-md transition duration-200 ease-in-out py-1 px-4 disabled:opacity-50'
                                     >
-                                        {loading ? 'Loading...' : 'join'}
+                                        Bergabung
                                     </button>
                                 </Link>
                             </div>
@@ -48,6 +49,7 @@ const CommunityList = ({ communities = [], onJoin, isSearchPage = false }) => {
                 )}
             </div>
         </div>
+
     )
 }
 

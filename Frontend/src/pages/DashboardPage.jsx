@@ -14,12 +14,31 @@ import HookAuth from '../Hook/HookAuth'
 import CommunityHook from '../Hook/CommunityHook'
 import ProgressHook from '../Hook/ProgressHook'
 
+
+// Skeleton
+import SkeletonWelcome from '../components/SkeletonLoading/DashboardPage/SkeletonWelcome'
+import SkeletonProgress from '../components/SkeletonLoading/DashboardPage/SkeletonProgress'
+import SkeletonChatbot from '../components/SkeletonLoading/DashboardPage/SkeletonChatbot'
+import SkeletonCommunity from '../components/SkeletonLoading/DashboardPage/SkeletonCommunity'
+import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
+// import Skel
+
 const DashboardPage = () => {
   const { fetchCommunities, communities } = CommunityHook()
-  const { fetchUserData, userData } = HookAuth()
+  const { fetchUserData, userData, isAuthLoading } = HookAuth()
   const { fetchProgress, dataProgress, isLoading } = ProgressHook()
   const [isAccountOpen, setIsAccountOpen] = useState(false)
   const { searchResults, searchCommunities, joinCommunity, loading } = CommunityHook()
+  const [loadingDummy, setLoadingDummy] = useState(true)
+
+  useEffect(() => {
+    const timer =
+      setTimeout(() => {
+        setLoadingDummy(false)
+      }, 2000)
+
+    return () => clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     fetchUserData()
@@ -34,18 +53,18 @@ const DashboardPage = () => {
     setIsAccountOpen(false)
   }
 
-  if (!userData) return <div>Loading...</div>
 
   return (
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
-          <div className="relative justify-center items-center">
-            <input
-              type="search"
-              placeholder="Explore Lessons"
-              className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
+        {loadingDummy ? <SkeletonNavbar /> : (
+          <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
+            <div className="relative justify-center items-center">
+              <input
+                type="search"
+                placeholder="Explore Lessons"
+                className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
             />
             <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
           </div>
@@ -84,27 +103,30 @@ const DashboardPage = () => {
             />
           </div>
         </div>
-
-        <WelcomeDash user={userData} />
+        )}
+        {userData ?
+          <WelcomeDash user={userData} />
+          :
+          <SkeletonWelcome />
+        }
         <SubjectDash />
         <div className="w-full lg:pl-35 md:pl-10 mt-7">
           <h1 className="-mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black">
-            Continue Learning
+            Lanjutkan Belajar Kamu
           </h1>
-          {dataProgress ? (
+          {isLoading ? <SkeletonProgress /> : (dataProgress ? (
             <ContinueLearning dataProgress={dataProgress} />
-          ) :
+          ) : (
             <div className=" mt-30 mb-10 container mx-auto h-20">
               <p className="text-center text-gray-500 mt-10">
-                You haven't started any lessons yet. Explore and start learning!
-              </p>
+                Anda belum memulai pelajaran apa pun. Jelajahi dan mulailah belajar!              </p>
             </div>
-          }
+          ))}
         </div>
 
-        <AureusAI />
+        {loadingDummy ? (<SkeletonChatbot />) : (<AureusAI />)}
 
-        {communities.length > 0 && (
+        {communities.length > 0 ? (
           <div className="w-full flex-col flex mt-7">
             <h1 className="ml-5 lg:ml-40 md:ml-20 self-start font-semibold font-monstserrat text-lg text-black">
               Explore Communities
@@ -115,7 +137,7 @@ const DashboardPage = () => {
               isSearchPage={true}
             />
           </div>
-        )}
+        ) : < SkeletonCommunity />}
       </div>
       <br />
       <br />

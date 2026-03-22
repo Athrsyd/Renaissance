@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 // 
 const HookAuth = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const HookAuth = () => {
   const [userData, setUserData] = useState(null);
 
   const handleSubmitRegister = async (e) => {
-    setIsLoading(true);
+    setIsAuthLoading(true);
     e.preventDefault();
     try {
 
@@ -38,12 +38,12 @@ const HookAuth = () => {
       console.error('Error registering user:', error);
       setMessage(error.response?.data.message);
     } finally {
-      setIsLoading(false);
+      setIsAuthLoading(false);
     }
   };
 
   const handleSubmitLogin = async (e) => {
-    setIsLoading(true);
+    setIsAuthLoading(true);
     e.preventDefault();
     try {
       // post data ke backend
@@ -70,12 +70,12 @@ const HookAuth = () => {
       console.error('Error logging in user:', error);
       setMessage(error.response?.data.message);
     } finally {
-      setIsLoading(false);
+      setIsAuthLoading(false);
     }
   };
 
   const fetchUserData = async () => {
-    setIsLoading(true);
+    setIsAuthLoading(true);
     try {
       const token = localStorage.getItem('token');
       const response = await API.get('/auth/profile', {
@@ -86,12 +86,12 @@ const HookAuth = () => {
     } catch (error) {
       console.error('Error fetching user data:', error);
     } finally {
-      setIsLoading(false);
+      setIsAuthLoading(false);
     }
   };
 
   const handleLogout = async () => {
-    setIsLoading(true);
+    setIsAuthLoading(true);
     try {
       const token = localStorage.getItem("token");
       const response = await API.delete("/auth/logout", {
@@ -110,7 +110,7 @@ const HookAuth = () => {
     } catch (error) {
       console.error('Error logging out user:', error);
     } finally {
-      setIsLoading(false);
+      setIsAuthLoading(false);
     }
   }
 
@@ -123,7 +123,7 @@ const HookAuth = () => {
   }
 
   const uploadProfilePicture = async (file) => {
-    setIsLoading(true)
+    setIsAuthLoading(true)
     try {
       const token = localStorage.getItem('token')
       const formData = new FormData()
@@ -145,7 +145,7 @@ const HookAuth = () => {
       console.error('❌ Upload error:', error)
       throw error
     } finally {
-      setIsLoading(false)
+      setIsAuthLoading(false)
     }
   };
 
@@ -161,7 +161,7 @@ const HookAuth = () => {
     userData,
     handleLogout,
     uploadProfilePicture,
-    isLoading
+    isAuthLoading
   }
 
 }

@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom';
+
+import SkeletonSubjects from './SkeletonLoading/DashboardPage/SkeletonSubjects';
 
 const Subjects = [
   {
@@ -18,7 +20,7 @@ const Subjects = [
   },
 ];
 
-const SubjectCard = ({item}) => {
+const SubjectCard = ({ item }) => {
   return (
     <>
       <div className="group transition-all duration-500 hover:-translate-y-2 cursor-pointer w-85 h-70 lg:w-50 lg:h-70 md:w-50 md:h-70 justify-center rounded-2xl py-4 bg-bistre relative flex-col ">
@@ -33,8 +35,8 @@ const SubjectCard = ({item}) => {
         </div>
 
         <Link to="/academy">
-          <button className="hover:scale-105 transition duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] md:text-[8px] bottom-0 left-27 lg:left-12 md:left-12 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
-            Learn now
+          <button className="hover:bg-bistre transition-all duration-300 ease-in-out absolute z-40 text-[12px] lg:text-[8px] md:text-[8px] bottom-0 left-25 lg:left-10 mb-5 text-white px-8 py-2 rounded-lg shadow-md bg-black/20 border-white/20">
+            Pelajari sekarang
           </button>
         </Link>
       </div>
@@ -43,23 +45,39 @@ const SubjectCard = ({item}) => {
 };
 
 const SubjectDash = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col justify-center lg:pl-0 items-center max-w-full lg:w-225 md:w-225 md:pl-15 mt-5">
       <h1 className="self-start font-semibold font-monstserrat text-lg text-black">
-        Subject
+        Mata Pelajaran
       </h1>
       <div className="relative flex flex-col lg:flex-row md:flex-row md:flex-wrap gap-6 lg:gap-8 mt-5 justify-center items-center self-start">
-        {Subjects.map((item) => (
-          <SubjectCard key={item.id} item={item} />
-        ))}
-        <div className="flex flex-row justify-between items-center group gap-6">
-          <Link to="/academy" className="flex flex-row justify-center items-center group gap-3">
-            <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white -ml-38 lg:ml-3 md:ml-3 px-8 py-2 text-[12px] rounded-xl">
-              More Subject
-            </button>
-          <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg group-hover:translate-x-5 transition  duration-500 ease-in-out" />
-          </Link>
-        </div>
+        {isLoading ? (
+          <SkeletonSubjects />
+        ) : (
+          <>
+            {Subjects.map((item) => (
+              <SubjectCard key={item.id} item={item} />
+            ))}
+            <div className="flex flex-row justify-between items-center group gap-6">
+              <Link to="/academy" className="flex flex-row justify-center items-center group gap-3">
+                <button className="group-hover:scale-105 transition duration-300 ease-in-out bg-bistre text-white -ml-38 lg:ml-3 md:ml-3 px-8 py-2 text-[12px] rounded-xl">
+                  Mapel lainnya
+                </button>
+                <FontAwesomeIcon icon={faAnglesRight} className="font-monstserrat text-lg group-hover:translate-x-5 transition  duration-500 ease-in-out" />
+              </Link>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ const AureusAI = () => {
                     type="button"
                     className="inline-flex items-center justify-center rounded-2xl bg-[#4A281E] px-8 py-2.5 text-xl font-semibold text-[#F7ECE0] transition hover:bg-[#3D2018]"
                     >
-                    Ask Aureus
+                    Tanya Aureus
                     </button>
                 </Link>
                 </div>
