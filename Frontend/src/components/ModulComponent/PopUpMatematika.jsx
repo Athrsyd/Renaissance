@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import modul from '../../Data/modul'
 
 const RenderSoal = ({ soal, onClick, isLastSoal }) => {
@@ -87,8 +87,8 @@ const RenderPopUp = ({ modulIndex, onModulChange, onModulSelesai }) => {
   );
 }
 
-const PopUpMatematika = () => {
-  const [modulIndex, setModulIndex] = useState(0);
+const PopUpMatematika = ({ initialModulIndex = 0, onClose }) => {
+  const [modulIndex, setModulIndex] = useState(initialModulIndex);
   const [isComplete, setIsComplete] = useState(false);
 
   if (isComplete) {
@@ -98,6 +98,12 @@ const PopUpMatematika = () => {
           <div className='bg-bistre/75 border-2 border-coffe px-15 py-5 rounded-xl text-center'>
             <h1 className='text-4xl font-bold text-white'>🎉 Selesai!</h1>
             <p className='text-white mt-4'>Anda telah menyelesaikan semua modul</p>
+            <button
+              onClick={onClose}
+              className='mt-6 bg-icon text-white py-2 px-7 rounded-xl border border-white/50 hover:bg-icon/80'
+            >
+              Tutup
+            </button>
           </div>
         </div>
       </>
@@ -106,12 +112,14 @@ const PopUpMatematika = () => {
 
   return (
     <>
-      <div className='fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999'>
-        <RenderPopUp 
-          modulIndex={modulIndex}
-          onModulChange={setModulIndex}
-          onModulSelesai={() => setIsComplete(true)}
-        /> 
+      <div className='fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999' onClick={onClose}>
+        <div onClick={(event) => event.stopPropagation()}>
+          <RenderPopUp 
+            modulIndex={modulIndex}
+            onModulChange={setModulIndex}
+            onModulSelesai={() => setIsComplete(true)}
+          />
+        </div>
       </div>
     </>
   )

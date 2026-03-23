@@ -2,7 +2,12 @@ import data from "../Data/modul";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const TimelineBab = ({ modulProgress = [], isProgressLoading = false, progressError = null }) => {
+const TimelineBab = ({
+  modulProgress = [],
+  isProgressLoading = false,
+  progressError = null,
+  onStartModule,
+}) => {
   const modul = data[0].modul; // ambil Matematika
   const matematikaProgress = modulProgress.filter(
     (item) => (item?.mapel || "").toLowerCase() === "matematika"
@@ -91,7 +96,12 @@ const TimelineBab = ({ modulProgress = [], isProgressLoading = false, progressEr
               <div className="flex items-center">
                   <button
                     disabled={!isUnlocked}
-                    className={`text-white py-2 rounded-md ${isUnlocked ? "bg-icon hover:bg-icon-hover px-7" : "bg-gray-400 cursor-not-allowed px-4"}`}
+                    className={`text-white py-2 rounded-md ${isUnlocked ? "bg-icon hover:bg-icon-hover px-7 hover:scale-105 transition duration-300" : "bg-gray-400 cursor-not-allowed px-4"}`}
+                    onClick={() => {
+                      if (isUnlocked && !isCompleted && onStartModule) {
+                        onStartModule(index);
+                      }
+                    }}
                   >
                     {isCompleted ? "Selesai" : isUnlocked ? "Mulai" : "Terkunci"}
                   </button>

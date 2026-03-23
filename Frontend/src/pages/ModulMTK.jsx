@@ -12,10 +12,13 @@ import TimelineBab from "../components/PathMTK";
 import ProgressHook from "../Hook/ProgressHook";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import PopUpMatematika from "../components/ModulComponent/PopUpMatematika";
 
 const ModulMTK = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isMathPopupOpen, setIsMathPopupOpen] = useState(false);
+  const [selectedModulIndex, setSelectedModulIndex] = useState(0);
   const { countTotalProgress, fetchProgress, isLoading, dataProgress, error } = ProgressHook();
 
   const { fetchUserData, userData } = HookAuth();
@@ -26,6 +29,11 @@ const ModulMTK = () => {
   }, []);
 
   const { totalProgress } = countTotalProgress();
+
+  const handleStartModule = (moduleIndex) => {
+    setSelectedModulIndex(moduleIndex);
+    setIsMathPopupOpen(true);
+  };
 
   return (
     <>
@@ -104,10 +112,19 @@ const ModulMTK = () => {
               modulProgress={dataProgress}
               isProgressLoading={isLoading}
               progressError={error}
+              onStartModule={handleStartModule}
             />
           </div>
         </div>
       </div>
+
+      {isMathPopupOpen && (
+        <PopUpMatematika
+          key={selectedModulIndex}
+          initialModulIndex={selectedModulIndex}
+          onClose={() => setIsMathPopupOpen(false)}
+        />
+      )}
     </>
   );
 };
