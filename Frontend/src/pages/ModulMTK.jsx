@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 //
 import React, { useState, useEffect } from "react";
 import PopUpAccount from "../components/PopUpAccount";
@@ -8,16 +9,23 @@ import rBottom from "../assets/icon/rowBottom.svg";
 import HookAuth from "../Hook/HookAuth";
 import ProgressBar from "../components/ProgressBar";
 import TimelineBab from "../components/PathMTK";
+import ProgressHook from "../Hook/ProgressHook";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const ModulMTK = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const { countTotalProgress, fetchProgress, isLoading, dataProgress, error } = ProgressHook();
 
   const { fetchUserData, userData } = HookAuth();
 
   useEffect(() => {
     fetchUserData();
+    fetchProgress();
   }, []);
+
+  const { totalProgress } = countTotalProgress();
 
   return (
     <>
@@ -72,14 +80,31 @@ const ModulMTK = () => {
                   MATEMATIKA
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
-                  <ProgressBar value={10} max={100} bgColor={"bg-coffe"} />
-                  <p className="text-white font-semibold font-monstserrat">
-                    10%
-                  </p>
+                  {isLoading ? (
+                    <Skeleton width={710} height={18} style={{borderRadius:'2.5rem'}} />
+                  ) : (
+                    <>
+                      <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
+                      <p className="text-white font-semibold font-monstserrat">
+                        {totalProgress}%
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
-            <TimelineBab />
+
+            {!isLoading && !dataProgress?.length && (
+              <p className="mt-4 text-gray-500 font-monstserrat">
+                {error || "Data progress belum tersedia."}
+              </p>
+            )}
+
+            <TimelineBab
+              modulProgress={dataProgress}
+              isProgressLoading={isLoading}
+              progressError={error}
+            />
           </div>
         </div>
       </div>

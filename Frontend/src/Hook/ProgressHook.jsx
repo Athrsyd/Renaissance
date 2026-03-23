@@ -2,11 +2,13 @@ import { useState } from 'react'
 import API from '../services/api'
 
 export const ProgressHook = () => {
-    const [dataProgress, setDataProgress] = useState(null)
+    const [dataProgress, setDataProgress] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [error, setError] = useState(null)
 
     const fetchProgress = async () => {
         setIsLoading(true)
+        setError(null)
         try {
             const token = localStorage.getItem('token')
             const response = await API.get('progress', {
@@ -14,17 +16,20 @@ export const ProgressHook = () => {
                     Authorization: `Bearer ${token}`,
                 },
             })
-            setDataProgress(response.data.data)
+            setDataProgress(Array.isArray(response?.data?.data) ? response.data.data : [])
         }
         catch (error) {
             console.error('Error fetching progress:', error)
+            setError(error.response?.data?.message || 'Gagal memuat progress')
+            setDataProgress([])
         } finally {
             setIsLoading(false)
         }
     }
 
-    const updateProgress = async (mapelId, progressPersen, soalSelesai =[]) => {
+    const updateProgress = async (mapelId, progressPersen, soalSelesai = []) => {
         setIsLoading(true);
+        setError(null)
         try {
             const isSelesai = progressPersen === 100;
             const token = localStorage.getItem('token');
@@ -41,18 +46,46 @@ export const ProgressHook = () => {
             return res.data.data
         } catch (error) {
             console.log(error)
+            setError(error.response?.data?.message || 'Gagal memperbarui progress')
         } finally {
             setIsLoading(false)
         }
 
+    }
+
+    const countTotalProgress = () => {
+        if (!dataProgress?.length) {
+            return {
+                totalProgress: 0,
+                totalProgressPkn: 0,
+            }
+        }
+
+        const mtk = dataProgress.filter((i) => (i?.mapel || '').toLowerCase() === 'matematika')
+        const pkn = dataProgress.filter((i) => (i?.mapel || '').toLowerCase() === 'pendidikan pancasila')
+
+        const mtkAvg = mtk.length > 0
+            ? Math.round(mtk.reduce((a, c) => a + Number(c.progress || 0), 0) / mtk.length)
+            : 0
+        const pknAvg = pkn.length > 0
+            ? Math.round(pkn.reduce((a, c) => a + Number(c.progress || 0), 0) / pkn.length)
+            : 0
 
         return {
-            fetchProgress,
-            updateProgress,
-            dataProgress,
-            isLoading,
+            totalProgress: Number.isNaN(mtkAvg) ? 0 : mtkAvg,
+            totalProgressPkn: Number.isNaN(pknAvg) ? 0 : pknAvg,
         }
     }
+
+    return {
+        fetchProgress,
+        updateProgress,
+        countTotalProgress,
+        dataProgress,
+        isLoading,
+        error,
+    }
+
 }
 
-    export default ProgressHook
+export default ProgressHook
