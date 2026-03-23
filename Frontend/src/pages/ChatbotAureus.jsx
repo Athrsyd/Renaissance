@@ -17,32 +17,32 @@ export default function ChatbotUI() {
   const [isTyping, setIsTyping] = useState(false);
 
   const typingRef = useRef(null);
-const typeEffect = (text) => {
-  let index = 0;
+  const typeEffect = (text) => {
+    let index = 0;
 
-  // ❗ stop typing sebelumnya
-  if (typingRef.current) {
-    clearInterval(typingRef.current);
-  }
-
-  setTypingText("");
-  setIsTyping(true);
-
-  typingRef.current = setInterval(() => {
-    setTypingText((prev) => prev + text.charAt(index));
-    index++;
-
-    if (index >= text.length) {
+    // ❗ stop typing sebelumnya
+    if (typingRef.current) {
       clearInterval(typingRef.current);
-
-      setMessages((prev) => [...prev, { role: "assistant", content: text }]);
-
-      setTypingText("");
-      setIsTyping(false);
-      setLoading(false);
     }
-  }, 10);
-};
+
+    setTypingText("");
+    setIsTyping(true);
+
+    typingRef.current = setInterval(() => {
+      setTypingText((prev) => prev + text.charAt(index));
+      index++;
+
+      if (index >= text.length) {
+        clearInterval(typingRef.current);
+
+        setMessages((prev) => [...prev, { role: "assistant", content: text }]);
+
+        setTypingText("");
+        setIsTyping(false);
+        setLoading(false);
+      }
+    }, 10);
+  };
 
   const getFromJSON = (input) => {
     const text = input.toLowerCase();
@@ -77,93 +77,93 @@ const typeEffect = (text) => {
     scrollToBottom();
   }, [messages]);
 
-const sendMessage = async (text) => {
-  if (!text || loading) return;
-  if (text.length < 3) return;
+  const sendMessage = async (text) => {
+    if (!text || loading) return;
+    if (text.length < 3) return;
 
-  if (Date.now() - lastSend < 1500) return;
-  setLastSend(Date.now());
+    if (Date.now() - lastSend < 1500) return;
+    setLastSend(Date.now());
 
-  const userMessage = {
-    role: "user",
-    content: text,
-  };
+    const userMessage = {
+      role: "user",
+      content: text,
+    };
 
-  setMessages((prev) => [...prev, userMessage]);
-  setInput("");
-  setLoading(true);
-
-  // =========================
-  // ⚡ LAYER 1: JSON
-  // =========================
-  const jsonAnswer = getFromJSON(text);
-
-  if (jsonAnswer) {
+    setMessages((prev) => [...prev, userMessage]);
+    setInput("");
     setLoading(true);
 
-    setTimeout(() => {
-      typeEffect(jsonAnswer);
-    }, 200);
+    // =========================
+    // ⚡ LAYER 1: JSON
+    // =========================
+    const jsonAnswer = getFromJSON(text);
 
-    return;
-  }
+    if (jsonAnswer) {
+      setLoading(true);
 
-  // =========================
-  // 🧠 LAYER 2: AI API
-  // =========================
-  try {
-    const limitedMessages = [...messages, userMessage].slice(-5);
-
-    const geminiMessages = limitedMessages.map((msg) => ({
-      role: msg.role === "assistant" ? "model" : "user",
-      parts: [{ text: msg.content }],
-    }));
-
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [
-              {
-                text: "Kamu adalah AI tutor. Jawab singkat, jelas, maksimal 3 kalimat.",
-              },
-            ],
-          },
-          contents: geminiMessages,
-        }),
-      },
-    );
-
-    const data = await res.json();
-
-    if (!res.ok) throw new Error("API Error");
-
-    const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (textResponse) {
-      typeEffect(textResponse);
-      setLoading(true)
       setTimeout(() => {
-        typeEffect(textResponse);
-      }, 600);
+        typeEffect(jsonAnswer);
+      }, 200);
+
       return;
     }
 
-    throw new Error("Empty response");
-  } catch (err) {
-    console.error(err);
+    // =========================
+    // 🧠 LAYER 2: AI API
+    // =========================
+    try {
+      const limitedMessages = [...messages, userMessage].slice(-5);
 
-    // =========================
-    // 🚫 LAYER 3: FALLBACK
-    // =========================
-    typeEffect("Maaf, Aureus AI sedang sibuk 😢");
-  }
-};
+      const geminiMessages = limitedMessages.map((msg) => ({
+        role: msg.role === "assistant" ? "model" : "user",
+        parts: [{ text: msg.content }],
+      }));
+
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${API_KEY}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [
+                {
+                  text: "Kamu adalah AI tutor. Jawab singkat, jelas, maksimal 3 kalimat.",
+                },
+              ],
+            },
+            contents: geminiMessages,
+          }),
+        },
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error("API Error");
+
+      const textResponse = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (textResponse) {
+        typeEffect(textResponse);
+        setLoading(true)
+        setTimeout(() => {
+          typeEffect(textResponse);
+        }, 600);
+        return;
+      }
+
+      throw new Error("Empty response");
+    } catch (err) {
+      console.error(err);
+
+      // =========================
+      // 🚫 LAYER 3: FALLBACK
+      // =========================
+      typeEffect("Maaf, Aureus AI sedang sibuk 😢");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -208,11 +208,10 @@ const sendMessage = async (text) => {
               </div>
             )}
             <div
-              className={`px-4 py-2 rounded-2xl max-w-[70%] ${
-                msg.role === "user"
-                  ? "bg-[#3b2a23] text-white text-sm"
-                  : "bg-white border"
-              }`}
+              className={`px-4 py-2 rounded-2xl max-w-[70%] ${msg.role === "user"
+                ? "bg-[#3b2a23] text-white text-sm"
+                : "bg-white border"
+                }`}
             >
               {msg.role === "assistant" ? (
                 <ReactMarkdown
@@ -310,7 +309,7 @@ const sendMessage = async (text) => {
         {/* Header */}
         <aside className=" p-0 lg:p-4 fixed lg:top-0 lg:left-0 h-10 lg:h-screen w-40 lg:border-r-2 border-t-0">
           <Link to="/dashboard">
-            <button className="lg:bg-[#3b2a23] flex flex-row items-center gap-2 ml-0 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
+            <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 ml-0 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="20px"
@@ -329,14 +328,14 @@ const sendMessage = async (text) => {
         </aside>
 
         {/* Main */}
-        <div className="flex-1 flex flex-col items-center ml-2 gap-5 lg:ml-20 mb-10 justify-center px-4">
+        <div className="flex-1 flex flex-col items-center ml-2 gap-5 lg:ml-20 mb-10 -mt-5 lg:mt-0 justify-center px-4">
           {content}
         </div>
 
         {/* Input */}
         <form
           onSubmit={handleSubmit}
-          className=" fixed p-4 flex bg-white items-center w-[80%] right-10 bottom-0 gap-2"
+          className="relative flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[80%] lg:left-53 bottom-3 gap-2"
         >
           <input
             value={input}
@@ -344,7 +343,7 @@ const sendMessage = async (text) => {
             placeholder="Ask Aureus..."
             className="flex-1 border rounded-xl px-4 py-2 outline-none border-icon ring-1 ring-icon outline-icon"
           />
-          <button type="submit" disabled={loading}>
+          <button type="submit" className="hover:translate-x-1 hover:-translate-y-1 hover:-rotate-12 transition-all ease-in-out duration-300" disabled={loading}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="30px"
@@ -361,6 +360,12 @@ const sendMessage = async (text) => {
             </svg>
           </button>
         </form>
+        <div className="relative w-full px-10 lg:left-15  ">
+
+          <p className="text-center text-bistre/70 text-xs md:text-sm mb-4">
+            Aereus AI bisa menghasilkan jawaban yang tidak selalu benar
+          </p>
+        </div>
       </div>
     </>
   );
