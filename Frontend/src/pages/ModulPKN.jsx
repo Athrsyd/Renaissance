@@ -129,8 +129,9 @@ const ModulPKN = () => {
       {isPknPopupOpen && (
         <PopUpPKN
           key={selectedModulIndex}
-          initialModulIndex={selectedModulIndex}
+          modulIndex={selectedModulIndex}
           onClose={() => setIsPknPopupOpen(false)}
+          onBabSelesai={handleBabSelesai}
         />
       )}
     </>
