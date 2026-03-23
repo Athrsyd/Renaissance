@@ -54,58 +54,68 @@ const TimelineBab = ({
 
                 return (
                   <>
-              {/* LEFT (circle + line) */}
-              <div className="flex flex-row items-center">
+                    {/* LEFT (circle + line) */}
+                    <div className="flex flex-row items-center">
+                      <div className="flex flex-col items-center mr-5">
+                        {/* Circle */}
+                        <div
+                          className={`w-10 h-10 rounded-full ${
+                            index === modul.length - 1 ? "-mt-13" : ""
+                          } ${
+                            isCompleted || isUnlocked
+                              ? "bg-icon"
+                              : "bg-gray-400"
+                          }`}
+                        />
 
-                <div className="flex flex-col items-center mr-5">
-                  {/* Circle */}
-                  <div
-                    className={`w-10 h-10 rounded-full ${isCompleted || isUnlocked ? "bg-icon" : "bg-gray-400"
-                      }`}
-                  />
+                        {/* Line */}
+                        {index !== modul.length - 1 && (
+                          <div className="w-0.5 h-20  bg-gray-400"></div>
+                        )}
+                      </div>
 
-                  {/* Line */}
-                  {index !== modul.length - 1 && (
-                    <div className="w-0.5 h-15 bg-gray-400"></div>
-                  )}
-                </div>
-
-                {/* RIGHT (text) */}
-                <div className="mb-10">
-                  <h1
-                    className={`font-monstserrat font-bold ${isCompleted || isUnlocked
-                        ? "text-brown-500 text-xl text-icon"
-                        : "text-md text-gray-400"
-                      }`}
-                  >
-                    Bab {item.bab}:
-                  </h1>
-                  <p
-                    className={`${isCompleted || isUnlocked
-                        ? "font-monstserrat font-semibold text-icon text-lg"
-                        : "text-sm text-gray-400"
-                      }`}
-                  >
-                    {item.judul}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Progress: {currentPercent}%
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                  <button
-                    disabled={!isUnlocked}
-                    className={`text-white py-2 rounded-md ${isUnlocked ? "bg-icon hover:bg-icon-hover px-7 hover:scale-105 transition duration-300" : "bg-gray-400 cursor-not-allowed px-4"}`}
-                    onClick={() => {
-                      if (isUnlocked && !isCompleted && onStartModule) {
-                        onStartModule(index);
-                      }
-                    }}
-                  >
-                    {isCompleted ? "Selesai" : isUnlocked ? "Mulai" : "Terkunci"}
-                  </button>
-              </div>
+                      {/* RIGHT (text) */}
+                      <div className="mb-10">
+                        <h1
+                          className={`font-monstserrat font-bold ${
+                            isCompleted || isUnlocked
+                              ? "text-brown-500 text-xl text-icon"
+                              : "text-md text-gray-400"
+                          }`}
+                        >
+                          Bab {item.bab}:
+                        </h1>
+                        <p
+                          className={`${
+                            isCompleted || isUnlocked
+                              ? "font-monstserrat font-semibold text-icon text-lg"
+                              : "text-sm text-gray-400"
+                          }`}
+                        >
+                          {item.judul}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          Progress: {currentPercent}%
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center">
+                      <button
+                        disabled={!isUnlocked}
+                        className={`text-white py-2 rounded-md ${isUnlocked ? "bg-icon hover:bg-icon-hover px-7 hover:scale-105 transition duration-300" : "bg-gray-400 cursor-not-allowed px-4"}`}
+                        onClick={() => {
+                          if (isUnlocked && !isCompleted && onStartModule) {
+                            onStartModule(index);
+                          }
+                        }}
+                      >
+                        {isCompleted
+                          ? "Selesai"
+                          : isUnlocked
+                            ? "Mulai"
+                            : "Terkunci"}
+                      </button>
+                    </div>
                   </>
                 );
               })()}

@@ -22,7 +22,7 @@ const data = [
                         id: 2,
                         judul: 'Jenis Bangun Ruang',
                         type: 'quiz',
-                        narasi: null,
+                        narasi: 'Bangun ruang memiliki karakteristik yang membedakannya satu sama lain, seperti sisi, rusuk, dan titik sudut. Sisi adalah bagian permukaan bangun, rusuk adalah garis yang terbentuk dari pertemuan dua sisi, dan titik sudut adalah titik pertemuan dari beberapa rusuk.',
                         pertanyaan: "Bangun ruang yang memiliki 6 sisi sama besar adalah...",
                         ilustrasi: null,
                         pilihan: ['A. Balok', 'B. Kubus', 'C. Tabung'],
@@ -101,10 +101,10 @@ const data = [
                         judul: 'Menyelesaikan Persamaan Aljabar',
                         type: 'quiz',
                         narasi: 'Untuk mencari nilai x, kita harus memindahkan angka ke sisi lain dengan operasi yang berlawanan.',
-                        // pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
+                        pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
                         ilustrasi: null,
-                        // pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
-                        // jawaban: 'A. 5 cm'
+                        pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
+                        jawaban: 'A. 5 cm'
                     }
                 ]
             },

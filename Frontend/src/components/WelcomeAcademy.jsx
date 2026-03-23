@@ -19,7 +19,7 @@ const WelcomeAcademy = ({user, grade}) => {
           </p>
           <p className="text-md font-monstserrat font-semibold lg:text-center text-[#39221C]">
             {!grade && <br />}
-            {grade? `Jelajahi mata pelajaran kelas ${grade} dan mulai perjalanan belajarmu.` : 'Pilih kelas Anda untuk melihat materi yang sesuai. '}
+            {grade? `Jelajahi mata pelajaran kelas ${grade} dan mulai perjalanan belajarmu. ` : 'Pilih kelas Anda untuk melihat materi yang sesuai. '}
             Pilih subjek yang ingin kamu pelajari, pahami setiap materi langkah
             demi langkah, dan tingkatkan pemahamanmu bersama Renaissance.
           </p>

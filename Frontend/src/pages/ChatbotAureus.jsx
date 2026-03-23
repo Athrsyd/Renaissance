@@ -337,11 +337,11 @@ export default function ChatbotUI() {
         </div>
 
         {/* Input */}
-        <div className="container fixed flex flex-col mx-auto w-full lg:left-53 bottom-0  bg-white">
+        <div className="container fixed flex flex-col mx-auto w-full md:left-20 lg:left-53 bottom-0 right-0 bg-white">
 
           <form
             onSubmit={handleSubmit}
-            className=" flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[80%] lg:left-53 bottom-10 gap-2"
+            className=" flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[90%] lg:w-[80%] lg:left-53 bottom-10 gap-2"
           >
             <input
               value={input}
@@ -366,7 +366,7 @@ export default function ChatbotUI() {
               </svg>
             </button>
           </form>
-          <div className="relative w-4/5 mx-auto right-30 pt-2 text-center">
+          <div className="relative w-4/5 mx-auto right-0 md:right-10 lg:right-30 pt-2 text-center">
             <p className="text-center text-bistre/70 text-xs md:text-sm mb-4">
               Aereus AI bisa menghasilkan jawaban yang tidak selalu benar
             </p>
