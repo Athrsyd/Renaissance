@@ -13,12 +13,14 @@ import ProgressHook from "../Hook/ProgressHook";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import PopUpPKN from "../components/ModulComponent/PopUpPkn";
+import data from "../Data/pancasila"; 
 
 const ModulPKN = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isPknPopupOpen, setIsPknPopupOpen] = useState(false);
   const [selectedModulIndex, setSelectedModulIndex] = useState(0);
+
   const { countTotalProgress, fetchProgress, isLoading, dataProgress, error } = ProgressHook();
 
   const { fetchUserData, userData } = HookAuth();
@@ -33,6 +35,12 @@ const ModulPKN = () => {
   const handleStartModule = (moduleIndex) => {
     setSelectedModulIndex(moduleIndex);
     setIsPknPopupOpen(true);
+  };
+
+  const handleBabSelesai = async (modulIndex) => {
+    const modulId = data[0].modul[modulIndex].id; 
+    await updateProgress(modulId, 100); 
+    await fetchProgress(); 
   };
 
   return (

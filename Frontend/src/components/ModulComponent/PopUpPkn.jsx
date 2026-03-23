@@ -4,6 +4,8 @@ import TTSSoal from "./TTSSoal";
 import QuizSoal from "./QuizSoal";
 import IsianSoal from "./IsianSoal";
 import DragDropSoal from "./DragDropSoal";
+import TarikGarisSoal from "./TarikGarisSoal";
+import SambungKataSoal from "./SambungKataSoal";
 
 const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
   switch (soal.type) {
@@ -29,29 +31,13 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
     case "tarik benang":
       return (
         <div className="text-white">
-          <h1>Tarik Benang: {soal.judul}</h1>
-          <p>{soal.narasi}</p>
-          {/* TODO: Buat rancangan UI Tarik Benang di sini */}
-          <button
-            onClick={onClick}
-            className="bg-coffe text-white py-2 px-7 rounded-xl"
-          >
-            {isLastSoal ? "Selesai" : "Next"}
-          </button>
+          <TarikGarisSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
     case "puzzle":
       return (
         <div className="text-white">
-          <h1>Menyusun Kalimat: {soal.judul}</h1>
-          <p>{soal.pertanyaan}</p>
-          {/* TODO: Buat rancangan UI Puzzle (Drag and Drop Word) di sini */}
-          <button
-            onClick={onClick}
-            className="bg-coffe text-white py-2 px-7 rounded-xl"
-          >
-            {isLastSoal ? "Selesai" : "Next"}
-          </button>
+          <SambungKataSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
     case "timeline":
