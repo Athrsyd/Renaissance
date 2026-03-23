@@ -12,6 +12,8 @@ import ChatbotAureus from '../pages/ChatbotAureus'
 import Community from '../pages/Community'
 import ProtectedRoute from '../Hook/ProtectedRoute'
 import ModulMTK from '../pages/ModulMTK'
+import ModulPKN from '../pages/ModulPKN'
+
 
 const Router = () => {
   return (
@@ -27,6 +29,8 @@ const Router = () => {
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
       <Route path="/academy/matematika" element={<ProtectedRoute><ModulMTK /></ProtectedRoute>} />
+      <Route path="/academy/pkn" element={<ProtectedRoute><ModulPKN /></ProtectedRoute>} />
+     
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
     </Routes>
