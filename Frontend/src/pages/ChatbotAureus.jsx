@@ -4,15 +4,20 @@ import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import WelcomeAureus from "../components/WelcomeAureus";
 import Knowledge from "../Data/knowledge.json"
+import HookAuth from "../Hook/HookAuth"
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 
 export default function ChatbotUI() {
+  const { userData, fetchUserData } = HookAuth();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
 
+  useEffect(() => {
+    fetchUserData();
+  }, [fetchUserData])
   const [typingText, setTypingText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
@@ -240,12 +245,11 @@ export default function ChatbotUI() {
             {msg.role === "user" && (
               <div className="w-8 h-8 rounded-full bg-icon ml-2 flex items-center justify-center overflow-hidden">
                 {/* isi nya disini ya alif */}
-                {msg.avatar ? (
-                  <img
-                    src={msg.avatar}
-                    className="w-full h-full object-cover"
-                  />
-                ) : null}
+                <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
+                  <h1 className="text-white text-center text-lg font-semibold mt-3.5">
+                    {userData?.name?.charAt(0) || "U"}
+                  </h1>
+                </div>
               </div>
             )}
           </div>
@@ -333,38 +337,40 @@ export default function ChatbotUI() {
         </div>
 
         {/* Input */}
-        <form
-          onSubmit={handleSubmit}
-          className="relative flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[80%] lg:left-53 bottom-3 gap-2"
-        >
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask Aureus..."
-            className="flex-1 border rounded-xl px-4 py-2 outline-none border-icon ring-1 ring-icon outline-icon"
-          />
-          <button type="submit" className="hover:translate-x-1 hover:-translate-y-1 hover:-rotate-12 transition-all ease-in-out duration-300" disabled={loading}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="30px"
-              height="30px"
-              viewBox="0 0 24 24"
-              className="text-icon"
-            >
-              <path
-                fill="currentColor"
-                fillRule="evenodd"
-                d="M3.291 3.309a.75.75 0 0 0-.976.996l3.093 6.945H13a.75.75 0 0 1 0 1.5H5.408l-3.093 6.945a.75.75 0 0 0 .976.996l19-8a.75.75 0 0 0 0-1.382z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </form>
-        <div className="relative w-full px-10 lg:left-15  ">
+        <div className="container fixed flex flex-col mx-auto w-full lg:left-53 bottom-0  bg-white">
 
-          <p className="text-center text-bistre/70 text-xs md:text-sm mb-4">
-            Aereus AI bisa menghasilkan jawaban yang tidak selalu benar
-          </p>
+          <form
+            onSubmit={handleSubmit}
+            className=" flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[80%] lg:left-53 bottom-10 gap-2"
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask Aureus..."
+              className="flex-1 border rounded-xl px-4 py-2 outline-none border-icon ring-1 ring-icon outline-icon"
+            />
+            <button type="submit" className="hover:translate-x-1 hover:-translate-y-1 hover:-rotate-12 transition-all ease-in-out duration-300" disabled={loading}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30px"
+                height="30px"
+                viewBox="0 0 24 24"
+                className="text-icon"
+              >
+                <path
+                  fill="currentColor"
+                  fillRule="evenodd"
+                  d="M3.291 3.309a.75.75 0 0 0-.976.996l3.093 6.945H13a.75.75 0 0 1 0 1.5H5.408l-3.093 6.945a.75.75 0 0 0 .976.996l19-8a.75.75 0 0 0 0-1.382z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </form>
+          <div className="relative w-4/5 mx-auto right-30 pt-2 text-center">
+            <p className="text-center text-bistre/70 text-xs md:text-sm mb-4">
+              Aereus AI bisa menghasilkan jawaban yang tidak selalu benar
+            </p>
+          </div>
         </div>
       </div>
     </>
