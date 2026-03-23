@@ -9,8 +9,11 @@ const TimelineBab = ({
   onStartModule,
 }) => {
   const modul = data[0].modul; // ambil pkn
+  const pknModuleIds = modul.map((m) => Number(m.id));
   const pknProgress = modulProgress.filter(
-    (item) => (item?.mapel || "").toLowerCase() === "pendidikan pancasila",
+    (item) => 
+      pknModuleIds.includes(Number(item?.modul_id)) || 
+      (item?.mapel || "").toLowerCase() === "pendidikan pancasila"
   );
 
   const getModuleProgress = (moduleId) => {
@@ -56,22 +59,13 @@ const TimelineBab = ({
                   const currentModuleProgress = getModuleProgress(item.id);
 
  
-                  const previousModuleProgress =
-                    index === 0
-                      ? { progress: 100 }
-                      : getModuleProgress(modul[index - 1].id);
+                const previousModuleProgress = index === 0
+                  ? { progress: 100 }
+                  : getModuleProgress(modul[index - 1].id);
 
-                  const currentPercent = Number(
-                    currentModuleProgress?.progress || 0,
-                  );
-
-   
-                  const isUnlocked =
-                    index === 0 ||
-                    Number(previousModuleProgress?.progress || 0) === 100;
-
-                  const isCompleted =
-                    currentPercent === 100 || currentModuleProgress?.is_selesai;
+                const currentPercent = Number(currentModuleProgress?.progress || 0);
+                const isUnlocked = index === 0 || Number(previousModuleProgress?.progress || 0) === 100;
+                const isCompleted = currentPercent === 100 || currentModuleProgress?.is_selesai;
 
                   return (
                     <>
