@@ -85,7 +85,7 @@ const ModulPKN = () => {
             <div className="flex flex-row justify-center items-center mt-10">
               <div className="relative flex flex-col w-250 h-70 py-5 rounded-2xl px-5 bg-icon">
                 <h1 className="text-[#F8F3E0] text-7xl mt-10 font-semibold font-monstserrat text-center">
-                  Pendidikan Kewarganegaraan
+                  Pendidikan Pancasila
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
                   {isLoading ? (

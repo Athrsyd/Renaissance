@@ -10,7 +10,7 @@ const TimelineBab = ({
 }) => {
   const modul = data[0].modul; // ambil pkn
   const pknProgress = modulProgress.filter(
-    (item) => (item?.mapel || "").toLowerCase() === "Pendidikan Pancasila"
+    (item) => (item?.mapel || "").toLowerCase() === "pendidikan pancasila"
   );
 
   const getModuleProgress = (moduleId) => {
