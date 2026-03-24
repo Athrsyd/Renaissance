@@ -35,11 +35,11 @@ const AboutListCard = ({item}) => {
       <div
         data-aos="flip-left"
         data-aos-duration="1500"
-        className=" w-[60%] sm:w-[48%] md:w-[32%] relative h-full md:h-80 rounded-lg bg-cover bg-center p-4  md:p-8 flex flex-col justify-center items-center"
+        className=" w-[75%] sm:w-[48%] md:w-[32%] relative h-full md:h-80 rounded-lg bg-cover bg-center p-4 md:p-8 flex flex-col justify-center items-center"
         style={{ backgroundImage: `url(${item.bgAbout})` }}
       >
         <div className="w-full h-full flex flex-col justify-center items-center gap-6">
-          <h1 className={`pl-2 md:pl-0  ${item.id === 1 ? 'text-sm sm:text-md md:text-lg' : 'text-sm sm:text-md md:text-lg'} font-bold text-center text-bistre`}>
+          <h1 className={`pl-2 md:pl-0  ${item.id === 1 ? 'text-[12px] sm:text-md md:text-lg' : 'text-[15px] sm:text-md md:text-lg'} font-bold text-center text-bistre`}>
             {item.judul}
           </h1>
           <p className="text-[10px] sm:text-[12px] md:text-sm font-semibold font-monstserrat text-center text-bistre">

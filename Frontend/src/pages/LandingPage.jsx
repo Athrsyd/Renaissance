@@ -46,9 +46,9 @@ const LandingPage = () => {
             >
               <a
                 href="#features"
-                className="bg-bistre text-center hover:scale-95 transition-all duration-300 ease-in-out rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-5 text-xl text-white"
+                className="bg-bistre text-center hover:scale-95 transition-all duration-300 ease-in-out rounded-4xl w-full md:w-[60%] py-3 sm:py-4 md:py-2 p-2 px-6 text-xl text-white"
               >
-                <button className="text-center">Layanan Kami</button>
+                <button className="text-center text-sm sm:text-xl">Layanan Kami</button>
               </a>
               {token ? (
                 <Link
