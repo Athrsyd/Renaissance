@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModulProgress;
+use App\Models\ModulBelajar;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
@@ -21,6 +22,7 @@ class UserModulProgressController extends Controller
                 return [
                     'id' => $item->id,
                     'modul_id' => $item->modul_id,
+                    'bab' => $item->bab,
                     'date' => optional($item->last_accessed)->format('M d, Y'),
                     'materi' => $item->modul->judul ?? null,
                     'mapel' => $item->modul->mapel ?? null, 
@@ -38,6 +40,7 @@ class UserModulProgressController extends Controller
     public function upsertProgress(Request $request, $modul_id)
     {
         $validated = $request->validate([
+            'bab' => 'sometimes|integer',
             'progress_persen' => 'required|integer|min:0|max:100',
             'soal_selesai' => 'sometimes|array',  
             'soal_selesai.*' => 'integer',        
@@ -60,18 +63,25 @@ class UserModulProgressController extends Controller
             $completed_at = $existing?->completed_at ?? Carbon::now();
         }
 
+        // Get bab from ModulBelajar if not provided, or use provided value
+        $modul = ModulBelajar::find($modul_id);
+        $bab = $validated['bab'] ?? $modul?->bab ?? 1;
+
+        $updateData = [
+            'soal_selesai' => $validated['soal_selesai'] ?? [],
+            'progress_persen' => (int) $validated['progress_persen'],
+            'is_selesai' => $is_selesai,
+            'last_accessed' => Carbon::now(),
+            'completed_at' => $completed_at,
+            'bab' => $bab,
+        ];
+
         $progress = UserModulProgress::updateOrCreate(
             [
                 'user_id' => $user->id,
                 'modul_id' => $modul_id,
             ],
-            [
-                'soal_selesai' => $validated['soal_selesai'] ?? [],
-                'progress_persen' => (int) $validated['progress_persen'],
-                'is_selesai' => $is_selesai,
-                'last_accessed' => Carbon::now(),
-                'completed_at' => $completed_at,
-            ]
+            $updateData
         );
 
         return response()->json([

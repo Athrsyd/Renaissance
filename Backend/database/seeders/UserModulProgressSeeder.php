@@ -38,6 +38,7 @@ class UserModulProgressSeeder extends Seeder
                 UserModulProgress::create([
                     'user_id' => $user->id,
                     'modul_id' => $modul->id,
+                    'bab' => $modul->bab,
                     'soal_selesai' => $soalSelesai,  // ← NEW
                     'progress_persen' => $progressPersen,
                     'is_selesai' => $progressPersen === 100,

@@ -13,15 +13,17 @@ import ProgressHook from "../Hook/ProgressHook";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import PopUpPKN from "../components/ModulComponent/PopUpPkn";
-import data from "../Data/pancasila"; 
+import data from "../Data/pancasila";
 
 const ModulPKN = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isPknPopupOpen, setIsPknPopupOpen] = useState(false);
   const [selectedModulIndex, setSelectedModulIndex] = useState(0);
+  const [soalSelesai, setSoalSelesai] = useState([]);
+  const [initialSoalIndex, setInitialSoalIndex] = useState(0);
 
-  const { countTotalProgress, fetchProgress, isLoading, dataProgress, error } = ProgressHook();
+  const { countTotalProgress, fetchProgress, updateProgress, isLoading, dataProgress, error } = ProgressHook();
 
   const { fetchUserData, userData } = HookAuth();
 
@@ -34,13 +36,40 @@ const ModulPKN = () => {
 
   const handleStartModule = (moduleIndex) => {
     setSelectedModulIndex(moduleIndex);
+
+    // ✅ Resume dari soal terakhir yang dikerjakan
+    const modulProgress = dataProgress.find(p => p.modul_id === data[0].modul[moduleIndex].id);
+    const lastSoalIndex = modulProgress?.soal_selesai?.length || 0;
+
+    setInitialSoalIndex(lastSoalIndex);
+    setSoalSelesai(modulProgress?.soal_selesai || []);
     setIsPknPopupOpen(true);
   };
 
+  const handleSoalSelesai = async (soalData) => {
+    const newSoalSelesai = [...soalSelesai, soalData.soalId];
+    setSoalSelesai(newSoalSelesai);
+
+    // ✅ Update progress setiap soal diselesaikan
+    const modulId = data[0].modul[selectedModulIndex].id;
+    const totalSoal = data[0].modul[selectedModulIndex].soal.length;
+
+    await updateProgress(modulId, newSoalSelesai, totalSoal);
+  };
+
   const handleBabSelesai = async (modulIndex) => {
-    const modulId = data[0].modul[modulIndex].id; 
-    await updateProgress(modulId, 100); 
-    await fetchProgress(); 
+    // ✅ allSelesai sudah lengkap dari popup
+    const modulId = data[0].modul[modulIndex].id;
+    const bab = data[0].modul[modulIndex].bab;
+    const totalSoal = data[0].modul[modulIndex].soal.length;
+
+    // ✅ Update final dengan SEMUA soal
+    await updateProgress(modulId, soalSelesai, totalSoal, bab);
+    await fetchProgress();
+
+    // ✅ Reset state
+    setSoalSelesai([]);
+    setInitialSoalIndex(0);
   };
 
   return (
@@ -97,7 +126,7 @@ const ModulPKN = () => {
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
                   {isLoading ? (
-                    <Skeleton width={710} height={18} style={{borderRadius:'2.5rem'}} />
+                    <Skeleton width={710} height={18} style={{ borderRadius: '2.5rem' }} />
                   ) : (
                     <>
                       <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
@@ -130,8 +159,13 @@ const ModulPKN = () => {
         <PopUpPKN
           key={selectedModulIndex}
           modulIndex={selectedModulIndex}
-          onClose={() => setIsPknPopupOpen(false)}
-          onBabSelesai={handleBabSelesai}
+          onClose={() => {
+            setIsPknPopupOpen(false); 
+            window.location.reload();
+          }}
+          onSelesai={handleBabSelesai}
+          onSoalSelesai={handleSoalSelesai}
+          initialSoalIndex={initialSoalIndex}
         />
       )}
     </>

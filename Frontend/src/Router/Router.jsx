@@ -1,6 +1,6 @@
 import React from 'react'
 import LandingPage from '../pages/LandingPage'
-import { Route, Routes} from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/AuthPages/Login'
 import Register from '../pages/AuthPages/Register'
 import Testing from './testing'
@@ -29,8 +29,8 @@ const Router = () => {
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
       <Route path="/academy/matematika" element={<ProtectedRoute><ModulMTK /></ProtectedRoute>} />
-      <Route path="/academy/pkn" element={<ProtectedRoute><ModulPKN /></ProtectedRoute>} />
-     
+      <Route path="/academy/Pendidikan Pancasila" element={<ProtectedRoute><ModulPKN /></ProtectedRoute>} />
+
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
     </Routes>

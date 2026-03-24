@@ -5,7 +5,7 @@ import TTSSoal from "./TTSSoal";
 import QuizSoal from "./QuizSoal";
 import IsianSoal from "./IsianSoal";
 
-const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
+const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
   switch (soal.type) {
     case "quiz":
       return (
@@ -25,30 +25,30 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
           <TTSSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
-      case "isian":
-        return (
-          <div className="text-white">
-            <IsianSoal soal={soal} onCorrect={onCorrect} />
-          </div>
-        );
+    case "isian":
+      return (
+        <div className="text-white">
+          <IsianSoal soal={soal} onCorrect={onCorrect} />
+        </div>
+      );
     default:
       return (
         <div className="text-white">
           <h1>Soal: {soal.judul}</h1>
           <button
-            onClick={onCorrect}
+            onClick={onClick}
             className="bg-coffe text-white py-2 px-7 rounded-xl"
           >
-            Next
+            {isLastSoal ? "Selesai" : "Next"}
           </button>
         </div>
       );
   }
 };
 
-const RenderPopUp = ({ modulIndex, onSelesai }) => {
+const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
   const [isStart, setIsStart] = useState(false);
-  const [soalIndex, setSoalIndex] = useState(0);
+  const [soalIndex, setSoalIndex] = useState(initialSoalIndex);
   const [isSoalCorrect, setIsSoalCorrect] = useState(false);
 
   const semuaModul = modul[0]?.modul;
@@ -60,10 +60,20 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
 
   const handleNext = () => {
     setIsSoalCorrect(false);
+
+    // ✅ Saat soal diselesaikan, pass ke parent
+    if (soalSekarang?.id && onSoalSelesai) {
+      onSoalSelesai({ soalId: soalSekarang.id, soalIndex });
+    }
+
+
+
     if (isLastSoal) {
-      // ✅ Soal terakhir selesai → langsung panggil onSelesai
+
       onSelesai();
+
     } else {
+
       setSoalIndex(soalIndex + 1);
     }
   };
@@ -136,6 +146,7 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
               <RenderSoal
                 key={`${modulIndex}-${soalIndex}`}
                 soal={soalSekarang}
+                onClick={handleNext}
                 onCorrect={() => setIsSoalCorrect(true)}
                 isLastSoal={isLastSoal}
               />
@@ -157,13 +168,13 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
   );
 };
 
-const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai }) => {
+const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
   const [isComplete, setIsComplete] = useState(false);
 
-  // ✅ Bab selesai
+  // ✅ Terima data lengkap dari RenderPopUp
   const handleSelesai = () => {
     setIsComplete(true);
-    onBabSelesai?.(modulIndex); // ✅ beritahu parent bab mana yang selesai
+    onBabSelesai?.(modulIndex );  // ✅ PASS allSelesai
   };
 
   // ✅ Layar selesai
@@ -189,10 +200,16 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai }) => {
   return (
     <div
       className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999"
-      onClick={onClose}
-    >
+
+      onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()}>
-        <RenderPopUp modulIndex={modulIndex} onSelesai={handleSelesai} />
+        <RenderPopUp
+          modulIndex={modulIndex}
+          onSelesai={handleSelesai}  // ✅ Ini akan menerima allSelesai
+          onBabSelesai={onBabSelesai}
+          onSoalSelesai={onSoalSelesai}
+          initialSoalIndex={initialSoalIndex}
+        />
       </div>
     </div>
   );

@@ -139,7 +139,7 @@ const DashboardPage = () => {
             <h1 className="-mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black">
               Lanjutkan Belajar
             </h1>
-            {isLoading ? <SkeletonProgress /> : dataProgress ? (
+            {isLoading ? <SkeletonProgress /> : (dataProgress && dataProgress.length > 0 && dataProgress.some(item => item.progress_persen > 0 && item.progress_persen < 100)) ? (
               <ContinueLearning dataProgress={dataProgress} />
             ) : (
               <div className=" mt-30 mb-10 container mx-auto h-20">
