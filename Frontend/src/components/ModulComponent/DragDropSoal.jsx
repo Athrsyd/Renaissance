@@ -5,6 +5,7 @@ import {
   DragOverlay,
   useDroppable,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
   closestCenter,
@@ -27,7 +28,7 @@ function DraggableChip({ id, label, isUsed }) {
       {...listeners}
       {...attributes}
       className={`
-        px-5 py-2 rounded-lg font-semibold text-sm select-none transition-opacity
+        px-5 py-2 rounded-lg font-semibold text-sm select-none transition-opacity touch-none
         ${
           isUsed
             ? "hidden"
@@ -127,6 +128,12 @@ export default function DragDropSoal({ soal, onCorrect }) {
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 150,
+        tolerance: 8,
+      }
+    })
   );
 
   const usedChipIds = Object.values(filled);

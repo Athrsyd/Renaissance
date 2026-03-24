@@ -4,6 +4,7 @@ import DragDropSoal from "./DragDropSoal";
 import TTSSoal from "./TTSSoal";
 import QuizSoal from "./QuizSoal";
 import IsianSoal from "./IsianSoal";
+import TarikGarisSoal from "./TarikGarisSoal";
 
 const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
   switch (soal.type) {
@@ -25,12 +26,18 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
           <TTSSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
-      case "isian":
-        return (
-          <div className="text-white">
-            <IsianSoal soal={soal} onCorrect={onCorrect} />
-          </div>
-        );
+    case "isian":
+      return (
+        <div className="text-white">
+          <IsianSoal soal={soal} onCorrect={onCorrect} />
+        </div>
+      );
+    case "tarik benang":
+      return (
+        <div className="text-white">
+          <TarikGarisSoal soal={soal} onCorrect={onCorrect} />
+        </div>
+      );
     default:
       return (
         <div className="text-white">
