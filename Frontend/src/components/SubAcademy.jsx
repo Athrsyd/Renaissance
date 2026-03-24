@@ -44,7 +44,7 @@ const SubAcademys = [
 const SubCard = ({ item }) => {
   return (
     <>
-      <div className="w-full container group transition-all duration-500 hover:-translate-y-2 cursor-pointer max-w-70 lg:w-60 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
+      <div className="w-full container group transition-all duration-500 hover:-translate-y-2 cursor-pointer max-w-70 mb-10 md:mb-0 lg:w-60 h-70 rounded-2xl py-4 bg-bistre relative flex-col">
         <h1 className="text-md text-[#F8F3E0] px-4 mb-2 -mt-2 font-monstserrat font-semibold">
           {item.title}
         </h1>
