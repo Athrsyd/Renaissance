@@ -14,6 +14,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import PopUpPKN from "../components/ModulComponent/PopUpPkn";
 import data from "../Data/pancasila";
+import { Link } from "react-router-dom";
 
 const ModulPKN = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
@@ -78,9 +79,26 @@ const ModulPKN = () => {
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center">
           <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
-            <div className="flex flex-row w-full mt-5 md:gap-2 justify-center items-center">
+            <div className="flex flex-row w-full mx-auto mt-5 md:gap-2 justify-center items-center">
               {/* SEARCH */}
-              <div className="relative">
+              <div className="relative flex flex-row items-center gap-10">
+                <Link to="/academy">
+                  <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20px"
+                      height="20px"
+                      viewBox="0 0 24 24"
+                      className=""
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M21 11H6.414l5.293-5.293l-1.414-1.414L2.586 12l7.707 7.707l1.414-1.414L6.414 13H21z"
+                      ></path>
+                    </svg>
+                    Back
+                  </button>
+                </Link>
                 <input
                   type="search"
                   placeholder="Explore Lessons"
@@ -88,11 +106,11 @@ const ModulPKN = () => {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                 />
-                <img src={Search} className="w-5 -mt-7 ml-2" />
+                <img src={Search} className=" relative w-5 right-20" />
               </div>
 
               {/* RIGHT MENU */}
-              <div className="ml-5 flex flex-row items-center gap-5">
+              <div className="-ml-5 flex flex-row items-center gap-5">
                 <button>
                   <img src={Notif} className="w-6 mt-2" alt="Notifications" />
                 </button>
@@ -103,7 +121,8 @@ const ModulPKN = () => {
                   </h1>
                 </div>
 
-                <button onClick={() => setIsAccountOpen(!isAccountOpen)}>
+                <button onClick={() => setIsAccountOpen(!isAccountOpen)} className="cursor-pointer"
+                >
                   <img
                     src={rBottom}
                     className={`w-5 transition ${isAccountOpen ? "rotate-180" : ""}`}
@@ -160,7 +179,7 @@ const ModulPKN = () => {
           key={selectedModulIndex}
           modulIndex={selectedModulIndex}
           onClose={() => {
-            setIsPknPopupOpen(false); 
+            setIsPknPopupOpen(false);
             window.location.reload();
           }}
           onSelesai={handleBabSelesai}

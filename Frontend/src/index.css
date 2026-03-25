@@ -13,14 +13,13 @@
   --font-display: "Roboto", sans-serif;
   --font-poppins: "Poppins", sans-serif;
   --font-monstserrat: "Montserrat", sans-serif;
-  --color-icon: #9B7A5B;
+  --color-icon: #9b7a5b;
 }
 
 @layer utilities {
   * {
     box-sizing: border-box;
     scroll-behavior: smooth;
-
   }
   body {
     font-family: var(--font-poppins);

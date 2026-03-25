@@ -21,6 +21,7 @@ import SkeletonProgress from '../components/SkeletonLoading/DashboardPage/Skelet
 import SkeletonChatbot from '../components/SkeletonLoading/DashboardPage/SkeletonChatbot'
 import SkeletonCommunity from '../components/SkeletonLoading/DashboardPage/SkeletonCommunity'
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
+import { Link } from "react-router-dom";
 // import Skel
 
 const DashboardPage = () => {
@@ -111,6 +112,7 @@ const DashboardPage = () => {
                 onClick={() => setIsAccountOpen((prev) => !prev)}
                 aria-expanded={isAccountOpen}
                 aria-label="Open account menu"
+                className="cursor-pointer"
               >
                 <img
                   src={rBottom}
@@ -135,18 +137,20 @@ const DashboardPage = () => {
 
         {showSubject && <SubjectDash />}
         {showContinueLearning && (
-          <div className="w-full lg:pl-35 md:pl-10 mt-7">
+          <div className="w-full lg:pl-35 md:pl-10 mt-7 mb-15 h-45">
             <h1 className="-mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black">
               Lanjutkan Belajar
             </h1>
             {isLoading ? <SkeletonProgress /> : (dataProgress && dataProgress.some(item => item.progress > 0 && item.progress < 100)) ? (
               <ContinueLearning dataProgress={dataProgress} />
             ) : (
-              <div className=" mt-30 mb-10 container mx-auto h-20">
-                <p className="text-center text-gray-500 mt-10">
+              <Link to="/academy">
+              <div className=" mt-20 mb-10 container ml-6 cursor-pointer w-5/6 h-full bg-beige/50 border-2 border-dashed border-coffe/50 transition-all ease-in-out duration-300 rounded-xl hover:-translate-y-1  flex items-center justify-center">
+                <p className="text-center text-lg text-gray-500">
                   Anda belum memulai pelajaran apa pun. Jelajahi dan mulailah belajar!
                 </p>
               </div>
+              </Link>
             )}
           </div>
         )}

@@ -13,7 +13,7 @@ const SubAcademys = [
     id: 2,
     title: "PKN",
     subTitle: "6 Bab",
-    link: "pkn",
+    link: "pendidikan pancasila",
   },
   {
     id: 3,
