@@ -20,7 +20,8 @@ return new class extends Migration
             $table->foreignId('modul_id')
             ->constrained('modul_belajars')
             ->onDelete('cascade');
-
+            
+            
             $table->unsignedTinyInteger('progress_persen')->default(0);
             $table->boolean('is_selesai')->default(false);
 

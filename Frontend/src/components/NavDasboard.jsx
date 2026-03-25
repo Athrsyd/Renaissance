@@ -119,7 +119,9 @@ const SideBar = () => {
       md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
       <div className="flex w-full h-full flex-row md:justify-start justify-around gap-5 items-center lg:flex-col lg:items-center md:py-6 md:flex-col md:items-center md:pr-2">
         {/* Logo (hanya desktop) */}
-        <img src={Logo} className="hidden lg:block md:block ml-1 w-[90%]" />
+        <Link to='/' className="hidden lg:block md:block ml-1 w-[90%]" >
+        <img src={Logo} alt='logo'/>
+        </Link>
         
         {navIcon.map((item) => (
           <Link to={item.path} key={item.id}>

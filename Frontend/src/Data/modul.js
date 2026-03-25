@@ -4,7 +4,7 @@ const data = [
         mapel: "Matematika",
         modul: [
             {
-                id: 1,
+                id: 6,
                 bab: 1,
                 judul: "Bangun Ruang",
                 soal: [
@@ -45,7 +45,7 @@ const data = [
                 ]
             },
             {
-                id: 2,
+                id: 7,
                 bab: 2,
                 judul: "Teorema Pythagoras",
                 soal: [
@@ -82,7 +82,7 @@ const data = [
                 ]
             },
             {
-                id: 3,
+                id: 8,
                 bab: 3,
                 judul: "Mengenal Aljabar",
                 soal: [
@@ -109,7 +109,7 @@ const data = [
                 ]
             },
             {
-                id: 4,
+                id: 9,
                 bab: 4,
                 judul: "Operasi Aljabar",
                 soal: [
@@ -135,7 +135,7 @@ const data = [
                 ]
             },
             {
-                id: 5,
+                id: 10,
                 bab: 5,
                 judul: "Matematika dalam Kehidupan Sehari-hari",
                 soal: [

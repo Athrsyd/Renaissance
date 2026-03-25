@@ -13,15 +13,19 @@ import ProgressHook from "../Hook/ProgressHook";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import PopUpPKN from "../components/ModulComponent/PopUpPkn";
-import data from "../Data/pancasila"; 
+import data from "../Data/pancasila";
+import { Link } from "react-router-dom";
+import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
 
 const ModulPKN = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isPknPopupOpen, setIsPknPopupOpen] = useState(false);
   const [selectedModulIndex, setSelectedModulIndex] = useState(0);
+  const [soalSelesai, setSoalSelesai] = useState([]);
+  const [initialSoalIndex, setInitialSoalIndex] = useState(0);
 
-  const { countTotalProgress, fetchProgress, isLoading, dataProgress, error } = ProgressHook();
+  const { countTotalProgress, fetchProgress, updateProgress, isLoading, dataProgress, error } = ProgressHook();
 
   const { fetchUserData, userData } = HookAuth();
 
@@ -34,13 +38,40 @@ const ModulPKN = () => {
 
   const handleStartModule = (moduleIndex) => {
     setSelectedModulIndex(moduleIndex);
+
+    // ✅ Resume dari soal terakhir yang dikerjakan
+    const modulProgress = dataProgress.find(p => p.modul_id === data[0].modul[moduleIndex].id);
+    const lastSoalIndex = modulProgress?.soal_selesai?.length || 0;
+
+    setInitialSoalIndex(lastSoalIndex);
+    setSoalSelesai(modulProgress?.soal_selesai || []);
     setIsPknPopupOpen(true);
   };
 
+  const handleSoalSelesai = async (soalData) => {
+    const newSoalSelesai = [...soalSelesai, soalData.soalId];
+    setSoalSelesai(newSoalSelesai);
+
+    // ✅ Update progress setiap soal diselesaikan
+    const modulId = data[0].modul[selectedModulIndex].id;
+    const totalSoal = data[0].modul[selectedModulIndex].soal.length;
+
+    await updateProgress(modulId, newSoalSelesai, totalSoal);
+  };
+
   const handleBabSelesai = async (modulIndex) => {
-    const modulId = data[0].modul[modulIndex].id; 
-    await updateProgress(modulId, 100); 
-    await fetchProgress(); 
+    // ✅ allSelesai sudah lengkap dari popup
+    const modulId = data[0].modul[modulIndex].id;
+    const bab = data[0].modul[modulIndex].bab;
+    const totalSoal = data[0].modul[modulIndex].soal.length;
+
+    // ✅ Update final dengan SEMUA soal
+    await updateProgress(modulId, soalSelesai, totalSoal, bab);
+    await fetchProgress();
+
+    // ✅ Reset state
+    setSoalSelesai([]);
+    setInitialSoalIndex(0);
   };
 
   return (
@@ -49,46 +80,67 @@ const ModulPKN = () => {
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center">
           <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
-            <div className="flex flex-row w-full mt-5 md:gap-2 justify-center items-center">
-              {/* SEARCH */}
-              <div className="relative">
-                <input
-                  type="search"
-                  placeholder="Explore Lessons"
-                  className="bg-[#D5D4D4] text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <img src={Search} className="w-5 -mt-7 ml-2" />
-              </div>
+            {userData ? (
 
-              {/* RIGHT MENU */}
-              <div className="ml-5 flex flex-row items-center gap-5">
-                <button>
-                  <img src={Notif} className="w-6 mt-2" alt="Notifications" />
-                </button>
-
-                <div className="w-10 h-10 bg-bistre rounded-full flex items-center justify-center">
-                  <h1 className="text-white font-bold">
-                    {userData?.name?.charAt(0) || "U"}
-                  </h1>
+              <div className="flex flex-row w-full mx-auto mt-5 md:gap-2 justify-center items-center">
+                {/* SEARCH */}
+                <div className="relative flex flex-row items-center gap-10">
+                  <Link to="/academy">
+                    <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20px"
+                        height="20px"
+                        viewBox="0 0 24 24"
+                        className=""
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M21 11H6.414l5.293-5.293l-1.414-1.414L2.586 12l7.707 7.707l1.414-1.414L6.414 13H21z"
+                        ></path>
+                      </svg>
+                      Back
+                    </button>
+                  </Link>
+                  <input
+                    type="search"
+                    placeholder="Explore Lessons"
+                    className="bg-[#D5D4D4] text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
+                  <img src={Search} className=" relative w-5 right-20" />
                 </div>
 
-                <button onClick={() => setIsAccountOpen(!isAccountOpen)}>
-                  <img
-                    src={rBottom}
-                    className={`w-5 transition ${isAccountOpen ? "rotate-180" : ""}`}
-                  />
-                </button>
+                {/* RIGHT MENU */}
+                <div className="-ml-5 flex flex-row items-center gap-5">
+                  <button>
+                    <img src={Notif} className="w-6 mt-2" alt="Notifications" />
+                  </button>
 
-                <PopUpAccount
-                  Username={userData}
-                  Email={userData}
-                  isOpen={isAccountOpen}
-                  onClose={() => setIsAccountOpen(false)}
-                />
+                  <div className="w-10 h-10 bg-bistre rounded-full flex items-center justify-center">
+                    <h1 className="text-white font-bold">
+                      {userData?.name?.charAt(0) || "U"}
+                    </h1>
+                  </div>
+
+                  <button onClick={() => setIsAccountOpen(!isAccountOpen)} className="cursor-pointer"
+                  >
+                    <img
+                      src={rBottom}
+                      className={`w-5 transition ${isAccountOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+
+                  <PopUpAccount
+                    Username={userData}
+                    Email={userData}
+                    isOpen={isAccountOpen}
+                    onClose={() => setIsAccountOpen(false)}
+                  />
+                </div>
               </div>
-            </div>
+            ) : <SkeletonNavbar />}
 
             <div className="flex flex-row justify-center items-center mt-10">
               <div className="relative flex flex-col w-250 h-70 py-5 rounded-2xl px-5 bg-icon">
@@ -97,7 +149,7 @@ const ModulPKN = () => {
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
                   {isLoading ? (
-                    <Skeleton width={710} height={18} style={{borderRadius:'2.5rem'}} />
+                    <Skeleton width={710} height={18} style={{ borderRadius: '2.5rem' }} />
                   ) : (
                     <>
                       <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
@@ -130,8 +182,13 @@ const ModulPKN = () => {
         <PopUpPKN
           key={selectedModulIndex}
           modulIndex={selectedModulIndex}
-          onClose={() => setIsPknPopupOpen(false)}
-          onBabSelesai={handleBabSelesai}
+          onClose={() => {
+            setIsPknPopupOpen(false);
+            window.location.reload();
+          }}
+          onSelesai={handleBabSelesai}
+          onSoalSelesai={handleSoalSelesai}
+          initialSoalIndex={initialSoalIndex}
         />
       )}
     </>

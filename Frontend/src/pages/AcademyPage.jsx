@@ -62,7 +62,7 @@ const AcademyPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {loadingDummy ? (
+        {!userData ? (
           <SkeletonNavbar />
         ) : (
           <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
@@ -71,47 +71,49 @@ const AcademyPage = () => {
                 type="search"
                 placeholder="Explore Lessons"
                 className="bg-[#D5D4D4] z-50 text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
-          </div>
-          <div className="ml-5 lg:ml-10 md:ml-10 mt-6 gap-5 flex flex-row justify-between">
-            <button>
-              <img src={Notif} className="w-6 lg:w-7 md:w-7" />
-            </button>
-
-            <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
-
-              <h1 className="text-white text-center text-2xl font-bold mt-2">
-                {userData?.name?.charAt(0) || 'U'}
-              </h1>
-
-            </div>
-            {/* <button onClick={()=>test()}>test</button> */}
-            <button
-              type="button"
-              onClick={() => setIsAccountOpen((prev) => !prev)}
-              aria-expanded={isAccountOpen}
-              aria-label="Open account menu"
-            >
-              <img
-                src={rBottom}
-                className={`w-5 transition-transform duration-300 ${isAccountOpen ? 'rotate-180' : ''}`}
-                alt="Account menu"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
-            </button>
-            <PopUpAccount
-              Username={userData}
-              Email={userData}
-              isOpen={isAccountOpen}
-              onClose={() => setIsAccountOpen(false)}
-            />
+              <img src={Search} className="w-5 z-99 -mt-7 ml-2" />
+            </div>
+            <div className="ml-5 lg:ml-10 md:ml-10 mt-6 gap-5 flex flex-row justify-between">
+              <button>
+                <img src={Notif} className="w-6 lg:w-7 md:w-7" />
+              </button>
+
+              <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
+
+                <h1 className="text-white text-center text-2xl font-bold mt-2">
+                  {userData?.name?.charAt(0) || 'U'}
+                </h1>
+
+              </div>
+              {/* <button onClick={()=>test()}>test</button> */}
+              <button
+                type="button"
+                onClick={() => setIsAccountOpen((prev) => !prev)}
+                aria-expanded={isAccountOpen}
+                aria-label="Open account menu"
+                className="cursor-pointer"
+
+              >
+                <img
+                  src={rBottom}
+                  className={`w-5 transition-transform duration-300 ${isAccountOpen ? 'rotate-180' : ''}`}
+                  alt="Account menu"
+                />
+              </button>
+              <PopUpAccount
+                Username={userData}
+                Email={userData}
+                isOpen={isAccountOpen}
+                onClose={() => setIsAccountOpen(false)}
+              />
+            </div>
           </div>
-        </div>
         )}
-      {userData ? !searchQuery && <WelcomeAcademy grade={grade} user={userData} /> : <SkeletonWelcome />}
-        {loadingDummy? <Skeleton height={13} width={100} style={{marginTop:'0.75rem'}} /> : selectedGrade && (
+        {userData ? !searchQuery && <WelcomeAcademy grade={grade} user={userData} /> : <SkeletonWelcome />}
+        {loadingDummy ? <Skeleton height={13} width={100} style={{ marginTop: '0.75rem' }} /> : selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}
           </p>
@@ -126,7 +128,7 @@ const AcademyPage = () => {
               Silakan pilih kelas Anda untuk melihat materi yang sesuai.
             </h2>
             <button
-              onClick={() => {setIsGradePopupOpen(true)}}
+              onClick={() => { setIsGradePopupOpen(true) }}
               className="bg-bistre hover:bg-[#5C4033] text-beige font-bold py-2 px-5 rounded-full"
             >
               Pilih Kelas

@@ -7,7 +7,7 @@ import DragDropSoal from "./DragDropSoal";
 import TarikGarisSoal from "./TarikGarisSoal";
 import SambungKataSoal from "./SambungKataSoal";
 
-const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
+const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
   switch (soal.type) {
     case "quiz":
       return (
@@ -54,6 +54,11 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
         </div>
       );
     case "isian":
+      return (
+        <div className="text-white">
+          <IsianSoal soal={soal} onCorrect={onCorrect} />
+        </div>
+      );
     case "materi":
     default:
       return (
@@ -70,10 +75,11 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal }) => {
   }
 };
 
-const RenderPopUp = ({ modulIndex, onSelesai }) => {
+const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
   const [isStart, setIsStart] = useState(false);
-  const [soalIndex, setSoalIndex] = useState(0);
+  const [soalIndex, setSoalIndex] = useState(initialSoalIndex);
   const [isSoalCorrect, setIsSoalCorrect] = useState(false);
+
 
   const semuaModul = modul[0]?.modul;
   const modulSekarang = semuaModul?.[modulIndex];
@@ -84,6 +90,12 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
 
   const handleNext = () => {
     setIsSoalCorrect(false);
+
+    // ✅ Saat soal diselesaikan, pass ke parent
+    if (soalSekarang?.id && onSoalSelesai) {
+      onSoalSelesai({ soalId: soalSekarang.id, soalIndex });
+    }
+
     if (isLastSoal) {
       // ✅ Soal terakhir selesai → langsung panggil onSelesai
       onSelesai();
@@ -162,6 +174,7 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
                 soal={soalSekarang}
                 onCorrect={() => setIsSoalCorrect(true)}
                 isLastSoal={isLastSoal}
+                onClick={handleNext}
               />
             </div>
             {isSoalCorrect && (
@@ -181,7 +194,7 @@ const RenderPopUp = ({ modulIndex, onSelesai }) => {
   );
 };
 
-const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai }) => {
+const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
   const [isComplete, setIsComplete] = useState(false);
 
   // ✅ Bab selesai
@@ -196,9 +209,10 @@ const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai }) => {
       <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999">
         <div className="bg-bistre/75 border-2 border-coffe px-15 py-5 rounded-xl text-center">
           <h1 className="text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
-            Bab 1 : <br /> Pendidikan Pancasila
+            Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
           </h1>
-          <p className="text-[#F8F3E0] font-monstserrat mt-4 text-6xl">100</p>
+          <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
+            Gerbang menuju Bab {modulIndex + 2} : {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />telah terbuka</p>
           <button
             onClick={onClose}
             className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
@@ -216,7 +230,13 @@ const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai }) => {
       onClick={onClose}
     >
       <div onClick={(e) => e.stopPropagation()}>
-        <RenderPopUp modulIndex={modulIndex} onSelesai={handleSelesai} />
+        <RenderPopUp
+          modulIndex={modulIndex}
+          onSelesai={handleSelesai}
+          onSoalSelesai={onSoalSelesai}
+          onBabSelesai={onBabSelesai}
+          initialSoalIndex={initialSoalIndex}
+        />
       </div>
     </div>
   );

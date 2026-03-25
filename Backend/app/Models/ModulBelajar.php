@@ -10,6 +10,7 @@ class ModulBelajar extends Model
 {
     protected $fillable = [
         'mapel',
+        'bab',
         'judul',
     ];
 

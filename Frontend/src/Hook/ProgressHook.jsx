@@ -17,6 +17,7 @@ export const ProgressHook = () => {
                 },
             })
             setDataProgress(Array.isArray(response?.data?.data) ? response.data.data : [])
+            console.log('Fetched progress:', response.data.data)
         }
         catch (error) {
             console.error('Error fetching progress:', error)
@@ -27,17 +28,25 @@ export const ProgressHook = () => {
         }
     }
 
-    const updateProgress = async (mapelId, progressPersen, soalSelesai = []) => {
+    const updateProgress = async (mapelId, soalSelesai = [], jumlahSoal, bab = null) => {
         setIsLoading(true);
         setError(null)
         try {
+            const progressPersen = Math.round((soalSelesai.length / jumlahSoal) * 100);
             const isSelesai = progressPersen === 100;
             const token = localStorage.getItem('token');
-            const res = await API.put(`progress/${mapelId}`, {
+            const payload = {
                 "progress_persen": progressPersen,
                 "soal_selesai": soalSelesai,
                 "is_selesai": isSelesai
-            }, {
+            };
+            
+            // Always include bab if provided (backend will fallback to ModulBelajar if needed)
+            if (bab !== null && bab !== undefined) {
+                payload.bab = bab;
+            }
+            
+            const res = await API.put(`progress/${mapelId}`, payload, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

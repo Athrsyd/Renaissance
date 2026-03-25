@@ -4,7 +4,7 @@ const data = [
         mapel: "Pendidikan Pancasila",
         modul: [
             {
-                id: 11,
+                id: 1,
                 bab: 1,
                 judul: "Sejarah Perumusan Pancasila",
                 soal: [
@@ -42,7 +42,7 @@ const data = [
                 ]
             },
             {
-                id: 12,
+                id: 2,
                 bab: 2,
                 judul: "Kelahiran Pancasila dalam Sidang BPUPK",
                 soal: [
@@ -76,7 +76,7 @@ const data = [
                 ]
             },
             {
-                id: 13,
+                id: 3,
                 bab: 3,
                 judul: "Proses Perumusan Pancasila",
                 soal: [
@@ -101,7 +101,7 @@ const data = [
                 ]
             },
             {
-                id: 14,
+                id: 4,
                 bab: 4,
                 judul: "Penetapan Pancasila sebagai dasar Negara",
                 soal: [
@@ -117,7 +117,7 @@ const data = [
                 ]
             },
             {
-                id: 15,
+                id: 5,
                 bab: 5,
                 judul: "Meneladanni Pendiri Bangsa",
                 soal: [

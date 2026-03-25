@@ -20,7 +20,6 @@ class UserController extends Controller
             "name" => "required|string",
             "email" => "email|required",
             "password" => "required",
-            // 'role' => 'string|required'
         ]);
 
         if ($validate->fails()) {

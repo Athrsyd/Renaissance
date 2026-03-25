@@ -21,14 +21,15 @@ import SkeletonProgress from '../components/SkeletonLoading/DashboardPage/Skelet
 import SkeletonChatbot from '../components/SkeletonLoading/DashboardPage/SkeletonChatbot'
 import SkeletonCommunity from '../components/SkeletonLoading/DashboardPage/SkeletonCommunity'
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
+import { Link } from "react-router-dom";
 // import Skel
 
 const DashboardPage = () => {
-  const { fetchCommunities, communities } = CommunityHook();
+  
   const { fetchUserData, userData, isAuthLoading } = HookAuth();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const { searchResults, searchCommunities, joinCommunity, loading } =
+  const { searchResults, searchCommunities, joinCommunity,fetchCommunities, communities,  loading } =
     CommunityHook();
   const [searchQuery, setSearchQuery] = useState("");
   const [loadingDummy, setLoadingDummy] = useState(true)
@@ -37,7 +38,7 @@ const DashboardPage = () => {
     const timer =
       setTimeout(() => {
         setLoadingDummy(false)
-      }, 1500)
+      }, 2000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -76,7 +77,7 @@ const DashboardPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {loadingDummy ? (
+        {!userData ? (
           <SkeletonNavbar />
         ) : (
 
@@ -111,6 +112,7 @@ const DashboardPage = () => {
                 onClick={() => setIsAccountOpen((prev) => !prev)}
                 aria-expanded={isAccountOpen}
                 aria-label="Open account menu"
+                className="cursor-pointer"
               >
                 <img
                   src={rBottom}
@@ -135,31 +137,33 @@ const DashboardPage = () => {
 
         {showSubject && <SubjectDash />}
         {showContinueLearning && (
-          <div className="w-full lg:pl-35 md:pl-10 mt-7">
+          <div className="w-full lg:pl-35 md:pl-10 mt-7 mb-15 h-45">
             <h1 className="-mb-14 ml-7 self-start font-semibold font-monstserrat text-lg text-black">
               Lanjutkan Belajar
             </h1>
-            {isLoading ? <SkeletonProgress /> : dataProgress ? (
+            {isLoading ? <SkeletonProgress /> : (dataProgress && dataProgress.some(item => item.progress > 0 && item.progress < 100)) ? (
               <ContinueLearning dataProgress={dataProgress} />
             ) : (
-              <div className=" mt-30 mb-10 container mx-auto h-20">
-                <p className="text-center text-gray-500 mt-10">
+              <Link to="/academy">
+              <div className=" mt-20 mb-10 container ml-6 cursor-pointer w-5/6 h-full bg-beige/50 border-2 border-dashed border-coffe/50 transition-all ease-in-out duration-300 rounded-xl hover:-translate-y-1  flex items-center justify-center">
+                <p className="text-center text-lg text-gray-500">
                   Anda belum memulai pelajaran apa pun. Jelajahi dan mulailah belajar!
                 </p>
               </div>
+              </Link>
             )}
           </div>
         )}
 
         {loadingDummy ? <SkeletonChatbot /> : showAureusAI && <AureusAI />}
 
-        {loading? <SkeletonCommunity /> : showCommunity && communities.length > 0 && (
+        {loading? <SkeletonCommunity /> : showCommunity && searchResults.length > 0 && (
           <div className="w-full flex-col flex mt-7">
             <h1 className="ml-5 lg:ml-40 md:ml-20 self-start font-semibold font-monstserrat text-lg text-black">
               Jelajahi Komunitas
             </h1>
             <CommunityList
-              communities={communities}
+              communities={searchResults}
               onJoin={joinCommunity}
               isSearchPage={true}
             />
