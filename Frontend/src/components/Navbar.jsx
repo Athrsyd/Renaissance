@@ -49,16 +49,16 @@ const Navbar = () => {
         onClick={closeMenu}
       />
       <nav
-        className={`bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-0 px-6 md:p-3 
-          justify-between md:justify-center 
-          items-center md:gap-20 transition-all duration-600
+        className={`bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-0 px-6 lg:p-3 
+          justify-between lg:justify-center 
+          items-center lg:gap-20 transition-all duration-600
   
   ${isMenuOpen
             ? "fixed top-0 left-0 w-full rounded-none mt-0"
-            : "mt-2 sm:mt-4 w-full ml-2 mr-2 sm:ml-0 sm:mr-0 sm:w-[90%] md:w-full md:max-w-6xl rounded-full"
+            : "mt-2 md:mt-4 w-full ml-2 mr-2 md:ml-0 md:mr-0 md:w-[90%] lg:w-full lg:max-w-6xl rounded-full"
           }`}
       >
-        <ul className="hidden sm:flex flex-row justify-center md:gap-10">
+        <ul className="hidden md:flex flex-row justify-center lg:gap-10">
           <a
             href="#about"
             className=" transition-colors "
@@ -89,16 +89,16 @@ const Navbar = () => {
             <img
               src={logo}
               alt="Renaissance Logo"
-              className="h-6 sm:h-5 md:h-7"
+              className="h-6 md:h-5 lg:h-7"
             />
-            <h1 className="sm:hidden md:block text-[#F2E0D2] sm:text-white text-xl md:text-2xl font-normal sm:font-semibold">
+            <h1 className="md:hidden lg:block text-[#F2E0D2] md:text-white text-xl lg:text-2xl font-normal md:font-semibold">
               Renaissance
             </h1>
           </a>
         </div>
 
         <button
-          className="sm:hidden z-10000 text-white p-2 rounded-full hover:bg-bistre hover:text-white transition-colors duration-500 ease-in-out"
+          className="md:hidden z-10000 text-white p-2 rounded-full hover:bg-bistre hover:text-white transition-colors duration-500 ease-in-out"
           onClick={toggleMenu}
         >
           <span
@@ -110,12 +110,12 @@ const Navbar = () => {
         </button>
 
         <div
-          className={`fixed inset-0 bg-bistre z-9998 md:hidden transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          className={`fixed inset-0 bg-bistre z-9998 lg:hidden transition-opacity duration-500 ${isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"}`}
           onClick={closeMenu}
         ></div>
 
         <div
-          className={`sm:hidden fixed top-0 -mr-5 right-0 h-80 w-50 bg-bistre rounded-b-3xl transform transition-transform duration-500 ease-in-out
+          className={`md:hidden fixed top-0 -mr-5 right-0 h-80 w-50 bg-bistre rounded-b-3xl transform transition-transform duration-500 ease-in-out
             ${isMenuOpen ? "translate-x-0" : "translate-x-full"} z-9999`}
         >
           <ul className="flex flex-col items-start gap-6 pt-24 pl-8 text-white text-lg">
@@ -150,14 +150,14 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <ul className="hidden sm:flex flex-row justify-center md:gap-10">
+        <ul className="hidden md:flex flex-row justify-center lg:gap-10">
           <a
             href="#features"
             className="transition-colors "
           >
             <li
               onClick={() => handleClick("features")}
-              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "features" ? "bg-beige/70 text-bistre" : ""}`}
+              className={`px-3 py-2 rounded-full text-md lg:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "features" ? "bg-beige/70 text-bistre" : ""}`}
             >
               Features
             </li>
