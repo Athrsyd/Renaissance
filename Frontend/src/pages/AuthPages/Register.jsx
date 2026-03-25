@@ -2,15 +2,8 @@ import { FaGoogle, FaInstagramSquare, FaFacebookSquare } from "react-icons/fa";
 import { useState } from "react";
 import { Eye, EyeOff } from 'lucide-react';
 import BackButton from "../../components/BackButton";
-``
+import HookAuth from "../../Hook/HookAuth";
 
-const HookAuth = () => ({
-    email: '', name: '', password: '',
-    message: '',
-    handleChange: () => {},
-    handleSubmitRegister: () => {},
-    isLoading: false,
-});
 
 
 const Register = () => {
@@ -40,7 +33,7 @@ const Register = () => {
                     </div>
                     <div className="w-full flex justify-center items-center mt-5">
                         <button
-                            className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600'
+                            className='bg-beige text-bistre transition-all duration-500 ease-in-out w-full font-bold py-3 px-10 rounded-xl hover:scale-95'
                             type='submit'
                             onClick={handleSubmitRegister}
                             disabled={isLoading}
@@ -52,9 +45,9 @@ const Register = () => {
                 <div className="flex items-center w-full gap-3 text-sm text-beige/25 before:content-[''] before:flex-1 before:h-px before:bg-khaki/40 after:content-[''] after:flex-1 after:h-px after:bg-khaki/40">OR</div>
                 <div className="buttons flex flex-col gap-10">
                     <div className="sosmed flex flex-row gap-5 text-2xl justify-center">
-                        <FaGoogle />
-                        <FaFacebookSquare />
-                        <FaInstagramSquare />
+                        <FaGoogle           className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer" />
+                        <FaFacebookSquare    className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer"  />
+                        <FaInstagramSquare className="hover:scale-110 transition-all duration-300 ease-in-out cursor-pointer" />
                     </div>
                     <p className='text-sm text-white'>HAVE AN ACCOUNT ?<a href="/login" className='text-beige/80 hover:text-beige'>{' '}LOGIN</a></p>
                 </div>

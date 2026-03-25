@@ -2,11 +2,8 @@ import { FaGoogle, FaFacebookSquare, FaInstagramSquare } from "react-icons/fa";
 import { useState } from "react";
 import { EyeOff, Eye } from 'lucide-react';
 import BackButton from "../../components/BackButton";
+import HookAuth from "../../Hook/HookAuth";
 
-const HookAuth = () => ({
-    email: '', password: '', message: '',
-    handleChange: () => {}, handleSubmitLogin: () => {}, isLoading: false,
-});
 
 
 const Login = () => {
@@ -48,7 +45,7 @@ const Login = () => {
 
                     <div className="w-full flex justify-center items-center mt-5">
                         <button
-                            className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:bg-amber-600'
+                            className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:scale-95 transition-all duration-500 ease-in-out'
                             type='submit'
                             onClick={handleSubmitLogin}
                             disabled={isLoading}>
@@ -61,9 +58,9 @@ const Login = () => {
 
                 <div className="buttons flex flex-col gap-10">
                     <div className="sosmed flex flex-row gap-5 text-2xl justify-center">
-                        <FaGoogle />
-                        <FaFacebookSquare />
-                        <FaInstagramSquare />
+                        <FaGoogle          className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer" />
+                        <FaFacebookSquare  className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer"  />
+                        <FaInstagramSquare className="hover:scale-105 transition-all duration-300 ease-in-out cursor-pointer" />
                     </div>
                     <p className='text-sm text-white'>HAVE NOT AN ACCOUNT ?<a href="/register" className='text-beige/80 hover:text-beige'>{' '}REGISTER</a></p>
                 </div>
