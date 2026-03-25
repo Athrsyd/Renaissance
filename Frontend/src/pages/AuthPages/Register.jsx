@@ -7,7 +7,7 @@ import HookAuth from "../../Hook/HookAuth";
 
 
 const Register = () => {
-    const { email, name, password, message, handleChange, handleSubmitRegister, isLoading } = HookAuth();
+    const { email, name, password, message, handleChange, handleSubmitRegister, isAuthLoading } = HookAuth();
     const [togglePassword, setTogglePassword] = useState(false);
 
     return (
@@ -20,12 +20,12 @@ const Register = () => {
                 {message && <p className='text-sm text-center text-beige/80'>{message}</p>}
                 <form action="" method="post" className='text-beige w-full flex flex-col gap-4 justify-center items-start'>
                     <label className='text-khaki -mb-3 ml-3' htmlFor="username">Username</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type="text" name="username" id="username" placeholder='Username' value={name} onChange={handleChange} />
+                    <input autoComplete="off" className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type="text" name="username" id="username" placeholder='Username' value={name} onChange={handleChange} />
                     <label className='text-khaki -mb-3 ml-3' htmlFor="email">Email</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type="email" name="email" id="email" placeholder='Email' value={email} onChange={handleChange} />
+                    <input autoComplete="off" className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type="email" name="email" id="email" placeholder='Email' value={email} onChange={handleChange} />
                     <label className='text-khaki -mb-3 ml-3' htmlFor="password">Password</label>
                     <div className="relative w-full">
-                        <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type={togglePassword ? "text" : "password"}
+                        <input autoComplete="off" className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent' type={togglePassword ? "text" : "password"}
                             name="password" id="password" placeholder='Password' value={password} onChange={handleChange} />
                         <button type="button" onClick={() => setTogglePassword(!togglePassword)} className="absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer outline-0">
                             {togglePassword ? <EyeOff size={20} color="#CDB9A4" /> : <Eye size={20} color="#CDB9A4" />}
@@ -36,9 +36,9 @@ const Register = () => {
                             className='bg-beige text-bistre transition-all duration-500 ease-in-out w-full font-bold py-3 px-10 rounded-xl hover:scale-95'
                             type='submit'
                             onClick={handleSubmitRegister}
-                            disabled={isLoading}
+                            disabled={isAuthLoading}
                         >
-                            {isLoading ? "Creating account..." : "SIGN UP"}
+                            {isAuthLoading ? "Creating account..." : "SIGN UP"}
                         </button>
                     </div>
                 </form>

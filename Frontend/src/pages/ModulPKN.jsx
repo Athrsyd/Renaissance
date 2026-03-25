@@ -77,14 +77,14 @@ const ModulPKN = () => {
   return (
     <>
       <NavDashboard />
-      <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center">
-          <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
+      <div className="flex flex-col lg:ml-10 md:-ml-3 -ml-10 bg-white justify-center items-center overflow-x-hidden">
+        <div className="flex flex-col lg:ml-10 md:ml-0 bg-white justify-center items-center">
+          <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-15 mt-2 lg:justify-center md:justify-center items-center">
             {userData ? (
 
-              <div className="flex flex-row w-full mx-auto mt-5 md:gap-2 justify-center items-center">
+              <div className="flex flex-row w-full mx-auto mt-5 md:gap-0 lg:gap-2 justify-center gap-30 items-center">
                 {/* SEARCH */}
-                <div className="relative flex flex-row items-center gap-10">
+              <div className="relative flex flex-row justify-center items-center gap-10">
                   <Link to="/academy">
                     <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
                       <svg
@@ -105,15 +105,15 @@ const ModulPKN = () => {
                   <input
                     type="search"
                     placeholder="Explore Lessons"
-                    className="bg-[#D5D4D4] text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
+                    className="bg-[#D5D4D4] hidden md:block text-center text-sm rounded-xl w-52 lg:w-150 md:w-110 h-10 outline-0"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                   />
-                  <img src={Search} className=" relative w-5 right-20" />
+                  <img src={Search} className=" hidden md:block relative w-5 right-20" />
                 </div>
 
                 {/* RIGHT MENU */}
-                <div className="-ml-5 flex flex-row items-center gap-5">
+              <div className="-ml-5 flex flex-row items-center gap-5">
                   <button>
                     <img src={Notif} className="w-6 mt-2" alt="Notifications" />
                   </button>
@@ -143,8 +143,8 @@ const ModulPKN = () => {
             ) : <SkeletonNavbar />}
 
             <div className="flex flex-row justify-center items-center mt-10">
-              <div className="relative flex flex-col w-250 h-70 py-5 rounded-2xl px-5 bg-icon">
-                <h1 className="text-[#F8F3E0] text-7xl mt-10 font-semibold font-monstserrat text-center">
+              <div className="relative flex flex-col w-full md:w-full lg:w-250 h-70 py-2 rounded-2xl px-7 md:px-15 bg-icon">
+                <h1 className="text-[#F8F3E0] text-3xl md:text-4xl lg:text-5xl mt-10 font-semibold font-monstserrat text-center">
                   Pendidikan Pancasila
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
@@ -162,11 +162,6 @@ const ModulPKN = () => {
               </div>
             </div>
 
-            {!isLoading && !dataProgress?.length && (
-              <p className="mt-4 text-gray-500 font-monstserrat">
-                {error || "Data progress belum tersedia."}
-              </p>
-            )}
 
             <TimelineBab
               modulProgress={dataProgress}
@@ -191,6 +186,9 @@ const ModulPKN = () => {
           initialSoalIndex={initialSoalIndex}
         />
       )}
+      <br />
+      <br />
+      <br />
     </>
   );
 };

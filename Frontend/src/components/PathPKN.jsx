@@ -41,13 +41,6 @@ const TimelineBab = ({
           </div>
         )}
 
-        {!isProgressLoading && !pknProgress.length && (
-          <p className="text-gray-500 font-monstserrat mt-2">
-            {progressError ||
-              "Belum ada progress pendidikan kewarganegaraan untuk ditampilkan."}
-          </p>
-        )}
-
         {!isProgressLoading && (
           <div className="relative w-4/5 flex flex-col mt-10">
             {modul.map((item, index) => (

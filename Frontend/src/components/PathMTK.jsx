@@ -8,7 +8,7 @@ const TimelineBab = ({
   progressError = null,
   onStartModule,
 }) => {
-  const modul = data[0].modul; // ambil Matematika
+  const modul = data[0].modul; 
   const mathModulesIds = modul.map((m) => Number(m.id));
   const matematikaProgress = modulProgress.filter(
     (item) =>
@@ -21,9 +21,7 @@ const TimelineBab = ({
       (item) => Number(item?.modul_id) === Number(moduleId),
     );
   };
-  // const getModuleProgress = (moduleId) => {
-  //   return matematikaProgress.find((item) => Number(item?.modul_id) === Number(moduleId));
-  // };
+
 
   return (
     <>
@@ -42,11 +40,6 @@ const TimelineBab = ({
           </div>
         )}
 
-        {!isProgressLoading && !matematikaProgress.length && (
-          <p className="text-gray-500 font-monstserrat mt-2">
-            {progressError || "Belum ada progress matematika untuk ditampilkan."}
-          </p>
-        )}
 
         {!isProgressLoading && (
           <div className="relative w-4/5 flex flex-col mt-10">

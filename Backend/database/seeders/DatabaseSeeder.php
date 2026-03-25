@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ModulBelajarSeeder::class,
             CommunitySeeder::class,
-            UserModulProgressSeeder::class,
+            // UserModulProgressSeeder::class,
         ]);
     }
 }

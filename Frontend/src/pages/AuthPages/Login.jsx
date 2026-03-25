@@ -7,7 +7,7 @@ import HookAuth from "../../Hook/HookAuth";
 
 
 const Login = () => {
-    const { email, password, message, handleChange, handleSubmitLogin, isLoading } = HookAuth();
+    const { email, password, message, handleChange, handleSubmitLogin, isAuthLoading } = HookAuth();
     const [togglePassword, setTogglePassword] = useState(false);
 
     return (
@@ -22,7 +22,7 @@ const Login = () => {
                 <form action="" method="post" className='text-beige w-full flex flex-col gap-4 justify-center items-start'>
 
                     <label className='text-khaki -mb-3 ml-3' htmlFor="email">Email</label>
-                    <input className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent'
+                    <input autoComplete="off" className='border-2 w-full rounded-3xl border-khaki py-2 px-5 text-start bg-transparent'
                         type="email"
                         name="email"
                         id="email"
@@ -48,8 +48,8 @@ const Login = () => {
                             className='bg-beige text-bistre w-full font-bold py-3 px-10 rounded-xl hover:scale-95 transition-all duration-500 ease-in-out'
                             type='submit'
                             onClick={handleSubmitLogin}
-                            disabled={isLoading}>
-                            {isLoading ? "Logging in..." : "LOGIN"}
+                            disabled={isAuthLoading}>
+                            {isAuthLoading ? "Logging in..." : "LOGIN"}
                         </button>
                     </div>
                 </form>

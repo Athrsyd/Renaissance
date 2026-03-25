@@ -108,7 +108,7 @@ const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 
   return (
     <div className="bg-bistre/80 border-2 min-h-120 border-coffe rounded-xl max-w-3xl overflow-hidden">
       {soalSekarang && (
-        <div className="flex">
+        <div className="flex flex-col md:flex-row h-full">
           {/* PANEL KIRI */}
           <div className="w-2/4 p-6 flex flex-col gap-4 border-r border-coffe/40">
             <div className="rounded-xl flex-1 flex items-center justify-center min-h-40">
@@ -181,7 +181,7 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai,
   // ✅ Terima data lengkap dari RenderPopUp
   const handleSelesai = () => {
     setIsComplete(true);
-    onBabSelesai?.(modulIndex);  // ✅ PASS allSelesai
+    onBabSelesai?.(modulIndex); 
   };
 
   // ✅ Layar selesai
