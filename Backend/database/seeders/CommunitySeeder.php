@@ -51,23 +51,17 @@ class CommunitySeeder extends Seeder
                 'user0_follow' => false,
             ],
             [
-                'name' => 'kooko Diskusi',
+                'name' => 'Pejuang SNBT',
                 'image_path' => 'communities/pkoooon.jpg',
                 'created_by' => $users[0]->id,
                 'user0_follow' => false,
             ],
             [
-                'name' => 'PKmmsmN Diskusi',
+                'name' => 'JavaScript Enthusiasts',
                 'image_path' => 'communities/kokok.jpg',
                 'created_by' => $users[1]->id,
                 'user0_follow' => false,
             ],
-            [
-                'name' => 'Study Group Kelas XII',
-                'image_path' => 'communities/xii-study.jpg',
-                'created_by' => $users[0]->id,
-                'user0_follow' => false,
-            ]
         ];
         
         foreach ($communities as $community) {

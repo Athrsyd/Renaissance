@@ -25,11 +25,11 @@ import { Link } from "react-router-dom";
 // import Skel
 
 const DashboardPage = () => {
-  const { fetchCommunities, communities } = CommunityHook();
+  
   const { fetchUserData, userData, isAuthLoading } = HookAuth();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const { searchResults, searchCommunities, joinCommunity, loading } =
+  const { searchResults, searchCommunities, joinCommunity,fetchCommunities, communities,  loading } =
     CommunityHook();
   const [searchQuery, setSearchQuery] = useState("");
   const [loadingDummy, setLoadingDummy] = useState(true)
@@ -38,7 +38,7 @@ const DashboardPage = () => {
     const timer =
       setTimeout(() => {
         setLoadingDummy(false)
-      }, 1500)
+      }, 2000)
 
     return () => clearTimeout(timer)
   }, [])
@@ -77,7 +77,7 @@ const DashboardPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {loadingDummy ? (
+        {!userData ? (
           <SkeletonNavbar />
         ) : (
 
@@ -157,13 +157,13 @@ const DashboardPage = () => {
 
         {loadingDummy ? <SkeletonChatbot /> : showAureusAI && <AureusAI />}
 
-        {loading? <SkeletonCommunity /> : showCommunity && communities.length > 0 && (
+        {loading? <SkeletonCommunity /> : showCommunity && searchResults.length > 0 && (
           <div className="w-full flex-col flex mt-7">
             <h1 className="ml-5 lg:ml-40 md:ml-20 self-start font-semibold font-monstserrat text-lg text-black">
               Jelajahi Komunitas
             </h1>
             <CommunityList
-              communities={communities}
+              communities={searchResults}
               onJoin={joinCommunity}
               isSearchPage={true}
             />

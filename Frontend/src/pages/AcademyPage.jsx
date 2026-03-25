@@ -62,7 +62,7 @@ const AcademyPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {loadingDummy ? (
+        {!userData ? (
           <SkeletonNavbar />
         ) : (
           <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">

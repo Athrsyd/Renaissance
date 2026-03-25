@@ -15,6 +15,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import PopUpMatematika from "../components/ModulComponent/PopUpMatematika";
 import data from "../Data/modul";
 import { Link } from "react-router-dom";
+import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
 
 const ModulMTK = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
@@ -79,7 +80,9 @@ const ModulMTK = () => {
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center">
           <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
-            <div className="flex flex-row w-full mx-auto mt-5 md:gap-2 justify-center items-center">
+            {userData?(
+
+              <div className="flex flex-row w-full mx-auto mt-5 md:gap-2 justify-center items-center">
               {/* SEARCH */}
               <div className="relative flex flex-row items-center gap-10">
                 <Link to="/academy">
@@ -126,7 +129,7 @@ const ModulMTK = () => {
                   <img
                     src={rBottom}
                     className={`w-5 transition ${isAccountOpen ? "rotate-180" : ""}`}
-                  />
+                    />
                 </button>
 
                 <PopUpAccount
@@ -137,6 +140,7 @@ const ModulMTK = () => {
                 />
               </div>
             </div>
+                ):<SkeletonNavbar/>}
 
             <div className="flex flex-row justify-center items-center mt-10">
               <div className="relative flex flex-col w-250 h-70 py-5 rounded-2xl px-5 bg-icon">

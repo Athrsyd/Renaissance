@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { MoveLeft, Plus, } from 'lucide-react';
+import { MoveLeft, Plus, Users} from 'lucide-react';
 import CommunityHook from '../../Hook/CommunityHook'
 import SkeletonCommunityList from '../SkeletonLoading/CommunityPage/SkeletonCommunityList';
 
@@ -11,7 +11,10 @@ const CommunityDisplay = ({ community, isSelected, onClick }) => {
             onClick={onClick}
             className={`pl-5 cursor-pointer py-2 hover:bg-gray-200 transition-colors duration-300 container flex flex-row ${isSelected ? 'bg-gray-200 border-l-4 border-coffe' : ''} justify-start items-center mb-3`}
         >
-            <div className="rounded-full h-10 w-10 bg-bistre mr-3"></div>
+            <div className="rounded-full h-10 w-10 bg-bistre mr-3 flex justify-center items-center">
+                <Users size={24} color='#f2e0d2' />
+
+            </div>
             <div className="communityDisplay flex flex-col justify-center items-start rounded-full mr-3">
                 <h3 className='text-sm font-semibold text-gray-700'>{community.name}</h3>
                 <p className='text-xs text-gray-500'>{community.members?.length || community.members_count || 0} members</p>
@@ -23,7 +26,7 @@ const CommunityDisplay = ({ community, isSelected, onClick }) => {
 const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunity }) => {
     const [query, setQuery] = useState('')
     const [activeTab, setActiveTab] = useState('overview');
-    const { communities, searchResults, fetchCommunities, fetchPopularCommunities, isLoading , searchCommunities} = CommunityHook()
+    const { communities, searchResults, fetchCommunities, fetchPopularCommunities, isLoading, searchCommunities } = CommunityHook()
 
     useEffect(() => {
         fetchCommunities()
@@ -42,10 +45,10 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
                     e.preventDefault();
                     searchCommunities(query);
                 }} action="" method="post" className='w-5/6'>
-                    <input 
-                        type="text" 
-                        placeholder='Explore...' 
-                        className='bg-gray-200 text-sm text-start p-3 h-8 w-full rounded-full' 
+                    <input
+                        type="text"
+                        placeholder='Explore...'
+                        className='bg-gray-200 text-sm text-start p-3 h-8 w-full rounded-full'
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
 
@@ -70,7 +73,7 @@ const SidebarCommunity = ({ onCreateClick, selectedCommunityId, onSelectCommunit
                                 </li>
                             ))
                         ) : (
-                            <p className='px-5 text-xs text-gray-400'>Tidak ada komunitas</p>
+                            <p className='px-5 text-xs text-gray-400'>Tidak ada komunitas yang anda ikuti</p>
                         )}
                     </ul>
                 </div>

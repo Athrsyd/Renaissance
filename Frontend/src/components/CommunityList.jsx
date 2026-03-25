@@ -38,7 +38,7 @@ const CommunityList = ({ communities = [], onJoin, isSearchPage = false }) => {
                                         disabled={loading}
                                         className='bg-beige text-bistre hover:bg-bistre hover:text-beige text-md font-semibold rounded-md transition duration-200 ease-in-out py-1 px-4 disabled:opacity-50'
                                     >
-                                        Bergabung
+                                        Jelajahi
                                     </button>
                                 </Link>
                             </div>
