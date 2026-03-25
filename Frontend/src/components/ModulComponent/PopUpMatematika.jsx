@@ -106,12 +106,13 @@ const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 
   }
 
   return (
-    <div className="bg-bistre/80 border-2 min-h-120 border-coffe rounded-xl max-w-3xl overflow-hidden">
+    <div className="bg-bistre/80 border-2 border-coffe rounded-xl w-full md:w-150 lg:w-full mb-20 md:mb-0">
       {soalSekarang && (
-        <div className="flex flex-col md:flex-row h-full">
+        <div className="flex flex-col md:flex-row">
           {/* PANEL KIRI */}
-          <div className="w-2/4 p-6 flex flex-col gap-4 border-r border-coffe/40">
-            <div className="rounded-xl flex-1 flex items-center justify-center min-h-40">
+          <div className="w-full md:w-2/4 p-6 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-coffe/40">
+            {/* ilustrasi */}
+            <div className="rounded-xl flex items-center justify-center min-h-32 lg:min-h-40">
               {soalSekarang.ilustrasi ? (
                 <img
                   src={soalSekarang.ilustrasi}
@@ -124,6 +125,8 @@ const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 
                 </span>
               )}
             </div>
+
+            {/* narasi */}
             {soalSekarang.narasi && (
               <div className="rounded-xl p-4">
                 <p className="text-white text-justify font-normal font-monstserrat text-sm leading-relaxed">
@@ -148,18 +151,18 @@ const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 
           </div>
 
           {/* PANEL KANAN */}
-          <div className="w-2/4 p-4 mt-2 flex flex-col">
-            <div className="w-[90%] min-h-100 bg-icon/50 border-2 ml-5 border-icon shadow-2xl rounded-2xl px-5 py-5">
+          <div className="w-full md:w-2/4 p-4 flex flex-col gap-3">
+            <div className="w-full md:min-h-100 bg-icon/50 border-2 border-icon shadow-2xl rounded-2xl px-5 py-5">
               <RenderSoal
                 key={`${modulIndex}-${soalIndex}`}
                 soal={soalSekarang}
-                onClick={handleNext}
                 onCorrect={() => setIsSoalCorrect(true)}
                 isLastSoal={isLastSoal}
               />
             </div>
+
             {isSoalCorrect && (
-              <div className="w-[90%] flex mt-2 justify-end">
+              <div className="flex justify-end">
                 <button
                   onClick={handleNext}
                   className="text-white/80 hover:text-white text-sm font-normal font-monstserrat flex items-center gap-1 transition-colors"
@@ -187,13 +190,16 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai,
   // ✅ Layar selesai
   if (isComplete) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999">
-        <div className="bg-bistre/75 border-2 border-coffe px-15 py-5 rounded-xl text-center">
+      <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-start md:items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
+        <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-15 py-5 rounded-xl text-center">
           <h1 className="text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
             Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
           </h1>
           <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
-            Gerbang menuju Bab {modulIndex + 2} : {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />telah terbuka</p>
+            Gerbang menuju Bab {modulIndex + 2} :{" "}
+            {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />
+            telah terbuka
+          </p>
           <button
             onClick={onClose}
             className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
@@ -207,13 +213,16 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai,
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999"
-
-      onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}>
+      className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-start md:items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
+      onClick={onClose}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-full max-w-xs md:max-w-lg lg:max-w-3xl"
+      >
         <RenderPopUp
           modulIndex={modulIndex}
-          onSelesai={handleSelesai}  // ✅ Ini akan menerima allSelesai
+          onSelesai={handleSelesai} // ✅ Ini akan menerima allSelesai
           onBabSelesai={onBabSelesai}
           onSoalSelesai={onSoalSelesai}
           initialSoalIndex={initialSoalIndex}
