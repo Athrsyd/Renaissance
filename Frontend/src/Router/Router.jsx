@@ -13,7 +13,7 @@ import Community from '../pages/Community'
 import ProtectedRoute from '../Hook/ProtectedRoute'
 import ModulMTK from '../pages/ModulMTK'
 import ModulPKN from '../pages/ModulPKN'
-
+import NotFound from '../pages/NotFound';
 
 const Router = () => {
   return (
@@ -33,6 +33,8 @@ const Router = () => {
 
       <Route path="/landing2" element={<LandingPage2 />} />
       <Route path="/testing" element={<Testing />} />
+      {/* Not Found Route */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
