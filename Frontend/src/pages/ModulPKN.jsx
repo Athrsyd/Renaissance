@@ -143,20 +143,22 @@ const ModulPKN = () => {
             ) : <SkeletonNavbar />}
 
             <div className="flex flex-row justify-center items-center mt-10">
-              <div className="relative flex flex-col w-full md:w-full lg:w-250 h-70 py-2 rounded-2xl px-7 md:px-15 bg-icon">
-                <h1 className="text-[#F8F3E0] text-3xl md:text-4xl lg:text-5xl mt-10 font-semibold font-monstserrat text-center">
+              <div className="relative flex flex-col w-full md:w-18/20 lg:full lg:w-250 h-70 py-2 rounded-2xl px-5 md:px-10 bg-icon">
+                <h1 className="text-[#F8F3E0] text-2xl md:text-3xl lg:text-4xl mt-10 font-semibold font-monstserrat text-center">
                   Pendidikan Pancasila
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
                   {isLoading ? (
-                    <Skeleton width={710} height={18} style={{ borderRadius: '2.5rem' }} />
+                    <div className="w-full">
+                      <Skeleton height={18} style={{ borderRadius: '2.5rem', width: '100%' }} />
+                    </div>
                   ) : (
-                    <>
+                    <div className="w-full flex flex-row items-center gap-3">
                       <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
                       <p className="text-white font-semibold font-monstserrat">
                         {totalProgress}%
                       </p>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>

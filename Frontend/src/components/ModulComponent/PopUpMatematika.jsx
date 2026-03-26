@@ -106,7 +106,7 @@ const RenderPopUp = ({ modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 
   }
 
   return (
-    <div className="bg-bistre/80 border-2 border-coffe rounded-xl w-full md:w-150 lg:w-full mb-20 md:mb-0">
+    <div className=" bg-bistre/80 border-2 border-coffe rounded-xl w-full md:w-150 lg:w-full mb-20 md:mb-0">
       {soalSekarang && (
         <div className="flex flex-col md:flex-row">
           {/* PANEL KIRI */}
@@ -190,9 +190,9 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai,
   // ✅ Layar selesai
   if (isComplete) {
     return (
-      <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-start md:items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
-        <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-15 py-5 rounded-xl text-center">
-          <h1 className="text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
+      <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
+        <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-5 md:px-15 py-5 rounded-xl text-center">
+          <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
             Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
           </h1>
           <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
@@ -213,7 +213,7 @@ const PopUpMatematika = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai,
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-start md:items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
+      className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
       onClick={onClose}
     >
       <div

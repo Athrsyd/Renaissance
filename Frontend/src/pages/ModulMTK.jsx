@@ -150,14 +150,16 @@ const ModulMTK = () => {
                 </h1>
                 <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
                   {isLoading ? (
-                    <Skeleton width={470} height={18} style={{ borderRadius: '2.5rem' }} />
+                    <div className="w-full">
+                      <Skeleton height={18} style={{ borderRadius: '2.5rem', width: '100%' }} />
+                    </div>
                   ) : (
-                    <>
+                    <div className="w-full flex flex-row items-center gap-3">
                       <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
                       <p className="text-white font-semibold font-monstserrat">
                         {totalProgress}%
                       </p>
-                    </>
+                    </div>
                   )}
                 </div>
               </div>
