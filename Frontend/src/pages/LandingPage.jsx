@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Navbar from "../components/navbar";
+import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import buku from "../assets/buku.png";
 import aboutbuku from "../assets/aboutbuku.png";
