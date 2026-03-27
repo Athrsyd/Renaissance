@@ -12,6 +12,7 @@ import B3B2 from '../../public/Ilustrasi_MTK/bab3_babak2.png';
 import B4B1 from '../../public/Ilustrasi_MTK/bab4_babak1.png';
 import B4B2 from '../../public/Ilustrasi_MTK/bab4_babak2.png';
 
+import B5B1 from '../../public/Ilustrasi_MTK/bab5.png';
 const data = [
     {
         id: 1,
@@ -114,6 +115,7 @@ const data = [
                         id: 2,
                         judul: 'Menyelesaikan Persamaan Aljabar',
                         type: 'puzzle',
+                        ilustrasi: B3B2,
                         narasi: 'Untuk mencari nilai x, kita harus memindahkan angka ke sisi lain dengan operasi yang berlawanan.',
                         pertanyaan: "Susunlah langkah-langkah berikut untuk menyelesaikan persamaan dengan benar:",
                         pilihan: ['x + 4 = 10', 'x = 10 - 4', 'x = 6'],
@@ -159,7 +161,7 @@ const data = [
                         type: 'isian',
                         narasi: "Matematika membantu kita memahami bentuk, menghitung jarak, dan memecahkan berbagai masalah dalam kehidupan sehari-hari.",
                         pertanyaan: "Jika kamu menemukan soal matematika yang sulit, apa yang sebaiknya kamu lakukan?",
-                        ilustrasi: null,
+                        ilustrasi: B5B1,
                         pilihan: null,
                         jawaban: null
                     },

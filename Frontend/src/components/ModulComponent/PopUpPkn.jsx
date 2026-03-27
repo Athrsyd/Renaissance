@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import modul from "../../Data/pancasila";
 import TTSSoal from "./TTSSoal";
 import QuizSoal from "./QuizSoal";
@@ -6,8 +6,12 @@ import IsianSoal from "./IsianSoal";
 import DragDropSoal from "./DragDropSoal";
 import TarikGarisSoal from "./TarikGarisSoal";
 import SambungKataSoal from "./SambungKataSoal";
+import Pidato from '../../../public/pidato.mp3'
+
 
 const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
+
+  const audioRef = useRef(null);
   switch (soal.type) {
     case "quiz":
       return (
@@ -60,6 +64,31 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
         </div>
       );
     case "materi":
+      return (
+        <div className="flex flex-col items-center justify-center gap-4 text-white py-6 px-4 ">
+          <h1 className="text-2xl md:text-3xl font-bold font-monstserrat mb-2 text-center text-[#F8F3E0] drop-shadow-lg">
+            Materi: {soal.judul}
+          </h1>
+          <h2 className="text-lg md:text-xl font-semibold text-white text-center mb-2 font-monstserrat">
+            Putar pidato Bung Karno di bawah ini:
+          </h2>
+          <div className="w-full flex justify-center my-2">
+            <audio
+              controls
+              ref={audioRef}
+              onEnded={() => onCorrect && onCorrect()}
+            >
+              <source src={Pidato} type="audio/mpeg" />
+              Browser Anda tidak mendukung audio.
+            </audio>
+          </div>
+          <div className="mt-2 text-sm text-white/70 text-center font-monstserrat">
+            Dengarkan dengan seksama untuk memahami isi pidato sejarah!
+          </div>
+        </div>
+      )
+
+
     default:
       return (
         <div className="text-white">
@@ -251,7 +280,7 @@ const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai, initia
         </div>
       );
     }
-    }
+  }
 
   return (
     <div
