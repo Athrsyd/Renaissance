@@ -35,7 +35,7 @@ const AboutListCard = ({item}) => {
       <div
         data-aos="flip-left"
         data-aos-duration="1500"
-        className=" w-[75%] md:w-[48%] lg:w-[32%] relative h-full md:h-75 lg:h-80 rounded-lg bg-cover bg-center p-8 md:p-6 flex flex-col justify-center items-center"
+        className=" w-[70%] md:w-[48%] lg:w-[32%] relative h-full md:h-75 lg:h-80 rounded-lg bg-cover bg-center p-6 md:p-6 flex flex-col justify-center items-center"
         style={{ backgroundImage: `url(${item.bgAbout})` }}
       >
         <div className="w-full h-full flex flex-col justify-center items-center gap-6">
