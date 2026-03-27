@@ -10,21 +10,18 @@ import HookAuth from '../Hook/HookAuth'
 import CommunityHook from '../Hook/CommunityHook'
 import { MoveLeft, Search, EllipsisVertical, Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useUser } from '../Context/UserContext';
 
 const Community = () => {
+    
     const [selectedCommunity, setSelectedCommunity] = useState(null);
     const [isCreateOpen, setIsCreateOpen] = useState(false);
     const { messages, loading, getMessages, sendMessage, deleteMessage } = MessageHook()
-    const { userData, fetchUserData } = HookAuth()
+    const {user} = useUser();
     const { communities, joinCommunity } = CommunityHook()  // Tambah joinCommunity
     const messagesEndRef = useRef(null)
 
-    // Fetch user data on mount to ensure userData is available
-    useEffect(() => {
-        if (!userData) {
-            fetchUserData()
-        }
-    }, [])
+
 
     // Auto-scroll ke bawah saat ada message baru
     useEffect(() => {
@@ -71,7 +68,7 @@ const Community = () => {
                     {selectedCommunity && (
                         <NavbarCommunity 
                             selectedCommunity={selectedCommunity}
-                            userData={userData}
+                            userData={user}
                             onJoin={handleJoinCommunity}
                             isLoading={loading}
                         />
@@ -87,7 +84,7 @@ const Community = () => {
                                     <MessageBubble
                                         key={msg.id}
                                         message={msg.chat}
-                                        isOwn={msg.sender_id === userData?.id}
+                                        isOwn={msg.sender_id === user?.id}
                                         senderName={msg.sender?.name}
                                         time={msg.created_at}
                                         onDelete={() => handleDeleteMessage(msg.id)}
@@ -189,7 +186,7 @@ const Community = () => {
                                         <MessageBubble
                                             key={msg.id}
                                             message={msg.chat}
-                                            isOwn={msg.sender_id === userData?.id}
+                                            isOwn={msg.sender_id === user?.id}
                                             senderName={msg.sender?.name}
                                             time={msg.created_at}
                                             onDelete={() => handleDeleteMessage(msg.id)}

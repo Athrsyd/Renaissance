@@ -5,6 +5,7 @@ import Router from './Router/Router'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { UserProvider } from './Context/UserContext';
 
   const ScrollToTop = () => {
     const { pathname, search } = useLocation()
@@ -29,13 +30,14 @@ function App() {
 
 
   return (
-    <>
+    <UserProvider>
       <ScrollToTop />
       <SkeletonTheme baseColor="#cbb799" highlightColor="#f2e0d2">
         <Router />
       </SkeletonTheme>
-    </>
+    </UserProvider>
   )
+
 }
 
 export default App

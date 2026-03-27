@@ -81,7 +81,7 @@ const HookAuth = () => {
       const response = await API.get('/auth/profile', {
         headers: { Authorization: `Bearer ${token}` }
       });
-      setUserData(response.data);
+      return response.data;
       // console.log();
     } catch (error) {
       console.error('Error fetching user data:', error);

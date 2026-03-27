@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import NavDasboard from "../components/NavDasboard";
 import Search from "../assets/icon/searchIcon.svg";
@@ -8,7 +7,7 @@ import SubAcademy from "../components/SubAcademy";
 import WelcomeAcademy from "../components/WelcomeAcademy";
 import AcademyGradePopup from "../components/AcademyGradePopup";
 import PopUpAccount from "../components/PopUpAccount";
-
+import { useUser } from "../Context/UserContext";
 import HookAuth from "../Hook/HookAuth";
 
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
@@ -28,8 +27,8 @@ const grade = getSavedGrade();
 const test = () => localStorage.removeItem(GRADE_STORAGE_KEY);
 
 const AcademyPage = () => {
+  const { user } = useUser();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const { fetchUserData, userData } = HookAuth();
   const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(() => !getSavedGrade());
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,9 +50,7 @@ const AcademyPage = () => {
     window.location.reload()
   };
 
-  useEffect(() => {
-    fetchUserData();
-  }, []);
+
 
 
   // if (!userData) return <div>Loading...</div>
@@ -62,7 +59,7 @@ const AcademyPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {!userData ? (
+        {!user ? (
           <SkeletonNavbar />
         ) : (
           <div className="flex flex-row w-full ml-9 lg:ml-20 md:ml-20 mt-2 lg:justify-center md:justify-center items-center">
@@ -84,7 +81,7 @@ const AcademyPage = () => {
               <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
 
                 <h1 className="text-white text-center text-2xl font-bold mt-2">
-                  {userData?.name?.charAt(0) || 'U'}
+                  {user?.name?.charAt(0) || 'U'}
                 </h1>
 
               </div>
@@ -104,15 +101,15 @@ const AcademyPage = () => {
                 />
               </button>
               <PopUpAccount
-                Username={userData}
-                Email={userData}
+                Username={user}
+                Email={user}
                 isOpen={isAccountOpen}
                 onClose={() => setIsAccountOpen(false)}
               />
             </div>
           </div>
         )}
-        {userData ? !searchQuery && <WelcomeAcademy grade={grade} user={userData} /> : <SkeletonWelcome />}
+        {user ? !searchQuery && <WelcomeAcademy grade={grade} user={user} /> : <SkeletonWelcome />}
         {loadingDummy ? <Skeleton height={13} width={100} style={{ marginTop: '0.75rem' }} /> : selectedGrade && (
           <p className="mt-3 text-sm md:text-base font-semibold text-icon">
             Kelas dipilih: {selectedGrade}

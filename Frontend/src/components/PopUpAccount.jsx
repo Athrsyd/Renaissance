@@ -4,7 +4,7 @@ import HookAuth from '../Hook/HookAuth'
 import { Pencil } from 'lucide-react'
 
 const PopUpAccount = ({ isOpen, onClose, Username, Email, onProfileUpdated }) => {
-  const { handleLogout, isLoading, fetchUserData } = HookAuth()
+  const { handleLogout, isLoading,  } = HookAuth()
 
 
   if (!isOpen) return null

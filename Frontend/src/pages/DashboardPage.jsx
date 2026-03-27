@@ -13,7 +13,7 @@ import PopUpAccount from "../components/PopUpAccount";
 import HookAuth from "../Hook/HookAuth";
 import CommunityHook from "../Hook/CommunityHook";
 import ProgressHook from "../Hook/ProgressHook";
-
+import { useUser } from "../Context/UserContext";
 
 // Skeleton
 import SkeletonWelcome from '../components/SkeletonLoading/DashboardPage/SkeletonWelcome'
@@ -26,7 +26,8 @@ import { Link } from "react-router-dom";
 
 const DashboardPage = () => {
   
-  const { fetchUserData, userData, isAuthLoading } = HookAuth();
+  const { user } = useUser();
+  const { isAuthLoading } = HookAuth();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const { searchResults, searchCommunities, joinCommunity,fetchCommunities, communities,  loading } =
@@ -44,17 +45,11 @@ const DashboardPage = () => {
   }, [])
 
   useEffect(() => {
-    fetchUserData();
     fetchCommunities();
     searchCommunities();
     fetchProgress();
   }, []);
 
-  const handleProfileUpdated = async () => {
-    console.log("Profile updated, fetching new data...");
-    await fetchUserData();
-    setIsAccountOpen(false);
-  };
 
   // if (!userData) return <div>Loading...</div>;
   const query = searchQuery.toLowerCase();
@@ -77,7 +72,7 @@ const DashboardPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-10 md:ml-10 bg-white justify-center items-center overflow-x-hidden">
-        {!userData ? (
+        {!user ? (
           <SkeletonNavbar />
         ) : (
 
@@ -103,7 +98,7 @@ const DashboardPage = () => {
 
               <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
                 <h1 className="text-white text-center text-2xl font-bold mt-2">
-                  {userData?.name?.charAt(0) || "U"}
+                  {user?.name?.charAt(0) || "U"}
                 </h1>
               </div>
 
@@ -123,8 +118,8 @@ const DashboardPage = () => {
 
               {/* ========== PASS CALLBACK KE POPUPACCOUNT ========== */}
               <PopUpAccount
-                Username={userData}
-                Email={userData}
+                Username={user}
+                Email={user}
                 isOpen={isAccountOpen}
                 onClose={() => setIsAccountOpen(false)}
               />
@@ -132,7 +127,7 @@ const DashboardPage = () => {
           </div>
         )}
 
-        {userData ? !searchQuery && <WelcomeDash user={userData} /> : <SkeletonWelcome />}
+        {user ? !searchQuery && <WelcomeDash user={user} /> : <SkeletonWelcome />}
 
 
         {showSubject && <SubjectDash />}

@@ -16,7 +16,7 @@ import PopUpMatematika from "../components/ModulComponent/PopUpMatematika";
 import data from "../Data/modul";
 import { Link } from "react-router-dom";
 import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
-
+import { useUser } from "../Context/UserContext";
 const ModulMTK = () => {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,11 +27,10 @@ const ModulMTK = () => {
 
   const { countTotalProgress, fetchProgress, 
     updateProgress, isLoading, dataProgress, error } = ProgressHook();
-
-  const { fetchUserData, userData } = HookAuth();
+  const {user} = useUser();
 
   useEffect(() => {
-    fetchUserData();
+    
     fetchProgress();
   }, []);
 
@@ -81,7 +80,7 @@ const ModulMTK = () => {
       <div className="flex flex-col lg:ml-10 md:-ml-3 -ml-10 bg-white justify-center items-center overflow-x-hidden">
         <div className="flex flex-col lg:ml-10 md:ml-0 bg-white justify-center items-center">
           <div className="flex flex-col w-full ml-9 lg:ml-10 md:ml-15 mt-2 lg:justify-center md:justify-center items-center">
-            {userData?(
+            {user ? (
 
               <div className="flex flex-row w-full mx-auto mt-5 md:gap-0 lg:gap-2 justify-center gap-30 items-center">
               {/* SEARCH */}
@@ -121,7 +120,7 @@ const ModulMTK = () => {
 
                 <div className="w-10 h-10 bg-bistre rounded-full flex items-center justify-center">
                   <h1 className="text-white font-bold">
-                    {userData?.name?.charAt(0) || "U"}
+                    {user?.name?.charAt(0) || "U"}
                   </h1>
                 </div>
 
@@ -134,8 +133,8 @@ const ModulMTK = () => {
                 </button>
 
                 <PopUpAccount
-                  Username={userData}
-                  Email={userData}
+                  Username={user}
+                  Email={user}
                   isOpen={isAccountOpen}
                   onClose={() => setIsAccountOpen(false)}
                 />

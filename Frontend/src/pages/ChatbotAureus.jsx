@@ -6,18 +6,15 @@ import WelcomeAureus from "../components/WelcomeAureus";
 import Knowledge from "../Data/knowledge.json"
 import HookAuth from "../Hook/HookAuth"
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
-
+import { useUser } from "../Context/UserContext";
 
 export default function ChatbotUI() {
-  const { userData, fetchUserData } = HookAuth();
+  const {user} = useUser();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef(null);
 
-  useEffect(() => {
-    fetchUserData();
-  }, [fetchUserData])
   const [typingText, setTypingText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
 
@@ -247,7 +244,7 @@ export default function ChatbotUI() {
                 {/* isi nya disini ya alif */}
                 <div className="img w-9 h-9 lg:h-12 lg:w-12 md:h-12 md:w-12 mb-2 bg-bistre rounded-full overflow-hidden">
                   <h1 className="text-white text-center text-lg font-semibold mt-3.5">
-                    {userData?.name?.charAt(0) || "U"}
+                    {user?.name?.charAt(0) || "U"}
                   </h1>
                 </div>
               </div>
