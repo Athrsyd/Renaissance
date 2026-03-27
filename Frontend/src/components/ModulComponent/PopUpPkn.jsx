@@ -47,14 +47,7 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
     case "timeline":
       return (
         <div className="text-white">
-          <h1>Timeline: {soal.judul}</h1>
-          {/* TODO: Buat rancangan UI Timeline Sejarah */}
-          <button
-            onClick={onClick}
-            className="bg-coffe text-white py-2 px-7 rounded-xl"
-          >
-            {isLastSoal ? "Selesai" : "Next"}
-          </button>
+          <DragDropSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
     case "isian":
