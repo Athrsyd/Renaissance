@@ -3,8 +3,7 @@ import LandingPage from '../pages/LandingPage'
 import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/AuthPages/Login'
 import Register from '../pages/AuthPages/Register'
-import Testing from './testing'
-import LandingPage2 from '../pages/LandingPage2'
+
 import DashboardPage from '../pages/DashboardPage'
 import AcademyPage from '../pages/AcademyPage'
 // import ChatbotUI from '../components/ChatbotUI'
@@ -31,8 +30,7 @@ const Router = () => {
       <Route path="/academy/matematika" element={<ProtectedRoute><ModulMTK /></ProtectedRoute>} />
       <Route path="/academy/Pendidikan Pancasila" element={<ProtectedRoute><ModulPKN /></ProtectedRoute>} />
 
-      <Route path="/landing2" element={<LandingPage2 />} />
-      <Route path="/testing" element={<Testing />} />
+
       {/* Not Found Route */}
       <Route path="*" element={<NotFound />} />
     </Routes>
