@@ -208,28 +208,54 @@ const PopUpPKN = ({ modulIndex = 0, onClose, onBabSelesai, onSoalSelesai, initia
 
   // ✅ Layar selesai
   if (isComplete) {
-    return (
-      <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
-        <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-5 md:px-15 py-5 rounded-xl text-center">
-          <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
-            Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
-          </h1>
-          <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
-            Gerbang menuju Bab {modulIndex + 2} : {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />telah terbuka</p>
-          <button
-            onClick={onClose}
-            className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
-          >
-            Selesai
-          </button>
+    if (modulIndex === 4) {
+      return (
+        <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
+          <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-5 md:px-15 py-5 rounded-xl text-center">
+            <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
+              Selamat Anda telah menyelesaikan <br /> Semua Pelajaran!
+            </h1>
+            {/* <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
+              Gerbang menuju Bab {modulIndex + 2} :{" "}
+              {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />
+              telah terbuka
+            </p> */}
+            <button
+              onClick={onClose}
+              className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
+            >
+              Selesai
+            </button>
+          </div>
         </div>
-      </div>
-    );
-  }
+      )
+    } else {
+      return (
+        <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
+          <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-5 md:px-15 py-5 rounded-xl text-center">
+            <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
+              Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
+            </h1>
+            <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
+              Gerbang menuju Bab {modulIndex + 2} :{" "}
+              {modul[0]?.modul?.[modulIndex + 1]?.judul} <br />
+              telah terbuka
+            </p>
+            <button
+              onClick={onClose}
+              className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
+            >
+              Selesai
+            </button>
+          </div>
+        </div>
+      );
+    }
+    }
 
   return (
     <div
-      className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
+      className="fixed top-0 pt-10 md:pt-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
       onClick={onClose}
     >
       <div

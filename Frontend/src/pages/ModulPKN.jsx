@@ -34,7 +34,7 @@ const ModulPKN = () => {
     fetchProgress();
   }, []);
 
-  const { totalProgress } = countTotalProgress();
+  const { totalProgressPkn } = countTotalProgress();
 
   const handleStartModule = (moduleIndex) => {
     setSelectedModulIndex(moduleIndex);
@@ -154,9 +154,9 @@ const ModulPKN = () => {
                     </div>
                   ) : (
                     <div className="w-full flex flex-row items-center gap-3">
-                      <ProgressBar value={totalProgress} max={100} bgColor={"bg-coffe"} />
+                      <ProgressBar value={totalProgressPkn} max={100} bgColor={"bg-coffe"} />
                       <p className="text-white font-semibold font-monstserrat">
-                        {totalProgress}%
+                        {totalProgressPkn}%
                       </p>
                     </div>
                   )}

@@ -1,3 +1,17 @@
+import B1B1 from '../../public/Ilustrasi_MTK/bab1_babak1.png';
+import B1B2 from '../../public/Ilustrasi_MTK/bab1_babak2.png';
+import B1B3 from '../../public/Ilustrasi_MTK/bab1_babak3.png';
+
+import B2B1 from '../../public/Ilustrasi_MTK/bab2_babak1.png';
+import B2B2 from '../../public/Ilustrasi_MTK/bab2_babak2.png';
+import B2B3 from '../../public/Ilustrasi_MTK/bab2_babak3.png';
+
+import B3B1 from '../../public/Ilustrasi_MTK/bab3_babak1.png';
+import B3B2 from '../../public/Ilustrasi_MTK/bab3_babak2.png';
+
+import B4B1 from '../../public/Ilustrasi_MTK/bab4_babak1.png';
+import B4B2 from '../../public/Ilustrasi_MTK/bab4_babak2.png';
+
 const data = [
     {
         id: 1,
@@ -14,7 +28,7 @@ const data = [
                         type: 'drag and drop',
                         narasi: "Bangun ruang adalah bangun tiga dimensi yang memiliki panjang, lebar, dan tinggi. Banyak benda di sekitar kita yang memiliki bentuk bangun ruang.",
                         pertanyaan: "Manakah dari gambar berikut yang merupakan bangun ruang?",
-                        ilustrasi: null,
+                        ilustrasi: B1B1,
                         pilihan: ['dadu', 'bola sepak', 'Kotak hadiah', 'kaleng minuman'],
                         jawaban: ['kubus', 'bola', 'balok', 'tabung']
                     },
@@ -24,7 +38,7 @@ const data = [
                         type: 'quiz',
                         narasi: 'Bangun ruang memiliki karakteristik yang membedakannya satu sama lain, seperti sisi, rusuk, dan titik sudut. Sisi adalah bagian permukaan bangun, rusuk adalah garis yang terbentuk dari pertemuan dua sisi, dan titik sudut adalah titik pertemuan dari beberapa rusuk.',
                         pertanyaan: "Bangun ruang yang memiliki 6 sisi sama besar adalah...",
-                        ilustrasi: null,
+                        ilustrasi: B1B2,
                         pilihan: ['A. Balok', 'B. Kubus', 'C. Tabung'],
                         jawaban: 'B. Kubus'
                     },
@@ -38,7 +52,7 @@ const data = [
                             'Garis pertemuan antara dua sisi pada bangun ruang',
                             'Permukaan yang membatasi bangun ruang'
                         ],
-                        ilustrasi: null,
+                        ilustrasi: B1B3,
                         pilihan: null,
                         jawaban: ['Kubus', 'Rusuk', 'Sisi']
                     },
@@ -55,7 +69,7 @@ const data = [
                         type: 'quiz',
                         narasi: "Teorema Pythagoras digunakan untuk menghitung panjang sisi pada segitiga siku-siku.",
                         pertanyaan: "Rumus Teorema Pythagoras adalah?",
-                        ilustrasi: null,
+                        ilustrasi: B2B1,
                         pilihan: ['A. a + b = c', 'B. a² + b² = c²', 'C. a² - b² = c²'],
                         jawaban: 'B. a² + b² = c²'
                     },
@@ -65,7 +79,7 @@ const data = [
                         type: 'quiz',
                         narasi: 'Jika dua sisi segitiga diketahui, kita dapat mencari sisi miring menggunakan rumus Pythagoras.',
                         pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
-                        ilustrasi: null,
+                        ilustrasi: B2B2,
                         pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
                         jawaban: 'A. 5 cm'
                     },
@@ -75,7 +89,7 @@ const data = [
                         type: 'quiz',
                         narasi: 'Teorema Pythagoras sering digunakan untuk menghitung jarak atau panjang benda dalam kehidupan sehari-hari.',
                         pertanyaan:'Jika a = 5 b = 12 Berapa nilai c? ',
-                        ilustrasi: null,
+                        ilustrasi: B2B3,
                         pilihan: ['A. 13', 'B. 17', 'C. 15'],
                         jawaban: 'A. 13'
                     },
@@ -92,7 +106,7 @@ const data = [
                         type: 'tarik benang',
                         narasi: "Aljabar adalah cabang matematika yang menggunakan huruf atau simbol untuk mewakili angka yang belum diketahui",
                         pertanyaan: "Cocokkan istilah dengan artinya",
-                        ilustrasi: null,
+                        ilustrasi: B3B1,
                         pilihan: ['x', '5', 'x + 2'],
                         jawaban: ['Variabel', 'Konstanta', 'bentuk Aljabar']
                     },
@@ -102,7 +116,7 @@ const data = [
                         type: 'quiz',
                         narasi: 'Untuk mencari nilai x, kita harus memindahkan angka ke sisi lain dengan operasi yang berlawanan.',
                         pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
-                        ilustrasi: null,
+                        ilustrasi: B3B2,
                         pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
                         jawaban: 'A. 5 cm'
                     }
@@ -119,7 +133,7 @@ const data = [
                         type: 'isian',
                         narasi: "Suku yang memiliki variabel sama dapat dijumlahkan atau dikurangkan.",
                         pertanyaan: "3x + 4x = ?",
-                        ilustrasi: null,
+                        ilustrasi: B4B1,
                         pilihan: null,
                         jawaban: '7x'
                     },
@@ -129,6 +143,7 @@ const data = [
                         type: 'quiz',
                         narasi: 'Perkalian aljabar dapat dilakukan dengan mendistribusikan angka ke dalam tanda kurung.',
                         pertanyaan: "Hasil dari 3(x + 2) =",
+                        ilustrasi: B4B2,
                         pilihan: ['A. 3x + 2', 'B. 3x + 6', 'C. x + 6'],
                         jawaban: 'B. 3x + 6'
                     }
