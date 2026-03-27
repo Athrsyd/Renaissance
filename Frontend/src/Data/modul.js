@@ -99,12 +99,11 @@ const data = [
                     {
                         id: 2,
                         judul: 'Menyelesaikan Persamaan Aljabar',
-                        type: 'quiz',
+                        type: 'puzzle',
                         narasi: 'Untuk mencari nilai x, kita harus memindahkan angka ke sisi lain dengan operasi yang berlawanan.',
-                        pertanyaan: "Jika sisi depan segitiga siku-siku adalah 3 cm dan salah satu sisi lainnya adalah 4 cm, berapa panjang sisi miring?",
-                        ilustrasi: null,
-                        pilihan: ['A. 5 cm', 'B. 12 cm', 'C. 16 cm'],
-                        jawaban: 'A. 5 cm'
+                        pertanyaan: "Susunlah langkah-langkah berikut untuk menyelesaikan persamaan dengan benar:",
+                        pilihan: ['x + 4 = 10', 'x = 10 - 4', 'x = 6'],
+                        jawaban: ['x + 4 = 10', 'x = 10 - 4', 'x = 6']
                     }
                 ]
             },

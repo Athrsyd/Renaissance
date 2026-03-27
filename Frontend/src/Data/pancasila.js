@@ -1,6 +1,6 @@
 const data = [
     {
-        id: 2,
+        id: 1,
         mapel: "Pendidikan Pancasila",
         modul: [
             {
@@ -91,7 +91,7 @@ const data = [
                     },
                     {
                         id: 2,
-                        judul: 'Menyelesaikan Persamaan Aljabar',
+                        judul: 'Proses Perumusan Pancasila',
                         type: 'puzzle',
                         narasi: 'Pada 22 Juni 1945, Panitia Sembilan menghasilkan rumusan dasar negara yang disebut Piagam Jakarta.',
                         pertanyaan: "Susus lah kata-kata berikut untuk membentuk kalimat yang benar:",

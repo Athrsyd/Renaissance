@@ -26,6 +26,12 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
           <TTSSoal soal={soal} onCorrect={onCorrect} />
         </div>
       );
+    case "puzzle":
+      return (
+        <div className="text-white">
+          <SambungKataSoal soal={soal} onCorrect={onCorrect} />
+        </div>
+      );
     case "isian":
       return (
         <div className="text-white">
