@@ -5,6 +5,7 @@ import TTSSoal from "./TTSSoal";
 import QuizSoal from "./QuizSoal";
 import IsianSoal from "./IsianSoal";
 import TarikGarisSoal from "./TarikGarisSoal";
+import SambungKataSoal from "./SambungKataSoal";
 
 const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
   switch (soal.type) {
