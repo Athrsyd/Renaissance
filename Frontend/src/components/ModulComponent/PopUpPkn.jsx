@@ -6,7 +6,7 @@ import IsianSoal from "./IsianSoal";
 import DragDropSoal from "./DragDropSoal";
 import TarikGarisSoal from "./TarikGarisSoal";
 import SambungKataSoal from "./SambungKataSoal";
-import Pidato from '../../../public/pidato.mp3'
+import Pidato from '../../../public/Pidato.mp3'
 
 
 const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
