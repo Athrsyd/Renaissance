@@ -59,11 +59,11 @@ const SubCard = ({ item }) => {
           <div className="absolute group-hover:translate-y-1 duration-400 transition-all z-30 top-0 w-full mt-5 h-40 bg-[#CAB99F] rounded-2xl"></div>
         </div>
         <Link to={item.link || "/academy"}>
-          <a>
+
             <button className="w-35 absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] lg:text-[10px] text-white px-5 py-2 rounded-lg hover:scale-105 transition duration-300 shadow-md bg-black/20 hover:bg-bistre border-white/20 z-300">
               Pelajari Sekarang
             </button>
-          </a>
+
         </Link>
       </div>
     </>
