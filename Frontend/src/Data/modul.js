@@ -1,18 +1,16 @@
-import B1B1 from '../../public/Ilustrasi_MTK/bab1_babak1.png';
-import B1B2 from '../../public/Ilustrasi_MTK/bab1_babak2.png';
-import B1B3 from '../../public/Ilustrasi_MTK/bab1_babak3.png';
+import B1B1 from '../assets/Ilustrasi_MTK/bab1_babak1.png';
+import B1B2 from './assets/Ilustrasi_MTK/bab1_babak2.png';
+import B1B3 from './assets/Ilustrasi_MTK/bab1_babak3.png';
 
-import B2B1 from '../../public/Ilustrasi_MTK/bab2_babak1.png';
-import B2B2 from '../../public/Ilustrasi_MTK/bab2_babak2.png';
-import B2B3 from '../../public/Ilustrasi_MTK/bab2_babak3.png';
+import B2B1 from '../assets/Ilustrasi_MTK/bab2_babak1.png';
+import B2B2 from '../assets/Ilustrasi_MTK/bab2_babak2.png';
+import B2B3 from '../assets/Ilustrasi_MTK/bab2_babak3.png';
 
-import B3B1 from '../../public/Ilustrasi_MTK/bab3_babak1.png';
-import B3B2 from '../../public/Ilustrasi_MTK/bab3_babak2.png';
-
-import B4B1 from '../../public/Ilustrasi_MTK/bab4_babak1.png';
-import B4B2 from '../../public/Ilustrasi_MTK/bab4_babak2.png';
-
-import B5B1 from '../../public/Ilustrasi_MTK/bab5.png';
+import B3B1 from '../assets/Ilustrasi_MTK/bab3_babak1.png';
+import B3B2 from '../assets/Ilustrasi_MTK/bab3_babak2.png';
+import B4B1 from '../assets/Ilustrasi_MTK/bab4_babak1.png';
+import B4B2 from '../assets/Ilustrasi_MTK/bab4_babak2.png';
+import B5B1 from '../assets/Ilustrasi_MTK/bab5.png';
 const data = [
     {
         id: 1,
