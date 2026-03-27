@@ -1,13 +1,16 @@
 import B1B1 from '../assets/Ilustrasi_PKN/Babak1_1.png';
 import B1B2 from '../assets/Ilustrasi_PKN/Babak1_2.png';
-import B1B3 from '../assets/Ilustrasi_PKN/Babak1_3.png';
+import B1B3 from '../assets/Ilustrasi_PKN/babak1_3.png';
+
 import B2B1 from '../assets/Ilustrasi_PKN/Babak2_1.png';
-import B2B2 from '../assets/Ilustrasi_PKN/Babak2_2.png';
+import B2B2 from '../assets/Ilustrasi_PKN/babak2_2.png';
 import B2B3 from '../assets/Ilustrasi_PKN/Babak2_3.png';
-import B3B1 from '../assets/Ilustrasi_PKN/Babak3_1.png';
+
+import B3B1 from '../assets/Ilustrasi_PKN/babak3_1.png';
 import B3B2 from '../assets/Ilustrasi_PKN/Babak3_2.png';
+
 import B4B1 from '../assets/Ilustrasi_PKN/Babak4_1.png';
-import B4B2 from '../assets/Ilustrasi_PKN/Babak4_2.png';
+import B4B2 from '../assets/Ilustrasi_PKN/babak4_2.png';
 import B5B1 from '../assets/Ilustrasi_PKN/Babak5.png';
 const data = [
     {
