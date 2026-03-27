@@ -1,6 +1,6 @@
 import B1B1 from '../assets/Ilustrasi_MTK/bab1_babak1.png';
-import B1B2 from './assets/Ilustrasi_MTK/Bab1_babak2.png';
-import B1B3 from './assets/Ilustrasi_MTK/Bab1_babak3.png';
+import B1B2 from '../assets/Ilustrasi_MTK/Bab1_babak2.png';
+import B1B3 from '../assets/Ilustrasi_MTK/Bab1_babak3.png';
 
 import B2B1 from '../assets/Ilustrasi_MTK/bab2_babak1.png';
 import B2B2 from '../assets/Ilustrasi_MTK/bab2_babak2.png';
