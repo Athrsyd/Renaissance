@@ -1,11 +1,13 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from "react";
 import HookAuth from "../Hook/HookAuth";
+import { useNavigate } from "react-router-dom";
 
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
+    const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const { fetchUserData } = HookAuth();
 
@@ -18,8 +20,7 @@ export const UserProvider = ({ children }) => {
             console.log("Fetched user data:", userData);
         };
         fetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // hanya dijalankan sekali
+    }, [navigate]); // hanya dijalankan sekali
 
     return (
         <UserContext.Provider value={{ user, setUser }}>

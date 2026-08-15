@@ -50,9 +50,9 @@ const HookAuth = () => {
       const response = await API.post('/auth/login', { email, password });
       console.log(response.data);
 
-      // simpan token ke localStorage
-      const token = response.data.token;
-      localStorage.setItem('token', token);
+      // simpan tokenRenaissance ke localStorage
+      const tokenRenaissance = response.data.token;
+      localStorage.setItem('tokenRenaissance', tokenRenaissance);
 
       // set data pesan saat berhasil
       setMessage(response.data.message);
@@ -77,9 +77,9 @@ const HookAuth = () => {
   const fetchUserData = async () => {
     setIsAuthLoading(true);
     try {
-      const token = localStorage.getItem('token');
+      const tokenRenaissance = localStorage.getItem('tokenRenaissance');
       const response = await API.get('/auth/profile', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${tokenRenaissance}` }
       });
       return response.data;
       // console.log();
@@ -93,14 +93,14 @@ const HookAuth = () => {
   const handleLogout = async () => {
     setIsAuthLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const tokenRenaissance = localStorage.getItem("tokenRenaissance");
       const response = await API.delete("/auth/logout", {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${tokenRenaissance}`
         }
       });
 
-      localStorage.removeItem("token");
+      localStorage.removeItem("tokenRenaissance");
       setUserData(null);
       alert(response.data.message);
       setTimeout(() => {
@@ -125,7 +125,7 @@ const HookAuth = () => {
   const uploadProfilePicture = async (file) => {
     setIsAuthLoading(true)
     try {
-      const token = localStorage.getItem('token')
+      const tokenRenaissance = localStorage.getItem('tokenRenaissance')
       const formData = new FormData()
       formData.append('photo', file)
       
@@ -134,7 +134,7 @@ const HookAuth = () => {
         url: '/auth/profile',
         data: formData,
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${tokenRenaissance}`,
           'Content-Type': 'multipart/form-data'
         }
       })

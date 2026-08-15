@@ -11,12 +11,12 @@ const MessageHook = () => {
         setLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             console.log('Fetching messages for community:', communityId) 
             
             const response = await API.get(`/communities/${communityId}/messages`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             console.log('Messages received:', response.data.data) 
@@ -36,13 +36,13 @@ const MessageHook = () => {
         setLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.post(
                 `/communities/${communityId}/messages`,
                 { chat },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${tokenRenaissance}`,
                     },
                 }
             )
@@ -63,10 +63,10 @@ const MessageHook = () => {
         setLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.delete(`/messages/${messageId}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
 

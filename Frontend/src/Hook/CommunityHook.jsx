@@ -14,10 +14,10 @@ const CommunityHook = () => {
     const fetchCommunities = async () => {
         try {
             setIsLoading(true)
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.get('/communities', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             setCommunities(response.data.data)
@@ -33,10 +33,10 @@ const CommunityHook = () => {
     const createCommunity = async (name, image_path = null) => {
         setIsLoading(true)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.post('/communities', { name, image_path }, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             fetchCommunities()
@@ -55,10 +55,10 @@ const CommunityHook = () => {
         setIsLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.get(`/communities/search?name=${encodeURIComponent(query)}`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             setSearchResults(response.data.data)
@@ -78,10 +78,10 @@ const CommunityHook = () => {
         setIsLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.get(`/communities/search?name=`, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             // Sort by member count descending
@@ -105,15 +105,16 @@ const CommunityHook = () => {
     const joinCommunity = async (communityId) => {
         try {
             setIsLoading(true)
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             await API.post(`/communities/${communityId}/join`, {}, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
 
             searchCommunities()
             fetchCommunities()
+            window.location.reload()
         } catch (error) {
             console.error('Error joining community:', error)
             setError(error.response?.data?.message || 'Gagal bergabung dengan komunitas')
@@ -126,10 +127,10 @@ const CommunityHook = () => {
     const leaveCommunity = async (communityId) => {
         try {
             setIsLoading(true)
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             await API.post(`/communities/${communityId}/leave`, {}, {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
 

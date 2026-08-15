@@ -16,7 +16,7 @@ import "aos/dist/aos.css";
 AOS.init();
 
 const LandingPage = () => {
-  const token = localStorage.getItem("token");
+  const tokenRenaissance = localStorage.getItem("tokenRenaissance");
 
 
   return (
@@ -52,7 +52,7 @@ const LandingPage = () => {
                   Layanan Kami
                 </button>
               </a>
-              {token ? (
+              {tokenRenaissance ? (
                 <Link
                   to="/dashboard"
                   className="bg-black/15 text-center hover:scale-90 transition-all duration-300 ease-in-out rounded-4xl w-[60%] lg:w-[40%] lg:px-0 px-4 py-2 md:py-4 lg:py-2 lg:p-0 p-2 text-xl text-white"

@@ -10,10 +10,10 @@ export const ProgressHook = () => {
         setIsLoading(true)
         setError(null)
         try {
-            const token = localStorage.getItem('token')
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.get('progress', {
                 headers: {
-                    Authorization: `Bearer ${token}`,
+                    Authorization: `Bearer ${tokenRenaissance}`,
                 },
             })
             setDataProgress(Array.isArray(response?.data?.data) ? response.data.data : [])
@@ -34,7 +34,7 @@ export const ProgressHook = () => {
         try {
             const progressPersen = Math.round((soalSelesai.length / jumlahSoal) * 100);
             const isSelesai = progressPersen === 100;
-            const token = localStorage.getItem('token');
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance');
             const payload = {
                 "progress_persen": progressPersen,
                 "soal_selesai": soalSelesai,
@@ -48,7 +48,7 @@ export const ProgressHook = () => {
             
             const res = await API.put(`progress/${mapelId}`, payload, {
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${tokenRenaissance}`
                 }
             });
             console.log('Progress updated:', res.data);
