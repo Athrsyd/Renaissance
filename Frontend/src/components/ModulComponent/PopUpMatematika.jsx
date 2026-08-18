@@ -1,3 +1,8 @@
+/**
+ * @deprecated File ini sudah digantikan oleh komponen generik.
+ * Gunakan: ModulPage / PathTimeline / PopUpModul
+ * File ini dapat dihapus setelah migrasi selesai.
+ */
 import { useState } from "react";
 import modul from "../../Data/modul";
 import DragDropSoal from "./DragDropSoal";

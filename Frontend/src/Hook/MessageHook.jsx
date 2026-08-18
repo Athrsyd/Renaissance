@@ -12,19 +12,12 @@ const MessageHook = () => {
         setError(null)
         try {
             const tokenRenaissance = localStorage.getItem('tokenRenaissance')
-            console.log('Fetching messages for community:', communityId) 
-            
             const response = await API.get(`/communities/${communityId}/messages`, {
-                headers: {
-                    Authorization: `Bearer ${tokenRenaissance}`,
-                },
+                headers: { Authorization: `Bearer ${tokenRenaissance}` },
             })
-            console.log('Messages received:', response.data.data) 
             setMessages(response.data.data)
             setMessage('')
         } catch (error) {
-            console.error('Error fetching messages:', error)
-            console.error('Error response:', error.response?.data) 
             setError(error.response?.data?.message || 'Gagal mengambil pesan')
             setMessages([])
         } finally {
@@ -40,17 +33,12 @@ const MessageHook = () => {
             const response = await API.post(
                 `/communities/${communityId}/messages`,
                 { chat },
-                {
-                    headers: {
-                        Authorization: `Bearer ${tokenRenaissance}`,
-                    },
-                }
+                { headers: { Authorization: `Bearer ${tokenRenaissance}` } }
             )
             setMessages([...messages, response.data.data])
             setMessage(response.data.message)
             return response.data.data
         } catch (error) {
-            console.error('Error sending message:', error)
             setError(error.response?.data?.message || 'Gagal mengirim pesan')
             return null
         } finally {
@@ -58,23 +46,18 @@ const MessageHook = () => {
         }
     }
 
-
     const deleteMessage = async (messageId) => {
         setLoading(true)
         setError(null)
         try {
             const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.delete(`/messages/${messageId}`, {
-                headers: {
-                    Authorization: `Bearer ${tokenRenaissance}`,
-                },
+                headers: { Authorization: `Bearer ${tokenRenaissance}` },
             })
-
-            setMessages(messages.filter(msg => msg.id !== messageId))
+            setMessages(messages.filter((msg) => msg.id !== messageId))
             setMessage(response.data.message)
             return true
         } catch (error) {
-            console.error('Error deleting message:', error)
             setError(error.response?.data?.message || 'Gagal menghapus pesan')
             return false
         } finally {
@@ -82,15 +65,7 @@ const MessageHook = () => {
         }
     }
 
-    return {
-        messages,
-        loading,
-        error,
-        message,
-        getMessages,
-        sendMessage,
-        deleteMessage,
-    }
+    return { messages, loading, error, message, getMessages, sendMessage, deleteMessage }
 }
 
 export default MessageHook

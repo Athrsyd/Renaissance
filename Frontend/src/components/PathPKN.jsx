@@ -1,3 +1,8 @@
+/**
+ * @deprecated File ini sudah digantikan oleh komponen generik.
+ * Gunakan: ModulPage / PathTimeline / PopUpModul
+ * File ini dapat dihapus setelah migrasi selesai.
+ */
 import data from "../Data/pancasila";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";

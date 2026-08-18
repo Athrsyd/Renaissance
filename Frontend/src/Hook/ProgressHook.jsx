@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import API from '../services/api'
+import MAPEL_LIST from '../Config/mapelConfig'
 
 export const ProgressHook = () => {
     const [dataProgress, setDataProgress] = useState([])
@@ -12,15 +13,10 @@ export const ProgressHook = () => {
         try {
             const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const response = await API.get('progress', {
-                headers: {
-                    Authorization: `Bearer ${tokenRenaissance}`,
-                },
+                headers: { Authorization: `Bearer ${tokenRenaissance}` },
             })
             setDataProgress(Array.isArray(response?.data?.data) ? response.data.data : [])
-            console.log('Fetched progress:', response.data.data)
-        }
-        catch (error) {
-            console.error('Error fetching progress:', error)
+        } catch (error) {
             setError(error.response?.data?.message || 'Gagal memuat progress')
             setDataProgress([])
         } finally {
@@ -29,61 +25,63 @@ export const ProgressHook = () => {
     }
 
     const updateProgress = async (mapelId, soalSelesai = [], jumlahSoal, bab = null) => {
-        setIsLoading(true);
+        setIsLoading(true)
         setError(null)
         try {
-            const progressPersen = Math.round((soalSelesai.length / jumlahSoal) * 100);
-            const isSelesai = progressPersen === 100;
-            const tokenRenaissance = localStorage.getItem('tokenRenaissance');
+            const progressPersen = Math.round((soalSelesai.length / jumlahSoal) * 100)
+            const isSelesai = progressPersen === 100
+            const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const payload = {
-                "progress_persen": progressPersen,
-                "soal_selesai": soalSelesai,
-                "is_selesai": isSelesai
-            };
-            
-            // Always include bab if provided (backend will fallback to ModulBelajar if needed)
-            if (bab !== null && bab !== undefined) {
-                payload.bab = bab;
+                progress_persen: progressPersen,
+                soal_selesai: soalSelesai,
+                is_selesai: isSelesai,
             }
-            
+            if (bab !== null && bab !== undefined) {
+                payload.bab = bab
+            }
             const res = await API.put(`progress/${mapelId}`, payload, {
-                headers: {
-                    Authorization: `Bearer ${tokenRenaissance}`
-                }
-            });
-            console.log('Progress updated:', res.data);
+                headers: { Authorization: `Bearer ${tokenRenaissance}` },
+            })
             return res.data.data
         } catch (error) {
-            console.log(error)
             setError(error.response?.data?.message || 'Gagal memperbarui progress')
         } finally {
             setIsLoading(false)
         }
-
     }
 
+    /**
+     * Menghitung rata-rata progress per mapel secara dinamis.
+     * Mengembalikan object dengan key = progressKey dari mapelConfig
+     * (contoh: { matematika: 60, 'pendidikan pancasila': 80, ipa: 0 })
+     */
     const countTotalProgress = () => {
-        if (!dataProgress?.length) {
-            return {
-                totalProgress: 0,
-                totalProgressPkn: 0,
+        const result = {}
+
+        for (const mapel of MAPEL_LIST) {
+            if (!dataProgress?.length) {
+                result[mapel.progressKey] = 0
+                continue
             }
+            const items = dataProgress.filter(
+                (i) => (i?.mapel || '').toLowerCase() === mapel.progressKey
+            )
+            if (items.length === 0) {
+                result[mapel.progressKey] = 0
+                continue
+            }
+            const avg = Math.round(
+                items.reduce((acc, cur) => acc + Number(cur.progress || 0), 0) / items.length
+            )
+            result[mapel.progressKey] = Number.isNaN(avg) ? 0 : avg
         }
 
-        const mtk = dataProgress.filter((i) => (i?.mapel || '').toLowerCase() === 'matematika')
-        const pkn = dataProgress.filter((i) => (i?.mapel || '').toLowerCase() === 'pendidikan pancasila')
+        // Pertahankan alias lama agar komponen lama yang masih
+        // destructure { totalProgress, totalProgressPkn } tidak perlu diubah.
+        result.totalProgress = result['matematika'] ?? 0
+        result.totalProgressPkn = result['pendidikan pancasila'] ?? 0
 
-        const mtkAvg = mtk.length > 0
-            ? Math.round(mtk.reduce((a, c) => a + Number(c.progress || 0), 0) / mtk.length)
-            : 0
-        const pknAvg = pkn.length > 0
-            ? Math.round(pkn.reduce((a, c) => a + Number(c.progress || 0), 0) / pkn.length)
-            : 0
-
-        return {
-            totalProgress: Number.isNaN(mtkAvg) ? 0 : mtkAvg,
-            totalProgressPkn: Number.isNaN(pknAvg) ? 0 : pknAvg,
-        }
+        return result
     }
 
     return {
@@ -94,7 +92,6 @@ export const ProgressHook = () => {
         isLoading,
         error,
     }
-
 }
 
 export default ProgressHook

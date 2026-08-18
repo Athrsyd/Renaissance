@@ -1,3 +1,8 @@
+/**
+ * @deprecated File ini sudah digantikan oleh komponen generik.
+ * Gunakan: ModulPage / PathTimeline / PopUpModul
+ * File ini dapat dihapus setelah migrasi selesai.
+ */
 /* eslint-disable react-hooks/exhaustive-deps */
 //
 import React, { useState, useEffect } from "react";

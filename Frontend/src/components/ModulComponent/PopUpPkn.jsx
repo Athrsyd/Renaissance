@@ -1,3 +1,8 @@
+/**
+ * @deprecated File ini sudah digantikan oleh komponen generik.
+ * Gunakan: ModulPage / PathTimeline / PopUpModul
+ * File ini dapat dihapus setelah migrasi selesai.
+ */
 import { useState, useRef } from "react";
 import modul from "../../Data/pancasila";
 import TTSSoal from "./TTSSoal";

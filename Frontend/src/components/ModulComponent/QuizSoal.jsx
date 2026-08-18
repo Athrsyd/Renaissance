@@ -1,4 +1,6 @@
 import { useState } from "react";
+import soundCorrect from "../../assets/sfx/benar.mp3";
+import soundInCorrect from "../../assets/sfx/salah.mp3";
 
 export default function QuizSoal({ soal, onCorrect }) {
   const [selected, setSelected] = useState(null);
@@ -12,10 +14,15 @@ export default function QuizSoal({ soal, onCorrect }) {
   };
 
   const handleCheck = () => {
-    if (!selected) return;
+    if (!selected) {
+      soundInCorrect.play();
+      return;
+    }
     setChecked(true);
     if (selected === soal.jawaban) {
+      soundCorrect.play();
       onCorrect?.();
+
     }
   };
 

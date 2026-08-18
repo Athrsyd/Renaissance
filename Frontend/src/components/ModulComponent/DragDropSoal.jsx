@@ -30,12 +30,11 @@ function DraggableChip({ id, label, isUsed }) {
       {...attributes}
       className={`
         px-5 py-2 rounded-lg font-semibold text-sm select-none transition-opacity touch-none
-        ${
-          isUsed
-            ? "hidden"
-            : isDragging
-              ? "opacity-0"
-              : "bg-bistre text-white cursor-grab active:cursor-grabbing hover:bg-coffe/80"
+        ${isUsed
+          ? "hidden"
+          : isDragging
+            ? "opacity-0"
+            : "bg-bistre text-white cursor-grab active:cursor-grabbing hover:bg-coffe/80"
         }
       `}
     >
@@ -57,16 +56,15 @@ function DroppableTarget({ id, label, filledWith, isCorrect, isChecked }) {
         className={`
           flex-1 h-10 rounded-lg border-2 flex items-center justify-center
           text-sm font-semibold transition-all
-          ${
-            isChecked
-              ? isCorrect
-                ? "border-green-400 bg-green-400/20 text-green-300"
-                : "border-red-400 bg-red-400/20 text-red-300"
-              : filledWith
-                ? "border-coffe bg-coffe text-white"
-                : isOver
-                  ? "border-coffe/80 bg-coffe/10 border-dashed"
-                  : "border-white/20 border-dashed text-white/30"
+          ${isChecked
+            ? isCorrect
+              ? "border-green-400 bg-green-400/20 text-green-300"
+              : "border-red-400 bg-red-400/20 text-red-300"
+            : filledWith
+              ? "border-coffe bg-coffe text-white"
+              : isOver
+                ? "border-coffe/80 bg-coffe/10 border-dashed"
+                : "border-white/20 border-dashed text-white/30"
           }
         `}
       >

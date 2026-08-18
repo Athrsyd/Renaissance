@@ -1,0 +1,302 @@
+/**
+ * PopUpModul.jsx
+ * Generalisasi dari PopUpMatematika.jsx dan PopUpPkn.jsx.
+ *
+ * Menerima `modulData` (array modul dari file data) sebagai prop,
+ * sehingga komponen ini tidak perlu tahu dari mapel mana data berasal.
+ *
+ * Semua tipe soal yang ada di kedua popup sebelumnya didukung di sini:
+ *   quiz | drag and drop | TTS | puzzle | isian | tarik benang | timeline | materi
+ *
+ * Tipe "materi" (audio Pidato) dan "timeline" (reuse DragDropSoal)
+ * tetap aktif — hanya dirender jika data soal memiliki type tersebut.
+ */
+import { useState, useRef } from 'react'
+import DragDropSoal from './DragDropSoal'
+import TTSSoal from './TTSSoal'
+import QuizSoal from './QuizSoal'
+import IsianSoal from './IsianSoal'
+import TarikGarisSoal from './TarikGarisSoal'
+import SambungKataSoal from './SambungKataSoal'
+import Pidato from '../../../public/Pidato.mp3'
+
+// ─── RenderSoal ─────────────────────────────────────────────────────────────
+const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
+    const audioRef = useRef(null)
+
+    switch (soal.type) {
+        case 'quiz':
+            return (
+                <div className="text-white">
+                    <QuizSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        case 'drag and drop':
+            return (
+                <div className="text-white">
+                    <DragDropSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        case 'TTS':
+            return (
+                <div className="text-white">
+                    <TTSSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        case 'puzzle':
+            return (
+                <div className="text-white">
+                    <SambungKataSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        case 'isian':
+            return (
+                <div className="text-white">
+                    <IsianSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        case 'tarik benang':
+            return (
+                <div className="text-white">
+                    <TarikGarisSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        // "timeline" reuses DragDropSoal — perilaku identik dengan aslinya di PopUpPkn
+        case 'timeline':
+            return (
+                <div className="text-white">
+                    <DragDropSoal soal={soal} onCorrect={onCorrect} />
+                </div>
+            )
+        // "materi" — audio player khusus Pidato Bung Karno (dari PopUpPkn)
+        case 'materi':
+            return (
+                <div className="flex flex-col items-center justify-center gap-4 text-white py-6 px-4">
+                    <h1 className="text-2xl md:text-3xl font-bold font-monstserrat mb-2 text-center text-[#F8F3E0] drop-shadow-lg">
+                        Materi: {soal.judul}
+                    </h1>
+                    <h2 className="text-lg md:text-xl font-semibold text-white text-center mb-2 font-monstserrat">
+                        Putar pidato Bung Karno di bawah ini:
+                    </h2>
+                    <div className="w-full flex justify-center my-2">
+                        <audio
+                            controls
+                            ref={audioRef}
+                            onEnded={() => onCorrect && onCorrect()}
+                        >
+                            <source src={Pidato} type="audio/mpeg" />
+                            Browser Anda tidak mendukung audio.
+                        </audio>
+                    </div>
+                    <div className="mt-2 text-sm text-white/70 text-center font-monstserrat">
+                        Dengarkan dengan seksama untuk memahami isi pidato sejarah!
+                    </div>
+                </div>
+            )
+        default:
+            return (
+                <div className="text-white">
+                    <h1>Soal: {soal.judul}</h1>
+                    <button
+                        onClick={onClick}
+                        className="bg-coffe text-white py-2 px-7 rounded-xl"
+                    >
+                        {isLastSoal ? 'Selesai' : 'Next'}
+                    </button>
+                </div>
+            )
+    }
+}
+
+// ─── RenderPopUp (inner) ─────────────────────────────────────────────────────
+const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
+    const [isStart, setIsStart] = useState(false)
+    const [soalIndex, setSoalIndex] = useState(initialSoalIndex)
+    const [isSoalCorrect, setIsSoalCorrect] = useState(false)
+
+    const modulSekarang = modulData?.[modulIndex]
+    const soalSekarang = modulSekarang?.soal?.[soalIndex]
+    const totalSoal = modulSekarang?.soal?.length || 0
+    const isLastSoal = soalIndex === totalSoal - 1
+
+    const handleNext = () => {
+        setIsSoalCorrect(false)
+        if (soalSekarang?.id && onSoalSelesai) {
+            onSoalSelesai({ soalId: soalSekarang.id, soalIndex })
+        }
+        if (isLastSoal) {
+            onSelesai()
+        } else {
+            setSoalIndex(soalIndex + 1)
+        }
+    }
+
+    // Intro screen sebelum mulai
+    if (!isStart) {
+        return (
+            <div className="flex flex-col bg-bistre/75 border-2 justify-center items-center border-coffe px-20 py-10 rounded-xl text-center gap-3 text-[#F8F3E0]">
+                <h1 className="text-4xl pt-3 font-bold font-monstserrat">
+                    Bab {modulSekarang?.bab} :
+                </h1>
+                <h2 className="text-4xl leading-tight font-bold font-monstserrat">
+                    {modulSekarang?.judul}
+                </h2>
+                <button
+                    onClick={() => setIsStart(true)}
+                    className="bg-icon text-white py-2 px-7 rounded-xl border border-white/50 hover:bg-icon/80"
+                >
+                    Mulai
+                </button>
+            </div>
+        )
+    }
+
+    return (
+        <div className="bg-bistre/80 border-2 border-coffe rounded-xl w-full md:w-150 lg:w-full mb-20 md:mb-0">
+            {soalSekarang && (
+                <div className="flex flex-col md:flex-row">
+                    {/* PANEL KIRI */}
+                    <div className="w-full md:w-2/4 p-6 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-coffe/40">
+                        <div className="rounded-xl flex items-center justify-center min-h-32 lg:min-h-40">
+                            {soalSekarang.ilustrasi ? (
+                                <img
+                                    src={soalSekarang.ilustrasi}
+                                    alt="ilustrasi"
+                                    className="w-full h-full object-contain rounded-xl"
+                                />
+                            ) : (
+                                <span className="text-white/30 text-sm text-center px-4">
+                                    Ilustrasi
+                                </span>
+                            )}
+                        </div>
+
+                        {soalSekarang.narasi && (
+                            <div className="rounded-xl p-4">
+                                <p className="text-white text-justify font-normal font-monstserrat text-sm leading-relaxed">
+                                    {typeof soalSekarang.narasi === 'string'
+                                        ? soalSekarang.narasi
+                                        : soalSekarang.narasi.teks}
+                                </p>
+                                {soalSekarang.narasi?.poin && (
+                                    <ul className="list-disc list-inside mt-2 flex flex-col gap-1">
+                                        {soalSekarang.narasi.poin.map((p, i) => (
+                                            <li
+                                                key={i}
+                                                className="text-white font-normal font-monstserrat text-sm"
+                                            >
+                                                {p}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* PANEL KANAN */}
+                    <div className="w-full md:w-2/4 p-4 flex flex-col gap-3">
+                        <div className="w-full md:min-h-100 bg-icon/50 border-2 border-icon shadow-2xl rounded-2xl px-5 py-5">
+                            <RenderSoal
+                                key={`${modulIndex}-${soalIndex}`}
+                                soal={soalSekarang}
+                                onCorrect={() => setIsSoalCorrect(true)}
+                                isLastSoal={isLastSoal}
+                            />
+                        </div>
+
+                        {isSoalCorrect && (
+                            <div className="flex justify-end">
+                                <button
+                                    onClick={handleNext}
+                                    className="text-white/80 hover:text-white text-sm font-normal font-monstserrat flex items-center gap-1 transition-colors"
+                                >
+                                    {isLastSoal ? 'Selesai' : 'Next'} →
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+        </div>
+    )
+}
+
+// ─── PopUpModul (export utama) ───────────────────────────────────────────────
+/**
+ * @param {Object[]} modulData      – array modul dari file data mapel (data[0].modul)
+ * @param {number}   modulIndex     – indeks modul yang sedang dibuka
+ * @param {Function} onClose        – callback saat popup ditutup
+ * @param {Function} onBabSelesai   – callback saat satu bab selesai
+ * @param {Function} onSoalSelesai  – callback setiap satu soal selesai
+ * @param {number}   initialSoalIndex – resume dari soal terakhir
+ */
+const PopUpModul = ({
+    modulData = [],
+    modulIndex = 0,
+    onClose,
+    onBabSelesai,
+    onSoalSelesai,
+    initialSoalIndex = 0,
+}) => {
+    const [isComplete, setIsComplete] = useState(false)
+    const isLastModule = modulIndex === modulData.length - 1
+
+    const handleSelesai = () => {
+        setIsComplete(true)
+        onBabSelesai?.(modulIndex)
+    }
+
+    if (isComplete) {
+        return (
+            <div className="fixed top-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto px-2 py-4">
+                <div className="bg-bistre/75 border-2 border-coffe md:w-100 lg:w-fit px-5 md:px-15 py-5 rounded-xl text-center">
+                    {isLastModule ? (
+                        <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
+                            Selamat Anda telah menyelesaikan <br /> Semua Pelajaran!
+                        </h1>
+                    ) : (
+                        <>
+                            <h1 className="text-2xl md:text-4xl font-semibold font-monstserrat text-[#F8F3E0]">
+                                Selamat Anda telah menyelesaikan <br /> Bab {modulIndex + 1}!
+                            </h1>
+                            <p className="text-[#F8F3E0] font-monstserrat mt-4 text-xl">
+                                Gerbang menuju Bab {modulIndex + 2} :{' '}
+                                {modulData[modulIndex + 1]?.judul} <br /> telah terbuka
+                            </p>
+                        </>
+                    )}
+                    <button
+                        onClick={onClose}
+                        className="mt-6 bg-icon text-white py-2 px-10 rounded-xl border border-white/50 hover:bg-icon/80"
+                    >
+                        Selesai
+                    </button>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div
+            className="fixed top-0 pt-10 md:pt-0 left-0 w-full h-full bg-black/15 flex items-center justify-center backdrop-blur-xs z-999 overflow-y-auto py-4 px-3"
+            onClick={onClose}
+        >
+            <div
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-xs md:max-w-lg lg:max-w-3xl md:mt-10"
+            >
+                <RenderPopUp
+                    modulData={modulData}
+                    modulIndex={modulIndex}
+                    onSelesai={handleSelesai}
+                    onBabSelesai={onBabSelesai}
+                    onSoalSelesai={onSoalSelesai}
+                    initialSoalIndex={initialSoalIndex}
+                />
+            </div>
+        </div>
+    )
+}
+
+export default PopUpModul

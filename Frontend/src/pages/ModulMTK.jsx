@@ -1,3 +1,8 @@
+/**
+ * @deprecated File ini sudah digantikan oleh komponen generik.
+ * Gunakan: ModulPage / PathTimeline / PopUpModul
+ * File ini dapat dihapus setelah migrasi selesai.
+ */
 /* eslint-disable react-hooks/exhaustive-deps */
 //
 import React, { useState, useEffect } from "react";
@@ -26,7 +31,8 @@ const ModulMTK = () => {
   const [initialSoalIndex, setInitialSoalIndex] = useState(0);
 
   const { countTotalProgress, fetchProgress, 
-    updateProgress, isLoading, dataProgress, error } = ProgressHook();
+    updateProgress, isLoading, dataProgress, error
+   } = ProgressHook();
   const {user} = useUser();
 
   useEffect(() => {
