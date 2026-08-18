@@ -1,10 +1,12 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useState, useContext, useEffect } from 'react'
 import HookAuth from '../Hook/HookAuth'
+import { useLocation } from 'react-router-dom'
 
 const UserContext = createContext()
 
 export const UserProvider = ({ children }) => {
+    const location = useLocation()
     const [user, setUser] = useState(null)
     const { fetchUserData } = HookAuth()
 
@@ -14,7 +16,7 @@ export const UserProvider = ({ children }) => {
             if (userData) setUser(userData)
         }
         load()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps — dijalankan sekali saat mount
+    }, [location.pathname]) // eslint-disable-line react-hooks/exhaustive-deps — dijalankan sekali saat mount
 
     return (
         <UserContext.Provider value={{ user, setUser }}>
