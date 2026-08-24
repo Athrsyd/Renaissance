@@ -1,42 +1,68 @@
 <?php
 
 use App\Http\Controllers\ChatController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ModulBelajarController;
-use App\Http\Controllers\UserModulProgressController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\ModulBelajarController;
+use App\Http\Controllers\SoalController;
+use App\Http\Controllers\StreakController;
+use App\Http\Controllers\TemanController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserModulProgressController;
+use Illuminate\Support\Facades\Route;
 
-Route::prefix('v1/')->group(function () {
-    // ===== PUBLIC ROUTES =====
-    Route::post('auth/register', [UserController::class, 'register']);
-    Route::post('auth/login', [UserController::class, 'login']);
+Route::prefix('v1')->group(function () {
 
-    // ===== PROTECTED ROUTES =====
+    // ── PUBLIC — rate limiting ──────────────────────────────────────────────
+    Route::middleware('throttle:10,1')->group(function () {
+        Route::post('auth/register', [UserController::class, 'register']);
+        Route::post('auth/login',    [UserController::class, 'login']);
+    });
+
+    // ── PROTECTED ──────────────────────────────────────────────────────────
     Route::middleware('auth:sanctum')->group(function () {
+
         // Auth
-        Route::get('auth/profile', [UserController::class, 'profile']);
-        Route::delete('auth/logout', [UserController::class, 'logout']);
+        Route::get   ('auth/profile', [UserController::class, 'profile']);
+        Route::delete('auth/logout',  [UserController::class, 'logout']);
 
-        // Modules
-        Route::get('modules', [ModulBelajarController::class, 'index']);
+        // Modules & Soal
+        Route::get('modules',                              [ModulBelajarController::class, 'index']);
+        Route::get('modules/{modul}/soal',                 [SoalController::class, 'index']);
+        Route::get('mapel/{mapel}/kelas/{kelas}/modules',  [SoalController::class, 'modulsByMapelKelas']);
 
-        // Progress (Simplified)
-        Route::get('progress', [UserModulProgressController::class, 'index']);
+        // Progress
+        Route::get('progress',            [UserModulProgressController::class, 'index']);
         Route::put('progress/{modul_id}', [UserModulProgressController::class, 'upsertProgress']);
 
-        // Communities
-        Route::get('communities/search', [CommunityController::class, 'search']);
-        Route::get('communities', [CommunityController::class, 'index']);
-        Route::post('communities', [CommunityController::class, 'store']);
-        Route::post('communities/{community}/join', [CommunityController::class, 'join']);
-        Route::post('communities/{community}/leave', [CommunityController::class, 'leave']);
-        Route::post('communities/{community}/members', [CommunityController::class, 'addMember']);
-        Route::delete('communities/{community}', [CommunityController::class, 'destroy']);
+        // Progress kelas (indikator kiri bawah dashboard)
+        Route::get('progress/kelas', [LeaderboardController::class, 'classProgress']);
 
-        // Chat
-        Route::get('communities/{community}/messages', [ChatController::class, 'getMessages']);
-        Route::post('communities/{community}/messages', [ChatController::class, 'sendMessage']);
+        // Streak
+        Route::get('streak', [StreakController::class, 'show']);
+
+        // Leaderboard
+        Route::get('leaderboard/streak',   [LeaderboardController::class, 'streak']);
+        Route::get('leaderboard/progress', [LeaderboardController::class, 'progress']);
+
+        // Teman
+        Route::get   ('teman',         [TemanController::class, 'index']);
+        Route::post  ('teman',         [TemanController::class, 'store']);
+        Route::delete('teman/{teman}', [TemanController::class, 'destroy']);
+
+        // Communities
+        Route::get   ('communities/search',            [CommunityController::class, 'search']);
+        Route::get   ('communities',                   [CommunityController::class, 'index']);
+        Route::post  ('communities',                   [CommunityController::class, 'store']);
+        Route::delete('communities/{community}',       [CommunityController::class, 'destroy']);
+        Route::post  ('communities/{community}/join',  [CommunityController::class, 'join']);
+        Route::post  ('communities/{community}/leave', [CommunityController::class, 'leave']);
+
+        // Messages
+        Route::middleware('community.member')->group(function () {
+            Route::get ('communities/{community}/messages', [ChatController::class, 'getMessages']);
+            Route::post('communities/{community}/messages', [ChatController::class, 'sendMessage']);
+        });
         Route::delete('messages/{message}', [ChatController::class, 'destroy']);
     });
 });

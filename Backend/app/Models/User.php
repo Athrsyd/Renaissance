@@ -14,6 +14,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'kelas',
         'password',
     ];
 
@@ -22,15 +23,29 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-
     protected function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'kelas'             => 'integer',
         ];
     }
 
-    // ========== ACCESSOR UNTUK AUTO-GENERATE photo_url ==========
+    // ── Relasi ──────────────────────────────────────────────────────────────
 
+    public function streak()
+    {
+        return $this->hasOne(UserStreak::class);
+    }
+
+    public function modulProgress()
+    {
+        return $this->hasMany(UserModulProgress::class);
+    }
+
+    public function leaderboardSnapshots()
+    {
+        return $this->hasMany(LeaderboardSnapshot::class);
+    }
 }

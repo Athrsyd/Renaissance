@@ -1,133 +1,129 @@
-import { Link } from "react-router-dom";
-import Logo from "../assets/Logo2.png"
+import { Link, useLocation } from "react-router-dom";
+import {
+  Home,
+  GraduationCap,
+  Sparkles,
+  MessageCircle,
+  Clock,
+  LogOut,
+  ChevronRight,
+} from "lucide-react";
+import Logo from "../assets/Logo2.png";
+import HookAuth from "../Hook/HookAuth";
 
 const navIcon = [
   {
     id: 1,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30px"
-        height="40px"
-        className="ml-6 cursor-pointer hover:text-icon"
-        viewBox="0 0 24 24"
-      >
-        <g
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
-        >
-          <path d="M6.133 21C4.955 21 4 20.02 4 18.81v-8.802c0-.665.295-1.295.8-1.71l5.867-4.818a2.09 2.09 0 0 1 2.666 0l5.866 4.818c.506.415.801 1.045.801 1.71v8.802c0 1.21-.955 2.19-2.133 2.19z" />
-          <path d="M9.5 21v-5.5a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2V21" />
-        </g>
-      </svg>
-    ),
-    text: "Home",
-    path: "/dashboard"
+    icon: <Home size={22} strokeWidth={1.8} />,
+    text: "Dashboard",
+    path: "/dashboard",
   },
-
   {
     id: 2,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="35px"
-        height="35px"
-        className="ml-5.5 cursor-pointer hover:text-icon"
-        viewBox="0 0 256 256"
-      >
-        <path
-          fill="currentColor"
-          d="M104 36H56a12 12 0 0 0-12 12v160a12 12 0 0 0 12 12h48a12 12 0 0 0 12-12V48a12 12 0 0 0-12-12M52 76h56v104H52Zm4-32h48a4 4 0 0 1 4 4v20H52V48a4 4 0 0 1 4-4m48 168H56a4 4 0 0 1-4-4v-20h56v20a4 4 0 0 1-4 4m123.74-16.62L194.55 37.57a12 12 0 0 0-14.25-9.3l-46.81 10.05a12.1 12.1 0 0 0-9.23 14.3l33.19 157.81a12 12 0 0 0 14.25 9.3l46.81-10.06a12.08 12.08 0 0 0 9.23-14.29m-83.21-85.27l54.63-11.73l15 71.07l-54.63 11.74Zm-6.64-31.56l54.64-11.74l5 23.74l-54.64 11.73Zm-2.71-32.4L182 36.09a4 4 0 0 1 .84-.09a3.94 3.94 0 0 1 2.14.64a4 4 0 0 1 1.76 2.58L190.88 59l-54.64 11.72L132.09 51a4.07 4.07 0 0 1 3.09-4.85m81.65 155.7L170 211.91a4 4 0 0 1-3-.55a4 4 0 0 1-1.76-2.58L161.12 189l54.64-11.73l4.15 19.73a4.07 4.07 0 0 1-3.08 4.85"
-        />
-      </svg>
-    ),
+    icon: <GraduationCap size={22} strokeWidth={1.8} />,
     text: "Academy",
-    path: "/academy"
+    path: "/academy",
   },
   {
     id: 3,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="35px"
-        height="35px"
-        className="ml-5.5 cursor-pointer hover:text-icon"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-miterlimit="10"
-          stroke-width="1.5"
-          d="m9.96 14.863l.886 3.099c.332 1.16 1.976 1.16 2.308 0l.885-3.099a1.2 1.2 0 0 1 .824-.824l3.099-.885c1.16-.332 1.16-1.976 0-2.308l-3.099-.885a1.2 1.2 0 0 1-.824-.824l-.885-3.099c-.332-1.16-1.976-1.16-2.308 0l-.885 3.099a1.2 1.2 0 0 1-.824.824l-3.099.885c-1.16.332-1.16 1.976 0 2.308l3.099.885a1.2 1.2 0 0 1 .824.824M4.43 19.716l.376 1.508c.05.202.338.202.388 0l.377-1.508a.2.2 0 0 1 .145-.145l1.508-.377c.202-.05.202-.337 0-.388l-1.508-.377a.2.2 0 0 1-.145-.145l-.377-1.508c-.05-.202-.338-.202-.388 0l-.377 1.508a.2.2 0 0 1-.145.145l-1.508.377c-.202.05-.202.337 0 .388l1.508.377a.2.2 0 0 1 .145.145m14.001-14l.376 1.508c.05.202.337.202.388 0l.377-1.508a.2.2 0 0 1 .145-.145l1.508-.377c.202-.05.202-.338 0-.388l-1.508-.377a.2.2 0 0 1-.145-.145l-.377-1.508c-.05-.202-.337-.202-.388 0l-.377 1.508a.2.2 0 0 1-.145.145l-1.508.377c-.202.05-.202.338 0 .388l1.508.377a.2.2 0 0 1 .145.145"
-        />
-      </svg>
-    ),
+    icon: <Sparkles size={22} strokeWidth={1.8} />,
     text: "Aureus AI",
-    path: "/chatbot"
+    path: "/chatbot",
   },
   {
     id: 4,
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="30px"
-        height="30px"
-        className="ml-6 cursor-pointer hover:text-icon"
-        viewBox="0 0 24 24"
-      >
-        <path
-          fill="none"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.9 9.9 0 0 1-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8"
-        />
-      </svg>
-    ),
+    icon: <MessageCircle size={22} strokeWidth={1.8} />,
     text: "Community",
-    path: "/community"
+    path: "/community",
+  },
+  {
+    id: 5,
+    icon: <Clock size={22} strokeWidth={1.8} />,
+    text: "Progress",
+    path: "/progress",
   },
 ];
 
-const SidebarIcon = ({ item }) => {
+const SidebarIcon = ({ item, isActive }) => {
   return (
-    <>
-      <div className="relative group -ml-4 lg:-ml-5 lg:mb-5 md:mb-11 md:-ml-5">
-        {item.icon}
-        <span
-          className="hidden lg:block duration-700 ease-in-out md:block absolute left-16 top-1/2 lg:-translate-y-7 md:-translate-y-7
-          bg-icon text-white text-sm px-3 py-0.5 rounded-r-full rounded-tl-full rounded-bl-sm w-max whitespace-nowrap
-          opacity-0 group-hover:opacity-100 transition"
-        >
-          {item.text}
-        </span>
-      </div>
-    </>
+    <div
+      className={`flex w-full cursor-pointer rounded-2xl transition duration-300 p-2.5 lg:px-4 flex-row justify-center lg:justify-start items-center gap-3
+      ${isActive ? "bg-khaki text-white" : "text-beige/80 hover:bg-khaki/60 hover:text-white"}`}
+    >
+      <span className="shrink-0">{item.icon}</span>
+      <h1 className="hidden lg:block text-start text-sm font-medium">
+        {item.text}
+      </h1>
+    </div>
   );
 };
 
 const SideBar = () => {
+  const location = useLocation();
+  const { handleLogout } = HookAuth();
+
+  const isItemActive = (path) => {
+    const base = path.split("#")[0];
+    return location.pathname === base;
+  };
+
   return (
-    <aside className="fixed bottom-0 left-0 w-full z-1000 h-16 bg-white border-t lg:top-0 lg:left-0 lg:h-screen lg:w-20 lg:border-r lg:border-t-0
-      md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0">
-      <div className="flex w-full h-full flex-row md:justify-start justify-around gap-5 items-center lg:flex-col lg:items-center md:py-6 md:flex-col md:items-center md:pr-2">
+    <aside
+      className="fixed bottom-0 left-0 w-full z-1000 h-16 bg-bistre border-t border-khaki/30
+      lg:top-0 lg:left-0 lg:h-screen lg:w-64 lg:border-r lg:border-t-0
+      md:top-0 md:left-0 md:h-screen md:w-20 md:border-r md:border-t-0"
+    >
+      <div className="flex w-full h-full flex-row md:justify-start justify-around items-center lg:flex-col lg:items-stretch lg:py-6 lg:px-4 md:py-6 md:flex-col md:items-center">
         {/* Logo (hanya desktop) */}
-        <Link to='/' className="hidden lg:block md:block ml-1 w-[90%]" >
-        <img src={Logo} alt='logo'/>
+        <Link
+          to="/"
+          className="hidden lg:flex items-center gap-2 px-2 mb-6 text-white font-semibold"
+        >
+          <img src={Logo} alt="logo" className="w-9 h-9 object-contain" />
+          <h1 className="text-lg font-monstserrat">Renaissance</h1>
         </Link>
-        
-        {navIcon.map((item) => (
-          <Link to={item.path} key={item.id}>
-            <SidebarIcon key={item.id} item={item} />
+
+        <div className="hidden lg:block w-full h-px bg-khaki/40 mb-4"></div>
+
+        {/* Nav items */}
+        <nav className="flex flex-row md:flex-col lg:flex-col justify-around md:justify-start lg:justify-start items-center lg:items-stretch w-full gap-1 lg:gap-1.5">
+          {navIcon.map((item) => (
+            <Link to={item.path} key={item.id} className="w-full">
+              <SidebarIcon item={item} isActive={isItemActive(item.path)} />
+            </Link>
+          ))}
+        </nav>
+
+        {/* Spacer pushes promo + logout to bottom (desktop only) */}
+        <div className="hidden lg:block flex-1" />
+
+        {/* Promo box */}
+        <div className="hidden lg:flex flex-col bg-beige border border-khaki/30 rounded-2xl p-4 mb-4 gap-3">
+          <p className="text-bistre text-sm leading-snug">
+            Jelajahi dunia pengetahuan baru setiap hari
+          </p>
+          <Link to="/academy">
+            <button
+              type="button"
+              className="w-full flex items-center justify-center gap-1 bg-bistre hover:bg-chamoisee transition duration-300 text-white text-xs font-semibold rounded-xl px-3 py-2"
+            >
+              Jelajahi Sekarang
+              <ChevronRight size={14} />
+            </button>
           </Link>
-        ))}
+        </div>
+
+        <div className="hidden lg:block w-full h-px bg-khaki/40 mb-3" />
+
+        {/* Logout */}
+        <button
+          type="button"
+          onClick={handleLogout}
+          className="hidden lg:flex items-center gap-3 px-4 py-2.5 rounded-2xl text-beige/80 hover:bg-khaki/60 hover:text-white transition duration-300 w-full"
+        >
+          <LogOut size={20} strokeWidth={1.8} />
+          <span className="text-sm font-medium">Keluar</span>
+        </button>
       </div>
     </aside>
   );

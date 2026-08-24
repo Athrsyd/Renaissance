@@ -15,7 +15,7 @@ const NavbarCommunity = ({ selectedCommunity, userData, onJoin, isLoading }) => 
         <nav className='w-78/100 fixed z-9999 top-0 right-0 bg-white shadow-xl flex items-center p-4 gap-3'>
 
             <div className='pl-5 w-full flex items-center justify-between'>
-                <div className='flex items-center min-w-0 flex-1'>
+                <div className='flex items-center min-w-0 flex-1 So this is the question.'>
                     <div className='rounded-full h-10 w-10 bg-bistre mr-3'></div>
                     <div className='flex flex-col'>
                         <h3 className='text-sm font-semibold text-gray-700'>{selectedCommunity?.name || 'Pilih Komunitas'}</h3>

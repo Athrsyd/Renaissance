@@ -19,6 +19,7 @@ import ProtectedRoute from '../Hook/ProtectedRoute'
 import ModulPage from '../pages/ModulPage'
 import NotFound from '../pages/NotFound'
 import MAPEL_LIST from '../Config/mapelConfig'
+import Progress from '../pages/Progress'
 
 const Router = () => {
   return (
@@ -34,6 +35,7 @@ const Router = () => {
       <Route path="/chatbot"   element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+      <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
 
       {/* Mapel routes — auto-generated dari mapelConfig.js */}
       {MAPEL_LIST.filter((m) => m.slug !== null).map((mapelConfig) => (

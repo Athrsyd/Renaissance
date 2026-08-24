@@ -5,73 +5,67 @@ namespace App\Http\Controllers;
 use App\Models\Teman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class TemanController extends Controller
 {
-
+    /**
+     * Daftar teman user yang sedang login.
+     */
     public function index()
     {
         $teman = Teman::where('user_id', Auth::id())
-            ->with('teman') 
+            ->with('teman:id,name,email')
             ->get();
 
-        return response()->json($teman);
+        return response()->json($teman, 200);
     }
 
+    /**
+     * Tambah teman baru.
+     */
     public function store(Request $request)
     {
-        $validasi = Validator::make($request->all(), [
-            'teman_id' => "required|exists:users,id"
+        $request->validate([
+            'teman_id' => 'required|exists:users,id',
         ]);
 
-        if ($validasi->fails()) {
-            return response()->json(["message" => "User not found"], 404);
+        // Cegah user menambah diri sendiri sebagai teman
+        if ((int) $request->teman_id === Auth::id()) {
+            return response()->json(['message' => 'Tidak dapat menambah diri sendiri.'], 422);
+        }
+
+        // Cegah duplikasi pertemanan
+        $exists = Teman::where('user_id', Auth::id())
+            ->where('teman_id', $request->teman_id)
+            ->exists();
+
+        if ($exists) {
+            return response()->json(['message' => 'Sudah menjadi teman.'], 409);
         }
 
         $teman = Teman::create([
-            'user_id' => Auth::id(),    // ← ID user yang login
-            'teman_id' => $request->teman_id, // ← tambahkan ini!
+            'user_id'  => Auth::id(),
+            'teman_id' => $request->teman_id,
         ]);
 
         return response()->json([
-            "message" => "Teman berhasil ditambahkan",
-            "data" => $teman
-        ], 200);
+            'message' => 'Teman berhasil ditambahkan.',
+            'data'    => $teman,
+        ], 201);
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Teman $teman)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Teman $teman)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Teman $teman)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Hapus pertemanan — hanya pemilik relasi yang boleh menghapus.
+     * Sebelumnya: tidak ada pengecekan kepemilikan (IDOR).
      */
     public function destroy(Teman $teman)
     {
+        if ($teman->user_id !== Auth::id()) {
+            return response()->json(['message' => 'Anda tidak berhak menghapus data ini.'], 403);
+        }
+
         $teman->delete();
-        return response()->json([
-            'message' => 'Teman dihapus'
-        ], 200);
+
+        return response()->json(['message' => 'Teman dihapus.'], 200);
     }
 }

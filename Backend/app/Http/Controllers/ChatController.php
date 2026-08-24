@@ -2,77 +2,73 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Message;
+use App\Http\Requests\SendMessageRequest;
 use App\Models\Community;
-use App\Models\CommunityMember;
+use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Pengecekan membership dipindah ke middleware EnsureCommunityMember
+ * yang terdaftar di bootstrap/app.php dan dipakai di routes/api.php.
+ * ChatController tidak lagi perlu mengulang logika yang sama di setiap method.
+ */
 class ChatController extends Controller
 {
-    // Ambil pesan per komunitas
+    /**
+     * Ambil semua pesan di sebuah komunitas (dengan pagination).
+     * Sebelumnya: Message::get() — semua pesan dimuat sekaligus.
+     * Sekarang: paginate(50) — muat 50 pesan terakhir per halaman.
+     */
     public function getMessages(Request $request, Community $community)
     {
-        // Cek apakah user adalah member komunitas
-        $isMember = CommunityMember::where('community_id', $community->id)
-            ->where('user_id', Auth::id())
-            ->exists();
-
-        if (!$isMember) {
-            return response()->json(['message' => 'Anda bukan member'], 403);
-        }
-
         $messages = Message::where('community_id', $community->id)
-            ->with('sender')
+            ->with('sender:id,name')
             ->orderBy('created_at', 'asc')
-            ->get();
+            ->paginate(50);
 
         return response()->json([
-            'message' => 'Pesan komunitas',
-            'data' => $messages,
-        ]);
+            'message' => 'Pesan komunitas.',
+            'data'    => $messages->items(),
+            'meta'    => [
+                'current_page' => $messages->currentPage(),
+                'last_page'    => $messages->lastPage(),
+                'total'        => $messages->total(),
+            ],
+        ], 200);
     }
 
-    // Kirim pesan ke komunitas
-    public function sendMessage(Request $request, Community $community)
+    /**
+     * Kirim pesan ke komunitas.
+     */
+    public function sendMessage(SendMessageRequest $request, Community $community)
     {
-        // Cek member
-        $isMember = CommunityMember::where('community_id', $community->id)
-            ->where('user_id', Auth::id())
-            ->exists();
-
-        if (!$isMember) {
-            return response()->json(['message' => 'Anda bukan member'], 403);
-        }
-
-        $validated = $request->validate([
-            'chat' => 'required|string|max:5000',
-        ]);
-
         $message = Message::create([
-            'sender_id' => Auth::id(),
+            'sender_id'    => Auth::id(),
             'community_id' => $community->id,
-            'chat' => $validated['chat'],
+            'chat'         => $request->chat,
         ]);
 
-        $message->load('sender');
+        $message->load('sender:id,name');
 
         return response()->json([
-            'message' => 'Pesan terkirim',
-            'data' => $message,
+            'message' => 'Pesan terkirim.',
+            'data'    => $message,
         ], 201);
     }
 
-    // Hapus pesan
+    /**
+     * Hapus pesan — hanya pengirim yang boleh.
+     * Otorisasi via policy MessagePolicy::delete().
+     */
     public function destroy(Message $message)
     {
-        $isSender = $message->sender_id === Auth::id();
-
-        if (!$isSender ) {
-            return response()->json(['message' => 'Anda tidak bisa hapus pesan ini'], 403);
+        if ($message->sender_id !== Auth::id()) {
+            return response()->json(['message' => 'Anda tidak dapat menghapus pesan ini.'], 403);
         }
 
         $message->delete();
-        return response()->json(['message' => 'Pesan dihapus']);
+
+        return response()->json(['message' => 'Pesan dihapus.'], 200);
     }
 }

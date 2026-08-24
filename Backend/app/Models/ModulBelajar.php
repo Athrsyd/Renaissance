@@ -3,18 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Mapel;
-use App\Models\Bab;
 
 class ModulBelajar extends Model
 {
     protected $fillable = [
         'mapel',
+        'kelas',
         'bab',
         'judul',
     ];
 
+    protected $casts = [
+        'kelas' => 'integer',
+        'bab'   => 'integer',
+    ];
 
+    // ── Relasi ──────────────────────────────────────────────────────────────
+
+    public function soals()
+    {
+        return $this->hasMany(Soal::class, 'modul_id')->orderBy('urutan');
+    }
 
     public function userProgress()
     {
