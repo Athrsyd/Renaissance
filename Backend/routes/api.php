@@ -4,6 +4,7 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ModulBelajarController;
+use App\Http\Controllers\PlacementController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\StreakController;
 use App\Http\Controllers\TemanController;
@@ -25,6 +26,11 @@ Route::prefix('v1')->group(function () {
         // Auth
         Route::get   ('auth/profile', [UserController::class, 'profile']);
         Route::delete('auth/logout',  [UserController::class, 'logout']);
+
+        // Placement Test
+        Route::get('placement/soal',   [PlacementController::class, 'getSoal']);
+        Route::put('placement/kelas',  [PlacementController::class, 'setKelas']);
+        Route::get('placement/status', [PlacementController::class, 'status']);
 
         // Modules & Soal
         Route::get('modules',                              [ModulBelajarController::class, 'index']);

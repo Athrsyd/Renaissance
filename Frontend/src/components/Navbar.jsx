@@ -51,7 +51,7 @@ const Navbar = () => {
       <nav
         className={`bg-bistre backdrop-blur-sm z-order-last flex p-0 px-6 lg:p-3 
           justify-between lg:justify-center 
-          items-center lg:gap-20 transition-all duration-600
+          items-center lg:gap-20 transition-all duration-600 border-b-2 border-beige/30 shadow-md shadow-bistre/20
   
   ${isMenuOpen
             ? "fixed top-0 left-0 w-full rounded-none mt-0"

@@ -34,7 +34,7 @@ const parseTopikCount = (subTitle) => {
   return match ? Number(match[0]) : 0;
 };
 
-const SubjectRow = ({ item, percent }) => {
+const SubjectRow = ({ item, percent = 50 }) => {
   const destination = item.slug ? `/academy/${item.slug}` : "/academy";
   const totalTopik = parseTopikCount(item.subTitle);
   const topikSelesai = Math.round((percent / 100) * totalTopik);
@@ -48,34 +48,39 @@ const SubjectRow = ({ item, percent }) => {
         </div>
         <div>
           <p className="font-semibold text-bistre">{item.namaMapel}</p>
-          <p className="text-xs text-bistre/50">{totalTopik} Topik</p>
+          <p className="text-xs text-bistre/50">{totalTopik} bab</p>
         </div>
       </div>
 
       <div className="hidden sm:block sm:w-28 shrink-0">
-        <p className="text-xs text-chamoisee font-medium">Topik Selesai</p>
+        <p className="text-xs text-chamoisee font-medium">Bab Selesai</p>
         <p className="text-sm text-bistre/70">
           {topikSelesai}/{totalTopik}
         </p>
       </div>
 
-      <div className="flex-1 flex items-center gap-3">
-        <div className="flex-1">
-          <ProgressBar value={percent} max={100} bgColor="bg-bistre" />
+      <div className="flex flex-row gap-4 items-center justify-between w-full">
+
+        <div className="flex-1 flex items-center md:gap-3">
+          <div className="flex-1">
+            <ProgressBar value={percent} max={100} bgColor="bg-bistre" />
+          </div>
+          <span className="text-xs text-bistre/60 w-8 text-right shrink-0">
+            {percent}%
+          </span>
         </div>
-        <span className="text-xs text-bistre/60 w-8 text-right shrink-0">
-          {percent}%
-        </span>
+
+        <div className="flex items-center gap-3 shrink-0">
+          <Link to={destination}>
+            <button className="bg-bistre hover:bg-coffe transition duration-300 text-white text-xs 
+          font-semibold rounded-lg px-2 md:px-5 py-1 md:py-2.5 whitespace-nowrap">
+              Belajar
+            </button>
+          </Link>
+          <ChevronRight size={16} className="hidden md:block text-bistre/40" />
+        </div>
       </div>
 
-      <div className="flex items-center gap-3 shrink-0">
-        <Link to={destination}>
-          <button className="bg-bistre hover:bg-coffe transition duration-300 text-white text-xs font-semibold rounded-lg px-5 py-2.5 whitespace-nowrap">
-            Belajar
-          </button>
-        </Link>
-        <ChevronRight size={16} className="text-bistre/40" />
-      </div>
     </div>
   );
 };

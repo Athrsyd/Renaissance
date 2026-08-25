@@ -42,14 +42,18 @@ class UserController extends Controller
             UserModulProgress::insert($progressRecords);
         }
 
+        // Buat token langsung agar user tidak perlu login ulang
+        $token = $user->createToken('auth_token')->plainTextToken;
+
         return response()->json([
-            'message' => 'Registrasi berhasil! Silahkan Login.',
+            'message' => 'Registrasi berhasil!',
             'data'    => [
                 'id'    => $user->id,
-            'kelas' => $user->kelas,
+                'kelas' => $user->kelas,
                 'name'  => $user->name,
                 'email' => $user->email,
             ],
+            'token'   => $token,
         ], 201);
     }
 

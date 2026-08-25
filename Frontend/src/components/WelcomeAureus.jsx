@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
     "Apa itu hukum Newton dan bagaimana penerapannya?",
   ];
 
-const WelcomeAureus = () => {
+const WelcomeAureus = ( {sendMessage} ) => {
   const normalText = "Selamat datang di ";
   const highlightText = "Aureus AI";
   const fullText = normalText + highlightText;
@@ -67,8 +67,8 @@ const WelcomeAureus = () => {
 
       {/* Quick Questions */}
       <div className="flex flex-col mt-6 justify-center items-center">
-        <div className="bg-icon/20 px-4 py-1 rounded-xl">
-          <h1 className="font-bold text-[15px] sm:text-xl text-center text-bistre">Quick Question</h1>
+        <div className="bg-bistre px-4 py-1 rounded-t-xl">
+          <h1 className="font-bold text-[15px] sm:text-xl text-center text-white">Quick Question</h1>
         </div>
       </div>
       <div className="w-full max-w-2xl bg-bistre p-2 md:p-4 rounded-2xl space-y-2">

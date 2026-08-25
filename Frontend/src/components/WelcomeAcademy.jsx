@@ -2,7 +2,8 @@ import React from "react";
 
 const WelcomeAcademy = ({ user, grade }) => {
   return (
-    <div className="relative bg-[#F2E0D2] w-full mt-6 p-6 lg:py-8 lg:px-10 rounded-2xl">
+    <div className="relative bg-[#F8F3E0] w-full mt-6 p-10 rounded-2xl border border-[#9B7A5B]/30 
+    ">
       <div className="flex flex-col gap-2">
         <h1 className="text-2xl font-monstserrat font-semibold text-[#39221C]">
           <span className="text-icon">Hello,</span> {user?.name || "Student"}!
