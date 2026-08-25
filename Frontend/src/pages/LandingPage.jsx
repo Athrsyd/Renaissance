@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router-dom";
 import buku from "../assets/buku.png";
-import aboutbuku from "../assets/aboutbuku.png";
-import bgabout from "../assets/bgabout.png";
 import Mapel from "../components/Mapel";
 import Counter from "../components/Counter";
 import LandingPage2 from "./LandingPage2";
@@ -96,45 +94,15 @@ const LandingPage = () => {
         </div>
       </section>
 
-      <section className="relative z-50 -mt-15 w-full flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
+      <section className="relative z-50 -mt-15 w-full flex flex-col justify-center items-center bg-bistre">
         <div className="w-full mt-26 flex flex-col justify-center items-center">
-          <Statistik />
-          <div
-            id="about"
-            className="w-full flex flex-col justify-center items-center mt-15 md:mt-15"
-          >
-            <h1 className="text-4xl md:text-5xl font-normal text-center mb-8 sm:mb-15 text-white">
-              Gagasan yang lahirnya <br />
-              <span className="text-khaki">Renaissance</span>
-            </h1>
-            <div className=" bg-[#F2E0D2] w-full md:w-[85%] lg:w-[75%] rounded-4xl flex flex-col justify-center items-center p-4 md:p-6 mt-2 md:mt-5">
-              <div className="w-full flex flex-col justify-center items-center">
-                <p className="text-sm md:text-lg lg:text-2xl leading-normal px-2 md:px-5 font-semibold m-4 lg:m-10 text-justify text-[#39221C]">
-                  Renaissance lahir dari gagasan bahwa belajar bukan sekadar
-                  proses menghafal, melainkan perjalanan untuk memahami dunia
-                  dengan lebih luas. Terinspirasi dari semangat era Renaissance,
-                  masa ketika ilmu pengetahuan, seni, dan pemikiran manusia
-                  berkembang pesat, platform ini hadir untuk menumbuhkan kembali
-                  rasa ingin tahu, kreativitas, dan kecintaan terhadap
-                  pengetahuan pada siswa SMP dan SMA. Melalui pengalaman belajar
-                  yang interaktif dan terstruktur, Renaissance mengajak setiap
-                  pelajar untuk tidak hanya mempelajari materi, tetapi juga
-                  mengeksplorasi ide, mengasah cara berpikir, dan membuka
-                  cakrawala baru dalam memahami dunia.
-                </p>
-                <img
-                  data-aos="fade-up"
-                  data-aos-duration="1500"
-                  src={aboutbuku}
-                  alt="gambar buku"
-                  className="w-[80%] lg:w-[60%] mt-5 mb-10"
-                />
-              </div>
-              <About />
-            </div>
+          <div className="px-16 pb-10 w-full flex flex-col justify-center items-center">
+            <Statistik />
           </div>
+          <About />
         </div>
       </section>
+
 
       <section className="w-full overflow-x-hidden flex px-16 flex-col justify-center items-center pb-10 bg-bistre">
         <div
