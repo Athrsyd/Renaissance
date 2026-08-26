@@ -39,22 +39,20 @@ const SUBJECTS = [
 
 const SubjectMiniCard = ({ item }) => (
   <Link to={`/academy/${item.slug}`}>
-    <div className="group h-full flex flex-row justify-between bg-white rounded-2xl p-4 border-[1.75px] border-[#9B7A5B]/20">
-      <div className="w-13 h-14 flex items-center justify-center rounded-xl bg-white text-bistre shadow-sm">
+    <div className="group h-25 w-48 flex flex-row justify-between bg-white rounded-2xl p-4 border-[1.75px] border-[#9B7A5B]/20">
+      <div className="mt-2 w-12 h-12 flex items-center justify-center rounded-xl bg-[#F8F3E0] text-bistre shadow-sm">
         {item.icon === "sqrt" ? (
           <span className="font-semibold text-base">√x</span>
         ) : (
           item.icon
         )}
       </div>
-      <div className="mt-1 mr-auto ml-5">
-        <p className="text-sm text-bistre/70">{item.title}</p>
+      <div className="mt-2 mr-auto ml-5">
+        <p className="text-xs font-bold font-jakarta text-bistre">{item.title}</p>
         <p className="text-lg font-monstserrat font-bold text-bistre leading-none">
           {item.subtitle.split(" ")[0]}
         </p>
-        <p className="text-sm text-bistre">
-          Topik
-        </p>
+        <p className="text-[11px] font-medium text-bistre">Topik</p>
       </div>
     </div>
   </Link>
@@ -74,16 +72,16 @@ const ContinueLearningCard = ({ item }) => {
         <div className="flex flex-col justify-betwee px-3 py-2 ">
           <div className="relative justify-between">
             {/* <h3 className="font-semibold text-bistre">Continue Learning</h3> */}
-            <span className="absolute text-[10px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
+            <span className="absolute text-[8px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
               {mapel}
             </span>
           </div>
-          <div className="absolute flex flex-col top-8">
-            <p className="text-sm font-bold text-bistre">{materi}</p>
-            <div className="flex flex-row justify-center items-center gap-2 w-60">
+          <div className="absolute right-3 flex flex-col top-8">
+            <p className="text-xs font-bold text-bistre">{materi}</p>
+            <div className="flex flex-row justify-center mt-2 items-center gap-2 w-58">
               <ProgressBar value={progress} max={100} bgColor="bg-[#F8F3E0]" />
               <div className="flex justify-end">
-                <span className="text-xs font-semibold text-[#9B7A5B]">
+                <span className="text-[10px] font-semibold text-[#9B7A5B]">
                   {progress}%
                 </span>
               </div>
@@ -100,16 +98,16 @@ const AureusCommunityCard = ({ variant }) => {
   return (
     <div className="relative overflow-hidden bg-beige/50 border border-beige rounded-3xl p-6 min-h-56 flex flex-col justify-between">
       <div className="relative z-10">
-        <h3 className="text-xl font-bold text-bistre">
+        <h3 className="text-2xl font-semibold font-monstserrat text-[#9B7A5B]">
           {isAureus ? "Aureus AI" : "Community"}
         </h3>
-        <p className="text-sm text-bistre/80 mt-2 w-[85%] lg:w-[70%] leading-relaxed">
+        <p className="text-xs text-bistre font-semibold font-jakarta mt-2 w-[53%] lg:w-[38%] leading-relaxed">
           {isAureus
             ? "Tanya apa saja, dapatkan penjelasan instan dengan AI Tutor pribadi kamu."
             : "Bergabung dengan ribuan pelajar ini, berdiskusi dan berbagi ilmu"}
         </p>
         <Link to={isAureus ? "/chatbot" : "/community"}>
-          <button className="mt-5 bg-bistre hover:bg-coffe transition duration-300 text-white text-sm font-semibold rounded-xl px-5 py-2.5">
+          <button className="mt-5 bg-[#9B7A5B] hover:bg-coffe transition duration-300 text-white text-xs font-medium rounded-lg px-6 py-2.5">
             {isAureus ? "Mulai Tanya" : "Gabung Sekarang"}
           </button>
         </Link>
@@ -119,15 +117,30 @@ const AureusCommunityCard = ({ variant }) => {
       <div className="absolute -right-4 bottom-2 opacity-90 text-chamoisee/70 flex items-end">
         {isAureus ? (
           <>
-            <MessageSquare size={72} strokeWidth={1} className="text-coffe/40 -mr-6" />
-            <MessageSquare size={100} strokeWidth={1} className="text-coffe/60" />
-            <Sparkles size={20} className="absolute -top-4 right-6 text-chamoisee" />
+            <MessageSquare
+              size={72}
+              strokeWidth={1}
+              className="text-coffe/40 -mr-6"
+            />
+            <MessageSquare
+              size={100}
+              strokeWidth={1}
+              className="text-coffe/60"
+            />
+            <Sparkles
+              size={20}
+              className="absolute -top-4 right-6 text-chamoisee"
+            />
           </>
         ) : (
           <>
             <Users size={56} strokeWidth={1} className="text-coffe/30 mr-2" />
             <Users size={84} strokeWidth={1} className="text-coffe/60" />
-            <MessageSquare size={30} strokeWidth={1} className="absolute -top-6 right-2 text-chamoisee" />
+            <MessageSquare
+              size={30}
+              strokeWidth={1}
+              className="absolute -top-6 right-2 text-chamoisee"
+            />
           </>
         )}
       </div>
@@ -335,25 +348,26 @@ const DashboardPage = () => {
 
           {/* ── Subjects + Continue Learning ── */}
           {showSubject && (
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-2">
               <div className="lg:col-span-2">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="font-semibold text-bistre text-lg">Subjects</h2>
+                <div className="relative flex items-center justify-between mb-4">
+                  <h2 className="font-bold font-jakarta text-md">Subjects</h2>
                   <Link
                     to="/academy"
-                    className="text-xs text-chamoisee hover:underline flex items-center gap-1"
+                    className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1"
                   >
                     Lihat Semua <ChevronRight size={14} />
                   </Link>
                 </div>
-                <div className="grid grid-cols-3 gap-4">
+                <div className="grid grid-cols-3">
                   {SUBJECTS.map((item) => (
                     <SubjectMiniCard key={item.id} item={item} />
                   ))}
                 </div>
               </div>
 
-              <div className="lg:pt-9.5">
+              <div className="relative flex-col lg:pt-9.5 ">
+                <h1 className="absolute -top-px font-bold font-jakarta">Continue Learning</h1>
                 {isLoading ? <SkeletonProgress /> : <ContinueLearningCard item={continueItem} />}
               </div>
             </div>
