@@ -25,6 +25,7 @@ import ProgressHook from "../Hook/ProgressHook";
 import { useUser } from "../Context/UserContext";
 import IlustrasiAureus from "../assets/com-ilus.png"
 import IlustrasiCommunity from "../assets/peolle.png";
+import Streak from "../assets/streak.svg"
 
 // Skeleton
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
@@ -41,7 +42,7 @@ const SUBJECTS = [
 
 const SubjectMiniCard = ({ item }) => (
   <Link to={`/academy/${item.slug}`}>
-    <div className="group h-25 w-48 flex flex-row justify-between bg-white rounded-2xl p-4 border-[1.75px] border-[#9B7A5B]/20">
+    <div className="group h-25 w-48 flex flex-row justify-between bg-white rounded-xl p-4 border-[1.75px] border-[#9B7A5B]/20">
       <div className="mt-2 w-12 h-12 flex items-center justify-center rounded-xl bg-[#F8F3E0] text-bistre shadow-sm">
         {item.icon === "sqrt" ? (
           <span className="font-semibold text-base">√x</span>
@@ -70,17 +71,18 @@ const ContinueLearningCard = ({ item }) => {
     <Link
       to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}
     >
-      <div className="relative h-24 mt-1 bg-white border-[1.5px] rounded-2xl  border-beige hover:-translate-y-1 transition duration-300 cursor-pointer">
-        <div className="flex flex-col justify-betwee px-3 py-2 ">
+      <div className="relative h-25 mt-0.5 bg-white border-[1.75px] rounded-xl border-[#9B7A5B]/20 hover:-translate-y-1 transition duration-300 cursor-pointer">
+        <div className="flex flex-col justify-between px-3 py-2 ">
           <div className="relative justify-between">
             {/* <h3 className="font-semibold text-bistre">Continue Learning</h3> */}
             <span className="absolute text-[8px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
               {mapel}
             </span>
           </div>
+          <div className="absolute left-3 top-6 rounded-xl h-12 w-12 bg-[#F8F3E0]"></div>
           <div className="absolute right-3 flex flex-col top-8">
             <p className="text-xs font-bold text-bistre">{materi}</p>
-            <div className="flex flex-row justify-center mt-2 items-center gap-2 w-58">
+            <div className="flex flex-row justify-center mt-2 items-center gap-2 w-55">
               <ProgressBar value={progress} max={100} bgColor="bg-[#F8F3E0]" />
               <div className="flex justify-end">
                 <span className="text-[10px] font-semibold text-[#9B7A5B]">
@@ -98,7 +100,7 @@ const ContinueLearningCard = ({ item }) => {
 const AureusCommunityCard = ({ variant }) => {
   const isAureus = variant === "aureus";
   return (
-    <div className="relative overflow-hidden bg-linear-to-tr from-white to-[#F8F3E0] border-[1.5px] border-chamoisee/20 rounded-lg py-4 px-6 h-48 flex flex-col justify-between">
+    <div className="relative overflow-hidden bg-linear-to-tr from-white to-[#F8F3E0] border-[1.75px] border-chamoisee/20 rounded-lg py-4 px-6 h-48 flex flex-col justify-between">
       <div className="relative pl-4 z-10">
         <h3 className="mt-1 text-2xl font-semibold font-monstserrat text-[#9B7A5B]">
           {isAureus ? "Aureus AI" : "Community"}
@@ -116,14 +118,20 @@ const AureusCommunityCard = ({ variant }) => {
       </div>
 
       {/* Illustration */}
-      <div className="absolute -right-4 bottom-2 opacity-90 text-chamoisee/70 flex items-end">
+      <div
+        className={`absolute ${isAureus ? "-right-4" : "right-4" } bottom-2 opacity-90 text-chamoisee/70 flex items-end`}
+      >
         {isAureus ? (
           <>
             <img src={IlustrasiAureus} alt="Ilustrasi Aureus" />
           </>
         ) : (
           <>
-            <img src={IlustrasiCommunity} alt="Ilustrasi Community" />
+            <img
+              src={IlustrasiCommunity}
+              alt="Ilustrasi Community"
+              className="h-37 mb-4"
+            />
           </>
         )}
       </div>
@@ -137,7 +145,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
   const offset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className="bg-white border border-beige rounded-3xl p-6">
+    <div className="w-90 h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-6">
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-bistre">Progress</h3>
         <Link to="/academy" className="text-xs text-chamoisee hover:underline flex items-center gap-1">
@@ -171,14 +179,14 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
 
         <div className="flex flex-col gap-4">
           <div>
-            <p className="text-xs text-bistre/60">Topik Selesai</p>
-            <p className="text-lg font-bold text-bistre">
-              {topikSelesai} <span className="text-sm font-normal text-bistre/50">/ {totalTopik}</span>
+            <p className="text-xs font-semibold text-bistre">Topik Selesai</p>
+            <p className="text-lg font-bold text-chamoisee font-monstserrat">
+              {topikSelesai} <span className="text-sm font-medium text-chamoisee">/ {totalTopik}</span>
             </p>
           </div>
           <div>
-            <p className="text-xs text-bistre/60">Mata Pelajaran Aktif</p>
-            <p className="text-lg font-bold text-bistre">{mapelAktif}</p>
+            <p className="text-xs font-semibold text-bistre">Waktu Belajar</p>
+            <p className="text-lg font-bold text-chamoisee">{mapelAktif}</p>
           </div>
         </div>
       </div>
@@ -190,23 +198,27 @@ const WEEK_DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
 const StreakCard = ({ streakDays }) => {
   return (
-    <div className="bg-white border border-beige rounded-3xl p-6">
+    <div className="absolute right-10 w-140 h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-6">
       <h3 className="font-semibold text-bistre mb-4">Streak</h3>
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-        <div className="flex items-center gap-3 shrink-0">
-          <Flame size={34} className="text-orange-500 fill-orange-500/20" />
-          <div>
-            <p className="text-2xl font-bold text-bistre leading-none">
-              {streakDays} <span className="text-base font-medium text-bistre/60">Hari</span>
+        <div className="flex items-center mt-5 gap-2 shrink-0">
+          <img src={Streak} alt="Streak" className="h-9" />
+          <div className="relative">
+            <p className="text-3xl ml-1 font-bold text-chamoisee leading-none">
+              {streakDays}{" "}
+              <span className="text-[10px] font-medium text-bistre/60">Hari</span>
             </p>
-            <p className="text-xs text-bistre/60 mt-1">Pertahankan streak-mu!</p>
+            <p className="absolute -right-18 w-40 text-[10px] text-bistre font-semibold mt-3">
+              Pertahankan streak-mu!
+            </p>
           </div>
         </div>
 
-        <div className="hidden lg:block w-px h-14 bg-beige" />
+        <div className="absolute left-42 bottom-8 hidden lg:block w-px h-40 bg-beige" />
 
-        <div className="w-full">
-          <div className="flex justify-between gap-2">
+        <div className="ml-15 relative w-full">
+          <h1 className="absolute -top-7 left-28 text-[10px] font-semibold">Pertahankan Streak-mu!</h1>
+          <div className="flex justify-center gap-4">
             {WEEK_DAYS.map((day, idx) => (
               <div key={day} className="flex flex-col items-center gap-1.5">
                 <div
@@ -222,7 +234,7 @@ const StreakCard = ({ streakDays }) => {
               </div>
             ))}
           </div>
-          <div className="mt-3 inline-block bg-beige/60 text-bistre text-xs font-medium rounded-full px-3 py-1">
+          <div className="absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
             Streak terpanjang: {streakDays} Hari
           </div>
         </div>
