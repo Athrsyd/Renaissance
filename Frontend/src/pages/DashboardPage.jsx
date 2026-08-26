@@ -39,19 +39,22 @@ const SUBJECTS = [
 
 const SubjectMiniCard = ({ item }) => (
   <Link to={`/academy/${item.slug}`}>
-    <div className="group h-full flex flex-col justify-between bg-beige/40 hover:bg-beige/70 border border-beige transition duration-300 rounded-2xl p-4 hover:-translate-y-1">
-      <div className="w-11 h-11 flex items-center justify-center rounded-xl bg-white text-bistre shadow-sm">
+    <div className="group h-full flex flex-row justify-between bg-white rounded-2xl p-4 border-[1.75px] border-[#9B7A5B]/20">
+      <div className="w-13 h-14 flex items-center justify-center rounded-xl bg-white text-bistre shadow-sm">
         {item.icon === "sqrt" ? (
           <span className="font-semibold text-base">√x</span>
         ) : (
           item.icon
         )}
       </div>
-      <div className="mt-4">
-        <p className="text-lg font-bold text-bistre leading-none">
+      <div className="mt-1 mr-auto ml-5">
+        <p className="text-sm text-bistre/70">{item.title}</p>
+        <p className="text-lg font-monstserrat font-bold text-bistre leading-none">
           {item.subtitle.split(" ")[0]}
         </p>
-        <p className="text-sm text-bistre/70 mt-1">{item.title}</p>
+        <p className="text-sm text-bistre">
+          Topik
+        </p>
       </div>
     </div>
   </Link>
@@ -64,19 +67,27 @@ const ContinueLearningCard = ({ item }) => {
   const progress = item?.progress || 0;
 
   return (
-    <Link to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}>
-      <div className="h-full flex flex-col justify-between bg-white border border-beige rounded-2xl p-5 hover:-translate-y-1 transition duration-300 cursor-pointer">
-        <div className="flex items-start justify-between">
-          <h3 className="font-semibold text-bistre">Continue Learning</h3>
-          <span className="text-xs font-medium bg-beige text-bistre rounded-full px-3 py-1 shrink-0">
-            {mapel}
-          </span>
-        </div>
-        <p className="text-xl font-bold text-bistre mt-4">{materi}</p>
-        <div className="mt-5">
-          <ProgressBar value={progress} max={100} bgColor="bg-bistre" />
-          <div className="flex justify-end mt-1">
-            <span className="text-xs text-bistre/60">{progress}%</span>
+    <Link
+      to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}
+    >
+      <div className="relative h-24 mt-1 bg-white border-[1.5px] rounded-2xl  border-beige hover:-translate-y-1 transition duration-300 cursor-pointer">
+        <div className="flex flex-col justify-betwee px-3 py-2 ">
+          <div className="relative justify-between">
+            {/* <h3 className="font-semibold text-bistre">Continue Learning</h3> */}
+            <span className="absolute text-[10px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
+              {mapel}
+            </span>
+          </div>
+          <div className="absolute flex flex-col top-8">
+            <p className="text-sm font-bold text-bistre">{materi}</p>
+            <div className="flex flex-row justify-center items-center gap-2 w-60">
+              <ProgressBar value={progress} max={100} bgColor="bg-[#F8F3E0]" />
+              <div className="flex justify-end">
+                <span className="text-xs font-semibold text-[#9B7A5B]">
+                  {progress}%
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -267,13 +278,13 @@ const DashboardPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-64 md:ml-20 bg-[#FBF9F6] min-h-screen pb-24 lg:pb-10">
-        <div className="px-5 sm:px-8 lg:px-10 pt-6 max-w-[1400px] w-full mx-auto">
+        <div className="px-5 sm:px-8 lg:px-10 pt-6 max-w-350 w-full mx-auto">
           {/* ── Top bar ── */}
           {!user ? (
             <SkeletonNavbar />
           ) : (
             <div className="flex flex-row items-center justify-between gap-4">
-              <div className="relative flex-1 max-w-md">
+              <div className="relative flex-1 ml-auto mr-4 max-w-md">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-bistre/40" />
                 <input
                   type="search"
@@ -284,14 +295,14 @@ const DashboardPage = () => {
                 />
               </div>
 
-              <div className="flex items-center gap-4 shrink-0">
-                <button className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-beige text-bistre hover:bg-beige/50 transition">
-                  <Bell size={18} />
+              <div className="flex items-center gap-2 shrink-0">
+                <button className="mr-1.5 flex items-center justify-center">
+                  <Bell size={20} />
                 </button>
 
                 <div className="relative">
-                  <div className="w-10 h-10 bg-bistre rounded-full flex items-center justify-center">
-                    <h1 className="text-white text-base font-bold">
+                  <div className="w-8 h-8 bg-bistre rounded-full flex items-center justify-center">
+                    <h1 className="text-white text-sm font-bold">
                       {user?.name?.charAt(0) || "U"}
                     </h1>
                   </div>
@@ -305,11 +316,10 @@ const DashboardPage = () => {
                   className="cursor-pointer text-bistre"
                 >
                   <ChevronDown
-                    size={18}
+                    size={25}
                     className={`transition-transform duration-300 ${isAccountOpen ? "rotate-180" : ""}`}
                   />
                 </button>
-
                 <PopUpAccount
                   Username={user}
                   Email={user}
@@ -343,7 +353,7 @@ const DashboardPage = () => {
                 </div>
               </div>
 
-              <div className="lg:pt-[38px]">
+              <div className="lg:pt-9.5">
                 {isLoading ? <SkeletonProgress /> : <ContinueLearningCard item={continueItem} />}
               </div>
             </div>
