@@ -28,9 +28,9 @@ Route::prefix('v1')->group(function () {
         Route::delete('auth/logout',  [UserController::class, 'logout']);
 
         // Placement Test
-        Route::get('placement/soal',   [PlacementController::class, 'getSoal']);
-        Route::put('placement/kelas',  [PlacementController::class, 'setKelas']);
-        Route::get('placement/status', [PlacementController::class, 'status']);
+        Route::put('placement/kelas',        [PlacementController::class, 'setKelas']);
+        Route::put('placement/starting-bab', [PlacementController::class, 'setStartingBab']);
+        Route::get('placement/status',       [PlacementController::class, 'status']);
 
         // Modules & Soal
         Route::get('modules',                              [ModulBelajarController::class, 'index']);

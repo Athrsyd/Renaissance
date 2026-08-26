@@ -75,7 +75,7 @@ class UserController extends Controller
             'message' => 'Login berhasil!',
             'data'    => [
                 'id'    => $user->id,
-            'kelas' => $user->kelas,
+                'kelas' => $user->kelas,
                 'name'  => $user->name,
                 'email' => $user->email,
             ],

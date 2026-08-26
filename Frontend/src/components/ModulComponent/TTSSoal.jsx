@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 
-export default function TTSSoal({ soal, onCorrect }) {
+export default function TTSSoal({ soal, onCorrect, onWrong }) {
   const [answers, setAnswers] = useState(
     soal.pertanyaan.map((_, i) => Array(soal.jawaban[i].length).fill("")),
   );
@@ -54,7 +54,11 @@ export default function TTSSoal({ soal, onCorrect }) {
 
   const handleCheck = () => {
     setChecked(true);
-    if (allCorrect) onCorrect?.();
+    if (allCorrect) {
+      onCorrect?.();
+    } else {
+      onWrong?.();
+    }
   };
 
   const handleReset = () => {
@@ -154,12 +158,7 @@ export default function TTSSoal({ soal, onCorrect }) {
                   Coba lagi, kamu pasti bisa.
                 </span>
               </p>
-              <button
-                onClick={handleReset}
-                className="mt-2 text-white/60 text-xs underline"
-              >
-                Ulangi
-              </button>
+              <p className="mt-1 text-white/40 text-xs">Jawaban tidak bisa diulang.</p>
             </>
           )}
         </div>

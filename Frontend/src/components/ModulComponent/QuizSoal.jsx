@@ -1,8 +1,6 @@
 import { useState } from "react";
-import soundCorrect from "../../assets/sfx/benar.mp3";
-import soundInCorrect from "../../assets/sfx/salah.mp3";
 
-export default function QuizSoal({ soal, onCorrect }) {
+export default function QuizSoal({ soal, onCorrect, onWrong }) {
   const [selected, setSelected] = useState(null);
   const [checked, setChecked] = useState(false);
 
@@ -14,21 +12,13 @@ export default function QuizSoal({ soal, onCorrect }) {
   };
 
   const handleCheck = () => {
-    if (!selected) {
-      soundInCorrect.play();
-      return;
-    }
+    if (!selected) return;
     setChecked(true);
     if (selected === soal.jawaban) {
-      soundCorrect.play();
       onCorrect?.();
-
+    } else {
+      onWrong?.();
     }
-  };
-
-  const handleReset = () => {
-    setSelected(null);
-    setChecked(false);
   };
 
   return (
@@ -52,18 +42,16 @@ export default function QuizSoal({ soal, onCorrect }) {
           let style = "";
 
           if (!checked) {
-            // Belum dicek — normal & hover
             style = isSelected
               ? "bg-bistre border-coffe text-white"
               : "bg-icon/40 border-transparent text-white hover:bg-icon/60 cursor-pointer";
           } else {
-            // Sudah dicek
             if (isJawaban) {
-              style = "bg-bistre border-green-400 text-white"; // jawaban benar → bistre
+              style = "bg-bistre border-green-400 text-white";
             } else if (isSelected && !isJawaban) {
-              style = "bg-red-900/40 border-red-400 text-red-300"; // pilihan salah
+              style = "bg-red-900/40 border-red-400 text-red-300";
             } else {
-              style = "bg-icon/20 border-transparent text-white/50"; // lainnya redup
+              style = "bg-icon/20 border-transparent text-white/50";
             }
           }
 
@@ -92,18 +80,10 @@ export default function QuizSoal({ soal, onCorrect }) {
               <span className="text-white">Your Answer Is Correct.</span>
             </p>
           ) : (
-            <>
-              <p className="text-red-400 font-montserrat text-lg">
-                Belum Tepat! <br />
-                <span className="text-white">Coba Lagi, Kamu Pasti Bisa.</span>
-              </p>
-              <button
-                onClick={handleReset}
-                className="mt-2 text-white/60 text-xs underline"
-              >
-                Ulangi
-              </button>
-            </>
+            <p className="text-red-400 font-montserrat text-lg">
+              Belum Tepat! <br />
+              <span className="text-white/70 text-sm">Jawaban tidak bisa diulang.</span>
+            </p>
           )}
         </div>
       )}

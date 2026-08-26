@@ -24,6 +24,7 @@ import PopUpAccount from '../components/PopUpAccount'
 import { Link } from 'react-router-dom'
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
 import { useUser } from '../Context/UserContext'
+import API from '../services/api'
 
 const ModulPage = ({ mapelConfig }) => {
     const [isAccountOpen, setIsAccountOpen] = useState(false)
@@ -34,6 +35,8 @@ const ModulPage = ({ mapelConfig }) => {
     const [initialSoalIndex, setInitialSoalIndex] = useState(0)
     // Data soal di-load secara lazy dari dataFile di mapelConfig
     const [modulData, setModulData] = useState([])
+    // Starting bab dari placement test (1, 2, atau 3) — default 1
+    const [startingBab, setStartingBab] = useState(1)
 
     const { user } = useUser()
     const { countTotalProgress, fetchProgress, updateProgress, isLoading, dataProgress, error } =
@@ -51,6 +54,22 @@ const ModulPage = ({ mapelConfig }) => {
 
     useEffect(() => {
         fetchProgress()
+    }, [])
+
+    // Ambil starting_bab dari placement test
+    useEffect(() => {
+        const fetchStartingBab = async () => {
+            try {
+                const token = localStorage.getItem('tokenRenaissance')
+                const res = await API.get('/placement/status', {
+                    headers: { Authorization: `Bearer ${token}` },
+                })
+                setStartingBab(res.data.starting_bab ?? 1)
+            } catch {
+                setStartingBab(1)
+            }
+        }
+        fetchStartingBab()
     }, [])
 
     const totalProgressValue =
@@ -196,6 +215,7 @@ const ModulPage = ({ mapelConfig }) => {
                             isProgressLoading={isLoading || modulData.length === 0}
                             progressError={error}
                             onStartModule={handleStartModule}
+                            startingBab={startingBab}
                         />
                     </div>
                 </div>

@@ -83,7 +83,7 @@ const LandingPage = () => {
                 6+ Mata Pelajaran
               </span>
               <br />
-              Untuk SMP & SMA
+              Untuk SMA/K
             </p>
             <a href="#about">
               <button className="bg-bistre hover:scale-95 transition-all duration-300 ease-in-out text-white px-3 py-2 md:px-4 md:py-1 rounded-xl mt-4 md:mt-0 md:pt-0 lg:px-10 lg:py-1 lg:rounded-full hover:bg-coffe ">

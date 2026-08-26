@@ -120,17 +120,45 @@ class PlacementController extends Controller
     }
 
     /**
+     * PUT /api/v1/placement/starting-bab
+     *
+     * Simpan starting_bab hasil kalkulasi placement test di frontend.
+     * Body: { "starting_bab": 1|2|3 }
+     *
+     * Kalkulasi dilakukan di frontend:
+     *   0–50%  benar → bab 1
+     *   51–75% benar → bab 2
+     *   76–100% benar → bab 3
+     */
+    public function setStartingBab(Request $request)
+    {
+        $request->validate([
+            'starting_bab' => 'required|integer|in:1,2,3',
+        ]);
+
+        $user = $request->user();
+        $user->update(['starting_bab' => $request->starting_bab]);
+
+        return response()->json([
+            'message'      => 'Starting bab berhasil disimpan.',
+            'starting_bab' => $user->starting_bab,
+        ], 200);
+    }
+
+    /**
      * GET /api/v1/placement/status
      *
-     * Kembalikan apakah user sudah menyelesaikan placement (sudah punya kelas).
+     * Kembalikan apakah user sudah menyelesaikan placement (sudah punya kelas),
+     * dan berapa starting_bab-nya.
      */
     public function status(Request $request)
     {
         $user = $request->user();
 
         return response()->json([
-            'kelas'            => $user->kelas,
-            'placement_selesai' => $user->kelas !== null,
+            'kelas'             => $user->kelas,
+            'starting_bab'      => $user->starting_bab ?? 1,
+            'placement_selesai' => $user->kelas !== null && $user->starting_bab !== null,
         ], 200);
     }
 }

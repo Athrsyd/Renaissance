@@ -14,6 +14,7 @@ const PathTimeline = ({
     isProgressLoading = false,
     progressError = null,
     onStartModule,
+    startingBab = 1,   // dari placement test: 1, 2, atau 3
 }) => {
     const moduleIds = modulData.map((m) => Number(m.id))
 
@@ -50,8 +51,13 @@ const PathTimeline = ({
                                 : getModuleProgress(modulData[index - 1].id)
 
                         const currentPercent = Number(currentModuleProgress?.progress || 0)
+                        // Bab dianggap unlock jika:
+                        //   index-nya < startingBab (bab sebelum starting point)
+                        //   ATAU index == startingBab - 1 (starting point itu sendiri)
+                        //   ATAU bab sebelumnya sudah selesai 100%
+                        const babNumber = index + 1   // bab dimulai dari 1
                         const isUnlocked =
-                            index === 0 ||
+                            babNumber <= startingBab ||
                             Number(previousModuleProgress?.progress || 0) === 100
                         const isCompleted =
                             currentPercent === 100 || currentModuleProgress?.is_selesai

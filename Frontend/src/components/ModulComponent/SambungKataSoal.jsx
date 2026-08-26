@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function SambungKataSoal({ soal, onCorrect }) {
+export default function SambungKataSoal({ soal, onCorrect, onWrong }) {
   const [availableWords, setAvailableWords] = useState([]);
   const [selectedWords, setSelectedWords] = useState([]);
   const [checked, setChecked] = useState(false);
@@ -36,6 +36,8 @@ export default function SambungKataSoal({ soal, onCorrect }) {
 
     if (userAnswer === correctAnswer) {
       onCorrect?.();
+    } else {
+      onWrong?.();
     }
   };
 
@@ -93,11 +95,9 @@ export default function SambungKataSoal({ soal, onCorrect }) {
           ) : (
             <>
               <p className="text-red-400 font-monstserrat text-lg">
-                Belum Tepat! <br /> <span className="text-white">Susunan kalimat salah, coba lagi.</span>
+                Belum Tepat! <br /> <span className="text-white">Susunan kalimat salah.</span>
               </p>
-              <button onClick={handleReset} className="mt-2 text-white/60 text-sm underline hover:text-white">
-                Susun Ulang Kata
-              </button>
+              <p className="mt-1 text-white/40 text-xs">Jawaban tidak bisa diulang.</p>
             </>
           )}
         </div>

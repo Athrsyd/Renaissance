@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function IsianSoal({ soal, onCorrect }) {
+export default function IsianSoal({ soal, onCorrect, onWrong }) {
   const [answer, setAnswer] = useState("");
   const [checked, setChecked] = useState(false);
 
@@ -11,12 +11,11 @@ export default function IsianSoal({ soal, onCorrect }) {
 
   const handleCheck = () => {
     setChecked(true);
-    if (isCorrect) onCorrect?.();
-  };
-
-  const handleReset = () => {
-    setAnswer("");
-    setChecked(false);
+    if (isCorrect) {
+      onCorrect?.();
+    } else {
+      onWrong?.();
+    }
   };
 
   return (
@@ -64,9 +63,7 @@ export default function IsianSoal({ soal, onCorrect }) {
           {isCorrect ? (
             <p className="text-[#F2E0D2] font-montserrat text-base text-center">
               Excellent Work! <br />
-              <span className="text-white text-sm">
-                Your Answer Is Correct.
-              </span>
+              <span className="text-white text-sm">Your Answer Is Correct.</span>
             </p>
           ) : (
             <div className="flex flex-col gap-2">
@@ -82,12 +79,9 @@ export default function IsianSoal({ soal, onCorrect }) {
                   {soal.jawaban}
                 </span>
               </div>
-              <button
-                onClick={handleReset}
-                className="mt-1 text-white/60 text-xs underline text-center"
-              >
-                Ulangi
-              </button>
+              <p className="text-white/40 text-xs text-center">
+                Jawaban tidak bisa diulang.
+              </p>
             </div>
           )}
         </div>

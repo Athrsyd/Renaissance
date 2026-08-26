@@ -76,34 +76,21 @@ function DroppableTarget({ id, label, filledWith, isCorrect, isChecked }) {
   );
 }
 
-function ResultBanner({ allCorrect, onReset }) {
+function ResultBanner({ allCorrect }) {
   return (
-    <div
-      className={`
-        w-full flex flex-col items-center text-center
-        
-      `}
-    >
-      <span className="text-2xl">{allCorrect ? "" : ""}</span>
+    <div className="w-full flex flex-col items-center text-center">
       {allCorrect ? (
-        <>
-          <p className="text-[#F2E0D2] font-monstserrat font-normal text-lg">
-            Excellent Work! <br />
-            <span className="text-white">Your Answer Is Correct.</span>
-          </p>
-        </>
+        <p className="text-[#F2E0D2] font-monstserrat font-normal text-lg">
+          Excellent Work! <br />
+          <span className="text-white">Your Answer Is Correct.</span>
+        </p>
       ) : (
         <>
           <p className="text-red-700 font-monstserrat font-normal text-lg">
             Belum Tepat! <br />
             <span className="text-white">Coba Lagi, Kamu Pasti Bisa.</span>
           </p>
-          <button
-            onClick={onReset}
-            className="mt-1 text-white/60 text-xs underline"
-          >
-            Ulangi
-          </button>
+          <p className="mt-1 text-white/40 text-xs">Jawaban tidak bisa diulang.</p>
         </>
       )}
     </div>
@@ -114,7 +101,7 @@ const measuring = {
   droppable: { strategy: MeasuringStrategy.Always },
 };
 
-export default function DragDropSoal({ soal, onCorrect }) {
+export default function DragDropSoal({ soal, onCorrect, onWrong }) {
   const pairs = soal.pilihan.map((benda, i) => ({
     benda,
     jawaban: soal.jawaban[i],
@@ -216,13 +203,18 @@ export default function DragDropSoal({ soal, onCorrect }) {
 
           {/* ✅ Result banner muncul setelah dicek */}
           {checked && (
-            <ResultBanner allCorrect={allCorrect} onReset={handleReset} />
+            <ResultBanner allCorrect={allCorrect} />
           )}
 
           {/* ✅ Tombol cek — hanya tampil sebelum dicek */}
           {!checked && (
             <button
-              onClick={() => setChecked(true)}
+              onClick={() => {
+                setChecked(true);
+                if (!pairs.every(({ benda }) => isCorrect(benda))) {
+                  onWrong?.();
+                }
+              }}
               disabled={!allFilled}
               className="bg-coffe text-white py-2 px-6 w-full rounded-xl text-sm font-semibold disabled:opacity-40 mt-2"
             >

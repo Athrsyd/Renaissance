@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function TarikGarisSoal({ soal, onCorrect }) {
+export default function TarikGarisSoal({ soal, onCorrect, onWrong }) {
   const [rightItems, setRightItems] = useState([]);
   const [connections, setConnections] = useState([]);
   const [activeLeft, setActiveLeft] = useState(null);
@@ -50,6 +50,8 @@ export default function TarikGarisSoal({ soal, onCorrect }) {
 
     if (allCorrect) {
       onCorrect?.();
+    } else {
+      onWrong?.();
     }
   };
 
@@ -139,11 +141,9 @@ export default function TarikGarisSoal({ soal, onCorrect }) {
           ) : (
             <>
               <p className="text-red-400 font-monstserrat text-lg">
-                Belum Tepat! <br /> <span className="text-white">Ada pasangan yang salah, coba lagi.</span>
+                Belum Tepat! <br /> <span className="text-white">Ada pasangan yang salah.</span>
               </p>
-              <button onClick={handleReset} className="mt-2 text-white/60 text-sm underline hover:text-white">
-                Ulangi Tarik Garis
-              </button>
+              <p className="mt-1 text-white/40 text-xs">Jawaban tidak bisa diulang.</p>
             </>
           )}
         </div>

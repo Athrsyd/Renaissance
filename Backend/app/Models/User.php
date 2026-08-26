@@ -15,6 +15,7 @@ class User extends Authenticatable
         'name',
         'email',
         'kelas',
+        'starting_bab',
         'password',
     ];
 
@@ -29,6 +30,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password'          => 'hashed',
             'kelas'             => 'integer',
+            'starting_bab'      => 'integer',
         ];
     }
 
