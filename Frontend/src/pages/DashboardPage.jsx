@@ -23,6 +23,8 @@ import PopUpAccount from "../components/PopUpAccount";
 import CommunityHook from "../Hook/CommunityHook";
 import ProgressHook from "../Hook/ProgressHook";
 import { useUser } from "../Context/UserContext";
+import IlustrasiAureus from "../assets/com-ilus.png"
+import IlustrasiCommunity from "../assets/peolle.png";
 
 // Skeleton
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
@@ -96,18 +98,18 @@ const ContinueLearningCard = ({ item }) => {
 const AureusCommunityCard = ({ variant }) => {
   const isAureus = variant === "aureus";
   return (
-    <div className="relative overflow-hidden bg-beige/50 border border-beige rounded-3xl p-6 min-h-56 flex flex-col justify-between">
-      <div className="relative z-10">
-        <h3 className="text-2xl font-semibold font-monstserrat text-[#9B7A5B]">
+    <div className="relative overflow-hidden bg-linear-to-tr from-white to-[#F8F3E0] border-[1.5px] border-chamoisee/20 rounded-lg py-4 px-6 h-48 flex flex-col justify-between">
+      <div className="relative pl-4 z-10">
+        <h3 className="mt-1 text-2xl font-semibold font-monstserrat text-[#9B7A5B]">
           {isAureus ? "Aureus AI" : "Community"}
         </h3>
-        <p className="text-xs text-bistre font-semibold font-jakarta mt-2 w-[53%] lg:w-[38%] leading-relaxed">
+        <p className="text-xs text-bistre font-semibold font-jakarta mt-1 w-[53%] lg:w-[40%] leading-relaxed">
           {isAureus
             ? "Tanya apa saja, dapatkan penjelasan instan dengan AI Tutor pribadi kamu."
             : "Bergabung dengan ribuan pelajar ini, berdiskusi dan berbagi ilmu"}
         </p>
         <Link to={isAureus ? "/chatbot" : "/community"}>
-          <button className="mt-5 bg-[#9B7A5B] hover:bg-coffe transition duration-300 text-white text-xs font-medium rounded-lg px-6 py-2.5">
+          <button className="mt-3 bg-[#9B7A5B] hover:bg-coffe transition duration-300 text-white text-xs font-medium rounded-lg px-6 py-2.5">
             {isAureus ? "Mulai Tanya" : "Gabung Sekarang"}
           </button>
         </Link>
@@ -117,30 +119,11 @@ const AureusCommunityCard = ({ variant }) => {
       <div className="absolute -right-4 bottom-2 opacity-90 text-chamoisee/70 flex items-end">
         {isAureus ? (
           <>
-            <MessageSquare
-              size={72}
-              strokeWidth={1}
-              className="text-coffe/40 -mr-6"
-            />
-            <MessageSquare
-              size={100}
-              strokeWidth={1}
-              className="text-coffe/60"
-            />
-            <Sparkles
-              size={20}
-              className="absolute -top-4 right-6 text-chamoisee"
-            />
+            <img src={IlustrasiAureus} alt="Ilustrasi Aureus" />
           </>
         ) : (
           <>
-            <Users size={56} strokeWidth={1} className="text-coffe/30 mr-2" />
-            <Users size={84} strokeWidth={1} className="text-coffe/60" />
-            <MessageSquare
-              size={30}
-              strokeWidth={1}
-              className="absolute -top-6 right-2 text-chamoisee"
-            />
+            <img src={IlustrasiCommunity} alt="Ilustrasi Community" />
           </>
         )}
       </div>
