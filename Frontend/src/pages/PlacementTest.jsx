@@ -17,25 +17,26 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // ── Sound effects ─────────────────────────────────────────────────────────────
-import sfxBenar  from '../assets/sfx/benar.mp3'
-import sfxSalah  from '../assets/sfx/salah.mp3'
+import sfxBenar from '../assets/sfx/benar.mp3'
+import sfxSalah from '../assets/sfx/salah.mp3'
 import sfxMenang from '../assets/sfx/menang.mp3'
 import {
   CheckCircle, Check, Clock, BookOpen,
   ChevronRight, ArrowLeft, Loader2,
+  ArrowRight,
 } from 'lucide-react'
 import { LogOut } from 'lucide-react'
 import API from '../services/api'
 import Logo from '../assets/Logo2.png'
 import SearchIcon from '../assets/icon/searchIcon.svg'
-import NotifIcon  from '../assets/icon/notifIcon.svg'
-import RowBottom  from '../assets/icon/rowBottom.svg'
+import NotifIcon from '../assets/icon/notifIcon.svg'
+import RowBottom from '../assets/icon/rowBottom.svg'
 import HookAuth from '../Hook/HookAuth'
 
-import QuizSoal       from '../components/ModulComponent/QuizSoal'
-import DragDropSoal   from '../components/ModulComponent/DragDropSoal'
-import TTSSoal        from '../components/ModulComponent/TTSSoal'
-import IsianSoal      from '../components/ModulComponent/IsianSoal'
+import QuizSoal from '../components/ModulComponent/QuizSoal'
+import DragDropSoal from '../components/ModulComponent/DragDropSoal'
+import TTSSoal from '../components/ModulComponent/TTSSoal'
+import IsianSoal from '../components/ModulComponent/IsianSoal'
 import TarikGarisSoal from '../components/ModulComponent/TarikGarisSoal'
 import SambungKataSoal from '../components/ModulComponent/SambungKataSoal'
 
@@ -45,8 +46,8 @@ import PLACEMENT_SOAL from '../Data/placementSoal'
 const hitungStartingBab = (benar, total) => {
   if (total === 0) return 1
   const pct = (benar / total) * 100
-  if (pct <= 50)  return 1
-  if (pct <= 75)  return 2
+  if (pct <= 50) return 1
+  if (pct <= 75) return 2
   return 3
 }
 
@@ -70,17 +71,17 @@ const KELAS_LIST = [
 const RenderSoal = ({ soal, onCorrect, onWrong, disabled }) => {
   const props = {
     soal,
-    onCorrect: disabled ? () => {} : onCorrect,
-    onWrong:   disabled ? () => {} : onWrong,
+    onCorrect: disabled ? () => { } : onCorrect,
+    onWrong: disabled ? () => { } : onWrong,
   }
   switch (soal.type) {
-    case 'quiz':          return <QuizSoal       {...props} />
+    case 'quiz': return <QuizSoal       {...props} />
     case 'drag and drop':
-    case 'timeline':      return <DragDropSoal   {...props} />
-    case 'TTS':           return <TTSSoal         {...props} />
-    case 'isian':         return <IsianSoal       {...props} />
-    case 'tarik benang':  return <TarikGarisSoal  {...props} />
-    case 'puzzle':        return <SambungKataSoal {...props} />
+    case 'timeline': return <DragDropSoal   {...props} />
+    case 'TTS': return <TTSSoal         {...props} />
+    case 'isian': return <IsianSoal       {...props} />
+    case 'tarik benang': return <TarikGarisSoal  {...props} />
+    case 'puzzle': return <SambungKataSoal {...props} />
     case 'materi':
       return (
         <div className="flex flex-col gap-3 text-white">
@@ -173,9 +174,9 @@ const StepSidebar = ({ currentStep, selectedKelas }) => {
 // STEP 1 — Pilih Kelas
 // ─────────────────────────────────────────────────────────────────────────────
 const PilihKelas = ({ onLanjut }) => {
-  const [selected, setSelected]   = useState(null)
-  const [loading, setLoading]     = useState(false)
-  const [error, setError]         = useState('')
+  const [selected, setSelected] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleLanjut = async () => {
     if (!selected) return
@@ -238,20 +239,21 @@ const PilihKelas = ({ onLanjut }) => {
 // ─────────────────────────────────────────────────────────────────────────────
 // STEP 2 — Tes Awal (hardcode, no-repeat, track benar/salah)
 // ─────────────────────────────────────────────────────────────────────────────
-const TesAwal = ({ kelas, onSelesai }) => {
+const TesAwal = ({ kelas, onSelesai, onLewati, onKembali }) => {
   // Data mapel dari placementSoal.js
   const mapelList = PLACEMENT_SOAL[kelas] ?? []
 
-  const [mapelIdx, setMapelIdx]           = useState(0)
-  const [soalIdx, setSoalIdx]             = useState(0)
+  const [mapelIdx, setMapelIdx] = useState(0)
+  const [soalIdx, setSoalIdx] = useState(0)
   const [showMapelIntro, setShowMapelIntro] = useState(true)
   const [isSoalCorrect, setIsSoalCorrect] = useState(false)
+  const [sudahMenjawabSoal, setSudahMenjawabSoal] = useState(false)
   const [soalSudahDijawab, setSoalSudahDijawab] = useState(new Set()) // set of "mapelIdx-soalIdx"
-  const [totalBenar, setTotalBenar]       = useState(0)
-  const [totalDijawab, setTotalDijawab]   = useState(0)
-  const [searchQuery, setSearchQuery]     = useState('')
-  const [submitting, setSubmitting]       = useState(false)
-  const [timer, setTimer]                 = useState(0)
+  const [totalBenar, setTotalBenar] = useState(0)
+  const [totalDijawab, setTotalDijawab] = useState(0)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+  const [timer, setTimer] = useState(0)
   const timerRef = useRef(null)
 
   // ── Sound effect helper ───────────────────────────────────────────────────
@@ -259,20 +261,20 @@ const TesAwal = ({ kelas, onSelesai }) => {
     try {
       const audio = new Audio(src)
       audio.volume = 0.6
-      audio.play().catch(() => {})
+      audio.play().catch(() => { })
     } catch {
       // silently ignore
     }
   }, [])
 
-  const currentMapel      = mapelList[mapelIdx]
-  const currentSoal       = currentMapel?.soal?.[soalIdx]
-  const totalSoalMapel    = currentMapel?.soal?.length ?? 0
-  const totalMapel        = mapelList.length
-  const totalSoalGlobal   = mapelList.reduce((acc, m) => acc + m.soal.length, 0)
+  const currentMapel = mapelList[mapelIdx]
+  const currentSoal = currentMapel?.soal?.[soalIdx]
+  const totalSoalMapel = currentMapel?.soal?.length ?? 0
+  const totalMapel = mapelList.length
+  const totalSoalGlobal = mapelList.reduce((acc, m) => acc + m.soal.length, 0)
 
-  const sudahDijawabKey   = `${mapelIdx}-${soalIdx}`
-  const soalIniSudah      = soalSudahDijawab.has(sudahDijawabKey)
+  const sudahDijawabKey = `${mapelIdx}-${soalIdx}`
+  const soalIniSudah = soalSudahDijawab.has(sudahDijawabKey)
 
   const isLastSoal = mapelIdx === totalMapel - 1 && soalIdx === totalSoalMapel - 1
 
@@ -288,7 +290,7 @@ const TesAwal = ({ kelas, onSelesai }) => {
   }, [])
 
   const formatTime = s => {
-    const m   = Math.floor(s / 60).toString().padStart(2, '0')
+    const m = Math.floor(s / 60).toString().padStart(2, '0')
     const sec = (s % 60).toString().padStart(2, '0')
     return `${m}:${sec}`
   }
@@ -298,17 +300,35 @@ const TesAwal = ({ kelas, onSelesai }) => {
     if (soalIniSudah) return          // sudah dijawab, tidak bisa diulang
     playSound(sfxBenar)
     setIsSoalCorrect(true)
+    setSudahMenjawabSoal(true)
   }
 
   // Ketika user jawab salah
   const handleWrong = () => {
     if (soalIniSudah) return
     playSound(sfxSalah)
+    setIsSoalCorrect(false)
+    setSudahMenjawabSoal(true)
+  }
+
+  const handleLewatiTest = async () => {
+    if (submitting) return
+    setSubmitting(true)
+    try {
+      const token = localStorage.getItem('tokenRenaissance')
+      await API.put('/placement/starting-bab', { starting_bab: 1 }, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      clearInterval(timerRef.current)
+      onLewati()
+    } catch {
+      setSubmitting(false)
+    }
   }
 
   // Tombol Selanjutnya — tandai dijawab (benar), lanjut
   const handleSelanjutnya = async () => {
-    if (soalIniSudah) return
+    if (soalIniSudah || !sudahMenjawabSoal) return
 
     const newAnswered = new Set(soalSudahDijawab)
     newAnswered.add(sudahDijawabKey)
@@ -316,6 +336,7 @@ const TesAwal = ({ kelas, onSelesai }) => {
     setTotalDijawab(d => d + 1)
     if (isSoalCorrect) setTotalBenar(b => b + 1)
     setIsSoalCorrect(false)
+    setSudahMenjawabSoal(false)
 
     if (isLastSoal) {
       // Hitung final & kirim ke backend
@@ -399,20 +420,27 @@ const TesAwal = ({ kelas, onSelesai }) => {
       <div className="flex flex-row items-center justify-between px-6 py-3 bg-[#FAF5F0] border-b border-beige/60">
         {/* Kembali — kembali ke mapel intro */}
         <button
-          onClick={() => { setShowMapelIntro(true); setIsSoalCorrect(false) }}
+          onClick={() => {
+            onKembali();
+          }}
           className="bg-bistre transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 text-white px-5 py-2 rounded-full text-sm font-medium"
         >
           <ArrowLeft size={16} />
           Kembali
         </button>
 
-        {/* Search bar */}
-        <div className="relative flex items-center">
-          <img src={SearchIcon} alt="search" className="absolute left-3 w-4 h-4 opacity-50" />
-          <input type="search" placeholder="Cari pelajaran..."
-            className="bg-white border border-beige text-sm rounded-xl pl-9 pr-4 w-72 h-10 outline-none focus:border-khaki transition"
-            value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
-        </div>
+        {/* <div className="relative flex items-center"> */}
+          <button
+            type="button"
+            onClick={handleLewatiTest}
+            disabled={submitting}
+            className="text-sm flex flex-row justify-center items-center gap-2
+             font-medium text-white transition hover:translate-x-1 disabled:opacity-40 bg-chamoisee py-2 px-4 rounded-full"
+          >
+            {submitting ? 'Menyimpan...' : 'Lewati Test'}           <ArrowRight size={16} />
+
+          </button>
+        {/* </div> */}
 
         {/* Notif + Avatar */}
         <div className="flex items-center gap-3">
@@ -498,19 +526,19 @@ const TesAwal = ({ kelas, onSelesai }) => {
             <p className="text-[11px] text-bistre/50 mb-3">Klik untuk berpindah soal</p>
             <div className="grid grid-cols-4 gap-2">
               {currentMapel?.soal.map((_, i) => {
-                const key      = `${mapelIdx}-${i}`
+                const key = `${mapelIdx}-${i}`
                 const isActive = i === soalIdx
-                const isDone   = soalSudahDijawab.has(key)
+                const isDone = soalSudahDijawab.has(key)
                 return (
                   <button key={i}
                     onClick={() => {
                       // Tidak bisa balik ke soal yang sudah dijawab
-                      if (!isDone) { setSoalIdx(i); setIsSoalCorrect(false) }
+                      if (!isDone) { setSoalIdx(i); setIsSoalCorrect(false); setSudahMenjawabSoal(false) }
                     }}
                     className={`w-12 h-12 rounded-full text-sm font-bold transition-all
-                      ${isActive  ? 'bg-bistre text-beige'
-                      : isDone    ? 'bg-bistre text-beige opacity-50 cursor-not-allowed'
-                                  : 'bg-white text-bistre border-2 border-bistre'}`}
+                      ${isActive ? 'bg-bistre text-beige'
+                        : isDone ? 'bg-bistre text-beige opacity-50 cursor-not-allowed'
+                          : 'bg-white text-bistre border-2 border-bistre'}`}
                   >
                     {i + 1}
                   </button>
@@ -572,7 +600,7 @@ const TesAwal = ({ kelas, onSelesai }) => {
             </button>
             <button
               onClick={handleSelanjutnya}
-              disabled={(!isSoalCorrect && !soalIniSudah) || submitting}
+              disabled={(!sudahMenjawabSoal && !soalIniSudah) || submitting}
               className="flex-1 py-2.5 rounded-xl bg-bistre text-beige text-sm font-semibold hover:bg-bistre/90 transition disabled:opacity-40 flex items-center justify-center gap-1"
             >
               {submitting && <Loader2 size={14} className="animate-spin" />}
@@ -611,9 +639,9 @@ const Selesai = ({ kelas, result, onMasukDashboard }) => {
           <p className="text-xs text-bistre/50 mb-1">Kamu akan memulai dari</p>
           <p className="text-3xl font-bold text-bistre">Bab {startingBab}</p>
           <p className="text-xs text-bistre/40 mt-1">
-            {pct <= 50  ? 'Mulai dari dasar — build strong foundations!'
-            : pct <= 75 ? 'Sudah bagus! Kamu siap melanjutkan ke tingkat berikutnya.'
-                        : 'Keren! Kamu langsung masuk ke materi lanjutan.'}
+            {pct <= 50 ? 'Mulai dari dasar — build strong foundations!'
+              : pct <= 75 ? 'Sudah bagus! Kamu siap melanjutkan ke tingkat berikutnya.'
+                : 'Keren! Kamu langsung masuk ke materi lanjutan.'}
           </p>
         </div>
 
@@ -638,13 +666,13 @@ const Selesai = ({ kelas, result, onMasukDashboard }) => {
 // ─────────────────────────────────────────────────────────────────────────────
 const PlacementTest = () => {
   const navigate = useNavigate()
-  const [step, setStep]                   = useState(1)
+  const [step, setStep] = useState(1)
   const [selectedKelas, setSelectedKelas] = useState(null)
-  const [result, setResult]               = useState(null)
+  const [result, setResult] = useState(null)
 
-  const handleKelasLanjut   = (kelas) => { setSelectedKelas(kelas); setStep(2) }
-  const handleTesSelesai    = (res)   => { setResult(res); setStep(3) }
-  const handleMasukDashboard = ()     => navigate('/dashboard')
+  const handleKelasLanjut = (kelas) => { setSelectedKelas(kelas); setStep(2) }
+  const handleTesSelesai = (res) => { setResult(res); setStep(3) }
+  const handleMasukDashboard = () => navigate('/dashboard')
 
   return (
     <div className="min-h-screen flex bg-[#FAF5F0]">
@@ -653,7 +681,12 @@ const PlacementTest = () => {
       <div className="container mr-6 w-4/5 mx-auto flex justify-center items-center">
         {step === 1 && <PilihKelas onLanjut={handleKelasLanjut} />}
         {step === 2 && selectedKelas && (
-          <TesAwal kelas={selectedKelas} onSelesai={handleTesSelesai} />
+          <TesAwal
+            kelas={selectedKelas}
+            onSelesai={handleTesSelesai}
+            onLewati={() => navigate('/dashboard')}
+            onKembali={() => { setStep(1); setSelectedKelas(null) }}
+          />
         )}
         {step === 3 && (
           <Selesai kelas={selectedKelas} result={result} onMasukDashboard={handleMasukDashboard} />
