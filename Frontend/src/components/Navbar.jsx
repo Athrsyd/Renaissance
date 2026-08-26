@@ -49,16 +49,30 @@ const Navbar = () => {
         onClick={closeMenu}
       />
       <nav
-        className={`bg-linear-to-b from-chamoisee/50 to-coffe/70 backdrop-blur-sm z-order-last flex p-0 px-6 lg:p-3 
+        className={`bg-bistre backdrop-blur-sm z-order-last flex p-0 px-6 lg:p-3 
           justify-between lg:justify-center 
-          items-center lg:gap-20 transition-all duration-600
+          items-center lg:gap-20 transition-all duration-600 border-b-2 border-beige/30 shadow-md shadow-bistre/20
   
   ${isMenuOpen
             ? "fixed top-0 left-0 w-full rounded-none mt-0"
             : "mt-2 md:mt-4 w-full ml-2 mr-2 md:ml-0 md:mr-0 md:w-[90%] lg:w-full lg:max-w-6xl rounded-full"
           }`}
       >
-        <ul className="hidden md:flex flex-row justify-center lg:gap-10">
+
+        <div className="logo z-1000000">
+          <a href="/" className="flex items-center p-2 gap-2">
+            <img
+              src={logo}
+              alt="Renaissance Logo"
+              className="h-6 md:h-5 lg:h-7"
+            />
+            <h1 className="md:hidden lg:block text-[#F2E0D2] md:text-white text-xl lg:text-2xl font-normal md:font-semibold">
+              Renaissance
+            </h1>
+          </a>
+        </div>
+        
+        <ul className="hidden md:flex flex-row justify-center lg:gap-6 ml-10">
           <a
             href="#about"
             className=" transition-colors "
@@ -82,20 +96,32 @@ const Navbar = () => {
               The Academy
             </li>
           </a>
+
+           <a
+            href="#features"
+            className="transition-colors "
+          >
+            <li
+              onClick={() => handleClick("features")}
+              className={`px-3 py-2 rounded-full text-md lg:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "features" ? "bg-beige/70 text-bistre" : ""}`}
+            >
+              Features
+            </li>
+          </a>
+          <a
+            href="#reviews"
+            className="transition-colors "
+          >
+            <li
+              onClick={() => handleClick("reviews")}
+              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "reviews" ? "bg-beige/70 text-bistre" : ""}`}
+            >
+              Reviews
+            </li>
+          </a>
         </ul>
 
-        <div className="logo z-1000000">
-          <a href="/" className="flex items-center p-2 gap-2">
-            <img
-              src={logo}
-              alt="Renaissance Logo"
-              className="h-6 md:h-5 lg:h-7"
-            />
-            <h1 className="md:hidden lg:block text-[#F2E0D2] md:text-white text-xl lg:text-2xl font-normal md:font-semibold">
-              Renaissance
-            </h1>
-          </a>
-        </div>
+        
 
         <button
           className="md:hidden z-10000 text-white p-2 rounded-full hover:bg-bistre hover:text-white transition-colors duration-500 ease-in-out"
@@ -149,32 +175,6 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-
-        <ul className="hidden md:flex flex-row justify-center lg:gap-10">
-          <a
-            href="#features"
-            className="transition-colors "
-          >
-            <li
-              onClick={() => handleClick("features")}
-              className={`px-3 py-2 rounded-full text-md lg:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "features" ? "bg-beige/70 text-bistre" : ""}`}
-            >
-              Features
-            </li>
-          </a>
-          <a
-            href="#reviews"
-            className="transition-colors "
-          >
-            <li
-              onClick={() => handleClick("reviews")}
-              className={`px-3 py-2 rounded-full text-md md:text-lg hover:bg-beige/70 text-beige hover:text-bistre transition-colors duration-300 ease-in-out ${menuActive === "reviews" ? "bg-beige/70 text-bistre" : ""}`}
-            >
-              Reviews
-            </li>
-          </a>
-          {/* <li onClick={()=>console.log(window.scrollY)}  className={`px-3 py-2 rounded-full hover:bg-coffe transition-colors duration-500 ease-in-out ${menuActive ==='reviews'? 'bg-coffe' : ''}`}><a href="#reviews" className="text-beige transition-colors text-lg">Reviews</a></li> */}
-        </ul>
       </nav>
     </header>
   );

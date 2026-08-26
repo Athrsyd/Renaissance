@@ -1,11 +1,14 @@
 /**
  * Router.jsx
- * Sebelumnya: setiap mapel punya route tersendiri yang hardcoded,
- * termasuk URL dengan spasi ("/academy/Pendidikan Pancasila").
  *
- * Sekarang: route mapel di-generate otomatis dari MAPEL_LIST.
- * Tambah mapel baru di mapelConfig.js → route langsung tersedia.
- * Semua slug sudah lowercase-hyphen, tidak ada spasi di URL.
+ * Alur setelah register:
+ *   /register → /placement (PilihKelas + TesAwal) → /dashboard
+ *
+ * /placement pakai ProtectedRoute requirePlacement=false
+ *   → butuh login, tapi belum butuh punya kelas
+ *
+ * Semua route lain pakai ProtectedRoute requirePlacement=true (default)
+ *   → jika belum placement → redirect ke /placement
  */
 import { Route, Routes } from 'react-router-dom'
 import LandingPage from '../pages/LandingPage'
@@ -20,6 +23,7 @@ import ModulPage from '../pages/ModulPage'
 import NotFound from '../pages/NotFound'
 import MAPEL_LIST from '../Config/mapelConfig'
 import Progress from '../pages/Progress'
+import PlacementTest from '../pages/PlacementTest'
 
 const Router = () => {
   return (
@@ -27,15 +31,25 @@ const Router = () => {
       <Route path="/" element={<LandingPage />} />
 
       {/* Auth */}
-      <Route path="/login" element={<Login />} />
+      <Route path="/login"    element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      {/* Protected static routes */}
+      {/* Placement — butuh login, tapi TIDAK butuh kelas (requirePlacement=false) */}
+      <Route
+        path="/placement"
+        element={
+          <ProtectedRoute requirePlacement={false}>
+            <PlacementTest />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Protected routes — butuh login + sudah placement */}
       <Route path="/academy"   element={<ProtectedRoute><AcademyPage /></ProtectedRoute>} />
       <Route path="/chatbot"   element={<ProtectedRoute><ChatbotAureus /></ProtectedRoute>} />
       <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
       <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
-      <Route path="/progress" element={<ProtectedRoute><Progress /></ProtectedRoute>} />
+      <Route path="/progress"  element={<ProtectedRoute><Progress /></ProtectedRoute>} />
 
       {/* Mapel routes — auto-generated dari mapelConfig.js */}
       {MAPEL_LIST.filter((m) => m.slug !== null).map((mapelConfig) => (

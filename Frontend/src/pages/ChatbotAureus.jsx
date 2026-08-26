@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import NavDashboard from '../components/NavDasboard'
 import { useState, useRef, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -148,33 +147,27 @@ export default function ChatbotUI() {
   }
 
   return (
-    <div className="h-screen lg:mt-0 mt-2 bg-white relative flex flex-col">
+    <div className="min-h-screen w-full bg-white">
       {/* Back button */}
-      <aside className="p-0 lg:p-4 fixed lg:top-0 lg:left-0 h-10 lg:h-screen w-40 lg:border-r-2 border-t-0">
-        <Link to="/dashboard">
-          <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 ml-0 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M21 11H6.414l5.293-5.293l-1.414-1.414L2.586 12l7.707 7.707l1.414-1.414L6.414 13H21z"
-              />
-            </svg>
-            Back
-          </button>
-        </Link>
-      </aside>
+      <div className="z-50">
+        <NavDashboard />
+      </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center ml-2 gap-5 lg:ml-20 mb-10 -mt-5 lg:mt-0 justify-center px-4">
+      <main className="ml-0 flex min-h-screen flex-col px-4 pb-28 pt-6 md:ml-20 lg:ml-64 lg:px-8">
         {messages.length === 0 ? (
-          <WelcomeAureus />
+          <div className="flex flex-1 items-center justify-center">
+            <div className="w-full max-w-2xl">
+              <WelcomeAureus sendMessage={sendMessage} />
+            </div>
+          </div>
         ) : (
-          <div className="w-full max-w-2xl flex flex-col gap-5 mt-10 lg:mt-5 mb-20 ml-0 lg:ml-5 space-y-3 overflow-y-auto flex-1">
+          <div className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-5 overflow-y-auto pb-6">
             {messages.map((msg, i) => (
               <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 {msg.role === 'assistant' && <AureusIcon />}
                 <div
-                  className={`px-4 py-2 rounded-2xl max-w-[70%] ${
+                  className={`max-w-[85%] rounded-2xl px-4 py-2 sm:max-w-[70%] ${
                     msg.role === 'user' ? 'bg-[#3b2a23] text-white text-sm' : 'bg-white border'
                   }`}
                 >
@@ -203,7 +196,7 @@ export default function ChatbotUI() {
             {isTyping && (
               <div className="flex justify-start">
                 <AureusIcon />
-                <div className="px-4 py-2 rounded-2xl max-w-[70%] bg-white border">
+                <div className="max-w-[85%] rounded-2xl border bg-white px-4 py-2 sm:max-w-[70%]">
                   <ReactMarkdown components={mdComponents}>{typingText}</ReactMarkdown>
                 </div>
               </div>
@@ -212,13 +205,13 @@ export default function ChatbotUI() {
             <div ref={bottomRef} />
           </div>
         )}
-      </div>
+      </main>
 
       {/* Input bar */}
-      <div className="container fixed flex flex-col mx-auto w-full md:left-20 lg:left-53 bottom-0 right-0 bg-white">
+      <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-khaki/30 bg-white/95 px-4 pb-3 pt-3 backdrop-blur md:pl-24 lg:pl-72 lg:pr-8">
         <form
           onSubmit={handleSubmit}
-          className="flex bg-white items-center w-9/10 mx-auto md:mx-0 md:w-[90%] lg:w-[80%] lg:left-53 bottom-10 gap-2"
+          className="mx-auto flex w-full max-w-3xl items-center gap-2"
         >
           <input
             value={input}
@@ -229,6 +222,7 @@ export default function ChatbotUI() {
           <button
             type="submit"
             disabled={loading || isTyping}
+            aria-label="Kirim pesan"
             className="hover:translate-x-1 hover:-translate-y-1 hover:-rotate-12 transition-all ease-in-out duration-300 disabled:opacity-40"
           >
             <svg
@@ -247,8 +241,8 @@ export default function ChatbotUI() {
             </svg>
           </button>
         </form>
-        <div className="relative w-4/5 mx-auto right-0 md:right-10 lg:right-30 pt-2 text-center">
-          <p className="text-center text-bistre/70 text-xs md:text-sm mb-4">
+        <div className="mx-auto w-full max-w-3xl pt-2 text-center">
+          <p className="mb-0 text-center text-xs text-bistre/70 sm:text-sm">
             Aureus AI bisa menghasilkan jawaban yang tidak selalu benar
           </p>
         </div>

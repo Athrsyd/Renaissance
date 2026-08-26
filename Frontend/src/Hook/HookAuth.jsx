@@ -20,7 +20,15 @@ const HookAuth = () => {
       setEmail('')
       setPassword('')
       setMessage(response.data.message)
-      setTimeout(() => navigate('/login'), 2000)
+
+      if (response.data.token) {
+        // Backend kembalikan token langsung → simpan & arahkan ke placement
+        localStorage.setItem('tokenRenaissance', response.data.token)
+        setTimeout(() => navigate('/placement'), 1500)
+      } else {
+        // Backend tidak kembalikan token → arahkan ke login dulu
+        setTimeout(() => navigate('/login'), 2000)
+      }
     } catch (error) {
       setMessage(error.response?.data.message)
     } finally {
@@ -33,11 +41,23 @@ const HookAuth = () => {
     e.preventDefault()
     try {
       const response = await API.post('/auth/login', { email, password })
-      localStorage.setItem('tokenRenaissance', response.data.token)
+      const token = response.data.token
+      localStorage.setItem('tokenRenaissance', token)
       setMessage(response.data.message)
       setEmail('')
       setPassword('')
-      setTimeout(() => navigate('/dashboard'), 2000)
+
+      // Cek apakah user sudah pernah lewat placement (sudah punya kelas)
+      try {
+        const placementRes = await API.get('/placement/status', {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        const sudahPlacement = placementRes.data.placement_selesai
+        setTimeout(() => navigate(sudahPlacement ? '/dashboard' : '/placement'), 1500)
+      } catch {
+        // Gagal cek status → aman arahkan ke dashboard
+        setTimeout(() => navigate('/dashboard'), 1500)
+      }
     } catch (error) {
       setMessage(error.response?.data.message)
     } finally {
@@ -54,7 +74,6 @@ const HookAuth = () => {
       })
       return response.data
     } catch (error) {
-      // Gagal fetch user — biarkan caller handle null
       return null
     } finally {
       setIsAuthLoading(false)
@@ -73,7 +92,6 @@ const HookAuth = () => {
       alert(response.data.message)
       setTimeout(() => navigate('/'), 1000)
     } catch (error) {
-      // Logout gagal — token lokal tetap dihapus agar tidak terjebak
       localStorage.removeItem('tokenRenaissance')
       navigate('/')
     } finally {

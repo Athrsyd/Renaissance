@@ -8,6 +8,12 @@ import {
   FileText,
   Clock,
   Target,
+  Hourglass,
+  Landmark,
+  Languages,
+  Scale,
+  Lock,
+  TrendingUp,
 } from "lucide-react";
 
 import NavDasboard from "../components/NavDasboard";
@@ -15,6 +21,7 @@ import SubAcademy from "../components/SubAcademy";
 import WelcomeAcademy from "../components/WelcomeAcademy";
 import AcademyGradePopup from "../components/AcademyGradePopup";
 import PopUpAccount from "../components/PopUpAccount";
+import ProgressBar from "../components/ProgressBar";
 import { useUser } from "../Context/UserContext";
 import ProgressHook from "../Hook/ProgressHook";
 import MAPEL_LIST from "../Config/mapelConfig";
@@ -40,15 +47,33 @@ const parseTopikCount = (subTitle) => {
 };
 const TOTAL_TOPIK = UNIQUE_SUBJECTS.reduce((acc, cur) => acc + parseTopikCount(cur.subTitle), 0);
 
+const ICON_MAP = {
+  Matematika: "sqrt",
+  IPA: <Hourglass size={18} strokeWidth={1.8} />,
+  IPS: <BookOpen size={18} strokeWidth={1.8} />,
+  Sejarah: <Landmark size={18} strokeWidth={1.8} />,
+  "Bahasa dan Sastra": <Languages size={18} strokeWidth={1.8} />,
+  "Pendidikan Pancasila": <Scale size={18} strokeWidth={1.8} />,
+};
+
+const SubjectIcon = ({ name, className = "w-11 h-11" }) => {
+  const icon = ICON_MAP[name];
+  return (
+    <div className={`${className} shrink-0 flex items-center justify-center rounded-xl bg-beige/60 text-khaki`}>
+      {icon === "sqrt" || !icon ? <span className="font-semibold">√x</span> : icon}
+    </div>
+  );
+};
 const StatCard = ({ icon, value, suffix, label, caption }) => (
-  <div className="flex items-center gap-3 bg-white border border-beige rounded-2xl px-4 py-4">
-    <div className="w-11 h-11 shrink-0 flex items-center justify-center rounded-xl bg-beige/60 text-bistre">
+  <div className="flex items-center gap-3 bg-white border border-beige rounded-2xl p-4">
+    <div className="w-15 h-15 shrink-0 flex items-center rounded-full justify-center 
+    bg-beige/60 text-[#9B7A5B]">
       {icon}
     </div>
     <div>
-      <p className="text-lg font-bold text-bistre leading-none">
+      <p className="text-lg font-bold text-[#9B7A5B] leading-none">
         {value}
-        {suffix && <span className="text-sm font-normal text-bistre/50"> {suffix}</span>}
+        {suffix && <span className="text-sm font-normal text-bistre"> {suffix}</span>}
       </p>
       <p className="text-xs font-medium text-bistre/70 mt-1">{label}</p>
       <p className="text-[11px] text-bistre/40">{caption}</p>
@@ -77,11 +102,33 @@ const AcademyPage = () => {
   // ── Statistik ringkas ──
   const totalTopikSelesai = dataProgress?.filter((i) => Number(i.progress) === 100).length || 0;
 
+  // ── Jalur kenaikan kelas ──
+  const currentKelas = parseInt(/\d+/.exec(selectedGrade || "")?.[0], 10) || 10;
+  const nextKelas = currentKelas + 1;
+  const progressMap = countTotalProgress();
+  const currentGradeSubjects = MAPEL_LIST.filter((s) => s.kelas === currentKelas);
+  const totalTopikGrade = currentGradeSubjects.reduce(
+    (acc, cur) => acc + parseTopikCount(cur.subTitle),
+    0
+  );
+  const completedTopikGrade = currentGradeSubjects.reduce((acc, cur) => {
+    const percent = progressMap[cur.progressKey] ?? 0;
+    return acc + Math.round((percent / 100) * parseTopikCount(cur.subTitle));
+  }, 0);
+  const percentGrade = totalTopikGrade
+    ? Math.round((completedTopikGrade / totalTopikGrade) * 100)
+    : 0;
+  const subjectsRemaining = currentGradeSubjects.filter(
+    (s) => (progressMap[s.progressKey] ?? 0) < 100
+  ).length;
+  const isReadyToLevelUp = totalTopikGrade > 0 && completedTopikGrade >= totalTopikGrade;
+  const continueItem = dataProgress?.find((i) => i.progress > 0 && i.progress < 100);
+
   return (
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-64 md:ml-20 bg-[#FBF9F6] min-h-screen pb-24 lg:pb-10">
-        <div className="px-5 sm:px-8 lg:px-10 pt-6 max-w-[1400px] w-full mx-auto">
+        <div className="px-5 sm:px-8 lg:px-10 pt-6 max-w-350 w-full mx-auto">
           {/* ── Top bar ── */}
           {!user ? (
             <SkeletonNavbar />
@@ -153,7 +200,7 @@ const AcademyPage = () => {
               </button>
             </div>
           )}
-          {!selectedGrade && (
+          {/* {!selectedGrade && (
             <button
               type="button"
               onClick={() => setIsGradePopupOpen(true)}
@@ -161,33 +208,33 @@ const AcademyPage = () => {
             >
               Pilih Kelas
             </button>
-          )}
+          )} */}
 
           {/* ── Statistik ringkas ── */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             <StatCard
-              icon={<BookOpen size={20} strokeWidth={1.8} />}
+              icon={<BookOpen size={35} strokeWidth={1.8} />}
               value={UNIQUE_SUBJECTS.length}
               label="Mata Pelajaran"
               caption="Tersedia"
             />
             <StatCard
-              icon={<FileText size={20} strokeWidth={1.8} />}
+              icon={<FileText size={35} strokeWidth={1.8} />}
               value={TOTAL_TOPIK}
-              label="Total Topik"
+              label="Total bab"
               caption="Siap dipelajari"
             />
             <StatCard
-              icon={<Clock size={20} strokeWidth={1.8} />}
+              icon={<Clock size={35} strokeWidth={1.8} />}
               value="-"
               label="Waktu Belajar"
               caption="Belum dilacak"
             />
             <StatCard
-              icon={<Target size={20} strokeWidth={1.8} />}
+              icon={<Target size={35} strokeWidth={1.8} />}
               value={totalTopikSelesai}
               suffix={`/ ${TOTAL_TOPIK}`}
-              label="Topik Selesai"
+              label="Bab Selesai"
               caption="Terus semangat!"
             />
           </div>
@@ -199,43 +246,127 @@ const AcademyPage = () => {
             <SubAcademy searchQuery={searchQuery} countTotalProgress={countTotalProgress} />
           )}
 
-          {/* ── Lanjutkan Belajar + Rekomendasi ── */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-            <div className="bg-[#F2E0D2] border border-beige rounded-2xl p-6 min-h-40">
+          {/* ── Lanjutkan Belajar + Jalur Kenaikan Kelas ── */}
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-8">
+            {/* Lanjutkan Belajar */}
+            <div className="lg:col-span-2 bg-[#F2E0D2] border border-beige rounded-2xl p-6 flex flex-col">
               <h3 className="font-semibold text-bistre">Lanjutkan Belajar</h3>
-              {(() => {
-                const item = dataProgress?.find((i) => i.progress > 0 && i.progress < 100);
-                if (!item) {
-                  return (
-                    <p className="text-sm text-bistre/70 mt-3">
-                      Kamu belum memulai pelajaran apa pun. Pilih mata pelajaran di atas untuk mulai belajar!
-                    </p>
-                  );
-                }
-                return (
-                  <Link to={`/academy/${encodeURIComponent(item.mapel)}`}>
-                    <p className="text-sm text-bistre/70 mt-3">
-                      {item.mapel} • {item.materi} — {item.progress}% selesai
-                    </p>
+              <p className="text-xs text-bistre/60 mt-0.5">Materi terakhir yang kamu pelajari</p>
+
+              {continueItem ? (
+                <div className="mt-4 bg-white rounded-2xl p-4 flex items-center gap-4">
+                  <SubjectIcon name={continueItem.mapel} />
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-bistre truncate">{continueItem.mapel}</p>
+                    <p className="text-xs text-bistre/60 truncate">{continueItem.materi}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="flex-1">
+                        <ProgressBar value={continueItem.progress} max={100} bgColor="bg-bistre" />
+                      </div>
+                      <span className="text-xs text-bistre/60 shrink-0">{continueItem.progress}%</span>
+                    </div>
+                  </div>
+                  <Link to={`/academy/${encodeURIComponent(continueItem.mapel)}`}>
+                    <button className="bg-bistre hover:bg-coffe transition duration-300 text-white text-xs font-semibold rounded-lg px-4 py-2.5 whitespace-nowrap shrink-0">
+                      Lanjutkan
+                    </button>
                   </Link>
-                );
-              })()}
+                </div>
+              ) : (
+                <div className="mt-4 bg-white rounded-2xl p-4">
+                  <p className="text-sm text-bistre/70">
+                    Kamu belum memulai pelajaran apa pun. Pilih mata pelajaran di atas untuk mulai belajar!
+                  </p>
+                </div>
+              )}
             </div>
 
-            <div className="bg-white border border-beige rounded-2xl p-6 min-h-40">
-              <h3 className="font-semibold text-bistre">Rekomendasi Untukmu</h3>
-              {(() => {
-                const belumMulai = UNIQUE_SUBJECTS.find(
-                  (s) => (countTotalProgress()[s.progressKey] ?? 0) === 0
-                );
-                return (
-                  <p className="text-sm text-bistre/70 mt-3">
-                    {belumMulai
-                      ? `Coba mulai "${belumMulai.namaMapel}" — kamu belum menyentuh mata pelajaran ini.`
-                      : "Kerja bagus! Semua mata pelajaran sudah kamu mulai."}
+            {/* Jalur Menuju Kenaikan Kelas */}
+            <div className="lg:col-span-2 bg-white border border-beige rounded-2xl p-6">
+              <div className="flex items-center gap-2">
+                <TrendingUp size={18} className="text-bistre" strokeWidth={1.8} />
+                <h3 className="font-semibold text-bistre">Jalur Menuju Kenaikan Kelas</h3>
+              </div>
+              <p className="text-xs text-bistre/60 mt-0.5">
+                Selesaikan semua mata pelajaran untuk naik ke Kelas {nextKelas}
+              </p>
+
+              <div className="flex items-center gap-5 mt-5">
+                <div className="relative w-20 h-20 shrink-0">
+                  <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+                    <circle cx="50" cy="50" r="42" fill="none" stroke="#F2E0D2" strokeWidth="10" />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="#6f4d38"
+                      strokeWidth="10"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 42}
+                      strokeDashoffset={2 * Math.PI * 42 - (percentGrade / 100) * (2 * Math.PI * 42)}
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <span className="text-base font-bold text-bistre">{percentGrade}%</span>
+                    <span className="text-[9px] text-bistre/50">Kelas {currentKelas}</span>
+                  </div>
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-chamoisee font-medium">
+                    {completedTopikGrade} / {subjectsRemaining} mata pelajaran selesai
                   </p>
-                );
-              })()}
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {Array(6).fill(1).map((_, idx) => (
+                      <span
+                        key={idx}
+                        className={`h-5 flex-1 min-w-2 rounded-md ${
+                          idx < completedTopikGrade ? "bg-bistre" : "bg-beige"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <p className="text-xs text-bistre/60 mt-2">
+                    {isReadyToLevelUp
+                      ? "Semua mata pelajaran sudah selesai!"
+                      : `${subjectsRemaining} mata pelajaran lagi menyelesaikan Kelas ${currentKelas}`}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Siap Naik Kelas */}
+            <div className="lg:col-span-1 bg-bistre rounded-2xl p-5 flex flex-col justify-between text-center items-center">
+              <div>
+                <p className="font-semibold text-white text-sm">
+                  {isReadyToLevelUp ? "Siap Naik Kelas!" : "Siap Naik Kelas"}
+                </p>
+                <p className="text-[11px] text-beige/70 mt-2 leading-relaxed">
+                  {nextKelas <= 12
+                    ? `Selesaikan semua mata pelajaran untuk membuka Kelas ${nextKelas}!`
+                    : "Kamu sudah di kelas tertinggi — terus pertahankan!"}
+                </p>
+              </div>
+              <button
+                type="button"
+                disabled={!isReadyToLevelUp || nextKelas > 12}
+                onClick={() => isReadyToLevelUp && nextKelas <= 12 && handleSelectGrade(`Kelas ${nextKelas}`)}
+                className={`mt-4 w-full flex items-center justify-center gap-1.5 text-xs font-semibold rounded-xl px-3 py-2.5 transition duration-300 ${
+                  isReadyToLevelUp && nextKelas <= 12
+                    ? "bg-khaki text-white hover:bg-chamoisee cursor-pointer"
+                    : "bg-white/10 text-beige/50 cursor-not-allowed"
+                }`}
+              >
+                {nextKelas <= 12 ? (
+                  <>
+                    {!isReadyToLevelUp && <Lock size={13} />}
+                    Kelas {nextKelas} {isReadyToLevelUp ? "Terbuka" : "Terkunci"}
+                  </>
+                ) : (
+                  "Kelas Tertinggi"
+                )}
+              </button>
             </div>
           </div>
         </div>

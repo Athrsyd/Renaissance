@@ -5,6 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\ModulBelajar;
 use App\Models\Soal;
+use Database\Seeders\SoalDataKelas10;
+use Database\Seeders\SoalDataKelas11;
+use Database\Seeders\SoalDataKelas12;
 
 /**
  * SoalSeeder
@@ -21,29 +24,26 @@ class SoalSeeder extends Seeder
 {
     public function run(): void
     {
-        // ── KELAS 10 ─────────────────────────────────────────────────────────
-        $this->seedMapel('Matematika', 10, $this->mtkKelas10());
-        $this->seedMapel('IPA',        10, $this->ipaKelas10());
-        $this->seedMapel('IPS',        10, $this->ipsKelas10());
-        $this->seedMapel('Sejarah',    10, $this->sejarahKelas10());
-        $this->seedMapel('Bahasa dan Sastra', 10, $this->bahasaKelas10());
-        $this->seedMapel('Pendidikan Pancasila', 10, $this->pknKelas10());
+        $dataKelas = [
+            10 => SoalDataKelas10::class,
+            11 => SoalDataKelas11::class,
+            12 => SoalDataKelas12::class,
+        ];
 
-        // ── KELAS 11 ─────────────────────────────────────────────────────────
-        $this->seedMapel('Matematika', 11, $this->mtkKelas11());
-        $this->seedMapel('IPA',        11, $this->ipaKelas11());
-        $this->seedMapel('IPS',        11, $this->ipsKelas11());
-        $this->seedMapel('Sejarah',    11, $this->sejarahKelas11());
-        $this->seedMapel('Bahasa dan Sastra', 11, $this->bahasaKelas11());
-        $this->seedMapel('Pendidikan Pancasila', 11, $this->pknKelas11());
+        $mapel = [
+            'Matematika' => 'mtk',
+            'IPA' => 'ipa',
+            'IPS' => 'ips',
+            'Sejarah' => 'sejarah',
+            'Bahasa dan Sastra' => 'bahasa',
+            'Pendidikan Pancasila' => 'pkn',
+        ];
 
-        // ── KELAS 12 ─────────────────────────────────────────────────────────
-        $this->seedMapel('Matematika', 12, $this->mtkKelas12());
-        $this->seedMapel('IPA',        12, $this->ipaKelas12());
-        $this->seedMapel('IPS',        12, $this->ipsKelas12());
-        $this->seedMapel('Sejarah',    12, $this->sejarahKelas12());
-        $this->seedMapel('Bahasa dan Sastra', 12, $this->bahasaKelas12());
-        $this->seedMapel('Pendidikan Pancasila', 12, $this->pknKelas12());
+        foreach ($dataKelas as $kelas => $dataClass) {
+            foreach ($mapel as $namaMapel => $method) {
+                $this->seedMapel($namaMapel, $kelas, $dataClass::$method());
+            }
+        }
     }
 
     // ─────────────────────────────────────────────────────────────────────────
