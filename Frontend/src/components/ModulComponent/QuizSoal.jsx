@@ -1,33 +1,52 @@
 import { useState } from "react";
+import soundCorrect   from "../../assets/sfx/benar.mp3";
+import soundIncorrect from "../../assets/sfx/salah.mp3";
 
-export default function QuizSoal({ soal, onCorrect, onWrong }) {
+/**
+ * QuizSoal
+ *
+ * Props:
+ *   soal       — objek soal { judul, pertanyaan, pilihan[], jawaban }
+ *   onCorrect  — dipanggil saat jawaban benar
+ *   onWrong    — dipanggil saat jawaban salah (opsional, untuk placement)
+ *   noRetry    — jika true, jawaban salah TIDAK bisa diulang (untuk placement test)
+ */
+export default function QuizSoal({ soal, onCorrect, onWrong, noRetry = false }) {
   const [selected, setSelected] = useState(null);
-  const [checked, setChecked] = useState(false);
+  const [checked,  setChecked]  = useState(false);
 
   const isCorrect = selected === soal.jawaban;
 
   const handleSelect = (pilihan) => {
-    if (checked) return;
+    if (checked) return;        // sudah dijawab → lock
     setSelected(pilihan);
   };
 
   const handleCheck = () => {
     if (!selected) return;
     setChecked(true);
-    if (selected === soal.jawaban) {
+
+    const audio = new Audio(isCorrect ? soundCorrect : soundIncorrect);
+    audio.play().catch(() => {});
+
+    if (isCorrect) {
       onCorrect?.();
     } else {
-      onWrong?.();
+      onWrong?.();              // beri tahu parent jawaban salah
     }
   };
+
+  // Tidak ada handleReset — setelah jawab tidak bisa ulang
 
   return (
     <div className="flex flex-col gap-3 w-full">
       {/* Judul */}
-      <h2 className="text-white font-normal font-montserrat text-center text-base leading-snug mb-1">
-        {soal.judul}
-      </h2>
-      
+      {soal.judul && (
+        <h2 className="text-white font-normal font-montserrat text-center text-base leading-snug mb-1">
+          {soal.judul}
+        </h2>
+      )}
+
       {/* Pertanyaan */}
       <p className="text-white/90 text-sm leading-relaxed mb-1">
         {soal.pertanyaan}
@@ -37,10 +56,9 @@ export default function QuizSoal({ soal, onCorrect, onWrong }) {
       <div className="flex flex-col gap-2">
         {soal.pilihan.map((pilihan) => {
           const isSelected = selected === pilihan;
-          const isJawaban = pilihan === soal.jawaban;
+          const isJawaban  = pilihan === soal.jawaban;
 
           let style = "";
-
           if (!checked) {
             style = isSelected
               ? "bg-bistre border-coffe text-white"
@@ -71,7 +89,7 @@ export default function QuizSoal({ soal, onCorrect, onWrong }) {
         })}
       </div>
 
-      {/* Result banner */}
+      {/* Result banner — tanpa tombol Ulangi */}
       {checked && (
         <div className="text-center mt-1">
           {isCorrect ? (
@@ -81,14 +99,18 @@ export default function QuizSoal({ soal, onCorrect, onWrong }) {
             </p>
           ) : (
             <p className="text-red-400 font-montserrat text-lg">
-              Belum Tepat! <br />
-              <span className="text-white/70 text-sm">Jawaban tidak bisa diulang.</span>
+              Belum Tepat!{" "}
+              {noRetry && (
+                <span className="block text-white/70 text-sm mt-1">
+                  Jawaban benar: <strong className="text-green-400">{soal.jawaban}</strong>
+                </span>
+              )}
             </p>
           )}
         </div>
       )}
 
-      {/* Tombol cek */}
+      {/* Tombol Cek Jawaban */}
       {!checked && (
         <button
           onClick={handleCheck}

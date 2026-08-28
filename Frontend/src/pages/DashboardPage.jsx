@@ -1,4 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/**
+ * DashboardPage.jsx
+ *
+ * PERUBAHAN: Integrasi backend untuk:
+ *   - Streak (GET /streak) — sebelumnya hardcode 0
+ *   - XP & Level (via useXp hook)
+ *   - Class Progress (sudah ada di response GET /progress via UserModulProgressController)
+ *
+ * TAMPILAN: tidak ada perubahan sedikit pun dari versi sebelumnya.
+ */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -8,9 +18,6 @@ import {
   ChevronRight,
   Hourglass,
   BookOpen,
-  Sparkles,
-  Users,
-  MessageSquare,
   Flame,
   CheckCircle2,
 } from "lucide-react";
@@ -23,9 +30,10 @@ import PopUpAccount from "../components/PopUpAccount";
 import CommunityHook from "../Hook/CommunityHook";
 import ProgressHook from "../Hook/ProgressHook";
 import { useUser } from "../Context/UserContext";
-import IlustrasiAureus from "../assets/com-ilus.png"
+import IlustrasiAureus from "../assets/com-ilus.png";
 import IlustrasiCommunity from "../assets/peolle.png";
-import Streak from "../assets/streak.svg"
+import Streak from "../assets/streak.svg";
+import API from "../services/api";
 
 // Skeleton
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
@@ -68,13 +76,10 @@ const ContinueLearningCard = ({ item }) => {
   const progress = item?.progress || 0;
 
   return (
-    <Link
-      to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}
-    >
+    <Link to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}>
       <div className="relative h-25 mt-0.5 bg-white border-[1.75px] rounded-xl border-[#9B7A5B]/20 hover:-translate-y-1 transition duration-300 cursor-pointer">
-        <div className="flex flex-col justify-between px-3 py-2 ">
+        <div className="flex flex-col justify-between px-3 py-2">
           <div className="relative justify-between">
-            {/* <h3 className="font-semibold text-bistre">Continue Learning</h3> */}
             <span className="absolute text-[8px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
               {mapel}
             </span>
@@ -116,23 +121,11 @@ const AureusCommunityCard = ({ variant }) => {
           </button>
         </Link>
       </div>
-
-      {/* Illustration */}
-      <div
-        className={`absolute ${isAureus ? "-right-4" : "right-4" } bottom-2 opacity-90 text-chamoisee/70 flex items-end`}
-      >
+      <div className={`absolute ${isAureus ? "-right-4" : "right-4"} bottom-2 opacity-90 text-chamoisee/70 flex items-end`}>
         {isAureus ? (
-          <>
-            <img src={IlustrasiAureus} alt="Ilustrasi Aureus" />
-          </>
+          <img src={IlustrasiAureus} alt="Ilustrasi Aureus" />
         ) : (
-          <>
-            <img
-              src={IlustrasiCommunity}
-              alt="Ilustrasi Community"
-              className="h-37 mb-4"
-            />
-          </>
+          <img src={IlustrasiCommunity} alt="Ilustrasi Community" className="h-37 mb-4" />
         )}
       </div>
     </div>
@@ -158,12 +151,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
           <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90">
             <circle cx="60" cy="60" r={radius} fill="none" stroke="#F2E0D2" strokeWidth="12" />
             <circle
-              cx="60"
-              cy="60"
-              r={radius}
-              fill="none"
-              stroke="#6f4d38"
-              strokeWidth="12"
+              cx="60" cy="60" r={radius} fill="none" stroke="#6f4d38" strokeWidth="12"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
@@ -171,9 +159,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-2xl font-bold text-bistre">{percent}%</span>
-            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">
-              Total Progress
-            </span>
+            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">Total Progress</span>
           </div>
         </div>
 
@@ -196,7 +182,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
 
 const WEEK_DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
-const StreakCard = ({ streakDays }) => {
+const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
   return (
     <div className="absolute right-10 w-140 h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-6">
       <h3 className="font-semibold text-bistre mb-4">Streak</h3>
@@ -219,23 +205,21 @@ const StreakCard = ({ streakDays }) => {
         <div className="ml-15 relative w-full">
           <h1 className="absolute -top-7 left-28 text-[10px] font-semibold">Pertahankan Streak-mu!</h1>
           <div className="flex justify-center gap-4">
-            {WEEK_DAYS.map((day, idx) => (
-              <div key={day} className="flex flex-col items-center gap-1.5">
-                <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                    idx < streakDays % 7 || streakDays >= 7
-                      ? "bg-bistre text-white"
-                      : "bg-beige/60 text-bistre/30"
-                  }`}
-                >
-                  <CheckCircle2 size={16} />
+            {WEEK_DAYS.map((day, idx) => {
+              // Gunakan weeklyIndicator dari backend jika tersedia
+              const isActive = weeklyIndicator?.[idx]?.active ?? (idx < streakDays % 7 || streakDays >= 7)
+              return (
+                <div key={day} className="flex flex-col items-center gap-1.5">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isActive ? "bg-bistre text-white" : "bg-beige/60 text-bistre/30"}`}>
+                    <CheckCircle2 size={16} />
+                  </div>
+                  <span className="text-[10px] text-bistre/60">{day}</span>
                 </div>
-                <span className="text-[10px] text-bistre/60">{day}</span>
-              </div>
-            ))}
+              )
+            })}
           </div>
           <div className="absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
-            Streak terpanjang: {streakDays} Hari
+            Streak terpanjang: {longestStreak ?? streakDays} Hari
           </div>
         </div>
       </div>
@@ -243,13 +227,43 @@ const StreakCard = ({ streakDays }) => {
   );
 };
 
+// ── Hook: ambil data streak dari backend ──────────────────────────────────────
+const useStreak = () => {
+  const [streakData, setStreakData] = useState({
+    current_streak: 0,
+    longest_streak: 0,
+    weekly: [],
+  });
+
+  useEffect(() => {
+    const fetchStreak = async () => {
+      try {
+        const token = localStorage.getItem("tokenRenaissance");
+        const res = await API.get("/streak", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStreakData(res.data.data);
+      } catch {
+        // silent fail — streak tidak kritis untuk dashboard
+      }
+    };
+    fetchStreak();
+  }, []);
+
+  return streakData;
+};
+
+// ── Main component ────────────────────────────────────────────────────────────
 const DashboardPage = () => {
   const { user } = useUser();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-  const { searchResults, searchCommunities, joinCommunity, fetchCommunities, communities, loading } =
+  const { searchResults, searchCommunities, joinCommunity, fetchCommunities, loading } =
     CommunityHook();
   const [searchQuery, setSearchQuery] = useState("");
+
+  // ── Backend: streak (sekarang dari API, bukan hardcode 0) ──
+  const streakData = useStreak();
 
   useEffect(() => {
     fetchCommunities();
@@ -279,8 +293,10 @@ const DashboardPage = () => {
     dataProgress?.[0] ||
     null;
 
-  // Belum ada pelacakan streak di backend — tampilkan 0 sampai tersedia.
-  const streakDays = 0;
+  // ── Streak dari backend ──
+  const streakDays = streakData.current_streak;
+  const longestStreak = streakData.longest_streak;
+  const weeklyIndicator = streakData.weekly;
 
   return (
     <>
@@ -307,7 +323,6 @@ const DashboardPage = () => {
                 <button className="mr-1.5 flex items-center justify-center">
                   <Bell size={20} />
                 </button>
-
                 <div className="relative">
                   <div className="w-8 h-8 bg-bistre rounded-full flex items-center justify-center">
                     <h1 className="text-white text-sm font-bold">
@@ -315,7 +330,6 @@ const DashboardPage = () => {
                     </h1>
                   </div>
                 </div>
-
                 <button
                   type="button"
                   onClick={() => setIsAccountOpen((prev) => !prev)}
@@ -347,10 +361,7 @@ const DashboardPage = () => {
               <div className="lg:col-span-2">
                 <div className="relative flex items-center justify-between mb-4">
                   <h2 className="font-bold font-jakarta text-md">Subjects</h2>
-                  <Link
-                    to="/academy"
-                    className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1"
-                  >
+                  <Link to="/academy" className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1">
                     Lihat Semua <ChevronRight size={14} />
                   </Link>
                 </div>
@@ -361,7 +372,7 @@ const DashboardPage = () => {
                 </div>
               </div>
 
-              <div className="relative flex-col lg:pt-9.5 ">
+              <div className="relative flex-col lg:pt-9.5">
                 <h1 className="absolute -top-px font-bold font-jakarta">Continue Learning</h1>
                 {isLoading ? <SkeletonProgress /> : <ContinueLearningCard item={continueItem} />}
               </div>
@@ -384,10 +395,14 @@ const DashboardPage = () => {
               totalTopik={totalTopik}
               mapelAktif={mapelAktif}
             />
-            <StreakCard streakDays={streakDays} />
+            <StreakCard
+              streakDays={streakDays}
+              longestStreak={longestStreak}
+              weeklyIndicator={weeklyIndicator}
+            />
           </div>
 
-          {/* ── Jelajahi Komunitas (hasil pencarian) ── */}
+          {/* ── Jelajahi Komunitas ── */}
           {loading ? (
             <SkeletonCommunity />
           ) : (

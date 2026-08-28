@@ -24,6 +24,7 @@ import NotFound from '../pages/NotFound'
 import MAPEL_LIST from '../Config/mapelConfig'
 import Progress from '../pages/Progress'
 import PlacementTest from '../pages/PlacementTest'
+import QuizPage from '../pages/QuizPage'
 
 const Router = () => {
   return (
@@ -59,6 +60,19 @@ const Router = () => {
           element={
             <ProtectedRoute>
               <ModulPage mapelConfig={mapelConfig} />
+            </ProtectedRoute>
+          }
+        />
+      ))}
+
+      {/* Quiz (full-page) — satu route per mapel */}
+      {MAPEL_LIST.filter((m) => m.slug !== null).map((mapelConfig) => (
+        <Route
+          key={`quiz-${mapelConfig.id}`}
+          path={`/academy/${mapelConfig.slug}/quiz`}
+          element={
+            <ProtectedRoute>
+              <QuizPage />
             </ProtectedRoute>
           }
         />

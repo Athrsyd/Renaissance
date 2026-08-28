@@ -1,34 +1,88 @@
 /**
  * PopUpModul.jsx
+ *
  * Generalisasi dari PopUpMatematika.jsx dan PopUpPkn.jsx.
+ * Menambahkan sistem XP:
+ *   - Track jumlah jawaban salah per bab
+ *   - Setelah bab selesai → kirim ke backend via useXp
+ *   - Tampilkan XP popup (xp didapat, level naik/tidak)
  *
- * Menerima `modulData` (array modul dari file data) sebagai prop,
- * sehingga komponen ini tidak perlu tahu dari mapel mana data berasal.
- *
- * Semua tipe soal yang ada di kedua popup sebelumnya didukung di sini:
- *   quiz | drag and drop | TTS | puzzle | isian | tarik benang | timeline | materi
- *
- * Tipe "materi" (audio Pidato) dan "timeline" (reuse DragDropSoal)
- * tetap aktif — hanya dirender jika data soal memiliki type tersebut.
+ * XP rules:
+ *   Maks 100 XP per bab, -5 per salah, min 0.
  */
 import { useState, useRef } from 'react'
-import DragDropSoal from './DragDropSoal'
-import TTSSoal from './TTSSoal'
-import QuizSoal from './QuizSoal'
-import IsianSoal from './IsianSoal'
-import TarikGarisSoal from './TarikGarisSoal'
+import DragDropSoal    from './DragDropSoal'
+import TTSSoal         from './TTSSoal'
+import QuizSoal        from './QuizSoal'
+import IsianSoal       from './IsianSoal'
+import TarikGarisSoal  from './TarikGarisSoal'
 import SambungKataSoal from './SambungKataSoal'
-import Pidato from '../../../public/Pidato.mp3'
+import Pidato          from '../../../public/Pidato.mp3'
+import useXp           from '../../Hook/useXp'
+import sfxBenar  from '../../assets/sfx/benar.mp3'
+import sfxSalah  from '../../assets/sfx/salah.mp3'
+import sfxMenang from '../../assets/sfx/menang.mp3'
+
+const playSound = (src) => {
+    try { new Audio(src).play().catch(() => {}) } catch {}
+}
+
+// ─── XP Result Popup ─────────────────────────────────────────────────────────
+const XpResultPopup = ({ xpDapat, xpTotal, level, levelNaik, xpToNext, onClose }) => (
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999] backdrop-blur-sm">
+        <div className="bg-bistre/90 border-2 border-coffe rounded-2xl px-10 py-8 text-center max-w-sm w-full mx-4 flex flex-col items-center gap-4">
+            {levelNaik ? (
+                <>
+                    <div className="text-5xl">🎉</div>
+                    <h2 className="text-2xl font-bold text-[#F8F3E0] font-monstserrat">Level Naik!</h2>
+                    <p className="text-khaki text-lg font-semibold">Level {level}</p>
+                </>
+            ) : (
+                <>
+                    <div className="text-5xl">⭐</div>
+                    <h2 className="text-2xl font-bold text-[#F8F3E0] font-monstserrat">Bab Selesai!</h2>
+                </>
+            )}
+
+            {/* XP Badge */}
+            <div className="bg-khaki/20 border border-khaki/40 rounded-xl px-6 py-3 w-full">
+                <p className="text-xs text-beige/60 mb-1">XP Didapat</p>
+                <p className="text-3xl font-bold text-khaki">+{xpDapat} XP</p>
+            </div>
+
+            {/* Progress bar to next level */}
+            <div className="w-full">
+                <div className="flex justify-between text-xs text-beige/50 mb-1">
+                    <span>Total: {xpTotal} XP</span>
+                    <span>Next level: {xpToNext} XP lagi</span>
+                </div>
+                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                        className="h-full bg-khaki rounded-full transition-all duration-700"
+                        style={{ width: `${Math.min(100, ((1000 - xpToNext) / 1000) * 100)}%` }}
+                    />
+                </div>
+            </div>
+
+            <button
+                onClick={onClose}
+                className="mt-2 bg-khaki text-bistre font-semibold py-2 px-10 rounded-xl hover:bg-khaki/80 transition"
+            >
+                Lanjutkan
+            </button>
+        </div>
+    </div>
+)
 
 // ─── RenderSoal ─────────────────────────────────────────────────────────────
-const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
+const RenderSoal = ({ soal, onCorrect, onWrong, isLastSoal, onClick }) => {
     const audioRef = useRef(null)
 
     switch (soal.type) {
         case 'quiz':
             return (
                 <div className="text-white">
-                    <QuizSoal soal={soal} onCorrect={onCorrect} />
+                    <QuizSoal soal={soal} onCorrect={onCorrect} onWrong={onWrong} />
                 </div>
             )
         case 'drag and drop':
@@ -61,14 +115,12 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
                     <TarikGarisSoal soal={soal} onCorrect={onCorrect} />
                 </div>
             )
-        // "timeline" reuses DragDropSoal — perilaku identik dengan aslinya di PopUpPkn
         case 'timeline':
             return (
                 <div className="text-white">
                     <DragDropSoal soal={soal} onCorrect={onCorrect} />
                 </div>
             )
-        // "materi" — audio player khusus Pidato Bung Karno (dari PopUpPkn)
         case 'materi':
             return (
                 <div className="flex flex-col items-center justify-center gap-4 text-white py-6 px-4">
@@ -79,11 +131,7 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
                         Putar pidato Bung Karno di bawah ini:
                     </h2>
                     <div className="w-full flex justify-center my-2">
-                        <audio
-                            controls
-                            ref={audioRef}
-                            onEnded={() => onCorrect && onCorrect()}
-                        >
+                        <audio controls ref={audioRef} onEnded={() => onCorrect && onCorrect()}>
                             <source src={Pidato} type="audio/mpeg" />
                             Browser Anda tidak mendukung audio.
                         </audio>
@@ -97,10 +145,7 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
             return (
                 <div className="text-white">
                     <h1>Soal: {soal.judul}</h1>
-                    <button
-                        onClick={onClick}
-                        className="bg-coffe text-white py-2 px-7 rounded-xl"
-                    >
+                    <button onClick={onClick} className="bg-coffe text-white py-2 px-7 rounded-xl">
                         {isLastSoal ? 'Selesai' : 'Next'}
                     </button>
                 </div>
@@ -110,14 +155,27 @@ const RenderSoal = ({ soal, onCorrect, isLastSoal, onClick }) => {
 
 // ─── RenderPopUp (inner) ─────────────────────────────────────────────────────
 const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialSoalIndex = 0 }) => {
-    const [isStart, setIsStart] = useState(false)
-    const [soalIndex, setSoalIndex] = useState(initialSoalIndex)
+    const [isStart, setIsStart]           = useState(false)
+    const [soalIndex, setSoalIndex]       = useState(initialSoalIndex)
     const [isSoalCorrect, setIsSoalCorrect] = useState(false)
+    const [jumlahSalah, setJumlahSalah]   = useState(0)   // track salah per bab
 
     const modulSekarang = modulData?.[modulIndex]
-    const soalSekarang = modulSekarang?.soal?.[soalIndex]
-    const totalSoal = modulSekarang?.soal?.length || 0
-    const isLastSoal = soalIndex === totalSoal - 1
+    const soalSekarang  = modulSekarang?.soal?.[soalIndex]
+    const totalSoal     = modulSekarang?.soal?.length || 0
+    const isLastSoal    = soalIndex === totalSoal - 1
+
+    const handleCorrect = () => {
+        playSound(sfxBenar)
+        setIsSoalCorrect(true)
+    }
+
+    const handleWrong = () => {
+        playSound(sfxSalah)
+        setJumlahSalah(n => n + 1)
+        // Tetap set correct agar bisa lanjut (tidak bisa retry)
+        setIsSoalCorrect(true)
+    }
 
     const handleNext = () => {
         setIsSoalCorrect(false)
@@ -125,13 +183,13 @@ const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialS
             onSoalSelesai({ soalId: soalSekarang.id, soalIndex })
         }
         if (isLastSoal) {
-            onSelesai()
+            onSelesai(jumlahSalah, totalSoal)   // kirim jumlahSalah ke parent
         } else {
             setSoalIndex(soalIndex + 1)
         }
     }
 
-    // Intro screen sebelum mulai
+    // Intro screen
     if (!isStart) {
         return (
             <div className="flex flex-col bg-bistre/75 border-2 justify-center items-center border-coffe px-20 py-10 rounded-xl text-center gap-3 text-[#F8F3E0]">
@@ -159,15 +217,10 @@ const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialS
                     <div className="w-full md:w-2/4 p-6 flex flex-col gap-4 border-b md:border-b-0 md:border-r border-coffe/40">
                         <div className="rounded-xl flex items-center justify-center min-h-32 lg:min-h-40">
                             {soalSekarang.ilustrasi ? (
-                                <img
-                                    src={soalSekarang.ilustrasi}
-                                    alt="ilustrasi"
-                                    className="w-full h-full object-contain rounded-xl"
-                                />
+                                <img src={soalSekarang.ilustrasi} alt="ilustrasi"
+                                    className="w-full h-full object-contain rounded-xl" />
                             ) : (
-                                <span className="text-white/30 text-sm text-center px-4">
-                                    Ilustrasi
-                                </span>
+                                <span className="text-white/30 text-sm text-center px-4">Ilustrasi</span>
                             )}
                         </div>
 
@@ -181,12 +234,7 @@ const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialS
                                 {soalSekarang.narasi?.poin && (
                                     <ul className="list-disc list-inside mt-2 flex flex-col gap-1">
                                         {soalSekarang.narasi.poin.map((p, i) => (
-                                            <li
-                                                key={i}
-                                                className="text-white font-normal font-monstserrat text-sm"
-                                            >
-                                                {p}
-                                            </li>
+                                            <li key={i} className="text-white font-normal font-monstserrat text-sm">{p}</li>
                                         ))}
                                     </ul>
                                 )}
@@ -200,7 +248,8 @@ const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialS
                             <RenderSoal
                                 key={`${modulIndex}-${soalIndex}`}
                                 soal={soalSekarang}
-                                onCorrect={() => setIsSoalCorrect(true)}
+                                onCorrect={handleCorrect}
+                                onWrong={handleWrong}
                                 isLastSoal={isLastSoal}
                             />
                         </div>
@@ -223,14 +272,6 @@ const RenderPopUp = ({ modulData, modulIndex, onSelesai, onSoalSelesai, initialS
 }
 
 // ─── PopUpModul (export utama) ───────────────────────────────────────────────
-/**
- * @param {Object[]} modulData      – array modul dari file data mapel (data[0].modul)
- * @param {number}   modulIndex     – indeks modul yang sedang dibuka
- * @param {Function} onClose        – callback saat popup ditutup
- * @param {Function} onBabSelesai   – callback saat satu bab selesai
- * @param {Function} onSoalSelesai  – callback setiap satu soal selesai
- * @param {number}   initialSoalIndex – resume dari soal terakhir
- */
 const PopUpModul = ({
     modulData = [],
     modulIndex = 0,
@@ -239,12 +280,48 @@ const PopUpModul = ({
     onSoalSelesai,
     initialSoalIndex = 0,
 }) => {
-    const [isComplete, setIsComplete] = useState(false)
+    const [isComplete, setIsComplete]     = useState(false)
+    const [xpResult, setXpResult]         = useState(null)   // hasil dari tambahXp
+    const [showXpPopup, setShowXpPopup]   = useState(false)
     const isLastModule = modulIndex === modulData.length - 1
 
-    const handleSelesai = () => {
+    const { tambahXp } = useXp()
+
+    const handleSelesai = async (jumlahSalah = 0, totalSoal = 0) => {
         setIsComplete(true)
+        playSound(sfxMenang)
+
+        // Kirim XP ke backend
+        const result = await tambahXp({
+            jumlahSalah,
+            totalSoal,
+            modulId: modulData[modulIndex]?.id,
+        })
+
+        if (result) {
+            setXpResult(result)
+            setShowXpPopup(true)
+        }
+
         onBabSelesai?.(modulIndex)
+    }
+
+    const handleCloseXpPopup = () => {
+        setShowXpPopup(false)
+    }
+
+    // XP Popup (muncul di atas completion screen)
+    if (showXpPopup && xpResult) {
+        return (
+            <XpResultPopup
+                xpDapat={xpResult.xpDapat}
+                xpTotal={xpResult.xpTotal}
+                level={xpResult.levelBaru}
+                levelNaik={xpResult.levelNaik}
+                xpToNext={xpResult.xpToNext}
+                onClose={handleCloseXpPopup}
+            />
+        )
     }
 
     if (isComplete) {

@@ -16,6 +16,8 @@ class User extends Authenticatable
         'email',
         'kelas',
         'starting_bab',
+        'xp',
+        'level',
         'password',
     ];
 
@@ -31,7 +33,23 @@ class User extends Authenticatable
             'password'          => 'hashed',
             'kelas'             => 'integer',
             'starting_bab'      => 'integer',
+            'xp'                => 'integer',
+            'level'             => 'integer',
         ];
+    }
+
+    // ── XP helpers ───────────────────────────────────────────────────────────
+
+    /** Hitung level dari total XP. Tiap 1000 XP = 1 level. */
+    public static function xpToLevel(int $xp): int
+    {
+        return (int) floor($xp / 1000) + 1;
+    }
+
+    /** XP tersisa menuju level berikutnya. */
+    public static function xpToNextLevel(int $xp): int
+    {
+        return (self::xpToLevel($xp) * 1000) - $xp;
     }
 
     // ── Relasi ──────────────────────────────────────────────────────────────
