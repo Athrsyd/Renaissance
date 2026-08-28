@@ -95,7 +95,9 @@ const ContinueLearningCard = ({ item }) => {
   const progress = item?.progress || 0;
 
   return (
-    <Link to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}>
+    <Link
+      to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}
+    >
       <div className="relative h-25 mt-0.5 bg-white border-[1.75px] rounded-xl border-[#9B7A5B]/20 hover:-translate-y-1 transition duration-300 cursor-pointer">
         <div className="flex flex-col justify-between px-3 py-2">
           <div className="relative justify-between">
@@ -104,9 +106,9 @@ const ContinueLearningCard = ({ item }) => {
             </span>
           </div>
           <div className="absolute left-3 top-6 rounded-xl h-12 w-12 bg-[#F8F3E0]"></div>
-          <div className="absolute right-3 flex flex-col top-8">
+          <div className="absolute lg:right-3 right-10 md:right-15 flex flex-col top-8">
             <p className="text-xs font-bold text-bistre">{materi}</p>
-            <div className="flex flex-row justify-center mt-2 items-center gap-2 w-[65%] sm:w-[70%] lg:w-55">
+            <div className="flex flex-row justify-center mt-2 items-center gap-2 w-55 sm:w-[70%] lg:w-55">
               <ProgressBar value={progress} max={100} bgColor="bg-[#F8F3E0]" />
               <div className="flex justify-end">
                 <span className="text-[10px] font-semibold text-[#9B7A5B]">
@@ -143,14 +145,14 @@ const AureusCommunityCard = ({ variant }) => {
 
       {/* Illustration */}
       <div
-        className={`absolute ${isAureus ? "-right-4" : "right-4"} bottom-2 opacity-90 text-chamoisee/70 flex items-end`}
+        className={`absolute ${isAureus ? "-right-4" : "right-4"} bottom-auto lg:bottom-2 opacity-90 text-chamoisee/70 flex items-end`}
       >
         {isAureus ? (
           <>
             <img
               src={IlustrasiAureus}
               alt="Ilustrasi Aureus"
-              className="h-24 sm:h-auto lg:h-auto"
+              className="h-40 sm:h-auto lg:h-auto"
             />
           </>
         ) : (
@@ -158,7 +160,7 @@ const AureusCommunityCard = ({ variant }) => {
             <img
               src={IlustrasiCommunity}
               alt="Ilustrasi Community"
-              className="h-24 sm:h-37 mb-4"
+              className="h-30 sm:h-37 mt-5 lg:mt-0 lg:mb-4"
             />
           </>
         )}
@@ -196,7 +198,12 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
               strokeWidth="12"
             />
             <circle
-              cx="60" cy="60" r={radius} fill="none" stroke="#6f4d38" strokeWidth="12"
+              cx="60"
+              cy="60"
+              r={radius}
+              fill="none"
+              stroke="#6f4d38"
+              strokeWidth="12"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
@@ -204,7 +211,9 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-2xl font-bold text-bistre">{percent}%</span>
-            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">Total Progress</span>
+            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">
+              Total Progress
+            </span>
           </div>
         </div>
 
@@ -232,10 +241,10 @@ const WEEK_DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
 const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
   return (
-    <div className="relative lg:absolute lg:right-10 w-full lg:w-140 h-auto lg:h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-4 sm:p-6">
+    <div className="relative lg:absolute lg:right-10 w-full lg:w-140 h-65 lg:h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-4 sm:p-6">
       <h3 className="font-semibold text-bistre mb-4">Streak</h3>
       <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
-        <div className="flex items-center mt-5 gap-2 shrink-0">
+        <div className="lg:ml-0 ml-15 relative flex items-center mt-0 lg:mt-5 gap-2 shrink-0">
           <img src={Streak} alt="Streak" className="h-9" />
           <div className="relative">
             <p className="text-3xl ml-1 font-bold text-chamoisee leading-none">
@@ -268,11 +277,11 @@ const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
                 >
                   <CheckCircle2 size={16} />
                 </div>
+                <span className="text-[10px] text-bistre/60">{day}</span>
+              </div>
+            ))}
           </div>
-                
-              )
-            })}
-          <div className="absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
+          <div className=" lg:absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
             Streak terpanjang: {longestStreak ?? streakDays} Hari
           </div>
         </div>
@@ -438,7 +447,10 @@ const DashboardPage = () => {
               <div className="lg:col-span-2">
                 <div className="relative flex items-center justify-between mb-4">
                   <h2 className="font-bold font-jakarta text-md">Subjects</h2>
-                  <Link to="/academy" className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1">
+                  <Link
+                    to="/academy"
+                    className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1"
+                  >
                     Lihat Semua <ChevronRight size={14} />
                   </Link>
                 </div>
