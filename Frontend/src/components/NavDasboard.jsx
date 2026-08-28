@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Logo from "../assets/Logo2.png";
 import HookAuth from "../Hook/HookAuth";
+import useXp from "../Hook/useXp";
 
 const navIcon = [
   {
@@ -61,6 +62,7 @@ const SidebarIcon = ({ item, isActive }) => {
 const SideBar = () => {
   const location = useLocation();
   const { handleLogout } = HookAuth();
+  const { xp, level, xpToNext } = useXp();
 
   const isItemActive = (path) => {
     const base = path.split("#")[0];
@@ -96,6 +98,24 @@ const SideBar = () => {
 
         {/* Spacer pushes promo + logout to bottom (desktop only) */}
         <div className="hidden lg:block flex-1" />
+
+        {/* XP & Level Widget */}
+        {/* <div className="hidden lg:flex flex-col bg-beige border border-khaki/30 rounded-2xl p-3 mb-3 gap-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-1.5">
+              <span className="text-lg">⭐</span>
+              <span className="text-bistre text-xs font-bold">Level {level}</span>
+            </div>
+            <span className="text-bistre/60 text-xs">{xp} XP</span>
+          </div>
+          <div className="w-full h-1.5 bg-khaki/30 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-bistre rounded-full transition-all duration-500"
+              style={{ width: `${Math.min(100, ((1000 - xpToNext) / 1000) * 100)}%` }}
+            />
+          </div>
+          <p className="text-bistre/50 text-[10px]">{xpToNext} XP lagi ke level {level + 1}</p>
+        </div> */}
 
         {/* Promo box */}
         <div className="hidden lg:flex flex-col bg-beige border border-khaki/30 rounded-2xl p-4 mb-4 gap-3">

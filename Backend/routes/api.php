@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\QuizTimeController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\ModulBelajarController;
 use App\Http\Controllers\PlacementController;
+use App\Http\Controllers\XpController;
 use App\Http\Controllers\SoalController;
 use App\Http\Controllers\StreakController;
 use App\Http\Controllers\TemanController;
@@ -32,6 +34,10 @@ Route::prefix('v1')->group(function () {
         Route::put('placement/starting-bab', [PlacementController::class, 'setStartingBab']);
         Route::get('placement/status',       [PlacementController::class, 'status']);
 
+        // XP & Level
+        Route::get('xp',         [XpController::class, 'info']);
+        Route::post('xp/tambah', [XpController::class, 'tambah']);
+
         // Modules & Soal
         Route::get('modules',                              [ModulBelajarController::class, 'index']);
         Route::get('modules/{modul}/soal',                 [SoalController::class, 'index']);
@@ -46,6 +52,10 @@ Route::prefix('v1')->group(function () {
 
         // Streak
         Route::get('streak', [StreakController::class, 'show']);
+
+        // Waktu Pengerjaan Soal
+        Route::get ('quiz-time', [QuizTimeController::class, 'index']);
+        Route::post('quiz-time', [QuizTimeController::class, 'store']);
 
         // Leaderboard
         Route::get('leaderboard/streak',   [LeaderboardController::class, 'streak']);

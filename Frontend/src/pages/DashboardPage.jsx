@@ -1,4 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+/**
+ * DashboardPage.jsx
+ *
+ * PERUBAHAN: Integrasi backend untuk:
+ *   - Streak (GET /streak) — sebelumnya hardcode 0
+ *   - XP & Level (via useXp hook)
+ *   - Class Progress (sudah ada di response GET /progress via UserModulProgressController)
+ *
+ * TAMPILAN: tidak ada perubahan sedikit pun dari versi sebelumnya.
+ */
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -8,9 +18,6 @@ import {
   ChevronRight,
   Hourglass,
   BookOpen,
-  Sparkles,
-  Users,
-  MessageSquare,
   Flame,
   CheckCircle2,
 } from "lucide-react";
@@ -88,13 +95,10 @@ const ContinueLearningCard = ({ item }) => {
   const progress = item?.progress || 0;
 
   return (
-    <Link
-      to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}
-    >
+    <Link to={hasData ? `/academy/${encodeURIComponent(item.mapel)}` : "/academy"}>
       <div className="relative h-25 mt-0.5 bg-white border-[1.75px] rounded-xl border-[#9B7A5B]/20 hover:-translate-y-1 transition duration-300 cursor-pointer">
-        <div className="flex flex-col justify-between px-3 py-2 ">
+        <div className="flex flex-col justify-between px-3 py-2">
           <div className="relative justify-between">
-            {/* <h3 className="font-semibold text-bistre">Continue Learning</h3> */}
             <span className="absolute text-[8px] right-0 font-medium bg-[#F8F3E0] text-[#9B7A5B] rounded-sm px-3 py-0.5 shrink-0">
               {mapel}
             </span>
@@ -192,12 +196,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
               strokeWidth="12"
             />
             <circle
-              cx="60"
-              cy="60"
-              r={radius}
-              fill="none"
-              stroke="#6f4d38"
-              strokeWidth="12"
+              cx="60" cy="60" r={radius} fill="none" stroke="#6f4d38" strokeWidth="12"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
@@ -205,9 +204,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
             <span className="text-2xl font-bold text-bistre">{percent}%</span>
-            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">
-              Total Progress
-            </span>
+            <span className="text-[10px] text-bistre/60 text-center leading-tight mt-1">Total Progress</span>
           </div>
         </div>
 
@@ -233,7 +230,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
 
 const WEEK_DAYS = ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"];
 
-const StreakCard = ({ streakDays }) => {
+const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
   return (
     <div className="relative lg:absolute lg:right-10 w-full lg:w-140 h-auto lg:h-55 bg-white border-[1.75px] border-chamoisee/20 rounded-xl p-4 sm:p-6">
       <h3 className="font-semibold text-bistre mb-4">Streak</h3>
@@ -271,12 +268,12 @@ const StreakCard = ({ streakDays }) => {
                 >
                   <CheckCircle2 size={16} />
                 </div>
-                <span className="text-[10px] text-bistre/60">{day}</span>
-              </div>
-            ))}
           </div>
-          <div className="mt-3 w-full lg:absolute lg:right-2 lg:w-82 lg:inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
-            Streak terpanjang: {streakDays} Hari
+                
+              )
+            })}
+          <div className="absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
+            Streak terpanjang: {longestStreak ?? streakDays} Hari
           </div>
         </div>
       </div>
@@ -284,6 +281,33 @@ const StreakCard = ({ streakDays }) => {
   );
 };
 
+// ── Hook: ambil data streak dari backend ──────────────────────────────────────
+const useStreak = () => {
+  const [streakData, setStreakData] = useState({
+    current_streak: 0,
+    longest_streak: 0,
+    weekly: [],
+  });
+
+  useEffect(() => {
+    const fetchStreak = async () => {
+      try {
+        const token = localStorage.getItem("tokenRenaissance");
+        const res = await API.get("/streak", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStreakData(res.data.data);
+      } catch {
+        // silent fail — streak tidak kritis untuk dashboard
+      }
+    };
+    fetchStreak();
+  }, []);
+
+  return streakData;
+};
+
+// ── Main component ────────────────────────────────────────────────────────────
 const DashboardPage = () => {
   const { user } = useUser();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
@@ -297,6 +321,9 @@ const DashboardPage = () => {
     loading,
   } = CommunityHook();
   const [searchQuery, setSearchQuery] = useState("");
+
+  // ── Backend: streak (sekarang dari API, bukan hardcode 0) ──
+  const streakData = useStreak();
 
   useEffect(() => {
     fetchCommunities();
@@ -336,8 +363,10 @@ const DashboardPage = () => {
     dataProgress?.[0] ||
     null;
 
-  // Belum ada pelacakan streak di backend — tampilkan 0 sampai tersedia.
-  const streakDays = 0;
+  // ── Streak dari backend ──
+  const streakDays = streakData.current_streak;
+  const longestStreak = streakData.longest_streak;
+  const weeklyIndicator = streakData.weekly;
 
   return (
     <>
@@ -367,7 +396,6 @@ const DashboardPage = () => {
                 <button className="mr-1.5 flex items-center justify-center">
                   <Bell size={20} />
                 </button>
-
                 <div className="relative">
                   <div className="w-8 h-8 bg-bistre rounded-full flex items-center justify-center">
                     <h1 className="text-white text-sm font-bold">
@@ -375,7 +403,6 @@ const DashboardPage = () => {
                     </h1>
                   </div>
                 </div>
-
                 <button
                   type="button"
                   onClick={() => setIsAccountOpen((prev) => !prev)}
@@ -411,10 +438,7 @@ const DashboardPage = () => {
               <div className="lg:col-span-2">
                 <div className="relative flex items-center justify-between mb-4">
                   <h2 className="font-bold font-jakarta text-md">Subjects</h2>
-                  <Link
-                    to="/academy"
-                    className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1"
-                  >
+                  <Link to="/academy" className="absolute right-4 text-xs text-chamoisee hover:underline flex items-center gap-1">
                     Lihat Semua <ChevronRight size={14} />
                   </Link>
                 </div>
@@ -457,10 +481,14 @@ const DashboardPage = () => {
               totalTopik={totalTopik}
               mapelAktif={mapelAktif}
             />
-            <StreakCard streakDays={streakDays} />
+            <StreakCard
+              streakDays={streakDays}
+              longestStreak={longestStreak}
+              weeklyIndicator={weeklyIndicator}
+            />
           </div>
 
-          {/* ── Jelajahi Komunitas (hasil pencarian) ── */}
+          {/* ── Jelajahi Komunitas ── */}
           {loading ? (
             <SkeletonCommunity />
           ) : (

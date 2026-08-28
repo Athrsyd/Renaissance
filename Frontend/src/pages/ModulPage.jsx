@@ -10,6 +10,7 @@
  * dan Router.jsx akan otomatis menggunakan komponen ini.
  */
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import NavDashboard from '../components/NavDasboard'
 import Search from '../assets/icon/searchIcon.svg'
 import Notif from '../assets/icon/notifIcon.svg'
@@ -19,7 +20,6 @@ import PathTimeline from '../components/PathTimeline'
 import ProgressHook from '../Hook/ProgressHook'
 import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
-import PopUpModul from '../components/ModulComponent/PopUpModul'
 import PopUpAccount from '../components/PopUpAccount'
 import { Link } from 'react-router-dom'
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
@@ -29,7 +29,6 @@ import API from '../services/api'
 const ModulPage = ({ mapelConfig }) => {
     const [isAccountOpen, setIsAccountOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
-    const [isPopupOpen, setIsPopupOpen] = useState(false)
     const [selectedModulIndex, setSelectedModulIndex] = useState(0)
     const [soalSelesai, setSoalSelesai] = useState([])
     const [initialSoalIndex, setInitialSoalIndex] = useState(0)
@@ -37,6 +36,8 @@ const ModulPage = ({ mapelConfig }) => {
     const [modulData, setModulData] = useState([])
     // Starting bab dari placement test (1, 2, atau 3) — default 1
     const [startingBab, setStartingBab] = useState(1)
+
+    const navigate = useNavigate()
 
     const { user } = useUser()
     const { countTotalProgress, fetchProgress, updateProgress, isLoading, dataProgress, error } =
@@ -76,32 +77,21 @@ const ModulPage = ({ mapelConfig }) => {
         countTotalProgress()[mapelConfig?.progressKey] ?? 0
 
     const handleStartModule = (moduleIndex) => {
-        setSelectedModulIndex(moduleIndex)
         const modulProgress = dataProgress.find(
             (p) => p.modul_id === modulData[moduleIndex]?.id
         )
         const lastSoalIndex = modulProgress?.soal_selesai?.length || 0
-        setInitialSoalIndex(lastSoalIndex)
-        setSoalSelesai(modulProgress?.soal_selesai || [])
-        setIsPopupOpen(true)
-    }
+        const soalSelesaiAwal = modulProgress?.soal_selesai || []
 
-    const handleSoalSelesai = async (soalData) => {
-        const newSoalSelesai = [...soalSelesai, soalData.soalId]
-        setSoalSelesai(newSoalSelesai)
-        const modulId = modulData[selectedModulIndex]?.id
-        const totalSoal = modulData[selectedModulIndex]?.soal?.length
-        await updateProgress(modulId, newSoalSelesai, totalSoal)
-    }
-
-    const handleBabSelesai = async (modulIndex) => {
-        const modulId = modulData[modulIndex]?.id
-        const bab = modulData[modulIndex]?.bab
-        const totalSoal = modulData[modulIndex]?.soal?.length
-        await updateProgress(modulId, soalSelesai, totalSoal, bab)
-        await fetchProgress()
-        setSoalSelesai([])
-        setInitialSoalIndex(0)
+        // Navigate ke QuizPage (full-page) alih-alih buka popup
+        navigate(`/academy/${mapelConfig.slug}/quiz`, {
+            state: {
+                modulData,
+                modulIndex: moduleIndex,
+                initialSoalIndex: lastSoalIndex,
+                soalSelesaiAwal,
+            },
+        })
     }
 
     return (
@@ -221,21 +211,6 @@ const ModulPage = ({ mapelConfig }) => {
                 </div>
             </div>
 
-            {/* Popup soal */}
-            {isPopupOpen && modulData.length > 0 && (
-                <PopUpModul
-                    key={selectedModulIndex}
-                    modulData={modulData}
-                    modulIndex={selectedModulIndex}
-                    onClose={() => {
-                        setIsPopupOpen(false)
-                        window.location.reload()
-                    }}
-                    onBabSelesai={handleBabSelesai}
-                    onSoalSelesai={handleSoalSelesai}
-                    initialSoalIndex={initialSoalIndex}
-                />
-            )}
             <br />
             <br />
             <br />
