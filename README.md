@@ -419,7 +419,7 @@ Proyek ini dilisensikan di bawah [MIT License](LICENSE).
 
 <div align="center">
 
-Dibuat dengan ❤️ oleh Tim Renaissance — SMKN 26 Jakarta
+Dibuat dengan ❤️ oleh Tim Belum Ada Nama Tim — SMKN 26 Jakarta
 
 **[⬆ Kembali ke atas](#️-renaissance)**
 
