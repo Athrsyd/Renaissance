@@ -319,13 +319,13 @@ const LeaderboardPage = () => {
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-64 md:ml-20 bg-[#FBF9F6] min-h-screen pb-24 lg:pb-10">
-        <div className="px-5 sm:px-8 lg:px-10 pt-8 max-w-2xl w-full">
+        <div className="px-5 sm:px-8 lg:px-12 pt-8 max-w-5xl w-full mx-auto">
 
           {/* Header */}
-          <div className="mb-6 flex items-start justify-between">
+          <div className="mb-8 flex items-start justify-between">
             <div>
-              <h1 className="text-3xl font-bold font-monstserrat text-bistre flex items-center gap-2">
-                <Trophy size={28} className="text-chamoisee" />
+              <h1 className="text-4xl font-bold font-monstserrat text-bistre flex items-center gap-3">
+                <Trophy size={32} className="text-chamoisee" />
                 Leaderboard
               </h1>
               <p className="text-sm text-bistre/50 mt-1">
@@ -335,7 +335,7 @@ const LeaderboardPage = () => {
           </div>
 
           {/* Tab Bar */}
-          <div className="flex gap-2 mb-6 bg-white rounded-2xl p-1.5 border border-[#9B7A5B]/10 shadow-sm">
+          <div className="flex gap-3 mb-8 bg-white rounded-2xl p-2 border border-[#9B7A5B]/10 shadow-sm">
             {TABS.map((tab) => {
               const Icon    = tab.icon
               const isActive = activeTab === tab.id
@@ -343,14 +343,14 @@ const LeaderboardPage = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl
                     font-semibold text-sm transition-all duration-200
                     ${isActive
                       ? 'bg-bistre text-white shadow-sm'
                       : 'text-bistre/50 hover:text-bistre hover:bg-[#F8F3E0]'
                     }`}
                 >
-                  <Icon size={15} />
+                  <Icon size={16} />
                   <span className="hidden sm:inline">{tab.label}</span>
                   <span className="sm:hidden">{tab.label}</span>
                 </button>
@@ -359,15 +359,15 @@ const LeaderboardPage = () => {
           </div>
 
           {/* Active tab description banner */}
-          <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border mb-5 ${currentTab.bg} ${currentTab.border}`}>
-            <TabIcon size={18} className={currentTab.color} />
+          <div className={`flex items-center gap-4 px-5 py-4 rounded-xl border mb-6 ${currentTab.bg} ${currentTab.border}`}>
+            <TabIcon size={20} className={currentTab.color} />
             <div>
-              <p className={`text-xs font-bold ${currentTab.color}`}>
+              <p className={`text-sm font-bold ${currentTab.color}`}>
                 {activeTab === 'streak' && 'Streak Terpanjang — Global'}
                 {activeTab === 'progress' && `Progress Belajar — Kelas ${tabData.progress?.kelas ?? '...'}`}
                 {activeTab === 'xp' && 'XP Tertinggi — Global'}
               </p>
-              <p className="text-[11px] text-bistre/50 mt-0.5">
+              <p className="text-xs text-bistre/50 mt-1">
                 {activeTab === 'streak'   && 'Diurutkan dari streak harian paling panjang'}
                 {activeTab === 'progress' && 'Diurutkan dari % soal selesai di kelasmu'}
                 {activeTab === 'xp'       && 'Diurutkan dari total XP yang dikumpulkan'}
@@ -376,7 +376,7 @@ const LeaderboardPage = () => {
           </div>
 
           {/* Content */}
-          <div className="bg-white rounded-2xl border border-[#9B7A5B]/10 p-5 shadow-sm">
+          <div className="bg-white rounded-2xl border border-[#9B7A5B]/10 p-8 shadow-sm">
             {loading[activeTab] ? (
               <div className="flex flex-col gap-3">
                 {/* Podium skeleton */}
@@ -402,7 +402,7 @@ const LeaderboardPage = () => {
           </div>
 
           {/* Refresh hint */}
-          <p className="text-center text-[11px] text-bistre/25 mt-4">
+          <p className="text-center text-xs text-bistre/25 mt-6">
             Data diperbarui otomatis setiap kali kamu menyelesaikan sesi belajar
           </p>
 

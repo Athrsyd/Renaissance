@@ -9,7 +9,7 @@
  *
  * TAMPILAN: tidak ada perubahan sedikit pun dari versi sebelumnya.
  */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import {
   Search,
@@ -20,6 +20,9 @@ import {
   BookOpen,
   Flame,
   CheckCircle2,
+  Landmark,
+  Languages,
+  Scale,
 } from "lucide-react";
 
 import NavDasboard from "../components/NavDasboard";
@@ -66,9 +69,18 @@ const SUBJECTS = [
   },
 ];
 
+const ICON_MAP = {
+  Matematika: "sqrt",
+  IPA: <Hourglass size={18} strokeWidth={1.8} />,
+  IPS: <BookOpen size={18} strokeWidth={1.8} />,
+  Sejarah: <Landmark size={18} strokeWidth={1.8} />,
+  "Bahasa dan Sastra": <Languages size={18} strokeWidth={1.8} />,
+  "Pendidikan Pancasila": <Scale size={18} strokeWidth={1.8} />,
+};
+
 const SubjectMiniCard = ({ item }) => (
   <Link to={`/academy/${item.slug}`}>
-    <div className="group h-25 w-full lg:w-48 flex flex-row items-center lg:justify-between bg-white rounded-xl p-4 border-[1.75px] border-[#9B7A5B]/20">
+    <div className="group hover:shadow-lg transition hover:scale-103 duration-300 h-25 w-full lg:w-48 flex flex-row items-center lg:justify-between bg-white rounded-xl p-4 border-[1.75px] border-[#9B7A5B]/20">
       <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-[#F8F3E0] text-bistre shadow-sm">
         {item.icon === "sqrt" ? (
           <span className="font-semibold text-base">√x</span>
@@ -106,7 +118,13 @@ const ContinueLearningCard = ({ item }) => {
               {mapel}
             </span>
           </div>
-          <div className="absolute left-3 top-6 rounded-xl h-12 w-12 bg-[#F8F3E0]"></div>
+          <div className="relative top-3 w-12 h-12 flex items-center justify-center rounded-xl bg-[#F8F3E0] text-bistre shadow-sm">
+            {ICON_MAP[mapel] === "sqrt" ? (
+              <span className="font-semibold text-base">√x</span>
+            ) : (
+              ICON_MAP[mapel]
+            )}
+          </div>
           <div className="absolute lg:right-3 right-10 md:right-15 flex flex-col top-8">
             <p className="text-xs font-bold text-bistre">{materi}</p>
             <div className="flex flex-row justify-center mt-2 items-center gap-2 w-55 sm:w-[70%] lg:w-55">
@@ -180,7 +198,7 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-bistre">Progress</h3>
         <Link
-          to="/academy"
+          to="/progress"
           className="text-xs text-chamoisee hover:underline flex items-center gap-1"
         >
           Lihat Detail <ChevronRight size={14} />
@@ -220,11 +238,11 @@ const ProgressCard = ({ percent, topikSelesai, totalTopik, mapelAktif }) => {
 
         <div className="flex flex-col gap-4">
           <div>
-            <p className="text-xs font-semibold text-bistre">Topik Selesai</p>
+            <p className="text-xs font-semibold text-bistre">Bab Selesai</p>
             <p className="text-lg font-bold text-chamoisee font-monstserrat">
               {topikSelesai}{" "}
               <span className="text-sm font-medium text-chamoisee">
-                / {totalTopik}
+                / 18
               </span>
             </p>
           </div>
@@ -273,9 +291,8 @@ const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
               return (
                 <div key={day} className="flex flex-col items-center gap-1.5">
                   <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      isActive ? "bg-bistre text-white" : "bg-beige/60 text-bistre/30"
-                    }`}
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${isActive ? "bg-bistre text-white" : "bg-beige/60 text-bistre/30"
+                      }`}
                   >
                     <CheckCircle2 size={16} />
                   </div>
@@ -324,6 +341,7 @@ const DashboardPage = () => {
   const { user } = useUser();
   const { fetchProgress, dataProgress, isLoading } = ProgressHook();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [studyTime, setStudyTime] = useState({ week_detik: 0 });
   const {
     searchResults,
     searchCommunities,
@@ -338,9 +356,22 @@ const DashboardPage = () => {
   const streakData = useStreak();
 
   useEffect(() => {
+    const fetchStudyTime = async () => {
+      try {
+        const token = localStorage.getItem("tokenRenaissance");
+        const res = await API.get("/quiz-time", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStudyTime(res.data.data || { week_detik: 0 });
+      } catch {
+        setStudyTime({ week_detik: 0 });
+      }
+    };
+
     fetchCommunities();
     searchCommunities();
     fetchProgress();
+    fetchStudyTime();
   }, []);
 
   const query = searchQuery.toLowerCase();
@@ -360,19 +391,25 @@ const DashboardPage = () => {
   const totalTopik = dataProgress?.length || 0;
   const topikSelesai =
     dataProgress?.filter((i) => Number(i.progress) === 100).length || 0;
-  const avgProgress = totalTopik
-    ? Math.round(
-        dataProgress.reduce((acc, cur) => acc + Number(cur.progress || 0), 0) /
-          totalTopik,
-      )
-    : 0;
-  const mapelAktif = totalTopik
-    ? new Set(dataProgress.map((i) => i.mapel)).size
-    : 0;
+  const avgProgress = topikSelesai > 0 ? Math.round((topikSelesai / totalTopik) * 100) : 0;
+
+  // ── Perhitungan waktu belajar dari endpoint /quiz-time ──
+  const totalStudySeconds = Number(studyTime?.week_detik || 0);
+  const totalStudyMinutes = Math.floor(totalStudySeconds / 60);
+  const hours = Math.floor(totalStudyMinutes / 60);
+  const minutes = totalStudyMinutes % 60;
+
+  const mapelAktif =
+    hours > 0
+      ? `${hours} jam ${minutes} menit`
+      : minutes > 0
+        ? `${minutes} menit`
+        : "0 menit";
 
   const continueItem =
-    dataProgress?.find((i) => i.progress > 0 && i.progress < 100) ||
-    dataProgress?.[0] ||
+    dataProgress?.find((i) => i.progress > 0 && i.progress < 100) ||  // Yang sedang dikerjakan
+    dataProgress?.find((i) => Number(i.progress) < 100) ||            // Yang belum selesai
+    dataProgress?.[0] ||                                               // Item pertama
     null;
 
   // ── Streak dari backend ──

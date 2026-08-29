@@ -7,12 +7,18 @@ import { useState, useEffect, useCallback } from 'react'
 import {
   CheckCircle2, Flame, Trophy, BookOpen, Star,
   Calendar, Target, Zap, TrendingUp, Award,
-  Lock, ChevronRight, Lightbulb
+  Lock, ChevronRight, Lightbulb,
+  ChevronDown,
+  Bell,
+  Search
 } from 'lucide-react'
 import NavDasboard from '../components/NavDasboard'
 import useXp from '../Hook/useXp'
 import ProgressHook from '../Hook/ProgressHook'
 import API from '../services/api'
+import { useUser } from '../Context/UserContext'
+import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
+import PopUpAccount from '../components/PopUpAccount'
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 const LEVEL_TITLES = [
@@ -34,12 +40,12 @@ const TIPS = [
 const getTipHariIni = () => TIPS[new Date().getDay()]
 
 const ACHIEVEMENTS = [
-  { id: 1, label: 'First Step',          Icon: BookOpen,  field: 'modulSelesai', threshold: 1   },
-  { id: 2, label: 'Consistent Learner',  Icon: Calendar,  field: 'streak',       threshold: 7   },
-  { id: 3, label: 'Math Explorer',       Icon: Star,      field: 'modulMTK',     threshold: 5   },
-  { id: 4, label: 'Knowledge Seeker',    Icon: Target,    field: 'xp',           threshold: 500 },
-  { id: 5, label: 'Perfect Week',        Icon: Trophy,    field: 'streak',       threshold: 7   },
-  { id: 6, label: 'Renaissance Scholar', Icon: Award,     field: 'level',        threshold: 5   },
+  { id: 1, label: 'First Step', Icon: BookOpen, field: 'modulSelesai', threshold: 1 },
+  { id: 2, label: 'Consistent Learner', Icon: Calendar, field: 'streak', threshold: 7 },
+  { id: 3, label: 'Math Explorer', Icon: Star, field: 'modulMTK', threshold: 5 },
+  { id: 4, label: 'Knowledge Seeker', Icon: Target, field: 'xp', threshold: 500 },
+  { id: 5, label: 'Perfect Week', Icon: Trophy, field: 'streak', threshold: 7 },
+  { id: 6, label: 'Renaissance Scholar', Icon: Award, field: 'level', threshold: 5 },
 ]
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -72,6 +78,11 @@ const XpOverviewCard = () => (
 
 const XpSummaryCard = ({ xp, weeklyData }) => {
   const maxVal = Math.max(...weeklyData.map((d) => d.detik / 60), 1)
+  const accumulatedXpGain = weeklyData.reduce((total, item) => {
+    const minutes = Number(item?.detik || 0) / 60
+    return total + Math.max(0, minutes * 5)
+  }, 0)
+
   return (
     <div className="bg-white rounded-2xl border border-[#9B7A5B]/15 p-5">
       <h3 className="font-bold text-bistre text-sm">Ringkasan XP</h3>
@@ -80,8 +91,10 @@ const XpSummaryCard = ({ xp, weeklyData }) => {
         {xp.toLocaleString()} <span className="text-base font-semibold">XP</span>
       </p>
       <div className="flex items-center gap-1 mt-1 mb-3">
-        <TrendingUp size={12} className="text-green-500" />
-        <span className="text-[11px] text-green-600 font-semibold">350 XP dari minggu lalu</span>
+        {/* <TrendingUp size={12} className="text-green-500" />
+        <span className="text-[11px] text-green-600 font-semibold">
+          {Math.round(accumulatedXpGain).toLocaleString()} XP dari minggu lalu
+        </span> */}
       </div>
       {/* Bar chart */}
       <div className="flex items-end gap-1 h-20">
@@ -156,7 +169,7 @@ const AchievementBadge = ({ label, Icon, unlocked }) => (
   </div>
 )
 
-const ClassProgressCard = ({ kelas, progressPersen, modulsSelesai, totalModuls }) => {
+const ClassProgressCard = ({ kelas, progressPersen, modulsSelesai, totalModuls, }) => {
   const nextKelas = kelas ? kelas + 1 : null
   const modulsLeft = Math.max(0, totalModuls - modulsSelesai)
   const r = 50
@@ -219,30 +232,31 @@ const ClassProgressCard = ({ kelas, progressPersen, modulsSelesai, totalModuls }
 const Progress = () => {
   const { xp, level, xpInLevel, xpToNext, fetchXp } = useXp()
   const { fetchProgress, dataProgress } = ProgressHook()
-  const [streak, setStreak]         = useState({ current_streak: 0, longest_streak: 0, weekly: [] })
-  const [timeData, setTimeData]     = useState({ weekly: [] })
-  const [classData, setClassData]   = useState({ kelas: null, progress_persen: 0 })
+  const [streak, setStreak] = useState({ current_streak: 0, longest_streak: 0, weekly: [] })
+  const [timeData, setTimeData] = useState({ weekly: [] })
+  const [classData, setClassData] = useState({ kelas: null, progress_persen: 0 })
 
   const getToken = () => localStorage.getItem('tokenRenaissance')
-  const headers  = () => ({ Authorization: `Bearer ${getToken()}` })
+  const headers = () => ({ Authorization: `Bearer ${getToken()}` })
 
   const fetchStreak = useCallback(async () => {
-    try { const r = await API.get('/streak', { headers: headers() }); setStreak(r.data.data) } catch {}
+    try { const r = await API.get('/streak', { headers: headers() }); setStreak(r.data.data) } catch { }
   }, [])
 
   const fetchTime = useCallback(async () => {
-    try { const r = await API.get('/quiz-time', { headers: headers() }); setTimeData(r.data.data) } catch {}
+    try { const r = await API.get('/quiz-time', { headers: headers() }); setTimeData(r.data.data) } catch { }
   }, [])
 
   const fetchClass = useCallback(async () => {
-    try { const r = await API.get('/progress/kelas', { headers: headers() }); setClassData(r.data.data) } catch {}
+    try { const r = await API.get('/progress/kelas', { headers: headers() }); setClassData(r.data.data) } catch { }
   }, [])
 
   useEffect(() => { fetchXp(); fetchProgress(); fetchStreak(); fetchTime(); fetchClass() }, [])
 
   const modulsSelesai = dataProgress.filter((i) => Number(i.progress) === 100).length
-  const totalModuls   = dataProgress.length
-  const modulMTK      = dataProgress.filter((i) => (i.mapel||'').toLowerCase()==='matematika' && Number(i.progress)===100).length
+  const totalModuls = 18
+  console.log(totalModuls)
+  const modulMTK = dataProgress.filter((i) => (i.mapel || '').toLowerCase() === 'matematika' && Number(i.progress) === 100).length
 
   const achStatus = { modulSelesai: modulsSelesai, streak: streak.current_streak, modulMTK, xp, level }
 
@@ -251,12 +265,66 @@ const Progress = () => {
     : WEEK_DAYS.map((d) => ({ day: d, detik: 0 }))
 
   const xpPct = Math.min(100, Math.round((xpInLevel / 1000) * 100))
+  const { user } = useUser()
+  const [isAccountOpen, setIsAccountOpen] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
 
   return (
     <>
       <NavDasboard />
       <div className="flex flex-col lg:ml-64 md:ml-20 bg-[#FBF9F6] min-h-screen pb-24 lg:pb-10">
-        <div className="px-5 sm:px-8 lg:px-10 pt-8 max-w-5xl w-full">
+        <div className="px-5 sm:px-8 lg:px-10 pt-6 max-w-5xl w-full mx-auto">
+          {/* ── Top bar ── */}
+          {!user ? (
+            <SkeletonNavbar />
+          ) : (
+            <div className="flex flex-row items-center justify-between gap-4">
+              <div className="relative flex-1 ml-auto mr-4 max-w-md">
+                <Search
+                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-bistre/40"
+                />
+                <input
+                  type="search"
+                  placeholder="Cari pelajaran..."
+                  className="bg-white border border-beige w-full h-11 rounded-full pl-10 pr-4 text-sm outline-none focus:ring-2 focus:ring-khaki/40"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button className="mr-1.5 flex items-center justify-center">
+                  <Bell size={20} />
+                </button>
+                <div className="relative">
+                  <div className="w-8 h-8 bg-bistre rounded-full flex items-center justify-center">
+                    <h1 className="text-white text-sm font-bold">
+                      {user?.name?.charAt(0) || 'U'}
+                    </h1>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsAccountOpen((prev) => !prev)}
+                  aria-expanded={isAccountOpen}
+                  aria-label="Open account menu"
+                  className="cursor-pointer text-bistre"
+                >
+                  <ChevronDown
+                    size={25}
+                    className={`transition-transform duration-300 ${isAccountOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                <PopUpAccount
+                  Username={user}
+                  Email={user}
+                  isOpen={isAccountOpen}
+                  onClose={() => setIsAccountOpen(false)}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Header */}
           <div className="mb-6">
@@ -289,8 +357,8 @@ const Progress = () => {
           </div>
 
           {/* Row 1: XP Overview | XP Summary | Streak */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            <XpOverviewCard />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            {/* <XpOverviewCard /> */}
             <XpSummaryCard xp={xp} weeklyData={weeklyData} />
             <StreakCard currentStreak={streak.current_streak} longestStreak={streak.longest_streak} weekly={streak.weekly} />
           </div>
@@ -304,9 +372,9 @@ const Progress = () => {
                   <h3 className="font-bold text-bistre text-sm">Pencapaian Terbaru</h3>
                   <p className="text-[11px] text-bistre/50">Achievement yang baru kamu raih</p>
                 </div>
-                <button className="text-[11px] text-chamoisee font-semibold flex items-center gap-0.5">
+                {/* <button className="text-[11px] text-chamoisee font-semibold flex items-center gap-0.5">
                   Lihat Semua <ChevronRight size={12} />
-                </button>
+                </button> */}
               </div>
               <div className="grid grid-cols-3 gap-3">
                 {ACHIEVEMENTS.map((ach) => {
@@ -319,7 +387,7 @@ const Progress = () => {
             {/* Class Progress */}
             <ClassProgressCard
               kelas={classData.kelas ?? 10}
-              progressPersen={classData.progress_persen}
+              progressPersen={parseFloat((modulsSelesai / Math.max(totalModuls, 15) * 100).toFixed(2))}
               modulsSelesai={modulsSelesai}
               totalModuls={Math.max(totalModuls, 15)}
             />

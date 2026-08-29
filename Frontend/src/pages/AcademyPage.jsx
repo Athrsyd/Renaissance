@@ -90,9 +90,22 @@ const AcademyPage = () => {
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [userKelas, setUserKelas] = useState(null); // kelas user dari placement/status
+  const [studyTime, setStudyTime] = useState({ all_time_detik: 0 });
 
   useEffect(() => {
     fetchProgress();
+    const fetchStudyTime = async () => {
+      try {
+        const token = localStorage.getItem("tokenRenaissance");
+        const res = await API.get("/quiz-time", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setStudyTime(res.data.data || { all_time_detik: 0 });
+      } catch {
+        setStudyTime({ all_time_detik: 0 });
+      }
+    };
+    fetchStudyTime();
   }, []);
 
   // Ambil kelas user dari placement API untuk filter mapel dan URL
@@ -132,6 +145,13 @@ const AcademyPage = () => {
   // Prioritaskan kelas dari backend; fallback ke selectedGrade atau 10
   const currentKelas = userKelas ?? (parseInt(/\d+/.exec(selectedGrade || "")?.[0], 10) || 10);
   const nextKelas = currentKelas + 1;
+  
+  // ── Progress calculation (mirip dengan Progress.jsx) ──
+  const modulsSelesai = dataProgress?.filter((i) => Number(i.progress) === 100).length || 0;
+  const totalModulsAll = 18; // Total modul untuk semua kelas
+  const progressPersent = totalModulsAll > 0 ? Math.round((modulsSelesai / totalModulsAll) * 100) : 0;
+  
+  // ── Class-specific progress untuk "Jalur Kenaikan Kelas" card ──
   const progressMap = countTotalProgress();
   const currentGradeSubjects = MAPEL_LIST.filter((s) => s.kelas === currentKelas);
   const totalTopikGrade = currentGradeSubjects.reduce(
@@ -149,7 +169,30 @@ const AcademyPage = () => {
     (s) => (progressMap[s.progressKey] ?? 0) < 100
   ).length;
   const isReadyToLevelUp = totalTopikGrade > 0 && completedTopikGrade >= totalTopikGrade;
-  const continueItem = dataProgress?.find((i) => i.progress > 0 && i.progress < 100);
+
+  const continueItem =
+    dataProgress?.find((i) => i.progress > 0 && i.progress < 100) ||  // Yang sedang dikerjakan
+    dataProgress?.find((i) => Number(i.progress) < 100) ||            // Yang belum selesai
+    dataProgress?.[0] ||                                               // Item pertama
+    null;
+    
+  // ── Format waktu belajar dari backend ──
+  const totalStudySeconds = Number(studyTime?.all_time_detik || 0);
+  const totalStudyMinutes = Math.floor(totalStudySeconds / 60);
+  const hours = Math.floor(totalStudyMinutes / 60);
+  const minutes = totalStudyMinutes % 60;
+  
+  const studyTimeDisplay =
+    hours > 0
+      ? `${hours}h ${minutes}m`
+      : minutes > 0
+        ? `${minutes}m`
+        : "-";
+  
+  const studyTimeCaption =
+    totalStudySeconds > 0
+      ? `Total waktu belajar`
+      : "Belum dilacak";
 
   return (
     <>
@@ -215,7 +258,7 @@ const AcademyPage = () => {
           {/* ── Welcome banner ── */}
           {user ? <WelcomeAcademy grade={selectedGrade} user={user} /> : <SkeletonWelcome />}
 
-          {selectedGrade && (
+          {/* {selectedGrade && (
             <div className="flex items-center gap-2 mt-3">
               <p className="text-sm font-semibold text-icon">Kelas dipilih: {selectedGrade}</p>
               <button
@@ -226,7 +269,7 @@ const AcademyPage = () => {
                 Ganti kelas
               </button>
             </div>
-          )}
+          )} */}
           {/* {!selectedGrade && (
             <button
               type="button"
@@ -241,26 +284,26 @@ const AcademyPage = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
             <StatCard
               icon={<BookOpen size={35} strokeWidth={1.8} />}
-              value={UNIQUE_SUBJECTS.length}
+              value={6}
               label="Mata Pelajaran"
               caption="Tersedia"
             />
             <StatCard
               icon={<FileText size={35} strokeWidth={1.8} />}
-              value={TOTAL_TOPIK}
+              value={18}
               label="Total bab"
               caption="Siap dipelajari"
             />
             <StatCard
               icon={<Clock size={35} strokeWidth={1.8} />}
-              value="-"
+              value={studyTimeDisplay}
               label="Waktu Belajar"
-              caption="Belum dilacak"
+              caption={studyTimeCaption}
             />
             <StatCard
               icon={<Target size={35} strokeWidth={1.8} />}
               value={totalTopikSelesai}
-              suffix={`/ ${TOTAL_TOPIK}`}
+              suffix={`/ ${`18`}`}
               label="Bab Selesai"
               caption="Terus semangat!"
             />
@@ -331,33 +374,31 @@ const AcademyPage = () => {
                       strokeWidth="10"
                       strokeLinecap="round"
                       strokeDasharray={2 * Math.PI * 42}
-                      strokeDashoffset={2 * Math.PI * 42 - (percentGrade / 100) * (2 * Math.PI * 42)}
+                      strokeDashoffset={2 * Math.PI * 42 - (progressPersent / 100) * (2 * Math.PI * 42)}
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-base font-bold text-bistre">{percentGrade}%</span>
-                    <span className="text-[9px] text-bistre/50">Kelas {currentKelas}</span>
+                    <span className="text-base font-bold text-bistre">{progressPersent}%</span>
+                    <span className="text-[7px] text-bistre">Total Progress</span>
                   </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <p className="text-xs text-chamoisee font-medium">
-                    {completedTopikGrade} / {subjectsRemaining} mata pelajaran selesai
+                    {modulsSelesai} / {totalModulsAll} mata pelajaran selesai
                   </p>
-                  <div className="flex flex-wrap gap-1 mt-2">
-                    {Array(6).fill(1).map((_, idx) => (
+                  <div className="grid grid-cols-6 gap-1 mt-2">
+                    {Array(18).fill(1).map((_, idx) => (
                       <span
                         key={idx}
                         className={`h-5 flex-1 min-w-2 rounded-md ${
-                          idx < completedTopikGrade ? "bg-bistre" : "bg-beige"
+                          idx < modulsSelesai ? "bg-bistre" : "bg-beige"
                         }`}
                       />
                     ))}
                   </div>
                   <p className="text-xs text-bistre/60 mt-2">
-                    {isReadyToLevelUp
-                      ? "Semua mata pelajaran sudah selesai!"
-                      : `${subjectsRemaining} mata pelajaran lagi menyelesaikan Kelas ${currentKelas}`}
+                    {totalModulsAll - modulsSelesai} mata pelajaran lagi menyelesaikan semua kelas
                   </p>
                 </div>
               </div>
