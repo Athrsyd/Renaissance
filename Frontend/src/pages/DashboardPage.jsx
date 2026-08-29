@@ -40,7 +40,10 @@ import API from "../services/api";
 
 // Skeleton
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
+import SkeletonSubjects from "../components/SkeletonLoading/DashboardPage/SkeletonSubjects";
 import SkeletonProgress from "../components/SkeletonLoading/DashboardPage/SkeletonProgress";
+import SkeletonProgressCard from "../components/SkeletonLoading/DashboardPage/SkeletonProgressCard";
+import SkeletonStreakCard from "../components/SkeletonLoading/DashboardPage/SkeletonStreak";
 import SkeletonCommunity from "../components/SkeletonLoading/DashboardPage/SkeletonCommunity";
 import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
 
@@ -495,9 +498,13 @@ const DashboardPage = () => {
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 lg:gap-0">
-                  {SUBJECTS.map((item) => (
-                    <SubjectMiniCard key={item.id} item={item} />
-                  ))}
+                  {isLoading ? (
+                    <SkeletonSubjects />
+                  ) : (
+                    SUBJECTS.map((item) => (
+                      <SubjectMiniCard key={item.id} item={item} />
+                    ))
+                  )}
                 </div>
               </div>
 
@@ -515,11 +522,15 @@ const DashboardPage = () => {
           )}
 
           {/* ── Aureus AI + Community ── */}
-          {(showAureusAI || showCommunity) && (
-            <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {showAureusAI && <AureusCommunityCard variant="aureus" />}
-              {showCommunity && <AureusCommunityCard variant="community" />}
-            </div>
+          {isLoading ? (
+            <SkeletonCommunity />
+          ) : (
+            (showAureusAI || showCommunity) && (
+              <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {showAureusAI && <AureusCommunityCard variant="aureus" />}
+                {showCommunity && <AureusCommunityCard variant="community" />}
+              </div>
+            )
           )}
 
           {/* ── Progress + Streak ── */}
@@ -527,17 +538,25 @@ const DashboardPage = () => {
             id="progress"
             className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6"
           >
-            <ProgressCard
-              percent={avgProgress}
-              topikSelesai={topikSelesai}
-              totalTopik={totalTopik}
-              mapelAktif={mapelAktif}
-            />
-            <StreakCard
-              streakDays={streakDays}
-              longestStreak={longestStreak}
-              weeklyIndicator={weeklyIndicator}
-            />
+            {isLoading ? (
+              <SkeletonProgressCard />
+            ) : (
+              <ProgressCard
+                percent={avgProgress}
+                topikSelesai={topikSelesai}
+                totalTopik={totalTopik}
+                mapelAktif={mapelAktif}
+              />
+            )}
+            {isLoading ? (
+              <SkeletonStreakCard />
+            ) : (
+              <StreakCard
+                streakDays={streakDays}
+                longestStreak={longestStreak}
+                weeklyIndicator={weeklyIndicator}
+              />
+            )}
           </div>
 
           {/* ── Jelajahi Komunitas ── */}

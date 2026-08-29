@@ -30,6 +30,8 @@ import API from "../services/api";
 import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
 import SkeletonSubAcademy from "../components/SkeletonLoading/AcademyPage/SkeletonSubAcademy";
+import SkeletonStatCard from "../components/SkeletonLoading/AcademyPage/SkeletonStatCard";
+import SkeletonStatGrid from "../components/SkeletonLoading/AcademyPage/SkeletonStatGrid";
 
 const GRADE_STORAGE_KEY = "kelasYangDipilih";
 
@@ -205,7 +207,10 @@ const AcademyPage = () => {
           ) : (
             <div className="flex flex-row items-center justify-between gap-4">
               <div className="relative flex-1 max-w-md">
-                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-bistre/40" />
+                <Search
+                  size={16}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-bistre/40"
+                />
                 <input
                   type="search"
                   placeholder="Cari pelajaran..."
@@ -252,11 +257,17 @@ const AcademyPage = () => {
           {/* ── Judul halaman ── */}
           <div className="mt-6">
             <h1 className="text-3xl font-bold text-bistre">Academy</h1>
-            <p className="text-sm text-bistre/50 mt-1">Pilih mata pelajaran untuk memulai belajar</p>
+            <p className="text-sm text-bistre/50 mt-1">
+              Pilih mata pelajaran untuk memulai belajar
+            </p>
           </div>
 
           {/* ── Welcome banner ── */}
-          {user ? <WelcomeAcademy grade={selectedGrade} user={user} /> : <SkeletonWelcome />}
+          {user ? (
+            <WelcomeAcademy grade={selectedGrade} user={user} />
+          ) : (
+            <SkeletonWelcome />
+          )}
 
           {/* {selectedGrade && (
             <div className="flex items-center gap-2 mt-3">
@@ -281,39 +292,47 @@ const AcademyPage = () => {
           )} */}
 
           {/* ── Statistik ringkas ── */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-            <StatCard
-              icon={<BookOpen size={35} strokeWidth={1.8} />}
-              value={6}
-              label="Mata Pelajaran"
-              caption="Tersedia"
-            />
-            <StatCard
-              icon={<FileText size={35} strokeWidth={1.8} />}
-              value={18}
-              label="Total bab"
-              caption="Siap dipelajari"
-            />
-            <StatCard
-              icon={<Clock size={35} strokeWidth={1.8} />}
-              value={studyTimeDisplay}
-              label="Waktu Belajar"
-              caption={studyTimeCaption}
-            />
-            <StatCard
-              icon={<Target size={35} strokeWidth={1.8} />}
-              value={totalTopikSelesai}
-              suffix={`/ ${`18`}`}
-              label="Bab Selesai"
-              caption="Terus semangat!"
-            />
-          </div>
+          {isLoading ? (
+            <SkeletonStatGrid />
+          ) : (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+              <StatCard
+                icon={<BookOpen size={35} strokeWidth={1.8} />}
+                value={6}
+                label="Mata Pelajaran"
+                caption="Tersedia"
+              />
+              <StatCard
+                icon={<FileText size={35} strokeWidth={1.8} />}
+                value={18}
+                label="Total bab"
+                caption="Siap dipelajari"
+              />
+              <StatCard
+                icon={<Clock size={35} strokeWidth={1.8} />}
+                value={studyTimeDisplay}
+                label="Waktu Belajar"
+                caption={studyTimeCaption}
+              />
+              <StatCard
+                icon={<Target size={35} strokeWidth={1.8} />}
+                value={totalTopikSelesai}
+                suffix={`/ 18`}
+                label="Bab Selesai"
+                caption="Terus semangat!"
+              />
+            </div>
+          )}
 
           {/* ── Daftar Subjects ── */}
           {isLoading ? (
             <SkeletonSubAcademy />
           ) : (
-            <SubAcademy searchQuery={searchQuery} countTotalProgress={countTotalProgress} kelas={currentKelas} />
+            <SubAcademy
+              searchQuery={searchQuery}
+              countTotalProgress={countTotalProgress}
+              kelas={currentKelas}
+            />
           )}
 
           {/* ── Lanjutkan Belajar + Jalur Kenaikan Kelas ── */}
@@ -321,22 +340,36 @@ const AcademyPage = () => {
             {/* Lanjutkan Belajar */}
             <div className="lg:col-span-2 bg-[#F2E0D2] border border-beige rounded-2xl p-6 flex flex-col">
               <h3 className="font-semibold text-bistre">Lanjutkan Belajar</h3>
-              <p className="text-xs text-bistre/60 mt-0.5">Materi terakhir yang kamu pelajari</p>
+              <p className="text-xs text-bistre/60 mt-0.5">
+                Materi terakhir yang kamu pelajari
+              </p>
 
               {continueItem ? (
                 <div className="mt-4 bg-white rounded-2xl p-4 flex items-center gap-4">
                   <SubjectIcon name={continueItem.mapel} />
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-bistre truncate">{continueItem.mapel}</p>
-                    <p className="text-xs text-bistre/60 truncate">{continueItem.materi}</p>
+                    <p className="font-semibold text-bistre truncate">
+                      {continueItem.mapel}
+                    </p>
+                    <p className="text-xs text-bistre/60 truncate">
+                      {continueItem.materi}
+                    </p>
                     <div className="flex items-center gap-2 mt-2">
                       <div className="flex-1">
-                        <ProgressBar value={continueItem.progress} max={100} bgColor="bg-bistre" />
+                        <ProgressBar
+                          value={continueItem.progress}
+                          max={100}
+                          bgColor="bg-bistre"
+                        />
                       </div>
-                      <span className="text-xs text-bistre/60 shrink-0">{continueItem.progress}%</span>
+                      <span className="text-xs text-bistre/60 shrink-0">
+                        {continueItem.progress}%
+                      </span>
                     </div>
                   </div>
-                  <Link to={`/academy/kelas-${currentKelas}/${continueItem.mapel?.toLowerCase().replace(/\s+/g,"-")}`}>
+                  <Link
+                    to={`/academy/kelas-${currentKelas}/${continueItem.mapel?.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
                     <button className="bg-bistre hover:bg-coffe transition duration-300 text-white text-xs font-semibold rounded-lg px-4 py-2.5 whitespace-nowrap shrink-0">
                       Lanjutkan
                     </button>
@@ -345,7 +378,8 @@ const AcademyPage = () => {
               ) : (
                 <div className="mt-4 bg-white rounded-2xl p-4">
                   <p className="text-sm text-bistre/70">
-                    Kamu belum memulai pelajaran apa pun. Pilih mata pelajaran di atas untuk mulai belajar!
+                    Kamu belum memulai pelajaran apa pun. Pilih mata pelajaran
+                    di atas untuk mulai belajar!
                   </p>
                 </div>
               )}
@@ -354,8 +388,14 @@ const AcademyPage = () => {
             {/* Jalur Menuju Kenaikan Kelas */}
             <div className="lg:col-span-2 bg-white border border-beige rounded-2xl p-6">
               <div className="flex items-center gap-2">
-                <TrendingUp size={18} className="text-bistre" strokeWidth={1.8} />
-                <h3 className="font-semibold text-bistre">Jalur Menuju Kenaikan Kelas</h3>
+                <TrendingUp
+                  size={18}
+                  className="text-bistre"
+                  strokeWidth={1.8}
+                />
+                <h3 className="font-semibold text-bistre">
+                  Jalur Menuju Kenaikan Kelas
+                </h3>
               </div>
               <p className="text-xs text-bistre/60 mt-0.5">
                 Selesaikan semua mata pelajaran untuk naik ke Kelas {nextKelas}
@@ -363,8 +403,18 @@ const AcademyPage = () => {
 
               <div className="flex items-center gap-5 mt-5">
                 <div className="relative w-20 h-20 shrink-0">
-                  <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
-                    <circle cx="50" cy="50" r="42" fill="none" stroke="#F2E0D2" strokeWidth="10" />
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="w-full h-full -rotate-90"
+                  >
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r="42"
+                      fill="none"
+                      stroke="#F2E0D2"
+                      strokeWidth="10"
+                    />
                     <circle
                       cx="50"
                       cy="50"
@@ -374,12 +424,19 @@ const AcademyPage = () => {
                       strokeWidth="10"
                       strokeLinecap="round"
                       strokeDasharray={2 * Math.PI * 42}
-                      strokeDashoffset={2 * Math.PI * 42 - (progressPersent / 100) * (2 * Math.PI * 42)}
+                      strokeDashoffset={
+                        2 * Math.PI * 42 -
+                        (progressPersent / 100) * (2 * Math.PI * 42)
+                      }
                     />
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="text-base font-bold text-bistre">{progressPersent}%</span>
-                    <span className="text-[7px] text-bistre">Total Progress</span>
+                    <span className="text-base font-bold text-bistre">
+                      {progressPersent}%
+                    </span>
+                    <span className="text-[7px] text-bistre">
+                      Total Progress
+                    </span>
                   </div>
                 </div>
 
@@ -388,17 +445,20 @@ const AcademyPage = () => {
                     {modulsSelesai} / {totalModulsAll} mata pelajaran selesai
                   </p>
                   <div className="grid grid-cols-6 gap-1 mt-2">
-                    {Array(18).fill(1).map((_, idx) => (
-                      <span
-                        key={idx}
-                        className={`h-5 flex-1 min-w-2 rounded-md ${
-                          idx < modulsSelesai ? "bg-bistre" : "bg-beige"
-                        }`}
-                      />
-                    ))}
+                    {Array(18)
+                      .fill(1)
+                      .map((_, idx) => (
+                        <span
+                          key={idx}
+                          className={`h-5 flex-1 min-w-2 rounded-md ${
+                            idx < modulsSelesai ? "bg-bistre" : "bg-beige"
+                          }`}
+                        />
+                      ))}
                   </div>
                   <p className="text-xs text-bistre/60 mt-2">
-                    {totalModulsAll - modulsSelesai} mata pelajaran lagi menyelesaikan semua kelas
+                    {totalModulsAll - modulsSelesai} mata pelajaran lagi
+                    menyelesaikan semua kelas
                   </p>
                 </div>
               </div>
@@ -419,7 +479,11 @@ const AcademyPage = () => {
               <button
                 type="button"
                 disabled={!isReadyToLevelUp || nextKelas > 12}
-                onClick={() => isReadyToLevelUp && nextKelas <= 12 && handleSelectGrade(`Kelas ${nextKelas}`)}
+                onClick={() =>
+                  isReadyToLevelUp &&
+                  nextKelas <= 12 &&
+                  handleSelectGrade(`Kelas ${nextKelas}`)
+                }
                 className={`mt-4 w-full flex items-center justify-center gap-1.5 text-xs font-semibold rounded-xl px-3 py-2.5 transition duration-300 ${
                   isReadyToLevelUp && nextKelas <= 12
                     ? "bg-khaki text-white hover:bg-chamoisee cursor-pointer"
@@ -429,7 +493,8 @@ const AcademyPage = () => {
                 {nextKelas <= 12 ? (
                   <>
                     {!isReadyToLevelUp && <Lock size={13} />}
-                    Kelas {nextKelas} {isReadyToLevelUp ? "Terbuka" : "Terkunci"}
+                    Kelas {nextKelas}{" "}
+                    {isReadyToLevelUp ? "Terbuka" : "Terkunci"}
                   </>
                 ) : (
                   "Kelas Tertinggi"
