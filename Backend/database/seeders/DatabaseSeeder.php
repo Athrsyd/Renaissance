@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ModulBelajarSeeder::class,
             SoalSeeder::class,
-            LeaderboardUserSeeder::class,
+            LeaderboardUserSeeder::class,  // Harus sebelum CommunitySeeder (butuh user)
+            CommunitySeeder::class,
         ]);
     }
 }
