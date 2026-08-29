@@ -84,6 +84,32 @@ class LeaderboardController extends Controller
      *   }
      * }
      */
+    /**
+     * GET /api/v1/leaderboard/xp
+     *
+     * Top 10 XP global (lintas kelas) + posisi user sendiri.
+     *
+     * Response:
+     * {
+     *   "data": {
+     *     "top10": [
+     *       { "rank": 1, "user_id": 3, "name": "Naresha", "score": 1250, "level": 2, "is_me": false },
+     *       ...
+     *     ],
+     *     "my_rank": { "rank": 14, "name": "Aku", "score": 285, "level": 1, "is_me": true }
+     *   }
+     * }
+     */
+    public function xp(Request $request)
+    {
+        $data = $this->leaderboardService->getXpLeaderboard($request->user()->id);
+
+        return response()->json([
+            'message' => 'Leaderboard XP berhasil diambil.',
+            'data'    => $data,
+        ]);
+    }
+
     public function classProgress(Request $request)
     {
         $user  = $request->user();

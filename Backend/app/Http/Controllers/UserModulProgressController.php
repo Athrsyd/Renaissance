@@ -35,6 +35,7 @@ class UserModulProgressController extends Controller
                 'date'             => optional($item->last_accessed)->format('M d, Y'),
                 'materi'           => $item->modul->judul ?? null,
                 'mapel'            => $item->modul->mapel ?? null,
+                'kelas'            => $item->modul->kelas ?? null,
                 'progress'         => $item->progress_persen,
                 'is_selesai'       => $item->is_selesai,
                 'soal_selesai'     => $item->soal_selesai ?? [],

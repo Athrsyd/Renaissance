@@ -35,7 +35,8 @@ const parseTopikCount = (subTitle) => {
 };
 
 const SubjectRow = ({ item, percent = 50 }) => {
-  const destination = item.slug ? `/academy/${item.slug}` : "/academy";
+  // URL dengan kelas eksplisit agar ModulPage mendapat mapelConfig yang tepat
+  const destination = item.slug ? `/academy/kelas-${item.kelas}/${item.slug}` : "/academy";
   const totalTopik = parseTopikCount(item.subTitle);
   const topikSelesai = Math.round((percent / 100) * totalTopik);
   const icon = ICON_MAP[item.namaMapel];
@@ -85,15 +86,18 @@ const SubjectRow = ({ item, percent = 50 }) => {
   );
 };
 
-const SubAcademy = ({ searchQuery = "", isLoading = false, countTotalProgress = () => ({}) }) => {
+const SubAcademy = ({ searchQuery = "", isLoading = false, countTotalProgress = () => ({}), kelas = null }) => {
   const [sortOrder, setSortOrder] = useState("az");
   const [showAll, setShowAll] = useState(false);
 
   const progressMap = countTotalProgress();
 
-  const filtered = MAPEL_LIST.filter((item) =>
-    item.namaMapel.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Filter by kelas (default ke semua jika kelas tidak diberikan)
+  const filtered = MAPEL_LIST.filter((item) => {
+    const kelasMatch = kelas ? item.kelas === Number(kelas) : true;
+    const searchMatch = item.namaMapel.toLowerCase().includes(searchQuery.toLowerCase());
+    return kelasMatch && searchMatch;
+  });
 
   const sorted = [...filtered].sort((a, b) =>
     sortOrder === "az"

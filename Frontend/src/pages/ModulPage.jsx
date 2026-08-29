@@ -4,10 +4,13 @@
  * Generalisasi dari ModulMTK.jsx dan ModulPKN.jsx.
  *
  * Menerima `mapelConfig` (satu entry dari MAPEL_LIST) sebagai prop.
- * Data soal di-load secara lazy dari `mapelConfig.dataFile`.
  *
- * Untuk menambah halaman mapel baru, cukup daftarkan di mapelConfig.js
- * dan Router.jsx akan otomatis menggunakan komponen ini.
+ * PERUBAHAN: Data modul & soal kini diambil dari backend API, bukan dari file statis.
+ *   GET /api/v1/mapel/{mapelBackend}/kelas/{kelas}/modules  → daftar modul (id, bab, judul)
+ *   GET /api/v1/modules/{modul_id}/soal                    → soal lengkap per modul
+ *
+ * Saat user klik "Mulai", soal baru di-fetch untuk modul tersebut,
+ * kemudian navigate ke QuizPage dengan data soal terlampir di state.
  */
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -15,11 +18,8 @@ import NavDashboard from '../components/NavDasboard'
 import Search from '../assets/icon/searchIcon.svg'
 import Notif from '../assets/icon/notifIcon.svg'
 import rBottom from '../assets/icon/rowBottom.svg'
-import ProgressBar from '../components/ProgressBar'
 import PathTimeline from '../components/PathTimeline'
 import ProgressHook from '../Hook/ProgressHook'
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import PopUpAccount from '../components/PopUpAccount'
 import { Link } from 'react-router-dom'
 import SkeletonNavbar from '../components/SkeletonLoading/DashboardPage/SkeletonNavbar'
@@ -29,41 +29,50 @@ import API from '../services/api'
 const ModulPage = ({ mapelConfig }) => {
     const [isAccountOpen, setIsAccountOpen] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
-    const [selectedModulIndex, setSelectedModulIndex] = useState(0)
-    const [soalSelesai, setSoalSelesai] = useState([])
-    const [initialSoalIndex, setInitialSoalIndex] = useState(0)
-    // Data soal di-load secara lazy dari dataFile di mapelConfig
-    const [modulData, setModulData] = useState([])
-    // Starting bab dari placement test (1, 2, atau 3) — default 1
+    const [modulData, setModulData] = useState([])       // daftar modul dari API (id, bab, judul)
+    const [modulLoading, setModulLoading] = useState(false)
     const [startingBab, setStartingBab] = useState(1)
+    const [startingModul, setStartingModulLoading] = useState(false)
 
     const navigate = useNavigate()
-
     const { user } = useUser()
-    const { countTotalProgress, fetchProgress, updateProgress, isLoading, dataProgress, error } =
-        ProgressHook()
+    const { fetchProgress, isLoading, dataProgress, error } = ProgressHook()
 
-    // Load data soal dari file secara lazy
+    const getToken = () => localStorage.getItem('tokenRenaissance')
+
+    // ── Load daftar modul dari API ──────────────────────────────────────────
     useEffect(() => {
-        if (!mapelConfig?.dataFile) return
-        mapelConfig.dataFile().then((mod) => {
-            // File data mengekspor: export default [{ id, mapel, modul: [...] }]
-            const raw = mod.default ?? mod
-            setModulData(Array.isArray(raw[0]?.modul) ? raw[0].modul : [])
-        })
-    }, [mapelConfig])
+        if (!mapelConfig?.mapelBackend || !mapelConfig?.kelas) return
 
+        const fetchModuls = async () => {
+            setModulLoading(true)
+            try {
+                const res = await API.get(
+                    `/mapel/${encodeURIComponent(mapelConfig.mapelBackend)}/kelas/${mapelConfig.kelas}/modules`,
+                    { headers: { Authorization: `Bearer ${getToken()}` } }
+                )
+                setModulData(Array.isArray(res.data?.data) ? res.data.data : [])
+            } catch {
+                setModulData([])
+            } finally {
+                setModulLoading(false)
+            }
+        }
+
+        fetchModuls()
+    }, [mapelConfig?.mapelBackend, mapelConfig?.kelas])
+
+    // ── Load progress ───────────────────────────────────────────────────────
     useEffect(() => {
         fetchProgress()
     }, [])
 
-    // Ambil starting_bab dari placement test
+    // ── Ambil starting_bab dari placement test ──────────────────────────────
     useEffect(() => {
         const fetchStartingBab = async () => {
             try {
-                const token = localStorage.getItem('tokenRenaissance')
                 const res = await API.get('/placement/status', {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { Authorization: `Bearer ${getToken()}` },
                 })
                 setStartingBab(res.data.starting_bab ?? 1)
             } catch {
@@ -73,26 +82,53 @@ const ModulPage = ({ mapelConfig }) => {
         fetchStartingBab()
     }, [])
 
-    const totalProgressValue =
-        countTotalProgress()[mapelConfig?.progressKey] ?? 0
+    // ── Handler: mulai modul ─────────────────────────────────────────────────
+    // Fetch soal terlebih dahulu sebelum navigate ke QuizPage
+    const handleStartModule = async (moduleIndex) => {
+        const modul = modulData[moduleIndex]
+        if (!modul?.id) return
 
-    const handleStartModule = (moduleIndex) => {
-        const modulProgress = dataProgress.find(
-            (p) => p.modul_id === modulData[moduleIndex]?.id
-        )
-        const lastSoalIndex = modulProgress?.soal_selesai?.length || 0
-        const soalSelesaiAwal = modulProgress?.soal_selesai || []
+        setStartingModulLoading(true)
+        try {
+            // Fetch soal untuk modul ini dari backend
+            const res = await API.get(`/modules/${modul.id}/soal`, {
+                headers: { Authorization: `Bearer ${getToken()}` },
+            })
+            const modulWithSoal = res.data?.data  // { id, bab, judul, soal: [...] }
 
-        // Navigate ke QuizPage (full-page) alih-alih buka popup
-        navigate(`/academy/${mapelConfig.slug}/quiz`, {
-            state: {
-                modulData,
-                modulIndex: moduleIndex,
-                initialSoalIndex: lastSoalIndex,
-                soalSelesaiAwal,
-            },
-        })
+            // Gabungkan semua modul ke dalam array dengan soal lengkap untuk modul yang dipilih
+            // QuizPage membutuhkan array modulData dengan .soal di dalamnya
+            const modulDataWithSoal = modulData.map((m, i) => {
+                if (i === moduleIndex) {
+                    return { ...m, soal: modulWithSoal?.soal ?? [] }
+                }
+                return { ...m, soal: [] }
+            })
+
+            // Ambil progress modul ini untuk lanjutkan di posisi terakhir
+            const modulProgress = dataProgress.find((p) => p.modul_id === modul.id)
+            const lastSoalIndex = modulProgress?.soal_selesai?.length || 0
+            const soalSelesaiAwal = modulProgress?.soal_selesai || []
+
+            // Gunakan URL dengan kelas eksplisit agar QuizPage tahu cara navigasi balik
+            navigate(`/academy/kelas-${mapelConfig.kelas}/${mapelConfig.slug}/quiz`, {
+                state: {
+                    modulData: modulDataWithSoal,
+                    modulIndex: moduleIndex,
+                    initialSoalIndex: lastSoalIndex,
+                    soalSelesaiAwal,
+                    kelas: mapelConfig.kelas,
+                    slug: mapelConfig.slug,
+                },
+            })
+        } catch {
+            alert('Gagal memuat soal. Coba lagi.')
+        } finally {
+            setStartingModulLoading(false)
+        }
     }
+
+    const isPageLoading = modulLoading || isLoading
 
     return (
         <>
@@ -106,7 +142,8 @@ const ModulPage = ({ mapelConfig }) => {
                                 {/* SEARCH + BACK */}
                                 <div className="relative flex flex-row justify-center items-center gap-10">
                                     <Link to="/academy">
-                                        <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row items-center gap-2 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
+                                        <button className="lg:bg-[#3b2a23] transition-all duration-300 hover:-translate-x-1 flex flex-row 
+                                        items-center gap-2 lg:ml-1 text-[#3b2a23] lg:text-white px-6 py-2 rounded-full">
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 width="20px"
@@ -167,42 +204,32 @@ const ModulPage = ({ mapelConfig }) => {
                             <SkeletonNavbar />
                         )}
 
-                        {/* Hero banner mapel */}
-                        <div className="flex flex-row justify-center items-center mt-10">
-                            <div className="relative flex flex-col w-full md:w-full lg:w-250 h-70 py-2 rounded-2xl px-7 md:px-15 bg-icon">
-                                <h1 className="text-[#F8F3E0] text-3xl md:text-5xl lg:text-6xl mt-10 font-semibold font-monstserrat text-center">
-                                    {mapelConfig?.namaMapel}
-                                </h1>
-                                <div className="absolute flex flex-row self-center bottom-25 gap-3 w-[75%]">
-                                    {isLoading ? (
-                                        <div className="w-full">
-                                            <Skeleton
-                                                height={18}
-                                                style={{ borderRadius: '2.5rem', width: '100%' }}
-                                            />
-                                        </div>
-                                    ) : (
-                                        <div className="w-full flex flex-row items-center gap-3">
-                                            <ProgressBar
-                                                value={totalProgressValue}
-                                                max={100}
-                                                bgColor="bg-coffe"
-                                            />
-                                            <p className="text-white font-semibold font-monstserrat">
-                                                {totalProgressValue}%
-                                            </p>
-                                        </div>
-                                    )}
+                        {/* Loading overlay saat fetch soal */}
+                        {startingModul && (
+                            <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
+                                <div className="bg-white rounded-2xl px-8 py-6 text-center shadow-xl">
+                                    <p className="text-bistre font-semibold">Memuat soal...</p>
                                 </div>
                             </div>
-                        </div>
+                        )}
+
+                        {/* Error fetch modul */}
+                        {!modulLoading && modulData.length === 0 && !isLoading && (
+                            error ? (
+                                <p className="mt-10 text-red-500 text-sm">{error}</p>
+                            ) : (
+                                <p className="mt-10 text-gray-500 text-sm">
+                                    Belum ada modul untuk mata pelajaran ini.
+                                </p>
+                            )
+                        )}
 
                         {/* Timeline bab */}
                         <PathTimeline
                             modulData={modulData}
-                            mapelName={mapelConfig?.progressKey ?? ''}
+                            mapelName={mapelConfig?.mapelBackend?.toLowerCase() ?? ''}
                             modulProgress={dataProgress}
-                            isProgressLoading={isLoading || modulData.length === 0}
+                            isProgressLoading={isPageLoading || modulData.length === 0}
                             progressError={error}
                             onStartModule={handleStartModule}
                             startingBab={startingBab}

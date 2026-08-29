@@ -25,10 +25,10 @@ export const ProgressHook = () => {
     }
 
     const updateProgress = async (mapelId, soalSelesai = [], jumlahSoal, bab = null) => {
-        setIsLoading(true)
-        setError(null)
         try {
-            const progressPersen = Math.round((soalSelesai.length / jumlahSoal) * 100)
+            const progressPersen = jumlahSoal > 0
+                ? Math.round((soalSelesai.length / jumlahSoal) * 100)
+                : 0
             const isSelesai = progressPersen === 100
             const tokenRenaissance = localStorage.getItem('tokenRenaissance')
             const payload = {
@@ -45,41 +45,50 @@ export const ProgressHook = () => {
             return res.data.data
         } catch (error) {
             setError(error.response?.data?.message || 'Gagal memperbarui progress')
-        } finally {
-            setIsLoading(false)
         }
     }
 
     /**
-     * Menghitung rata-rata progress per mapel secara dinamis.
-     * Mengembalikan object dengan key = progressKey dari mapelConfig
-     * (contoh: { matematika: 60, 'pendidikan pancasila': 80, ipa: 0 })
+     * Menghitung rata-rata progress per mapel+kelas secara dinamis.
+     * progressKey format: "{mapelBackend}-kelas{kelas}" — semuanya lowercase.
+     * Contoh: "matematika-kelas10", "pendidikan pancasila-kelas11"
+     *
+     * Pencocokan dilakukan dengan mapel (nama) + kelas dari modul yang terhubung ke progress.
+     * Backend mengembalikan field `mapel` (string) dan `bab` (integer) di setiap item progress.
      */
     const countTotalProgress = () => {
         const result = {}
 
-        for (const mapel of MAPEL_LIST) {
+        for (const mapelConf of MAPEL_LIST) {
             if (!dataProgress?.length) {
-                result[mapel.progressKey] = 0
+                result[mapelConf.progressKey] = 0
                 continue
             }
-            const items = dataProgress.filter(
-                (i) => (i?.mapel || '').toLowerCase() === mapel.progressKey
-            )
+            // Filter progress untuk mapel+kelas ini
+            const items = dataProgress.filter((item) => {
+                const mapelMatch = (item?.mapel || '').toLowerCase() === mapelConf.mapelBackend.toLowerCase()
+                // Backend mungkin tidak kembalikan kelas di setiap item progress,
+                // sehingga kita tidak filter per kelas jika info kelas tidak tersedia.
+                // Untuk yang ada kelas, filter juga per kelas.
+                if (item?.kelas !== undefined && item?.kelas !== null) {
+                    return mapelMatch && Number(item.kelas) === mapelConf.kelas
+                }
+                return mapelMatch
+            })
+
             if (items.length === 0) {
-                result[mapel.progressKey] = 0
+                result[mapelConf.progressKey] = 0
                 continue
             }
             const avg = Math.round(
                 items.reduce((acc, cur) => acc + Number(cur.progress || 0), 0) / items.length
             )
-            result[mapel.progressKey] = Number.isNaN(avg) ? 0 : avg
+            result[mapelConf.progressKey] = Number.isNaN(avg) ? 0 : avg
         }
 
-        // Pertahankan alias lama agar komponen lama yang masih
-        // destructure { totalProgress, totalProgressPkn } tidak perlu diubah.
-        result.totalProgress = result['matematika'] ?? 0
-        result.totalProgressPkn = result['pendidikan pancasila'] ?? 0
+        // Alias lama agar komponen yang masih destructure { totalProgress, totalProgressPkn } tidak perlu diubah.
+        result.totalProgress = result['matematika-kelas10'] ?? 0
+        result.totalProgressPkn = result['pendidikan pancasila-kelas10'] ?? 0
 
         return result
     }

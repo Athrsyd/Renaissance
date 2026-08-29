@@ -16,7 +16,7 @@
  *  - Progress diperbarui real-time
  */
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { useNavigate, useLocation, useParams } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { CheckCircle2, ArrowRight, Trophy, Star, Clock } from 'lucide-react'
 
 import NavDasboard from '../components/NavDasboard'
@@ -29,6 +29,7 @@ import SambungKataSoal from '../components/ModulComponent/SambungKataSoal'
 import ProgressHook    from '../Hook/ProgressHook'
 import useXp           from '../Hook/useXp'
 import API             from '../services/api'
+import { useUser }     from '../Context/UserContext'
 
 import sfxBenar  from '../assets/sfx/benar.mp3'
 import sfxSalah  from '../assets/sfx/salah.mp3'
@@ -39,10 +40,46 @@ const playSound = (src) => {
     try { new Audio(src).play().catch(() => {}) } catch {}
 }
 
+// ── normalizeSoal ─────────────────────────────────────────────────────────────
+// Backend selalu mengembalikan pertanyaan & jawaban sebagai array.
+// Setiap komponen membutuhkan format yang berbeda:
+//   - quiz / isian        : pertanyaan=string, jawaban=string
+//   - TTS                 : pertanyaan=array,  jawaban=array
+//   - drag&drop / timeline: pertanyaan=string, jawaban=array
+//   - puzzle (sambung)    : pertanyaan=string, jawaban=array
+//   - tarik benang        : pertanyaan=string, jawaban=array
+const normalizeSoal = (soal) => {
+    if (!soal) return soal
+    const p = soal.pertanyaan
+    const j = soal.jawaban
+    // Pastikan selalu array untuk operasi di bawah
+    const pArr = Array.isArray(p) ? p : (p != null ? [p] : [])
+    const jArr = Array.isArray(j) ? j : (j != null ? [j] : [])
+
+    switch (soal.type) {
+        case 'quiz':
+        case 'isian':
+            // string + string
+            return { ...soal, pertanyaan: pArr[0] ?? '', jawaban: jArr[0] ?? '' }
+        case 'TTS':
+            // array + array — sudah benar dari backend
+            return { ...soal, pertanyaan: pArr, jawaban: jArr }
+        case 'drag and drop':
+        case 'timeline':
+        case 'puzzle':
+        case 'tarik benang':
+            // string + array
+            return { ...soal, pertanyaan: pArr[0] ?? '', jawaban: jArr }
+        default:
+            return { ...soal, pertanyaan: pArr[0] ?? '', jawaban: jArr }
+    }
+}
+
 // ── RenderSoal ────────────────────────────────────────────────────────────────
 const RenderSoal = ({ soal, onCorrect, onWrong }) => {
     const audioRef = useRef(null)
-    const props = { soal, onCorrect, onWrong }
+    const normalizedSoal = normalizeSoal(soal)
+    const props = { soal: normalizedSoal, onCorrect, onWrong }
 
     switch (soal?.type) {
         case 'quiz':         return <QuizSoal       {...props} />
@@ -146,18 +183,27 @@ const CompletionScreen = ({ modulNama, nextModulNama, isLast, onFinish }) => (
 const QuizPage = () => {
     const navigate  = useNavigate()
     const location  = useLocation()
-    const { mapelSlug } = useParams()
 
     // Data dikirim dari ModulPage via navigate state
+    // Catatan: JANGAN pakai useParams() untuk slug karena route path-nya
+    // adalah static string (/academy/kelas-11/matematika/quiz), bukan param (:slug).
     const {
         modulData     = [],
         modulIndex    = 0,
         initialSoalIndex = 0,
         soalSelesaiAwal  = [],
+        kelas,   // kelas user, dikirim dari ModulPage
+        slug,    // slug mapel, dikirim dari ModulPage
     } = location.state ?? {}
 
+    const { user } = useUser()
     const { updateProgress, fetchProgress } = ProgressHook()
     const { tambahXp } = useXp()
+
+    // Tentukan URL kembali ke halaman modul
+    const backUrl = (kelas && slug)
+        ? `/academy/kelas-${kelas}/${slug}`
+        : '/academy'
 
     const [soalIndex,     setSoalIndex]     = useState(initialSoalIndex)
     const [isSoalCorrect, setIsSoalCorrect] = useState(false)
@@ -168,7 +214,10 @@ const QuizPage = () => {
     const [xpResult,      setXpResult]      = useState(null)
     const [showXp,        setShowXp]        = useState(false)
     const [elapsedSec,    setElapsedSec]    = useState(0)  // timer per soal
-    const [soalTimeLogs,  setSoalTimeLogs]  = useState([]) // log waktu tiap soal
+
+    // Gunakan ref untuk akumulasi logs agar tidak kehilangan log terakhir
+    // akibat stale closure pada state async
+    const soalTimeLogsRef = useRef([])
 
     const timerRef  = useRef(null)
     const startRef  = useRef(null) // timestamp saat soal mulai
@@ -216,14 +265,14 @@ const QuizPage = () => {
     const handleWrong   = () => { playSound(sfxSalah); setJumlahSalah(n => n + 1); setIsSoalCorrect(true) }
 
     const handleNext = async () => {
-        // Catat waktu soal ini
+        // Catat waktu soal ini — gunakan ref agar tidak lost akibat stale closure
         const dur = stopTimer()
         const log = {
             modul_id:     modulSekarang.id,
             soal_id:      soalSekarang?.id ?? null,
             durasi_detik: dur,
         }
-        setSoalTimeLogs(prev => [...prev, log])
+        soalTimeLogsRef.current = [...soalTimeLogsRef.current, log]
 
         // Update progress soal
         const newSoalSelesai = soalSekarang?.id
@@ -237,19 +286,21 @@ const QuizPage = () => {
         setIsSoalCorrect(false)
 
         if (isLastSoal) {
-            // Kirim semua time logs ke backend sekaligus
-            const allLogs = [...soalTimeLogs, log]
+            // Kirim semua time logs ke backend sekaligus (ref sudah up-to-date)
             try {
-                await API.post('/quiz-time', { logs: allLogs }, {
+                await API.post('/quiz-time', { logs: soalTimeLogsRef.current }, {
                     headers: { Authorization: `Bearer ${token}` },
                 })
             } catch { /* silent */ }
+
+            // Reset log ref untuk session berikutnya
+            soalTimeLogsRef.current = []
 
             // Selesai bab
             playSound(sfxMenang)
             setIsComplete(true)
 
-            // Update progress bab
+            // Update progress bab (mark selesai)
             const bab = modulSekarang.bab
             await updateProgress(modulSekarang.id, newSoalSelesai, totalSoal, bab)
             await fetchProgress()
@@ -263,7 +314,7 @@ const QuizPage = () => {
     }
 
     const handleFinish = () => {
-        navigate(`/academy/${mapelSlug}`, { replace: true })
+        navigate(backUrl, { replace: true })
     }
 
     // ── Render: belum mulai ──

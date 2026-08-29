@@ -50,18 +50,14 @@ class SoalController extends Controller
                     'judul'      => $s->judul,
                     'type'       => $s->type,
                     'narasi'     => $s->narasi,
-                    // pertanyaan: kembalikan string jika array berisi 1 elemen (quiz/isian),
-                    // array jika lebih (TTS)
-                    'pertanyaan' => is_array($s->pertanyaan) && count($s->pertanyaan) === 1
-                        ? $s->pertanyaan[0]
-                        : $s->pertanyaan,
+                    // pertanyaan dan jawaban SELALU dikembalikan sebagai array.
+                    // Normalisasi ke string/array dilakukan di frontend (QuizPage)
+                    // berdasarkan field `type` soal, agar setiap komponen mendapat
+                    // format yang dibutuhkan tanpa ambiguitas.
+                    'pertanyaan' => is_array($s->pertanyaan) ? $s->pertanyaan : [$s->pertanyaan],
                     'ilustrasi'  => $s->ilustrasi,
-                    'pilihan'    => $s->pilihan,
-                    // jawaban: kembalikan string jika array berisi 1 elemen (quiz),
-                    // array jika lebih (drag&drop, TTS)
-                    'jawaban'    => is_array($s->jawaban) && count($s->jawaban) === 1
-                        ? $s->jawaban[0]
-                        : $s->jawaban,
+                    'pilihan'    => is_array($s->pilihan) ? $s->pilihan : [],
+                    'jawaban'    => is_array($s->jawaban) ? $s->jawaban : [$s->jawaban],
                 ])->values(),
             ],
         ], 200);

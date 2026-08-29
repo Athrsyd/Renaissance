@@ -5,6 +5,7 @@ import {
   Sparkles,
   MessageCircle,
   Clock,
+  Trophy,
   LogOut,
   ChevronRight,
 } from "lucide-react";
@@ -43,6 +44,12 @@ const navIcon = [
     text: "Progress",
     path: "/progress",
   },
+  // {
+  //   id: 6,
+  //   icon: <Trophy size={22} strokeWidth={1.8} />,
+  //   text: "Leaderboard",
+  //   path: "/leaderboard",
+  // },
 ];
 
 const SidebarIcon = ({ item, isActive }) => {

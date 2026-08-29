@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\LeaderboardService;
 use Illuminate\Http\Request;
 
 /**
@@ -20,6 +21,8 @@ use Illuminate\Http\Request;
  */
 class XpController extends Controller
 {
+    public function __construct(private LeaderboardService $leaderboardService) {}
+
     /**
      * POST /api/v1/xp/tambah
      *
@@ -64,6 +67,9 @@ class XpController extends Controller
             'xp'    => $xpBaru,
             'level' => $levelBaru,
         ]);
+
+        // Perbarui snapshot leaderboard XP
+        $this->leaderboardService->updateSnapshot($user->id, $user->name, $user->kelas);
 
         return response()->json([
             'xp_didapat'     => $xpDapat,

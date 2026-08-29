@@ -17,12 +17,14 @@ class LeaderboardSnapshot extends Model
         'kelas',
         'user_name',
         'score',
+        'meta',
         'updated_at',
     ];
 
     protected $casts = [
         'kelas'      => 'integer',
         'score'      => 'integer',
+        'meta'       => 'array',
         'updated_at' => 'datetime',
     ];
 

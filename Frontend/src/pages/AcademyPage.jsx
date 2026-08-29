@@ -26,6 +26,7 @@ import { useUser } from "../Context/UserContext";
 import ProgressHook from "../Hook/ProgressHook";
 import MAPEL_LIST from "../Config/mapelConfig";
 
+import API from "../services/api";
 import SkeletonNavbar from "../components/SkeletonLoading/DashboardPage/SkeletonNavbar";
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
 import SkeletonSubAcademy from "../components/SkeletonLoading/AcademyPage/SkeletonSubAcademy";
@@ -88,9 +89,34 @@ const AcademyPage = () => {
   const [selectedGrade, setSelectedGrade] = useState(getSavedGrade);
   const [isGradePopupOpen, setIsGradePopupOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [userKelas, setUserKelas] = useState(null); // kelas user dari placement/status
 
   useEffect(() => {
     fetchProgress();
+  }, []);
+
+  // Ambil kelas user dari placement API untuk filter mapel dan URL
+  useEffect(() => {
+    const fetchUserKelas = async () => {
+      try {
+        const token = localStorage.getItem("tokenRenaissance");
+        const res = await API.get("/placement/status", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (res.data?.kelas) {
+          setUserKelas(Number(res.data.kelas));
+          // Sinkronkan selectedGrade dengan kelas dari backend
+          const kelasLabel = `Kelas ${res.data.kelas}`;
+          if (!getSavedGrade()) {
+            setSelectedGrade(kelasLabel);
+            localStorage.setItem(GRADE_STORAGE_KEY, kelasLabel);
+          }
+        }
+      } catch {
+        // silent — user tetap bisa pilih kelas manual
+      }
+    };
+    fetchUserKelas();
   }, []);
 
   const handleSelectGrade = (grade) => {
@@ -103,7 +129,8 @@ const AcademyPage = () => {
   const totalTopikSelesai = dataProgress?.filter((i) => Number(i.progress) === 100).length || 0;
 
   // ── Jalur kenaikan kelas ──
-  const currentKelas = parseInt(/\d+/.exec(selectedGrade || "")?.[0], 10) || 10;
+  // Prioritaskan kelas dari backend; fallback ke selectedGrade atau 10
+  const currentKelas = userKelas ?? (parseInt(/\d+/.exec(selectedGrade || "")?.[0], 10) || 10);
   const nextKelas = currentKelas + 1;
   const progressMap = countTotalProgress();
   const currentGradeSubjects = MAPEL_LIST.filter((s) => s.kelas === currentKelas);
@@ -243,7 +270,7 @@ const AcademyPage = () => {
           {isLoading ? (
             <SkeletonSubAcademy />
           ) : (
-            <SubAcademy searchQuery={searchQuery} countTotalProgress={countTotalProgress} />
+            <SubAcademy searchQuery={searchQuery} countTotalProgress={countTotalProgress} kelas={currentKelas} />
           )}
 
           {/* ── Lanjutkan Belajar + Jalur Kenaikan Kelas ── */}
@@ -266,7 +293,7 @@ const AcademyPage = () => {
                       <span className="text-xs text-bistre/60 shrink-0">{continueItem.progress}%</span>
                     </div>
                   </div>
-                  <Link to={`/academy/${encodeURIComponent(continueItem.mapel)}`}>
+                  <Link to={`/academy/kelas-${currentKelas}/${continueItem.mapel?.toLowerCase().replace(/\s+/g,"-")}`}>
                     <button className="bg-bistre hover:bg-coffe transition duration-300 text-white text-xs font-semibold rounded-lg px-4 py-2.5 whitespace-nowrap shrink-0">
                       Lanjutkan
                     </button>

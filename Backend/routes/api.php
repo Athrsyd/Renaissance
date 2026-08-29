@@ -60,6 +60,7 @@ Route::prefix('v1')->group(function () {
         // Leaderboard
         Route::get('leaderboard/streak',   [LeaderboardController::class, 'streak']);
         Route::get('leaderboard/progress', [LeaderboardController::class, 'progress']);
+        Route::get('leaderboard/xp',       [LeaderboardController::class, 'xp']);
 
         // Teman
         Route::get   ('teman',         [TemanController::class, 'index']);

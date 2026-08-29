@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\LeaderboardSnapshot;
+use App\Models\User;
 use App\Models\Soal;
 use App\Models\UserModulProgress;
 use App\Models\UserStreak;
@@ -41,7 +42,22 @@ class LeaderboardService
             ]
         );
 
-        // ── 2. Progress snapshot (per kelas) ─────────────────────────────────
+        // ── 2. XP snapshot (global) ─────────────────────────────────────────────
+        $userModel = User::find($userId);
+        $xpScore   = $userModel?->xp ?? 0;
+        $level     = $userModel?->level ?? 1;
+
+        LeaderboardSnapshot::updateOrCreate(
+            ['user_id' => $userId, 'category' => 'xp', 'kelas' => null],
+            [
+                'user_name'  => $userName,
+                'score'      => $xpScore,
+                'meta'       => json_encode(['level' => $level]),
+                'updated_at' => now(),
+            ]
+        );
+
+        // ── 3. Progress snapshot (per kelas) ─────────────────────────────────
         if ($kelas !== null) {
             $progressScore = $this->calculateClassProgress($userId, $kelas);
 
@@ -110,6 +126,61 @@ class LeaderboardService
         return [
             'top10'   => $top10,
             'my_rank' => $myEntry,
+        ];
+    }
+
+    /**
+     * Ambil top 10 leaderboard XP (global, lintas kelas).
+     * Score = total XP user. Meta berisi level untuk ditampilkan di UI.
+     */
+    public function getXpLeaderboard(int $userId): array
+    {
+        $rows = LeaderboardSnapshot::where('category', 'xp')
+            ->orderByDesc('score')
+            ->orderBy('updated_at')
+            ->limit(10)
+            ->get(['user_id', 'user_name', 'score', 'meta', 'updated_at']);
+
+        $top10 = $rows->map(fn($r, $i) => [
+            'rank'    => $i + 1,
+            'user_id' => $r->user_id,
+            'name'    => $r->user_name,
+            'score'   => $r->score,
+            'level'   => json_decode($r->meta ?? '{}', true)['level'] ?? 1,
+            'is_me'   => $r->user_id === $userId,
+        ])->values()->toArray();
+
+        $myEntry = $this->getUserRankXp($userId);
+
+        return [
+            'top10'   => $top10,
+            'my_rank' => $myEntry,
+        ];
+    }
+
+    /**
+     * Hitung rank XP user (digunakan saat user tidak masuk top 10).
+     */
+    private function getUserRankXp(int $userId): ?array
+    {
+        $my = LeaderboardSnapshot::where('user_id', $userId)
+            ->where('category', 'xp')
+            ->where('kelas', null)
+            ->first();
+
+        if (!$my) return null;
+
+        $rank = LeaderboardSnapshot::where('category', 'xp')
+            ->where('kelas', null)
+            ->where('score', '>', $my->score)
+            ->count() + 1;
+
+        return [
+            'rank'  => $rank,
+            'name'  => $my->user_name,
+            'score' => $my->score,
+            'level' => json_decode($my->meta ?? '{}', true)['level'] ?? 1,
+            'is_me' => true,
         ];
     }
 

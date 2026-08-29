@@ -39,15 +39,14 @@ const PopUpAccount = ({ isOpen, onClose, Username, Email, onProfileUpdated }) =>
         <div className="my-3 h-px bg-white/40"></div>
 
         <p className="text-sm md:text-base text-white/95">Your Accounts</p>
-        {/* <Link to="/login">
+        <Link to="/leaderboard">
           <button
-            onClick={handleLogout}
             type="button"
             className="mt-1 text-left text-xl hover:underline font-medium hover:text-bistre transition duration-300"
           >
-            Change account
+            Leaderboard
           </button>
-        </Link> */}
+        </Link>
         <button
           type="button"
           onClick={handleLogout}
