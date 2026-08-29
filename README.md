@@ -411,11 +411,7 @@ Proyek ini dibuat untuk **OSCAR 3.0 — Lomba Web Development** tahun 2026.
 
 ---
 
-## 📄 Lisensi
 
-Proyek ini dilisensikan di bawah [MIT License](LICENSE).
-
----
 
 <div align="center">
 
