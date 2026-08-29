@@ -223,7 +223,7 @@ class LeaderboardUserSeeder extends Seeder
 
         $this->command->newLine();
         $this->command->info('LeaderboardUserSeeder selesai: 25 user dibuat.');
-        $this->command->table(  
+        $this->command->table(
             ['Kategori', 'Jumlah User', 'Kelas'],
             [
                 ['Streak Warriors',      8, 'Semua kelas'],
