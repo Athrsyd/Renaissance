@@ -38,7 +38,7 @@ export default function TTSSoal({ soal, onCorrect, onWrong }) {
       return;
     }
 
-    if (e.key.length === 1 && /[a-zA-Z]/.test(e.key)) {
+    if (e.key.length === 1 && /[a-zA-Z0-9]/.test(e.key)) {
       setAnswers((prev) => {
         const next = prev.map((r) => [...r]);
         next[i][j] = e.key.toUpperCase();
