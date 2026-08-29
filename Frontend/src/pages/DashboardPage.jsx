@@ -33,6 +33,7 @@ import { useUser } from "../Context/UserContext";
 import IlustrasiAureus from "../assets/com-ilus.png";
 import IlustrasiCommunity from "../assets/peolle.png";
 import Streak from "../assets/streak.svg";
+import API from "../services/api";
 
 // Skeleton
 import SkeletonWelcome from "../components/SkeletonLoading/DashboardPage/SkeletonWelcome";
@@ -280,16 +281,15 @@ const StreakCard = ({ streakDays, longestStreak, weeklyIndicator }) => {
                   </div>
                   <span className="text-[10px] text-bistre/60">{day}</span>
                 </div>
-                <span className="text-[10px] text-bistre/60">{day}</span>
-              </div>
-            )})}
-        </div>
-        <div className=" lg:absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
-          Streak terpanjang: {longestStreak ?? streakDays} Hari
+              )
+            })}
+          </div>
+          <div className=" lg:absolute right-2 mt-3 w-82 inline-block bg-[#F8F3E0] text-bistre/80 text-xs font-jakarta font-semibold rounded-xl px-3 py-3">
+            Streak terpanjang: {longestStreak ?? streakDays} Hari
+          </div>
         </div>
       </div>
     </div>
-     </div >
   );
 };
 
@@ -362,9 +362,9 @@ const DashboardPage = () => {
     dataProgress?.filter((i) => Number(i.progress) === 100).length || 0;
   const avgProgress = totalTopik
     ? Math.round(
-      dataProgress.reduce((acc, cur) => acc + Number(cur.progress || 0), 0) /
-      totalTopik,
-    )
+        dataProgress.reduce((acc, cur) => acc + Number(cur.progress || 0), 0) /
+          totalTopik,
+      )
     : 0;
   const mapelAktif = totalTopik
     ? new Set(dataProgress.map((i) => i.mapel)).size
