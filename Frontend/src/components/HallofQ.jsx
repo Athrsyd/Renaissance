@@ -6,12 +6,12 @@ const data = [
   {
     id: "1",
     title: "Apa itu Renaissance?",
-    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMP dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
+    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMA dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
   },
   {
     id: "2",
     title: "Siapa saja yang bisa menggunakan Renaissance?",
-    p: "Renaissance dapat digunakan oleh siswa SMP dan SMA yang ingin belajar dengan pengalaman yang lebih interaktif, fleksibel, dan mendukung pemahaman materi secara lebih mendalam.",
+    p: "Renaissance dapat digunakan oleh siswa SMA dan SMK yang ingin belajar dengan pengalaman yang lebih interaktif, fleksibel, dan mendukung pemahaman materi secara lebih mendalam.",
   },
   {
     id: "3",
