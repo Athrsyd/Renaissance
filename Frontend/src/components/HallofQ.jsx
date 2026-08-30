@@ -6,7 +6,7 @@ const data = [
   {
     id: "1",
     title: "Apa itu Renaissance?",
-    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMA dan SMA memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
+    p: "Renaissance adalah platform pembelajaran interaktif yang dirancang untuk membantu siswa SMA dan SMK memahami materi pelajaran dengan cara yang lebih menarik, modern, dan mudah dipahami.",
   },
   {
     id: "2",
