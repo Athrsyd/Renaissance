@@ -32,7 +32,7 @@ const LandingPage = () => {
           <div className="w-full text-center lg:text-start lg:w-[30%] order-1 lg:order-1 lg:pl-7 mb-4 md:mb-2 lg:mb-5 leading-loose">
             <p className=" md:font-semibold text-sm lg:text-lg text-bistre">
               Platform pembelajaran modern yang dirancang untuk membantu siswa
-              SMP dan SMA memahami pelajaran dengan lebih baik, belajar lebih
+              SMA dan SMK memahami pelajaran dengan lebih baik, belajar lebih
               cepat, dan mencapai tujuan akademis mereka.
             </p>
           </div>
