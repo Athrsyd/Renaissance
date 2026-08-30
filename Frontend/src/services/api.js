@@ -7,7 +7,7 @@ import axios from 'axios'
  *   VITE_API_URL=http://127.0.0.1:8000/api/v1
  */
 const API = axios.create({
-    baseURL: import.meta.env.VITE_API_URL ?? 'http://127.0.0.1:8000/api/v1',
+    baseURL: 'https://renaissence-backend.my.id/api/v1',
 })
 
 export default API
