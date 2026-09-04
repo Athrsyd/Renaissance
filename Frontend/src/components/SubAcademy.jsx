@@ -39,7 +39,7 @@ const SubjectRow = ({ item, percent = 50 }) => {
   const destination = item.slug ? `/academy/kelas-${item.kelas}/${item.slug}` : "/academy";
   const totalTopik = parseTopikCount(item.subTitle);
   const topikSelesai = Math.round((percent / 100) * totalTopik);
-  const icon = ICON_MAP[item.namaMapel];
+  const icon = ICON_MAP[item.mapelBackend];
 
   return (
     <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-white border border-beige rounded-2xl px-5 py-4 hover:-translate-y-0.5 hover:shadow-sm transition duration-300">

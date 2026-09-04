@@ -34,6 +34,7 @@ import { useUser } from "../Context/UserContext";
 import sfxBenar from "../assets/sfx/benar.mp3";
 import sfxSalah from "../assets/sfx/salah.mp3";
 import sfxMenang from "../assets/sfx/menang.mp3";
+
 import Pidato from "../../public/Pidato.mp3";
 
 const playSound = (src) => {
@@ -495,7 +496,7 @@ const QuizPage = () => {
             </div>
 
             {/* Ilustrasi */}
-            <div className="rounded-2xl overflow-hidden bg-white border border-khaki/30 min-h-32 flex items-center justify-center">
+            {/* <div className="rounded-2xl overflow-hidden bg-white border border-khaki/30 min-h-32 flex items-center justify-center">
               {soalSekarang?.ilustrasi ? (
                 <img
                   src={soalSekarang.ilustrasi}
@@ -505,7 +506,7 @@ const QuizPage = () => {
               ) : (
                 <span className="text-bistre/20 text-sm">Ilustrasi</span>
               )}
-            </div>
+            </div> */}
 
             {/* Narasi */}
             {soalSekarang?.narasi && (
