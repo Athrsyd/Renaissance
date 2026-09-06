@@ -50,7 +50,7 @@ const data1 = [
     id: "4",
     img: genta,
     nama: " Genta Narendra",
-    grade: "Grade 9",
+    grade: "Grade 11",
     time: "2w ago",
     comment:
       "Pembelajarannya interaktif dan tidak membosankan. Ada banyak cara untuk memahami materi, jadi rasanya seperti belajar sambil eksplorasi, bukan hanya membaca teks saja",
@@ -70,7 +70,7 @@ const data1 = [
     id: "6",
     img: arsi,
     nama: "Arsi Kealan",
-    grade: "Grade 7",
+    grade: "Grade 12",
     time: "1w ago",
     comment:
       "Awalnya aku mencoba Renaissance karena direkomendasikan oleh teman. Setelah mencobanya, aku merasa platform ini benar-benar membantu memahami beberapa pelajaran yang sebelumnya terasa sulit",
@@ -93,7 +93,7 @@ const data2 = [
     id: "2",
     img: dimas,
     nama: "Dimas Pratama",
-    grade: "Grade 8",
+    grade: "Grade 10",
     time: "2w ago",
     comment:
       "latform ini sangat membantu saat aku sedang belajar sendiri di rumah. Dengan adanya AI dan latihan interaktif, aku bisa memahami materi yang sebelumnya terasa cukup sulit.",
@@ -113,7 +113,7 @@ const data2 = [
     id: "4",
     img: raka,
     nama: "Raka Mahardika",
-    grade: "Grade 9",
+    grade: "Grade 11",
     time: "6w ago",
     comment:
       " Menurutku Renaissance membuat proses belajar jadi lebih menyenangkan. Selain materinya mudah dipahami, aku juga bisa berdiskusi dengan siswa lain di komunitasnya.",
@@ -123,7 +123,7 @@ const data2 = [
     id: "5",
     img: kayla,
     nama: "Kayla Anindita",
-    grade: "Grade 7",
+    grade: "Grade 12",
     time: "3w ago",
     comment:
       "Sebagai siswa yang baru masuk SMP, Renaissance sangat membantu aku menyesuaikan diri dengan pelajaran. Penjelasannya sederhana dan membuatku lebih percaya diri.",
